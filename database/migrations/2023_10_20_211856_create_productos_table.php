@@ -22,7 +22,11 @@ return new class extends Migration
             $table->timestamps();
             
             $table->foreign('categoria_id')->references('id')->on('categorias');
+            
         });
+        Artisan::call('db:seed', [
+            '--class' => DatabaseSeeder::class
+        ]);
     }
 
     /**

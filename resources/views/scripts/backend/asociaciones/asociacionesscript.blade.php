@@ -2,43 +2,57 @@
 @extends('../vistas.plantilla.plantillaback')
 @section('script')
     <script>
-        var AJAX = "/categorias_peticiones";
-        var GUARDAR_CATEGORIAS = 1;
-        var ACTUALIZAR_CATEGORIAS = 2;
-        var ELIMINAR_CATEGORIAS = 3;
+        var AJAX = "/asociaciones_peticiones";
+        var GUARDAR_ASOCIACIONES = 1;
+        var ACTUALIZAR_ASOCIACIONES = 2;
+        var ELIMINAR_ASOCIACIONES = 3;
+        var BUSCAR_MUNICIPIOS = 4;
         var parametro_seleccionado = "";
-        var tablaCategorias = "";
+        var tablaAsociaciones = "";
         var fila = "";
         var vista = "";
         $(document).ready(function() {
-            $('#li_categorias').addClass('active');
-            $('#i_categoria').css('color', '#3BB77E');
-            cargarTablaCategorias();
-            guardarCategoria();
+            $('#li_asociaciones').addClass('active');
+            $('#i_asociacion').css('color', '#3BB77E');
+            cargarTablaAsociaciones();
+            guardarAsociacion();
             cargarImagen("#imagen");
             buttonClicks();
+            selectChanges();
         });
 
         function buttonClicks() {
             $("#btnmodalguardar").on("click", function(e) {
                 vista = 1;
-                $('#tipoCategoria').val("").trigger("chosen:updated");
+                $('#tipoAsociacion').val("").trigger("chosen:updated");
                 $("#formGuardar")[0].reset();
             });
         }
+
+        function selectChanges() {
+            $("#iddepartamento").change(function() {
+                buscarMunicipios($(this).val());
+            })
+        }
+
 
         function buscarId(data, modo) {
             vista = 2;
             if (fila != "") {
                 $(fila).removeClass('selected');
             }
-            fila = tablaCategorias.row("." + data).node();
+            fila = tablaAsociaciones.row("." + data).node();
             $(fila).addClass('selected');
-            parametro_seleccionado = $("#tablacategorias").DataTable().row('.selected').data();
+            parametro_seleccionado = $("#tablaasociaciones").DataTable().row('.selected').data();
             if (modo == 1) {
-                $("#categoria").val(parametro_seleccionado.categoria);
-                $("#descripcion").val(parametro_seleccionado.descripcion);
-                cargarImg("#imagen", parametro_seleccionado.imagen);
+                console.log(parametro_seleccionado);
+                $("#asociacion").val(parametro_seleccionado.asociacion);
+                $("#codigoasociacion").val(parametro_seleccionado.codigo_asociacion);
+                $("#direccion").val(parametro_seleccionado.direccion);
+                $("#celular").val(parametro_seleccionado.n_celular);
+                $("#email").val(parametro_seleccionado.email);
+                $("#iddepartamento").val(parametro_seleccionado.municipio.iddepartamentos);
+                $('#iddepartamento').trigger("chosen:updated");
             } else if (modo == 2) {
                 Swal.fire({
                     title: '¿Esta seguro?',
@@ -51,12 +65,12 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/categorias_peticiones", // Reemplaza esto con la URL del servidor
+                            url: "/asociaciones_peticiones", // Reemplaza esto con la URL del servidor
                             type: 'POST',
                             dataType: 'json',
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_CATEGORIAS,
+                                accion: ELIMINAR_ASOCIACIONES,
                                 id: parametro_seleccionado.id
                             },
                             success: function(respuesta) {
@@ -64,7 +78,7 @@
                                 if (respuesta.estado === 1) {
                                     mensajeSuccessGeneral(
                                         '- Se ha eliminado el producto con exito');
-                                    tablaCategorias.ajax.reload();
+                                    tablaAsociaciones.ajax.reload();
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
@@ -80,37 +94,25 @@
             }
         }
 
-        function guardarCategoria() {
+        function guardarAsociacion() {
             $("#enviar").on("click", function(e) {
                 let datosFormulario = "";
-                if (vista == 1) {
-                    $("#imagen").prop("required", true);
-                } else if (vista == 2) {
-                    $("#imagen").prop("required", false);
-                }
-                e.preventDefault(); // Previene el envío por defecto del formulario
+                e.preventDefault();
                 // Valida el formulario usando Bootstrap
                 var form = document.getElementById("formGuardar");
 
                 if (form.checkValidity() === false) {
                     form.classList.add("was-validated");
-                    if ($("#imagen").val() == "") {
-                        $(".file-input").removeClass("valid");
-                        $(".file-input").addClass("is-invalid");
-                    } else {
-                        $(".file-input").removeClass("is-invalid");
-                        $(".file-input").addClass("valid");
-                    }
                     return;
                 }
-
                 // Recopila los datos del formulario
                 datosFormulario = new FormData($('#formGuardar')[0]);
+                console.log(vista);
                 if (vista == 1) {
-                    datosFormulario.append('accion', GUARDAR_CATEGORIAS);
+                    datosFormulario.append('accion', GUARDAR_ASOCIACIONES);
                 } else if (vista == 2) {
                     datosFormulario.append('id', parametro_seleccionado.id);
-                    datosFormulario.append('accion', ACTUALIZAR_CATEGORIAS);
+                    datosFormulario.append('accion', ACTUALIZAR_ASOCIACIONES);
                 }
                 console.log(datosFormulario);
                 // Realiza la solicitud Ajax
@@ -125,7 +127,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/categorias_peticiones", // Reemplaza esto con la URL del servidor
+                            url: "/asociaciones_peticiones", // Reemplaza esto con la URL del servidor
                             method: "POST",
                             data: datosFormulario,
                             processData: false,
@@ -140,8 +142,8 @@
                                         mensajeSuccessGeneral(
                                             '- Se ha actualizado la categoria con exito');
                                     }
-                                    $("#formCategoria")[0].reset();
-                                    tablaCategorias.ajax.reload();
+                                    $("#formGuardar")[0].reset();
+                                    tablaAsociaciones.ajax.reload();
                                     $('#modalGuardarForm').modal('hide');
                                 } else {
                                     mensajeError(respuesta.mensaje);
@@ -158,27 +160,30 @@
             });
         }
 
-        function cargarTablaCategorias() {
-            tablaCategorias = $('#tablacategorias').DataTable({
+        function cargarTablaAsociaciones() {
+            tablaAsociaciones = $('#tablaasociaciones').DataTable({
                 "serverSide": true,
                 "processing": true,
                 "responsive": true,
                 "select": true,
                 "ajax": {
-                    "url": "/categorias",
+                    "url": "/asociaciones",
                     "type": "GET",
                 },
                 "columns": [{
-                        data: 'imagen',
-                        render: function(data, type, row) {
-                            return '<img src="' + data + '" width="100px" />';
-                        }
+                        data: 'asociacion'
                     },
                     {
-                        data: 'categoria'
+                        data: 'codigo_asociacion'
                     },
                     {
-                        data: 'descripcion'
+                        data: 'n_celular'
+                    },
+                    {
+                        data: 'email'
+                    },
+                    {
+                        data: 'email'
                     },
                     {
                         data: 'action'
@@ -194,6 +199,36 @@
                 },
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+        }
+
+        function buscarMunicipios(iddepartamento) {
+            $.ajax({
+                type: 'POST',
+                url: AJAX,
+                dataType: 'json',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    accion: BUSCAR_MUNICIPIOS,
+                    iddepartamento
+                },
+                beforeSend: function() {
+                    // $(".carga").removeClass("hidden").addClass("show");
+                },
+                success: function(respuesta) {
+                    $(".carga").removeClass("show").addClass("hidden");
+                    var municipios_select = '<option value="">Seleccione una opción</option>'
+                    for (var i = 0; i < respuesta.length; i++) {
+                        municipios_select += '<option value="' + respuesta[i].id + '">' + respuesta[i].ciudad +
+                            '</option>';
+                        $("#idmunicipio").html(municipios_select);
+                        $("#idmunicipio").trigger("chosen:updated");
+                    }
+                },
+                error: function(request, status, error) {
+                    mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");
+                    $(".carga").removeClass("show").addClass("hidden");
                 }
             });
         }

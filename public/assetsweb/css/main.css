@@ -2,11 +2,11 @@
 INCLUDE STYLES AND COMPONENTS
 ===================== */
 /*import vendors*/
-@import url(vendors/normalize.css);
-@import url(vendors/bootstrap.css);
+/* @import url(vendors/normalize.css); */
+/* @import url(vendors/bootstrap.css); */
 @import url(vendors/material-icon-round.css);
 @import url(vendors/perfect-scrollbar.css);
-@import url(vendors/select2.min.css);
+/* @import url(vendors/select2.min.css); */
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@400;500;600;700&display=swap");
 /*RESET*/
 html, body, div, span, applet, object, iframe,
@@ -66,7 +66,7 @@ img {
   max-width: 100%;
 }
 
-*:focus,
+/* *:focus,
 select:focus,
 .custom-select:focus,
 button:focus,
@@ -85,16 +85,16 @@ input[type=number]:focus,
   outline: none !important;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
-
+} */
+/* 
 input:focus::-moz-placeholder {
   opacity: 0;
   -webkit-transition: .4s;
   transition: .4s;
-}
+} */
 
 /*--- Common Classes---------------------*/
-::-webkit-input-placeholder {
+/* ::-webkit-input-placeholder {
   color: #838383;
 }
 :-ms-input-placeholder {
@@ -105,7 +105,7 @@ input:focus::-moz-placeholder {
 }
 ::placeholder {
   color: #838383;
-}
+} */
 
 .fix {
   overflow: hidden;
@@ -148,7 +148,7 @@ input:focus::-moz-placeholder {
 .height-100vh {
   height: 100vh !important;
 }
-
+/* 
 *:focus,
 select:focus,
 .custom-select:focus,
@@ -168,7 +168,7 @@ input[type=number]:focus,
   outline: none !important;
   -webkit-box-shadow: none;
           box-shadow: none;
-}
+} */
 
 .font-xxs {
   font-size: 10px;
@@ -700,7 +700,7 @@ b {
   color: #3BB77E;
   background-color: rgba(59, 183, 126, 0.2);
 }
-
+/* 
 .btn {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -710,7 +710,7 @@ b {
           align-items: center;
   -ms-flex-line-pack: center;
       align-content: center;
-}
+} */
 /* 
 .btn.btn-primary {
   font-size: 14px;
@@ -732,7 +732,7 @@ b {
   background-color: #29A56C;
 } */
 
-.btn.btn-secondary {
+/* .btn.btn-secondary {
   font-size: 14px;
   font-weight: 500;
   padding: 10px 40px;
@@ -741,7 +741,7 @@ b {
   border: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-}
+} */
 
 .btn.btn-secondary.print {
   padding: 7px 15px;
@@ -911,9 +911,9 @@ b {
   max-width: 100px;
 }
 
-.form-control, .form-select {
-  background-color: #f4f5f9;
-  border: 2px solid #f4f5f9;
+/* .form-control, .form-select {
+  background-color: #f4f5f9 !important;
+  border: 2px solid #f4f5f9 !important;
   font-size: 13px;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -922,8 +922,8 @@ b {
   width: 100%;
   border-radius: 4px;
   height: 41px;
-}
-
+} */
+/* 
 .form-control:focus, .form-select:focus {
   background: transparent;
   border-color: #f4f5f9;
@@ -943,7 +943,7 @@ b {
 textarea.form-control {
   min-height: 100px;
   border-radius: 4px;
-}
+} */
 
 /*search form*/
 .searchform {

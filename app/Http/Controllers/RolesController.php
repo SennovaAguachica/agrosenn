@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ventas;
+use App\Models\Roles;
 use Illuminate\Http\Request;
 
-class VentasController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class VentasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ventas $ventas)
+    public function show(Roles $roles)
     {
         //
     }
@@ -42,7 +42,7 @@ class VentasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ventas $ventas)
+    public function edit(Roles $roles)
     {
         //
     }
@@ -50,7 +50,7 @@ class VentasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ventas $ventas)
+    public function update(Request $request, Roles $roles)
     {
         //
     }
@@ -58,7 +58,7 @@ class VentasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ventas $ventas)
+    public function destroy(Roles $roles)
     {
         //
     }

@@ -25,21 +25,12 @@
 @section('contenido')
     <div id="seccionlistar">
         <h2 class="text-center">Gestión productos</h2>
-        {{-- <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <label>Acudientes</label>
-                <select multiple name="idacudientes" id="idacudientes" class="form-control form-control-chosen"
-                    data-placeholder="Buscar acudientes...">
-                    <option value="">Seleccione una opción</option>
-                </select>
-            </div>
-        </div> --}}
         <br>
         <div class="card mb-4">
             <header class="card-header">
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-md-3">
-                        <button class="btn btn-success " id="btnguardar" data-bs-toggle="modal"
+                        <button class="btn btn-primary" id="btnguardar" data-bs-toggle="modal"
                             data-bs-target="#modalGuardarProductos" style="color: white;"><i class="fas fa-plus"></i>
                             Producto</button>
                     </div>

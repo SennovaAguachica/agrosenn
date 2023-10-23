@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categorias;
+use App\Models\Asociaciones;
+use App\Models\Departamentos;
+use App\Models\Ciudades;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-class CategoriasController extends Controller
+
+class AsociacionesController extends Controller
 {
     public function index(Request $request)
     {
-        // dd($request->ajax());
+        $departamentos = Departamentos::all();
         if ($request->ajax()) {
-            return DataTables::of(Categorias::all())->addIndexColumn()
+            return DataTables::of(Asociaciones::with('municipio')->get())->addIndexColumn()
             ->addColumn('action', function($data){
                 $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId('.$data->id.',1)" data-bs-toggle="modal"
                 data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
@@ -25,29 +26,34 @@ class CategoriasController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view ('vistas.backend.categorias.categorias');
+        return view ('vistas.backend.asociaciones.asociaciones',compact('departamentos'));
     }
     public function peticionesAction(Request $request) {
-        $GUARDAR_CATEGORIAS = 1;
-        $ACTUALIZAR_CATEGORIAS = 2;
-        $ELIMINAR_CATEGORIAS = 3;
+        $GUARDAR_ASOCIACIONES = 1;
+        $ACTUALIZAR_ASOCIACIONES = 2;
+        $ELIMINAR_ASOCIACIONES = 3;
+        $BUSCAR_MUNICIPIOS = 4;
         try {
             // buscar 001
             // crear 002
             // editar 003
             // eliminar 004
             switch ($request->accion) {
-                case $GUARDAR_CATEGORIAS:
-                    $respuesta = $this->guardarCategorias($request->all());
+                case $GUARDAR_ASOCIACIONES:
+                    $respuesta = $this->guardarAsociaciones($request->all());
                     return $respuesta;
                 break;
-                case $ACTUALIZAR_CATEGORIAS:
-                    $respuesta = $this->actualizarCategorias($request->all());
+                case $ACTUALIZAR_ASOCIACIONES:
+                    $respuesta = $this->actualizarAsociaciones($request->all());
                     return $respuesta;
                 break;
-                case $ELIMINAR_CATEGORIAS:
-                    $respuesta = $this->eliminarCategorias($request->all());
+                case $ELIMINAR_ASOCIACIONES:
+                    $respuesta = $this->eliminarAsociaciones($request->all());
                     return $respuesta;
+                break;
+                case $BUSCAR_MUNICIPIOS:
+                    $municipios = $this->buscarMunicipios($request->all());
+                    return $municipios;
                 break;
             }
         } catch (\Exception $e) {
@@ -58,36 +64,34 @@ class CategoriasController extends Controller
             return $respuesta;
         }
     }
-    public function guardarCategorias($datos){
+    public function guardarAsociaciones($datos){
         // dd($datos);
         $aErrores = array();
         DB::beginTransaction();
-        if($datos['categoria']==""){
-            $aErrores[] = '- Diligencie el nombre de la categoria';
+        if($datos['asociacion']=="" && $datos['codigoasociacion']=="" && $datos['direccion']=="" && $datos['celular']=="" && $datos['email']=="" && $datos['idmunicipio']==""){
+            $aErrores[] = '- Faltan datos necesarios';
         }
-        if($datos['imagen']==""){
-            $aErrores[] = '- Escoja la imagen de la categoria';
-        }
-        $validacion = Categorias::where([
-            ['categoria',$datos['categoria']]
+        $validacion = Asociaciones::where([
+            ['codigo_asociacion', $datos['codigoasociacion']]
         ])->get();
+
         if(count($validacion)>0){
-            $aErrores[] = '- El categoria ya se encuentra registrada';
+            $aErrores[] = '- El asociacion ya se encuentra registrada';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $nuevoCategoria = new Categorias();
-            $nuevoCategoria->categoria = $datos['categoria'];
-            $nuevoCategoria->descripcion = $datos['descripcion'];
-            $fileName  = time() . $datos['imagen']->getClientOriginalName();
-            $imagen = Storage::disk('public')->put('/categorias', $datos['imagen']);
-            $url = Storage::url($imagen);
-            $nuevoCategoria->imagen = $url;
-            $nuevoCategoria->created_at = \Carbon\Carbon::now();
-            $nuevoCategoria->updated_at = \Carbon\Carbon::now();
-            $nuevoCategoria->save();
+            $nuevoAsociacion = new Asociaciones();
+            $nuevoAsociacion->asociacion = $datos['asociacion'];
+            $nuevoAsociacion->codigo_asociacion = $datos['codigoasociacion'];
+            $nuevoAsociacion->n_celular = $datos['celular'];
+            $nuevoAsociacion->direccion = $datos['direccion'];
+            $nuevoAsociacion->email = $datos['email'];
+            $nuevoAsociacion->id_municipio = $datos['idmunicipio'];
+            $nuevoAsociacion->created_at = \Carbon\Carbon::now();
+            $nuevoAsociacion->updated_at = \Carbon\Carbon::now();
+            $nuevoAsociacion->save();
             if (count($aErrores) > 0) {
                 $respuesta = array(
                     'mensaje'      => $aErrores,
@@ -109,34 +113,34 @@ class CategoriasController extends Controller
             throw  $e;
         }
     }
-    public function actualizarCategorias($datos){
+    public function actualizarAsociaciones($datos){
         $aErrores = array();
         DB::beginTransaction();
-        if($datos['categoria']==""){
-            $aErrores[] = '- Diligencie el nombre de la categoria';
+        if($datos['asociacion']==""){
+            $aErrores[] = '- Diligencie el nombre de la asociacion';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $actualizarCategoria = Categorias::findOrFail($datos['id']);;
-            $actualizarCategoria->categoria = $datos['categoria'];
-            $actualizarCategoria->descripcion = $datos['descripcion'];
+            $actualizarAsociacion = Asociaciones::findOrFail($datos['id']);;
+            $actualizarAsociacion->asociacion = $datos['asociacion'];
+            $actualizarAsociacion->descripcion = $datos['descripcion'];
             if(!empty($datos['imagen'])){
                 if ($datos['imagen']!=null) {
                     //existe un archivo cargado?
-                    if (Storage::exists($actualizarCategoria->imagen))
+                    if (Storage::exists($actualizarAsociacion->imagen))
                     {
                         // aquí la borro
-                        Storage::delete($actualizarCategoria->imagen);
+                        Storage::delete($actualizarAsociacion->imagen);
                     }
                     //guardo el archivo nuevo
-                    $imagen = Storage::disk('public')->put('/categorias', $datos['imagen']);
+                    $imagen = Storage::disk('public')->put('/asociacions', $datos['imagen']);
                     $url = Storage::url($imagen);
                 }
-                $actualizarCategoria->imagen = $url;
+                $actualizarAsociacion->imagen = $url;
             }
-            $actualizarCategoria->save();
+            $actualizarAsociacion->save();
             
             if (count($aErrores) > 0) {
                 $respuesta = array(
@@ -159,18 +163,18 @@ class CategoriasController extends Controller
             throw  $e;
         }
     }
-    public function eliminarCategorias($datos){
+    public function eliminarAsociaciones($datos){
         $aErrores = array();
         DB::beginTransaction();
         if($datos['id']==""){
-            $aErrores[] = '- No existe categoria a eliminar';
+            $aErrores[] = '- No existe asociacion a eliminar';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $eliminarCategoria = Categorias::findOrFail($datos['id']);
-            $eliminarCategoria->update(['estado'=>'0']);
+            $eliminarAsociacion = Asociaciones::findOrFail($datos['id']);
+            $eliminarAsociacion->update(['estado'=>'0']);
             if (count($aErrores) > 0) {
                 $respuesta = array(
                     'mensaje'      => $aErrores,
@@ -191,5 +195,9 @@ class CategoriasController extends Controller
             DB::rollback();
             throw  $e;
         }
+    }
+    public function buscarMunicipios($datos){
+        $municipios= Ciudades::where('iddepartamentos',$datos['iddepartamento'])->get();
+        return $municipios;
     }
 }
