@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Departamentos extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'id',
         'departamento'
@@ -15,5 +16,10 @@ class Departamentos extends Model
     public function ciudades()
     {
       return $this->hasMany(Ciudades::class,'id','id');
+    }
+
+    public function ordenes()
+    {
+        return $this->hasMany(Ordenes::class);
     }
 }
