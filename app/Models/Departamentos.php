@@ -9,11 +9,13 @@ class Departamentos extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
-    public function municipios()
+    protected $fillable = [
+        'id',
+        'departamento'
+    ];
+    public function ciudades()
     {
-        return $this->hasMany(Municipios::class);
+      return $this->hasMany(Ciudades::class,'id','id');
     }
 
     public function ordenes()

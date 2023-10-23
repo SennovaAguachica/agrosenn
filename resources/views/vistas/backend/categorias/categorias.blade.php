@@ -30,8 +30,8 @@
             <header class="card-header">
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-md-3">
-                        <button class="btn btn-success " id="btnguardar" data-bs-toggle="modal"
-                            data-bs-target="#modalGuardarCategorias" style="color: white;"><i class="fas fa-plus"></i>
+                        <button class="btn btn-primary" id="btnmodalguardar" data-bs-toggle="modal"
+                            data-bs-target="#modalGuardarForm" style="color: white;"><i class="fas fa-plus"></i>
                             Categoria</button>
                     </div>
                 </div>
@@ -53,9 +53,9 @@
         </div>
     </div>
 @endsection
-@section('modalcategoria')
+@section('informacionModal')
     <div class="row">
-        <div class="col-md-23">
+        <div class="col-md-12 col-lg-12 col-xs-12 ">
             <label for="categoria">Nombre de categoria</label>
             <input type="text" class="form-control" name="categoria" id="categoria" required>
             <div class="invalid-feedback">
@@ -65,14 +65,14 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-12 col-xs-12 ">
             <label for="descripcion">Descripción</label>
             <textarea type="text" class="form-control" name="descripcion" id="descripcion"></textarea>
         </div>
     </div>
     <br>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-12 col-xs-12 ">
             <label for="imagen">Imagen</label>
             <input type="file" id="imagen" name="imagen" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
                 required>

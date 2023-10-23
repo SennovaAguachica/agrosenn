@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Asociaciones extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'id',
+        'asociacion',
+        'codigo_asociacion',
+        'n_celular',
+        'direccion',
+        'email',
+        'id_municipio'
+    ];
+    public function municipio()
+    {
+        return $this->belongsTo(Ciudades::class,'id_municipio','id');
+    }
+}

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\AsociacionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/categorias', [CategoriasController::class, 'index']);
     Route::post('/categorias_peticiones', [CategoriasController::class, 'peticionesAction']);
+
+    Route::get('/asociaciones', [AsociacionesController::class, 'index']);
+    Route::post('/asociaciones_peticiones', [AsociacionesController::class, 'peticionesAction']);
 
 });
 Route::get('/index', [IndexController::class, 'index']);

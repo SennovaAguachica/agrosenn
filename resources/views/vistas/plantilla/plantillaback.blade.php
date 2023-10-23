@@ -13,7 +13,7 @@
     <meta property="og:image" content="" />
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assetsweb/imgs/theme/favicon.svg" />
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         crossorigin="anonymous" />
     <link rel="stylesheet"
@@ -60,6 +60,13 @@
                         <i class="fa-solid fa-list-check fa-xl" id="i_categoria"
                             style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
                         <span class="text">Categorías</span>
+                    </a>
+                </li>
+                <li class="menu-item" id="li_asociaciones">
+                    <a class="menu-link" href="/asociaciones">
+                        <i class="fa-solid fa-list-check fa-xl" id="i_asociacion"
+                            style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                        <span class="text">Asociaciones</span>
                     </a>
                 </li>
                 <li class="menu-item" id="li_productos">
