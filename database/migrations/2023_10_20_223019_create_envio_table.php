@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('departamentos_id')->references('id')->on('departamentos');
 
             $table->unsignedBigInteger('municipios_id');
-            $table->foreign('municipios_id')->references('id')->on('minucipios');
+            $table->foreign('municipios_id')->references('id')->on('municipios');
 
             $table->unsignedBigInteger('direcciones_id');
             $table->foreign('direcciones_id')->references('id')->on('direcciones');

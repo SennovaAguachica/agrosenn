@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\Departamentos;
 use App\Models\Ciudades;
 use App\Models\Asociaciones;
@@ -10,6 +11,7 @@ use App\Models\TiposUsuarios;
 use App\Models\Tipodocumentos;
 use App\Models\Vendedores;
 use App\Models\User;
+use App\Models\Categorias;
 use App\DataProviders\DatosBasesProvider;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -31,5 +33,6 @@ class DatabaseSeeder extends Seeder
         Vendedores::insert(DatosBasesProvider::vendedores());
         TiposUsuarios::insert(DatosBasesProvider::tiposUsuarios());
         User::insert(DatosBasesProvider::usuarios());
+        Categorias::insert(DatosBasesProvider::categorias());
     }
 }

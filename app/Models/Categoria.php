@@ -10,11 +10,7 @@ class Categoria extends Model
     use HasFactory;
 
     protected $guarded = [];
-    //URL Amigable
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+
     //Relacion uno a muchos
     public function subcategories()
     {
@@ -24,6 +20,6 @@ class Categoria extends Model
     //Relacion a traves de Categoria->SubCategoria->Producto
     public function products()
     {
-        return $this->hasManyThrough(Productos::class, Subcategoria::class);
+        return $this->hasManyThrough(Producto::class, Subcategoria::class);
     }
 }
