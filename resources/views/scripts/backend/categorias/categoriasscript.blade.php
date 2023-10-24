@@ -15,7 +15,9 @@
             $('#i_categoria').css('color', '#3BB77E');
             cargarTablaCategorias();
             guardarCategoria();
+            cargarImagen("#icono");
             cargarImagen("#imagen");
+            
             buttonClicks();
         });
 
@@ -39,6 +41,7 @@
                 $("#categoria").val(parametro_seleccionado.categoria);
                 $("#descripcion").val(parametro_seleccionado.descripcion);
                 cargarImg("#imagen", parametro_seleccionado.imagen);
+                cargarImg("#icono", parametro_seleccionado.icono);
             } else if (modo == 2) {
                 Swal.fire({
                     title: '¿Esta seguro?',
@@ -85,8 +88,10 @@
                 let datosFormulario = "";
                 if (vista == 1) {
                     $("#imagen").prop("required", true);
+                    $("#icono").prop("required", true);
                 } else if (vista == 2) {
                     $("#imagen").prop("required", false);
+                    $("#icono").prop("required", false);
                 }
                 e.preventDefault(); // Previene el envío por defecto del formulario
                 // Valida el formulario usando Bootstrap
@@ -94,7 +99,7 @@
 
                 if (form.checkValidity() === false) {
                     form.classList.add("was-validated");
-                    if ($("#imagen").val() == "") {
+                    if ($("#imagen").val() == "" || $("#icono").val() == "") {
                         $(".file-input").removeClass("valid");
                         $(".file-input").addClass("is-invalid");
                     } else {
@@ -169,6 +174,12 @@
                     "type": "GET",
                 },
                 "columns": [{
+                        data: 'icono',
+                        render: function(data, type, row) {
+                            return '<img src="' + data + '" width="50px" />';
+                        }
+                    },
+                    {
                         data: 'imagen',
                         render: function(data, type, row) {
                             return '<img src="' + data + '" width="100px" />';

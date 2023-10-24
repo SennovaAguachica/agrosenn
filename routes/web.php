@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AsociacionesController;
 
@@ -18,9 +19,11 @@ use App\Http\Controllers\AsociacionesController;
 |
 */
 
-Route::get('/', function () {
-    return view('vistas.frontend.index.index');
-});
+// Route::get('/', function () {
+//     return view('vistas.frontend.index.index');
+// });
+
+Route::get('/', [IndexController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::get('/productos', [ProductosController::class, 'index']);
     Route::post('/productos_peticiones', [ProductosController::class, 'peticionesAction']);
 
@@ -39,7 +42,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/asociaciones', [AsociacionesController::class, 'index']);
     Route::post('/asociaciones_peticiones', [AsociacionesController::class, 'peticionesAction']);
-
 });
 Route::get('/index', [IndexController::class, 'index']);
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

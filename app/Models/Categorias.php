@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categorias extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'id',
-        'categoria',
-        'descripcion',
-        'imagen',
-    ];
-    public function productos()
-    {
-      return $this->hasMany(Productos::class);
-    }
+  use HasFactory;
+  protected $fillable = [
+    'id',
+    'categoria',
+    'descripcion',
+    'imagen',
+    'icono',
+  ];
+  public function productos()
+  {
+    return $this->hasMany(Productos::class);
+  }
 }

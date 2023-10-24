@@ -40,6 +40,7 @@
                 <table id="tablacategorias" class="table text-center table-hover" width="100%">
                     <thead style="text-align: center;">
                         <tr class="font-xxl">
+                            <th>Icono</th>
                             <th>Imagen</th>
                             <th>Categoria</th>
                             <th>Descripcion</th>
@@ -74,7 +75,18 @@
     <div class="row">
         <div class="col-md-12 col-lg-12 col-xs-12 ">
             <label for="imagen">Imagen</label>
-            <input type="file" id="imagen" name="imagen" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
+            <input type="file" id="imagen" name="imagen" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp|image/*"
+                required>
+            <div class="invalid-feedback">
+                Campo obligatorio.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xs-12 ">
+            <label for="icono">Icono</label>
+            <input type="file" id="icono" name="icono" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .svg|image/*"
                 required>
             <div class="invalid-feedback">
                 Campo obligatorio.

@@ -1,8 +1,10 @@
 <?php
 
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
 
 return new class extends Migration
 {
@@ -13,16 +15,15 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('categoria_id')->unsigned();
             $table->string('producto');
             $table->string('precio');
             $table->string('imagen');
             $table->string('descripcion')->nullable();
             $table->Integer('estado');
             $table->timestamps();
-            
+
+            $table->bigInteger('categoria_id')->unsigned();
             $table->foreign('categoria_id')->references('id')->on('categorias');
-            
         });
         Artisan::call('db:seed', [
             '--class' => DatabaseSeeder::class
