@@ -81,10 +81,13 @@ class CategoriasController extends Controller
             $nuevoCategoria = new Categorias();
             $nuevoCategoria->categoria = $datos['categoria'];
             $nuevoCategoria->descripcion = $datos['descripcion'];
-            $fileName  = time() . $datos['imagen']->getClientOriginalName();
+            // $fileNameImagen  = time() . $datos['imagen']->getClientOriginalName();
             $imagen = Storage::disk('public')->put('/categorias', $datos['imagen']);
-            $url = Storage::url($imagen);
-            $nuevoCategoria->imagen = $url;
+            $urlImagen = Storage::url($imagen);
+            $icono = Storage::disk('public')->put('/categorias', $datos['icono']);
+            $urlIcono = Storage::url($icono);
+            $nuevoCategoria->imagen = $urlImagen;
+            $nuevoCategoria->icono = $urlIcono;
             $nuevoCategoria->created_at = \Carbon\Carbon::now();
             $nuevoCategoria->updated_at = \Carbon\Carbon::now();
             $nuevoCategoria->save();
