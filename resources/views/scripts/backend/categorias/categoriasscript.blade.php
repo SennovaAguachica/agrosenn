@@ -152,7 +152,7 @@
                                         mensajeSuccessGeneral(
                                             '- Se ha actualizado la categoria con exito');
                                     }
-                                    $("#formCategoria")[0].reset();
+                                    $("#formGuardar")[0].reset();
                                     tablaCategorias.ajax.reload();
                                     $('#modalGuardarForm').modal('hide');
                                 } else {
