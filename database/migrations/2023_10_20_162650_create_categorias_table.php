@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('descripcion')->nullable();
             $table->string('imagen');
             $table->string('icono');
+            $table->Integer('estado');
             $table->timestamps();
         });
     }
