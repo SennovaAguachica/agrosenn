@@ -54,9 +54,6 @@
                     confirmButtonText: 'Si'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        console.log('Contenido de data:', data);
-                        // console.log('Valor de data.accion:', data.accion);
-                        // console.log('Valor de data.id:', data.id);
                         $.ajax({
                             url: "/categorias_peticiones", // Reemplaza esto con la URL del servidor
                             type: 'POST',

@@ -5137,36 +5137,20 @@
             </a>
             <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
                 <div class="d-flex categori-dropdown-inner">
-                    <ul>
+                    <ul class="categorias-desplegable">
                         @foreach ($categorias as $categoria)
-                            <li>
-                                <a href="#">
-                                    <span class="flex">{!!$categoria->icono!!}</span>
-                                    <img src="{!!$categoria->icono!!}"/>
-                                
-                                {{ $categoria->categoria }}
-                                </a>
-                            
-                            </li>
-
+                            @if($categoria->estado === 1)
+                                <li>
+                                    <a href="#">
+                                        <img class="flex "src="{!!$categoria->icono!!}"/>
+                                        {{ $categoria->categoria }}
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                     
-                    {{-- <ul class="bg-white">
-                        @foreach ($categories as $category)
-                            <li class="navigation-link text-trueGray-500 hover:bg-orange-500 hover:text-white">
-                                <a href="{{route('categories.show',$category)}}" class="py-3 px-4 text-sm flex items-center">
-                                    <span class="flex justify-center w-9">
-                                        {!!$category->icono!!}
-                                    </span>
-                                    {{$category->nombre}}
-                                </a>
-    
-     {{-- <li>{{ $category->categoria }}</li>
-                                
-                            </li> --
-                        @endforeach
-                    </ul> --}}
+                    
                     {{-- <ul>
                         <li>
                             <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-1.svg" alt="" />Lácteos</a>

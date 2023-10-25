@@ -738,7 +738,7 @@
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="text-center">
-                    <img src="assetsfront/imgs/theme/loading.gif" alt="" />
+                    <img src="assetsfront/imgs/theme/loading2.gif" alt="" />
                 </div>
             </div>
         </div>
