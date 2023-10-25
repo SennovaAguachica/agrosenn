@@ -4,7 +4,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\CategoriasController;
-use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AsociacionesController;
 

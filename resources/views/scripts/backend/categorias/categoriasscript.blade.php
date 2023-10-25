@@ -37,6 +37,7 @@
             fila = tablaCategorias.row("." + data).node();
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablacategorias").DataTable().row('.selected').data();
+            
             if (modo == 1) {
                 $("#categoria").val(parametro_seleccionado.categoria);
                 $("#descripcion").val(parametro_seleccionado.descripcion);
@@ -53,6 +54,9 @@
                     confirmButtonText: 'Si'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        console.log('Contenido de data:', data);
+                        // console.log('Valor de data.accion:', data.accion);
+                        // console.log('Valor de data.id:', data.id);
                         $.ajax({
                             url: "/categorias_peticiones", // Reemplaza esto con la URL del servidor
                             type: 'POST',
@@ -60,7 +64,8 @@
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 accion: ELIMINAR_CATEGORIAS,
-                                id: parametro_seleccionado.id
+                                id: parametro_seleccionado.id,
+                                
                             },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
@@ -70,12 +75,14 @@
                                     tablaCategorias.ajax.reload();
                                 } else {
                                     mensajeError(respuesta.mensaje);
+                                    
                                 }
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                               
                             }
                         });
                     }

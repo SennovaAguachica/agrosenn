@@ -14,9 +14,14 @@ class Categorias extends Model
     'descripcion',
     'imagen',
     'icono',
+    'estado',
   ];
   public function productos()
   {
     return $this->hasMany(Productos::class);
   }
+  // public function products()
+  //   {
+  //       return $this->hasManyThrough(Producto::class, Subcategoria::class);
+  //   }
 }
