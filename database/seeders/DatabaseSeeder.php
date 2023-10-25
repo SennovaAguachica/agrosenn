@@ -7,7 +7,7 @@ use App\Models\Ciudades;
 use App\Models\Asociaciones;
 use App\Models\Administradores;
 use App\Models\Clientes;
-use App\Models\TiposUsuarios;
+use Spatie\Permission\Models\Role;
 use App\Models\Tipodocumentos;
 use App\Models\Vendedores;
 use App\Models\User;
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         Clientes::insert(DatosBasesProvider::clientes());
         Asociaciones::insert(DatosBasesProvider::asociaciones());
         Vendedores::insert(DatosBasesProvider::vendedores());
-        TiposUsuarios::insert(DatosBasesProvider::tiposUsuarios());
+        Role::insert(DatosBasesProvider::roles());
         User::insert(DatosBasesProvider::usuarios());
         Categorias::insert(DatosBasesProvider::categorias());
     }

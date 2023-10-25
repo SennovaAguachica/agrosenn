@@ -13,4 +13,5 @@ class TiposUsuarios extends Model
         'id',
         'tipousuario',
     ];
+    
 }

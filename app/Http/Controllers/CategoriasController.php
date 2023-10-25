@@ -12,7 +12,6 @@ class CategoriasController extends Controller
 {
     public function index(Request $request)
     {
-        // dd($request->ajax());
         if ($request->ajax()) {
             return DataTables::of(Categorias::all())->addIndexColumn()
             ->addColumn('action', function($data){

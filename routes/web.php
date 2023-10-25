@@ -7,7 +7,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AsociacionesController;
-
+use App\Http\Controllers\SeguridadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +42,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/asociaciones', [AsociacionesController::class, 'index']);
     Route::post('/asociaciones_peticiones', [AsociacionesController::class, 'peticionesAction']);
+
+    Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
+    Route::get('/roles', [SeguridadController::class, 'indexroles']);
+    Route::get('/permisos', [SeguridadController::class, 'indexpermisos']);
+    Route::post('/seguridad_peticiones', [SeguridadController::class, 'peticionesAction']);
 });
 Route::get('/index', [IndexController::class, 'index']);
 require __DIR__ . '/auth.php';

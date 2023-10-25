@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
 
             $table->unsignedBigInteger('municipios_id');
-            $table->foreign('municipios_id')->references('id')->on('municipios');
+            $table->foreign('municipios_id')->references('id')->on('ciudades');
 
             $table->timestamps();
         });

@@ -25,9 +25,7 @@ return new class extends Migration
             $table->bigInteger('categoria_id')->unsigned();
             $table->foreign('categoria_id')->references('id')->on('categorias');
         });
-        Artisan::call('db:seed', [
-            '--class' => DatabaseSeeder::class
-        ]);
+       
     }
 
     /**

@@ -12,4 +12,8 @@ class Administradores extends Model
         'id',
         'administrador',
     ];
+    public function usuarios()
+    {
+      return $this->hasMany(User::class,'idadministrador','id');
+    }
 }

@@ -20,9 +20,7 @@ return new class extends Migration
 
             $table->float('costo_envio');
             $table->float('total');
-
-            $table->unsignedBigInteger('usuarios_id');
-            $table->foreign('usuarios_id')->references('id')->on('usuarios');
+            
             $table->timestamps();
         });
     }

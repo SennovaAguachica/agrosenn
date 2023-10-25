@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('idtipousuario')->unsigned();
+            $table->bigInteger('idrol')->unsigned();
             $table->bigInteger('idvendedor')->unsigned()->nullable();
             $table->bigInteger('idasociacion')->unsigned()->nullable();
             $table->bigInteger('idcliente')->unsigned()->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('estado');
             $table->timestamps();
-            $table->foreign('idtipousuario')->references('id')->on('tiposusuarios');
+            $table->foreign('idrol')->references('id')->on('roles');
             $table->foreign('idvendedor')->references('id')->on('vendedores');
             $table->foreign('idasociacion')->references('id')->on('asociaciones');
             $table->foreign('idcliente')->references('id')->on('clientes');

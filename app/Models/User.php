@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
+
 
 class User extends Authenticatable
 {
@@ -19,7 +21,7 @@ class User extends Authenticatable
      */
     protected $table = "users";
     protected $fillable = [
-        'idtipousuario',
+        'idrol',
         'idvendedor',
         'idasociacion',
         'idcliente',
@@ -48,4 +50,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function rol()
+    {
+        return $this->belongsTo(Role::class,'idrol','id');
+    }
+    public function vendedor()
+    {
+        return $this->belongsTo(Vendedores::class,'idvendedor','id');
+    }
+    public function asociacion()
+    {
+        return $this->belongsTo(Asociaciones::class,'idasociacion','id');
+    }
+    public function cliente()
+    {
+        return $this->belongsTo(Clientes::class,'idcliente','id');
+    }
+    public function administrador()
+    {
+        return $this->belongsTo(Administradores::class,'idadministrador','id');
+    }
 }

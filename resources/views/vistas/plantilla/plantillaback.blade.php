@@ -76,6 +76,18 @@
                     </a>
                 </li>
                 <li class="menu-item has-submenu">
+                    <a class="menu-link" href="/categorias">
+                        <i class="fas fa-lock fa-xl" id="i_categoria"
+                            style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                        <span class="text">Gestion usuarios</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="/usuarios">Usuarios</a>
+                        <a href="/roles">Roles</a>
+                        <a href="/permisos">Permisos</a>
+                    </div>
+                </li>
+                <li class="menu-item has-submenu">
                     <a class="menu-link" href="page-orders-1.html">
                         <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Pedidos</span>

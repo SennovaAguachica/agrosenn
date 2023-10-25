@@ -21,4 +21,8 @@ class Asociaciones extends Model
     {
         return $this->belongsTo(Ciudades::class,'id_municipio','id');
     }
+    public function usuarios()
+    {
+      return $this->hasMany(User::class,'idasociacion','id');
+    }
 }

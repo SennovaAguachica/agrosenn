@@ -22,11 +22,10 @@ return new class extends Migration
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('producto');
 
-            $table->unsignedBigInteger('usuarios_id');
-            $table->foreign('usuarios_id')->references('id')->on('usuarios');
-
-
             $table->timestamps();
+            Artisan::call('db:seed', [
+                '--class' => DatabaseSeeder::class
+            ]);
         });
     }
 

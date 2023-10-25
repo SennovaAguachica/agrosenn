@@ -17,11 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('ordenes_id');
             $table->foreign('ordenes_id')->references('id')->on('ordenes');
 
-            $table->unsignedBigInteger('departamentos_id');
-            $table->foreign('departamentos_id')->references('id')->on('departamentos');
-
             $table->unsignedBigInteger('municipios_id');
-            $table->foreign('municipios_id')->references('id')->on('municipios');
+            $table->foreign('municipios_id')->references('id')->on('ciudades');
 
             $table->unsignedBigInteger('direcciones_id');
             $table->foreign('direcciones_id')->references('id')->on('direcciones');

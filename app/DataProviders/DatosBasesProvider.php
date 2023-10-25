@@ -5411,13 +5411,13 @@ abstract class DatosBasesProvider
             ]
         ];
     }
-    public static function tiposUsuarios()
+    public static function Roles()
     {
         return [
-            ['id' => 1, 'tipousuario' => 'Administrador'],
-            ['id' => 2, 'tipousuario' => 'Asociacion'],
-            ['id' => 3, 'tipousuario' => 'Vendedor'],
-            ['id' => 4, 'tipousuario' => 'Cliente']
+            ['id' => 1, 'name' => 'Administrador', 'guard_name' => 'web'],
+            ['id' => 2, 'name' => 'Asociacion', 'guard_name' => 'web'],
+            ['id' => 3, 'name' => 'Vendedor', 'guard_name' => 'web'],
+            ['id' => 4, 'name' => 'Cliente', 'guard_name' => 'web']
         ];
     }
     public static function usuarios()
@@ -5425,7 +5425,7 @@ abstract class DatosBasesProvider
         return [
             [
                 'id' => 1,
-                'idtipousuario' => 1,
+                'idrol' => 1,
                 'idvendedor' => null,
                 'idasociacion' => null,
                 'idcliente' => null,
