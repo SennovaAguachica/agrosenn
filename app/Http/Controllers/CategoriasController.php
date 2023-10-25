@@ -81,6 +81,7 @@ class CategoriasController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
+
             $validacion = Categorias::where([
                 ['categoria', $datos['categoria']],
                 ['estado', 0]
@@ -103,7 +104,6 @@ class CategoriasController extends Controller
                 $nuevoCategoria->updated_at = \Carbon\Carbon::now();
                 $nuevoCategoria->save();
             }
-
 
             if (count($aErrores) > 0) {
                 $respuesta = array(
