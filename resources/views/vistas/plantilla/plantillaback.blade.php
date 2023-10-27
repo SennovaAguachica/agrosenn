@@ -55,12 +55,18 @@
                         <span class="text">Tablero</span>
                     </a>
                 </li>
-                <li class="menu-item" id="li_categorias">
+                <li class="menu-item has-submenu" id="li_categorias">
                     <a class="menu-link" href="/categorias">
                         <i class="fa-solid fa-list-check fa-xl" id="i_categoria"
                             style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
-                        <span class="text">Categorías</span>
+                        <span class="text">Gestión de Categorías</span>
                     </a>
+                    <div class="submenu">
+                        <a href="/categorias">
+                            Categorías
+                        </a>
+                        <a href="/subcategorias">Subcategorías</a>
+                    </div>
                 </li>
                 <li class="menu-item" id="li_asociaciones">
                     <a class="menu-link" href="/asociaciones">
