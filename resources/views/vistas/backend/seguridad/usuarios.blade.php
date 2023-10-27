@@ -74,7 +74,7 @@
     <div class="row">
         <div class="col-md-12 col-lg-12 col-xs-12 ">
             <label for="imagen">Imagen</label>
-            <input type="file" id="imagen" name="imagen" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp|image/*"
+            <input type="file" id="imagen" name="imagen" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp, |image/*"
                 required>
             <div class="invalid-feedback">
                 Campo obligatorio.
@@ -85,7 +85,7 @@
     <div class="row">
         <div class="col-md-12 col-lg-12 col-xs-12 ">
             <label for="icono">Icono</label>
-            <input type="file" id="icono" name="icono" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .svg|image/*"
+            <input type="file" id="icono" name="icono" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .svg, |image/*"
                 required>
             <div class="invalid-feedback">
                 Campo obligatorio.

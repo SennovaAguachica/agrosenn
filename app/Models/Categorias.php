@@ -16,12 +16,18 @@ class Categorias extends Model
     'icono',
     'estado',
   ];
-  public function productos()
-  {
-    return $this->hasMany(Productos::class);
-  }
+  // public function productos()
+  // {
+  //   return $this->hasMany(Productos::class);
+  // }
   // public function products()
   //   {
-  //       return $this->hasManyThrough(Producto::class, Subcategoria::class);
+  //       // return $this->hasManyThrough(Producto::class, Subcategoria::class);
+
   //   }
+  public function subcategorias()
+  {
+    //return $this->hasMany(Subcategorias::class, 'id_categoria', 'id');
+    return $this->hasMany(Subcategorias::class);
+  }
 }

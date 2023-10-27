@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Productos;
+use App\Models\Subcategorias;
+use App\Models;
 use App\Models\Categorias;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -10,20 +11,18 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
-class ProductosController extends Controller
+class SubcategoriasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        // dd($request->ajax());
         $categorias = Categorias::all();
+        //dd($categorias);
         if ($request->ajax()) {
-            return DataTables::of(Productos::with('categoria')->where('estado', 1)->get())->addIndexColumn()
+            //categorias es el nombre de la funcion que relaciona en el modelo de subcategoria
+            return DataTables::of(Subcategorias::with('categorias')->where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
-                data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
+                data-bs-target="#modalGuardarFormSubcategoria"><i class="fa-solid fa-pencil"></i></button>';
                     $btn .= "&nbsp";
                     $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
                     return $btn;
@@ -31,29 +30,30 @@ class ProductosController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.productos.productos', compact('categorias'));
+        return view('vistas.backend.subcategorias.subcategorias', compact('categorias'));
     }
+
     public function peticionesAction(Request $request)
     {
-        $GUARDAR_PRODUCTOS = 1;
-        $ACTUALIZAR_PRODUCTOS = 2;
-        $ELIMINAR_PRODUCTOS = 3;
+        $GUARDAR_SUBCATEGORIAS = 1;
+        $ACTUALIZAR_SUBCATEGORIAS = 2;
+        $ELIMINAR_SUBCATEGORIAS = 3;
         try {
             // buscar 001
             // crear 002
             // editar 003
             // eliminar 004
             switch ($request->accion) {
-                case $GUARDAR_PRODUCTOS:
-                    $respuesta = $this->guardarProductos($request->all());
+                case $GUARDAR_SUBCATEGORIAS:
+                    $respuesta = $this->guardarSubcategorias($request->all());
                     return $respuesta;
                     break;
-                case $ACTUALIZAR_PRODUCTOS:
-                    $respuesta = $this->actualizarProductos($request->all());
+                case $ACTUALIZAR_SUBCATEGORIAS:
+                    $respuesta = $this->actualizarSubcategorias($request->all());
                     return $respuesta;
                     break;
-                case $ELIMINAR_PRODUCTOS:
-                    $respuesta = $this->eliminarProductos($request->all());
+                case $ELIMINAR_SUBCATEGORIAS:
+                    $respuesta = $this->eliminarSubcategorias($request->all());
                     return $respuesta;
                     break;
             }
@@ -65,103 +65,47 @@ class ProductosController extends Controller
             return $respuesta;
         }
     }
-    public function guardarProductos($datos)
+
+
+    public function guardarSubcategorias($datos)
     {
+        // dd($datos);
         $aErrores = array();
         DB::beginTransaction();
-        if ($datos['tipoProducto'] == "") {
-            $aErrores[] = '- Seleccione el tipo de producto';
+        if ($datos['subcategoria'] == "") {
+            $aErrores[] = '- Diligencie el nombre de la subcategoria';
         }
-        if ($datos['nombreProducto'] == "") {
-            $aErrores[] = '- Diligencie el nombre del producto';
+        if ($datos['tipoSubcategoria'] == "") {
+            $aErrores[] = '- Seleccione el tipo de categoría';
         }
-        if ($datos['precioProducto'] == "") {
-            $aErrores[] = '- Diligencie el precio del producto';
-        }
-        if ($datos['imagenproducto'] == "") {
-            $aErrores[] = '- Escoja la imagen del producto';
-        }
-        $validacion = Productos::where([
-            ['categoria_id', $datos['tipoProducto']],
-            //['categoria_id',$datos['tipoCategoria']],
-            ['producto', $datos['nombreProducto']],
-            ['estado', 1]
-        ])->get();
-        if (count($validacion) > 0) {
-            $aErrores[] = '- El producto ya se encuentra registrado';
+        if ($datos['imagen'] == "") {
+            $aErrores[] = '- Escoja la imagen de la subcategoria';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $nuevoProducto = new Productos();
-            $nuevoProducto->categoria_id = $datos['tipoProducto'];
-            $nuevoProducto->producto = $datos['nombreProducto'];
-            $nuevoProducto->precio = $datos['precioProducto'];
-            $nuevoProducto->descripcion = $datos['descripcionProducto'];
-            $fileName  = time() . $datos['imagenproducto']->getClientOriginalName();
-            $imagen = Storage::disk('public')->put('/productos', $datos['imagenproducto']);
-            $url = Storage::url($imagen);
-            $nuevoProducto->imagen = $url;
-            $nuevoProducto->estado = 1;
-            $nuevoProducto->created_at = \Carbon\Carbon::now();
-            $nuevoProducto->updated_at = \Carbon\Carbon::now();
-            $nuevoProducto->save();
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
+
+            $validacion = Subcategorias::where([
+                ['subcategoria', $datos['subcategoria']],
+                ['categoria_id', $datos['tipoSubcategoria']],
+                ['estado', 0]
+            ])->first();
+            if ($validacion) {
+                $validacion->update(['estado' => 1]);
             } else {
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
+                $nuevoSubcategoria = new Subcategorias();
+                $nuevoSubcategoria->categoria_id = $datos['tipoSubcategoria'];
+                $nuevoSubcategoria->subcategoria = $datos['subcategoria'];
+                $nuevoSubcategoria->descripcion = $datos['descripcion'];
+                $imagen = Storage::disk('public')->put('/subcategorias', $datos['imagen']);
+                $urlImagen = Storage::url($imagen);
+                $nuevoSubcategoria->imagen = $urlImagen;
+                $nuevoSubcategoria->estado = 1;
+                $nuevoSubcategoria->created_at = \Carbon\Carbon::now();
+                $nuevoSubcategoria->updated_at = \Carbon\Carbon::now();
+                $nuevoSubcategoria->save();
             }
-        } catch (\Exception $e) {
-            DB::rollback();
-            throw  $e;
-        }
-    }
-    public function actualizarProductos($datos)
-    {
-        $aErrores = array();
-        DB::beginTransaction();
-        if ($datos['tipoProducto'] == "") {
-            $aErrores[] = '- Seleccione el tipo de producto';
-        }
-        if ($datos['nombreProducto'] == "") {
-            $aErrores[] = '- Diligencie el nombre del producto';
-        }
-        if ($datos['precioProducto'] == "") {
-            $aErrores[] = '- Diligencie el precio del producto';
-        }
-        if (count($aErrores) > 0) {
-            throw new \Exception(join('</br>', $aErrores));
-        }
-        try {
-            $actualizarProducto = Productos::findOrFail($datos['id']);;
-            $actualizarProducto->categoria_id = $datos['tipoProducto'];
-            $actualizarProducto->producto = $datos['nombreProducto'];
-            $actualizarProducto->precio = $datos['precioProducto'];
-            $actualizarProducto->descripcion = $datos['descripcionProducto'];
-            if (!empty($datos['imagenproducto'])) {
-                if ($datos['imagenproducto'] != null) {
-                    //existe un archivo cargado?
-                    if (Storage::exists($actualizarProducto->imagen)) {
-                        // aquí la borro
-                        Storage::delete($actualizarProducto->imagen);
-                    }
-                    //guardo el archivo nuevo
-                    $imagen = Storage::disk('public')->put('/productos', $datos['imagenproducto']);
-                    $url = Storage::url($imagen);
-                }
-                $actualizarProducto->imagen = $url;
-            }
-            $actualizarProducto->save();
 
             if (count($aErrores) > 0) {
                 $respuesta = array(
@@ -182,19 +126,79 @@ class ProductosController extends Controller
             throw  $e;
         }
     }
-    public function eliminarProductos($datos)
+
+
+    public function actualizarSubcategorias($datos)
     {
         $aErrores = array();
         DB::beginTransaction();
-        if ($datos['id'] == "") {
-            $aErrores[] = '- No existe producto a eliminar';
+        if ($datos['subcategoria'] == "") {
+            $aErrores[] = '- Diligencie el nombre de la subcategoria';
+        }
+        if ($datos['tipoSubcategoria'] == "") {
+            $aErrores[] = '- Seleccione el tipo de categoría';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $eliminarProducto = Productos::findOrFail($datos['id']);
-            $eliminarProducto->update(['estado' => '0']);
+            $actualizarSubcategoria = Subcategorias::findOrFail($datos['id']);;
+            $actualizarSubcategoria->categoria_id = $datos['tipoSubcategoria'];
+            $actualizarSubcategoria->subcategoria = $datos['subcategoria'];
+            $actualizarSubcategoria->descripcion = $datos['descripcion'];
+            if (!empty($datos['imagen'])) {
+                if ($datos['imagen'] != null) {
+                    //existe un archivo cargado?
+                    if (Storage::exists($actualizarSubcategoria->imagen)) {
+                        // aquí la borro
+                        Storage::delete($actualizarSubcategoria->imagen);
+                    }
+                    //guardo el archivo nuevo
+                    $imagen = Storage::disk('public')->put('/subcategorias', $datos['imagen']);
+                    $url = Storage::url($imagen);
+                }
+                $actualizarSubcategoria->imagen = $url;
+            }
+
+
+            $actualizarSubcategoria->save();
+
+            if (count($aErrores) > 0) {
+                $respuesta = array(
+                    'mensaje'      => $aErrores,
+                    'estado'      => 0,
+                );
+                return response()->json($respuesta);
+            } else {
+                DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
+                return response()->json($respuesta);
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
+    }
+
+
+    public function eliminarSubcategorias($datos)
+    {
+        //dd($datos['id']);
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['id'] == "") {
+            $aErrores[] = '- No existe subcategoria a eliminar';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+
+        try {
+            $eliminarSubcategoria = Subcategorias::findOrFail($datos['id']);
+            $eliminarSubcategoria->update(['estado' => 0]);
             if (count($aErrores) > 0) {
                 $respuesta = array(
                     'mensaje'      => $aErrores,

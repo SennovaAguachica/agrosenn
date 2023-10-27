@@ -17,8 +17,8 @@ class Productos extends Model
         'imagen',
         'estado',
     ];
-    public function categoria()
-    {
-        return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
-    }
+    // public function categoria()
+    // {
+    //     return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
+    // }
 }

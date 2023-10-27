@@ -12,10 +12,10 @@ class Producto extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
 
-    public function subcategory()
-    {
-        return $this->belongsTo(Subcategoria::class);
-    }
+    // public function subcategory()
+    // {
+    //     return $this->belongsTo(Subcategoria::class);
+    // }
 
 
     public function images()

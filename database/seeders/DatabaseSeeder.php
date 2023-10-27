@@ -12,6 +12,7 @@ use App\Models\Tipodocumentos;
 use App\Models\Vendedores;
 use App\Models\User;
 use App\Models\Categorias;
+use App\Models\Subcategorias;
 use App\DataProviders\DatosBasesProvider;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -34,5 +35,6 @@ class DatabaseSeeder extends Seeder
         Role::insert(DatosBasesProvider::roles());
         User::insert(DatosBasesProvider::usuarios());
         Categorias::insert(DatosBasesProvider::categorias());
+        Subcategorias::insert(DatosBasesProvider::subcategorias());
     }
 }

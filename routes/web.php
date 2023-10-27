@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\SubcategoriasController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AsociacionesController;
 use App\Http\Controllers\SeguridadController;
@@ -38,6 +39,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/categorias', [CategoriasController::class, 'index']);
     Route::post('/categorias_peticiones', [CategoriasController::class, 'peticionesAction']);
+
+    Route::get('/subcategorias', [SubcategoriasController::class, 'index']);
+    Route::post('/subcategorias_peticiones', [SubcategoriasController::class, 'peticionesAction']);
 
     Route::get('/asociaciones', [AsociacionesController::class, 'index']);
     Route::post('/asociaciones_peticiones', [AsociacionesController::class, 'peticionesAction']);
