@@ -8,6 +8,7 @@ use App\Http\Controllers\SubcategoriasController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AsociacionesController;
 use App\Http\Controllers\SeguridadController;
+use App\Http\Controllers\AdministradoresController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +46,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/asociaciones', [AsociacionesController::class, 'index']);
     Route::post('/asociaciones_peticiones', [AsociacionesController::class, 'peticionesAction']);
+
+    Route::get('/administradores', [AdministradoresController::class, 'index']);
+    Route::post('/administradores_peticiones', [AdministradoresController::class, 'peticionesAction']);
 
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
     Route::get('/roles', [SeguridadController::class, 'indexroles']);

@@ -21,8 +21,8 @@ class Vendedores extends Model
         'n_celular',
         'email',
     ];
-    public function usuarios()
+    public function usuario()
     {
-      return $this->hasMany(User::class,'idvendedor','id');
+      return $this->hasOne(User::class,'idvendedor','id');
     }
 }

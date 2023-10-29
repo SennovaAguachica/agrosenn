@@ -55,44 +55,69 @@
                         <span class="text">Tablero</span>
                     </a>
                 </li>
-                <li class="menu-item has-submenu" id="li_categorias">
-                    <a class="menu-link" href="/categorias">
-                        <i class="fa-solid fa-list-check fa-xl" id="i_categoria"
-                            style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
-                        <span class="text">Gestión de Categorías</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="/categorias">
-                            Categorías
+                @canany(['categorias.listar', 'subcategorias.listar'])
+                    <li class="menu-item has-submenu" id="li_categorias">
+                        <a class="menu-link" href="/categorias">
+                            <i class="fa-solid fa-list-check fa-xl" id="i_categoria"
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                            <span class="text">Gestión de Categorías</span>
                         </a>
-                        <a href="/subcategorias">Subcategorías</a>
-                    </div>
-                </li>
-                <li class="menu-item" id="li_asociaciones">
-                    <a class="menu-link" href="/asociaciones">
-                        <i class="fa-solid fa-list-check fa-xl" id="i_asociacion"
-                            style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
-                        <span class="text">Asociaciones</span>
-                    </a>
-                </li>
-                <li class="menu-item" id="li_productos">
-                    <a class="menu-link" href="/productos">
-                        <i class="icon material-icons md-shopping_bag"></i>
-                        <span class="text">Productos</span>
-                    </a>
-                </li>
-                <li class="menu-item has-submenu">
-                    <a class="menu-link" href="/categorias">
-                        <i class="fas fa-lock fa-xl" id="i_categoria"
-                            style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
-                        <span class="text">Gestion usuarios</span>
-                    </a>
-                    <div class="submenu">
-                        <a href="/usuarios">Usuarios</a>
-                        <a href="/roles">Roles</a>
-                        <a href="/permisos">Permisos</a>
-                    </div>
-                </li>
+                        <div class="submenu">
+                            @can('categorias.listar')
+                                <a href="/categorias">Categorías</a>
+                            @endcan
+                            @can('subcategorias.listar')
+                                <a href="/subcategorias">Subcategorías</a>
+                            @endcan
+                        </div>
+                    </li>
+                @endcanany
+                @can('asociaciones.listar')
+                    <li class="menu-item" id="li_asociaciones">
+                        <a class="menu-link" href="/asociaciones">
+                            <i class="fa-solid fa-list-check fa-xl" id="i_asociacion"
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                            <span class="text">Asociaciones</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('productos.listar')
+                    <li class="menu-item" id="li_productos">
+                        <a class="menu-link" href="/productos">
+                            <i class="icon material-icons md-shopping_bag"></i>
+                            <span class="text">Productos</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('administradores.listar')
+                    <li class="menu-item" id="li_administradores">
+                        <a class="menu-link" href="/administradores">
+                            <i class="fa-solid fa-list-check fa-xl" id="i_administrador"
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                            <span class="text">Administradores</span>
+                        </a>
+                    </li>
+                @endcan
+                @canany(['usuarios.listar', 'roles.listar', 'permisos.listar'])
+                    <li class="menu-item has-submenu" id="li_gestion_seguridad">
+                        <a class="menu-link">
+                            <i class="fas fa-lock fa-xl" id="i_seguridad"
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                            <span class="text">Gestion seguridad</span>
+                        </a>
+                        <div class="submenu">
+                            @can('usuarios.listar')
+                                <a href="/usuarios" id="a_usuarios">Usuarios</a>
+                            @endcan
+                            @can('roles.listar')
+                                <a href="/roles" id="a_roles">Roles</a>
+                            @endcan
+                            @can('permisos.listar')
+                                <a href="/permisos" id="a_permisos">Permisos</a>
+                            @endcan
+                        </div>
+                    </li>
+                @endcanany
                 <li class="menu-item has-submenu">
                     <a class="menu-link" href="page-orders-1.html">
                         <i class="icon material-icons md-shopping_cart"></i>

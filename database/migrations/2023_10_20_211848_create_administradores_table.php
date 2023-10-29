@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('administradores', function (Blueprint $table) {
             $table->id();
             $table->string('administrador');
+            $table->string('codigo_administrador');
+            $table->string('n_celular')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('email');
             $table->timestamps();
         });
     }
