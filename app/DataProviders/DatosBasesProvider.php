@@ -6072,4 +6072,42 @@ abstract class DatosBasesProvider
             ],
         ];
     }
+
+    public static function productos()
+    {
+        return [
+            [
+                'id' => 1,
+                'producto' => 'Uvas',
+                'descripcion' => '',
+                'imagen' => '/storage/categorias/categoria-cereales.webp',
+                //'precio' => 1200,
+                'subcategoria_id' => 1,
+                'estado' => 1,
+            ],
+            [
+                'id' => 2,
+                'producto' => 'Papas',
+                'descripcion' => '',
+                'imagen' => '/storage/subcategorias/subcategoria-huevos.webp',
+                //'precio' => 1200,
+                'subcategoria_id' => 1,
+                'estado' => 1,
+            ],
+        ];
+    }
+
+    // public static function imagenes()
+    // {
+    //     return [
+    //         [
+    //             'id' => 1,
+    //             'ruta' => '/storage/categorias/categoria-cereales.webp',
+    //             'descripcion' => '',
+    //             'imagen' => '/storage/categorias/categoria-cereales.webp',
+    //             'icono' => '/storage/categorias/categoria-cereales.svg',
+    //             'estado' => 1,
+    //         ],
+    //     ];
+    // }
 }

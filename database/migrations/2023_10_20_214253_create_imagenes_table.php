@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('imagenes', function (Blueprint $table) {
             $table->id();
 
-            $table->string('url');
-
-            $table->unsignedBigInteger('imageable_id');
-
-            $table->string('imageable_type');
+            $table->string('ruta');
+            $table->string('nombre');
+            // $table->Integer('estado');
+            // $table->unsignedBigInteger('producto_id');
+            // $table->foreign('producto_id')->references('id')->on('productos');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('imagenes');
     }
 };

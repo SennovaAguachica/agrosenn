@@ -10,15 +10,15 @@ class Productos extends Model
     use HasFactory;
     protected $fillable = [
         'id',
-        'categoria_id',
         'producto',
-        'precio',
+        //'precio',
         'descripcion',
         'imagen',
+        'subcategoria_id',
         'estado',
     ];
-    // public function categoria()
-    // {
-    //     return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
-    // }
+    public function subcategoria()
+    {
+        return $this->belongsTo(Subcategorias::class, 'subcategoria_id', 'id');
+    }
 }
