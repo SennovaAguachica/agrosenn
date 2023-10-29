@@ -27,6 +27,7 @@
         <h2 class="text-center">Gestión productos</h2>
         <br>
         <div class="card mb-4">
+            @can('productos.guardar')
             <header class="card-header">
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-md-3">
@@ -36,6 +37,7 @@
                     </div>
                 </div>
             </header>
+            @endcan
             <div class="card-body">
                 <table id="tablaproductos" class="table text-center table-hover" width="100%">
                     <thead style="text-align: center;">

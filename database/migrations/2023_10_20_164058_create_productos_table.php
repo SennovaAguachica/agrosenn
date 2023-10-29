@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('precio');
 
             $table->unsignedBigInteger('subcategoria_id');
-            $table->foreign('subcategoria_id')->references('id')->on('subcategoria');
+            $table->foreign('subcategoria_id')->references('id')->on('subcategorias');
 
             $table->unsignedBigInteger('estado_id');
             $table->foreign('estado_id')->references('id')->on('estados');

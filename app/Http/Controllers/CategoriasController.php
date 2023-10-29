@@ -8,18 +8,31 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class CategoriasController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:categorias.listar')->only('index');
+        $this->middleware('can:categorias.guardar')->only('guardarCategorias');
+        $this->middleware('can:categorias.actualizar')->only('actualizarCategorias');
+        $this->middleware('can:categorias.eliminar')->only('eliminarCategorias');
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
             return DataTables::of(Categorias::where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
-                data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
-                    $btn .= "&nbsp";
-                    $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    $btn = "";
+                    if(Auth::user()->can('categorias.actualizar')){
+                        $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+                        data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
+                    }
+                    if(Auth::user()->can('categorias.eliminar')){
+                        $btn .= "&nbsp";
+                        $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    }
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -70,12 +83,6 @@ class CategoriasController extends Controller
         if ($datos['imagen'] == "") {
             $aErrores[] = '- Escoja la imagen de la categoria';
         }
-        // $validacion = Categorias::where([
-        //     ['categoria', $datos['categoria']]
-        // ])->get();
-        // if (count($validacion) > 0) {
-        //     $aErrores[] = '- El categoria ya se encuentra registrada';
-        // }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
@@ -166,20 +173,11 @@ class CategoriasController extends Controller
             }
             $actualizarCategoria->save();
 
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            } else {
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
@@ -196,26 +194,15 @@ class CategoriasController extends Controller
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
-
         try {
             $eliminarCategoria = Categorias::findOrFail($datos['id']);
             $eliminarCategoria->update(['estado' => 0]);
-            //$eliminarCategoria->delete();
-            //dd(count($aErrores));
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            } else {
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
