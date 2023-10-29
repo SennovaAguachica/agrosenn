@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Nest Dashboard</title>
+    <title>Dashboard</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -750,10 +750,10 @@
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    &copy; Nest - HTML Ecommerce Template .
+                    &copy; Sennova
                 </div>
                 <div class="col-sm-6">
-                    <div class="text-sm-end">All rights reserved</div>
+                    <div class="text-sm-end">Todos los derechos reservados</div>
                 </div>
             </div>
         </footer>

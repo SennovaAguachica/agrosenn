@@ -12,6 +12,7 @@ use App\Models\Tipodocumentos;
 use App\Models\Vendedores;
 use App\Models\User;
 use App\Models\Categorias;
+use App\Models\Subcategorias;
 use App\DataProviders\DatosBasesProvider;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
         Role::insert(DatosBasesProvider::roles());
         User::insert(DatosBasesProvider::usuarios());
         Categorias::insert(DatosBasesProvider::categorias());
+        Subcategorias::insert(DatosBasesProvider::subcategorias());
         Permission::insert(DatosBasesProvider::permisos());
         DB::table('model_has_roles')->insert([
             [

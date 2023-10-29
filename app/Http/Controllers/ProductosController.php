@@ -24,20 +24,21 @@ class ProductosController extends Controller
         // dd($request->ajax());
         $categorias = Categorias::all();
         if ($request->ajax()) {
-            return DataTables::of(Productos::with('categoria')->where('estado',1)->get())->addIndexColumn()
-            ->addColumn('action', function($data){
-                $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId('.$data->id.',1)" data-bs-toggle="modal"
+            return DataTables::of(Productos::with('categoria')->where('estado', 1)->get())->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
                 data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
-                $btn .= "&nbsp";
-                $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId('.$data->id.',2)"><i class="fas fa-trash"></i></button>';
-                return $btn;
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+                    $btn .= "&nbsp";
+                    $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
-        return view ('vistas.backend.productos.productos',compact('categorias'));
+        return view('vistas.backend.productos.productos', compact('categorias'));
     }
-    public function peticionesAction(Request $request) {
+    public function peticionesAction(Request $request)
+    {
         $GUARDAR_PRODUCTOS = 1;
         $ACTUALIZAR_PRODUCTOS = 2;
         $ELIMINAR_PRODUCTOS = 3;
@@ -50,15 +51,15 @@ class ProductosController extends Controller
                 case $GUARDAR_PRODUCTOS:
                     $respuesta = $this->guardarProductos($request->all());
                     return $respuesta;
-                break;
+                    break;
                 case $ACTUALIZAR_PRODUCTOS:
                     $respuesta = $this->actualizarProductos($request->all());
                     return $respuesta;
-                break;
+                    break;
                 case $ELIMINAR_PRODUCTOS:
                     $respuesta = $this->eliminarProductos($request->all());
                     return $respuesta;
-                break;
+                    break;
             }
         } catch (\Exception $e) {
             $respuesta = array(
@@ -68,34 +69,36 @@ class ProductosController extends Controller
             return $respuesta;
         }
     }
-    public function guardarProductos($datos){
+    public function guardarProductos($datos)
+    {
         $aErrores = array();
         DB::beginTransaction();
-        if($datos['tipoProducto']==""){
+        if ($datos['tipoProducto'] == "") {
             $aErrores[] = '- Seleccione el tipo de producto';
         }
-        if($datos['nombreProducto']==""){
+        if ($datos['nombreProducto'] == "") {
             $aErrores[] = '- Diligencie el nombre del producto';
         }
-        if($datos['precioProducto']==""){
+        if ($datos['precioProducto'] == "") {
             $aErrores[] = '- Diligencie el precio del producto';
         }
-        if($datos['imagenproducto']==""){
+        if ($datos['imagenproducto'] == "") {
             $aErrores[] = '- Escoja la imagen del producto';
         }
         $validacion = Productos::where([
-            ['categoria_id',$datos['tipoProducto']],
-            ['producto',$datos['nombreProducto']],
-            ['estado',1]
+            ['categoria_id', $datos['tipoProducto']],
+            //['categoria_id',$datos['tipoCategoria']],
+            ['producto', $datos['nombreProducto']],
+            ['estado', 1]
         ])->get();
-        if(count($validacion)>0){
+        if (count($validacion) > 0) {
             $aErrores[] = '- El producto ya se encuentra registrado';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $nuevoProducto=new Productos();
+            $nuevoProducto = new Productos();
             $nuevoProducto->categoria_id = $datos['tipoProducto'];
             $nuevoProducto->producto = $datos['nombreProducto'];
             $nuevoProducto->precio = $datos['precioProducto'];
@@ -121,16 +124,17 @@ class ProductosController extends Controller
             throw  $e;
         }
     }
-    public function actualizarProductos($datos){
+    public function actualizarProductos($datos)
+    {
         $aErrores = array();
         DB::beginTransaction();
-        if($datos['tipoProducto']==""){
+        if ($datos['tipoProducto'] == "") {
             $aErrores[] = '- Seleccione el tipo de producto';
         }
-        if($datos['nombreProducto']==""){
+        if ($datos['nombreProducto'] == "") {
             $aErrores[] = '- Diligencie el nombre del producto';
         }
-        if($datos['precioProducto']==""){
+        if ($datos['precioProducto'] == "") {
             $aErrores[] = '- Diligencie el precio del producto';
         }
         if (count($aErrores) > 0) {
@@ -142,11 +146,10 @@ class ProductosController extends Controller
             $actualizarProducto->producto = $datos['nombreProducto'];
             $actualizarProducto->precio = $datos['precioProducto'];
             $actualizarProducto->descripcion = $datos['descripcionProducto'];
-            if(!empty($datos['imagenproducto'])){
-                if ($datos['imagenproducto']!=null) {
+            if (!empty($datos['imagenproducto'])) {
+                if ($datos['imagenproducto'] != null) {
                     //existe un archivo cargado?
-                    if (Storage::exists($actualizarProducto->imagen))
-                    {
+                    if (Storage::exists($actualizarProducto->imagen)) {
                         // aquí la borro
                         Storage::delete($actualizarProducto->imagen);
                     }
@@ -170,10 +173,11 @@ class ProductosController extends Controller
             throw  $e;
         }
     }
-    public function eliminarProductos($datos){
+    public function eliminarProductos($datos)
+    {
         $aErrores = array();
         DB::beginTransaction();
-        if($datos['id']==""){
+        if ($datos['id'] == "") {
             $aErrores[] = '- No existe producto a eliminar';
         }
         if (count($aErrores) > 0) {

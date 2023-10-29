@@ -2,20 +2,19 @@
 @extends('../vistas.plantilla.plantillaback')
 @section('script')
     <script>
-        var AJAX = "/categorias_peticiones";
-        var GUARDAR_CATEGORIAS = 1;
-        var ACTUALIZAR_CATEGORIAS = 2;
-        var ELIMINAR_CATEGORIAS = 3;
+        var AJAX = "/subcategorias_peticiones";
+        var GUARDAR_SUBCATEGORIAS = 1;
+        var ACTUALIZAR_SUBCATEGORIAS = 2;
+        var ELIMINAR_SUBCATEGORIAS = 3;
         var parametro_seleccionado = "";
-        var tablaCategorias = "";
+        var tablaSubcategorias = "";
         var fila = "";
         var vista = "";
         $(document).ready(function() {
-            $('#li_categorias').addClass('active');
-            $('#i_categoria').css('color', '#3BB77E');
-            cargarTablaCategorias();
-            guardarCategoria();
-            cargarImagen("#icono");
+            $('#li_categorias').addClass('active');//posible cambio
+            $('#i_categoria').css('color', '#3BB77E');//posible cambio
+            cargarTablaSubcategorias();
+            guardarSubcategoria();
             cargarImagen("#imagen");
             
             buttonClicks();
@@ -24,8 +23,8 @@
         function buttonClicks() {
             $("#btnmodalguardar").on("click", function(e) {
                 vista = 1;
-                $('#tipoCategoria').val("").trigger("chosen:updated");
-                $("#formGuardar")[0].reset();
+                $('#tipoSubcategoria').val("").trigger("chosen:updated");
+                $("#formGuardarSubcategoria")[0].reset();
             });
         }
 
@@ -34,15 +33,16 @@
             if (fila != "") {
                 $(fila).removeClass('selected');
             }
-            fila = tablaCategorias.row("." + data).node();
+            fila = tablaSubcategorias.row("." + data).node();
             $(fila).addClass('selected');
-            parametro_seleccionado = $("#tablacategorias").DataTable().row('.selected').data();
+            parametro_seleccionado = $("#tablasubcategorias").DataTable().row('.selected').data();
             
             if (modo == 1) {
-                $("#categoria").val(parametro_seleccionado.categoria);
+                $("#subcategoria").val(parametro_seleccionado.subcategoria);
+                $("#tipoSubcategoria").val(parametro_seleccionado.categoria_id);
+                $("#tipoSubcategoria").trigger("chosen:updated");
                 $("#descripcion").val(parametro_seleccionado.descripcion);
                 cargarImg("#imagen", parametro_seleccionado.imagen);
-                cargarImg("#icono", parametro_seleccionado.icono);
             } else if (modo == 2) {
                 Swal.fire({
                     title: '¿Esta seguro?',
@@ -55,12 +55,12 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/categorias_peticiones", // Reemplaza esto con la URL del servidor
+                            url: "/subcategorias_peticiones", // Reemplaza esto con la URL del servidor
                             type: 'POST',
                             dataType: 'json',
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_CATEGORIAS,
+                                accion: ELIMINAR_SUBCATEGORIAS,
                                 id: parametro_seleccionado.id,
                                 
                             },
@@ -68,8 +68,8 @@
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
                                     mensajeSuccessGeneral(
-                                        '- Se ha eliminado la categoría con exito');
-                                    tablaCategorias.ajax.reload();
+                                        '- Se ha eliminado la subcategoría con exito');
+                                    tablaSubcategorias.ajax.reload();
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                     
@@ -87,23 +87,29 @@
             }
         }
 
-        function guardarCategoria() {
-            $("#enviar").on("click", function(e) {
+
+        function guardarSubcategoria() {
+            $("#enviarSubcategoria").on("click", function(e) {
                 let datosFormulario = "";
                 if (vista == 1) {
                     $("#imagen").prop("required", true);
-                    $("#icono").prop("required", true);
                 } else if (vista == 2) {
                     $("#imagen").prop("required", false);
-                    $("#icono").prop("required", false);
                 }
                 e.preventDefault(); // Previene el envío por defecto del formulario
                 // Valida el formulario usando Bootstrap
-                var form = document.getElementById("formGuardar");
+                var form = document.getElementById("formGuardarSubcategoria");
 
                 if (form.checkValidity() === false) {
                     form.classList.add("was-validated");
-                    if ($("#imagen").val() == "" || $("#icono").val() == "") {
+                    if ($("#tipoSubcategoria").val() == "") {
+                        $("#tipoSubcategoria_chosen").removeClass("valid");
+                        $("#tipoSubcategoria_chosen").addClass("is-invalid");
+                    } else {
+                        $("#tipoSubcategoria_chosen").removeClass("is-invalid");
+                        $("#tipoSubcategoria_chosen").addClass("valid");
+                    }
+                    if ($("#imagen").val() == "") {
                         $(".file-input").removeClass("valid");
                         $(".file-input").addClass("is-invalid");
                     } else {
@@ -114,12 +120,12 @@
                 }
 
                 // Recopila los datos del formulario
-                datosFormulario = new FormData($('#formGuardar')[0]);
+                datosFormulario = new FormData($('#formGuardarSubcategoria')[0]);
                 if (vista == 1) {
-                    datosFormulario.append('accion', GUARDAR_CATEGORIAS);
+                    datosFormulario.append('accion', GUARDAR_SUBCATEGORIAS);
                 } else if (vista == 2) {
                     datosFormulario.append('id', parametro_seleccionado.id);
-                    datosFormulario.append('accion', ACTUALIZAR_CATEGORIAS);
+                    datosFormulario.append('accion', ACTUALIZAR_SUBCATEGORIAS);
                 }
                 console.log(datosFormulario);
                 // Realiza la solicitud Ajax
@@ -134,7 +140,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/categorias_peticiones", // Reemplaza esto con la URL del servidor
+                            url: "/subcategorias_peticiones", // Reemplaza esto con la URL del servidor
                             method: "POST",
                             data: datosFormulario,
                             processData: false,
@@ -149,9 +155,9 @@
                                         mensajeSuccessGeneral(
                                             '- Se ha actualizado la categoria con exito');
                                     }
-                                    $("#formGuardar")[0].reset();
-                                    tablaCategorias.ajax.reload();
-                                    $('#modalGuardarForm').modal('hide');
+                                    $("#formGuardarSubcategoria")[0].reset();
+                                    tablaSubcategorias.ajax.reload();
+                                    $('#modalGuardarFormSubcategoria').modal('hide');
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
@@ -167,22 +173,18 @@
             });
         }
 
-        function cargarTablaCategorias() {
-            tablaCategorias = $('#tablacategorias').DataTable({
+
+        function cargarTablaSubcategorias() {
+            tablaSubcategorias = $('#tablasubcategorias').DataTable({
                 "serverSide": true,
                 "processing": true,
                 "responsive": true,
                 "select": true,
                 "ajax": {
-                    "url": "/categorias",
+                    "url": "/subcategorias",
                     "type": "GET",
                 },
-                "columns": [{
-                        data: 'icono',
-                        render: function(data, type, row) {
-                            return '<img src="' + data + '" width="50px" />';
-                        }
-                    },
+                "columns": [
                     {
                         data: 'imagen',
                         render: function(data, type, row) {
@@ -190,11 +192,15 @@
                         }
                     },
                     {
-                        data: 'categoria'
+                        data: 'subcategoria'
+                    },
+                    {
+                        data: 'categorias.categoria'
                     },
                     {
                         data: 'descripcion'
                     },
+                    
                     {
                         data: 'action'
                     }
