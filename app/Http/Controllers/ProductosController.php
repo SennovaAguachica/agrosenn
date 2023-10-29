@@ -12,9 +12,13 @@ use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:productos.listar')->only('index');
+        $this->middleware('can:productos.guardar')->only('guardarProductos');
+        $this->middleware('can:productos.actualizar')->only('actualizarProductos');
+        $this->middleware('can:productos.eliminar')->only('eliminarProductos');
+    }
     public function index(Request $request)
     {
         // dd($request->ajax());
@@ -104,20 +108,12 @@ class ProductosController extends Controller
             $nuevoProducto->created_at = \Carbon\Carbon::now();
             $nuevoProducto->updated_at = \Carbon\Carbon::now();
             $nuevoProducto->save();
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            }else{
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
         }
         catch (\Exception $e) 
         {
@@ -161,21 +157,12 @@ class ProductosController extends Controller
                 $actualizarProducto->imagen = $url;
             }
             $actualizarProducto->save();
-            
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            }else{
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
         }
         catch (\Exception $e) 
         {
@@ -195,20 +182,12 @@ class ProductosController extends Controller
         try {
             $eliminarProducto = Productos::findOrFail($datos['id']);
             $eliminarProducto->update(['estado'=>'0']);
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            }else{
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
         }
         catch (\Exception $e) 
         {

@@ -1,6 +1,6 @@
-@extends('../scripts.backend.categorias.categoriasscript')
+@extends('../scripts.backend.administradores.administradoresscript')
 @section('titulo')
-    <title>Categorias</title>
+    <title>Administradores</title>
     <style>
         .is-invalid {
             border-color: #f00;
@@ -24,28 +24,28 @@
 @endsection
 @section('contenido')
     <div id="seccionlistar">
-        <h2 class="text-center">Gestión categorias de productos</h2>
+        <h2 class="text-center">Gestión Administradores</h2>
         <br>
         <div class="card mb-4">
-            @can('categorias.guardar')
+            @can('administradores.guardar')
             <header class="card-header">
                 <div class="row">
                     <div class="col-xs-3 col-sm-3 col-md-3">
                         <button class="btn btn-primary" id="btnmodalguardar" data-bs-toggle="modal"
                             data-bs-target="#modalGuardarForm" style="color: white;"><i class="fas fa-plus"></i>
-                            Categoria</button>
+                            Administrador</button>
                     </div>
                 </div>
             </header>
             @endcan
             <div class="card-body">
-                <table id="tablacategorias" class="table text-center table-hover" width="100%">
+                <table id="tablaadministradores" class="table text-center table-hover" width="100%">
                     <thead style="text-align: center;">
                         <tr class="font-xxl">
-                            <th>Icono</th>
-                            <th>Imagen</th>
-                            <th>Categoria</th>
-                            <th>Descripcion</th>
+                            <th>Administrador</th>
+                            <th>Codigo</th>
+                            <th>Celular</th>
+                            <th>Email</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -58,9 +58,16 @@
 @endsection
 @section('informacionModal')
     <div class="row">
-        <div class="col-md-12 col-lg-12 col-xs-12 ">
-            <label for="categoria">Nombre de categoria</label>
-            <input type="text" class="form-control" name="categoria" id="categoria" required>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <label for="administrador">Nombre de Administrador</label>
+            <input type="text" class="form-control" name="administrador" id="administrador" required>
+            <div class="invalid-feedback">
+                Campo obligatorio.
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <label for="codigoadministrador">Codigo de Administrador</label>
+            <input type="text" class="form-control" name="codigoadministrador" id="codigoadministrador" required>
             <div class="invalid-feedback">
                 Campo obligatorio.
             </div>
@@ -68,28 +75,16 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-12 col-lg-12 col-xs-12 ">
-            <label for="descripcion">Descripción</label>
-            <textarea type="text" class="form-control" name="descripcion" id="descripcion"></textarea>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-xs-12 ">
-            <label for="imagen">Imagen</label>
-            <input type="file" id="imagen" name="imagen" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp|image/*"
-                required>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <label for="celular">Nº celular</label>
+            <input type="tel" class="form-control" name="celular" id="celular" required>
             <div class="invalid-feedback">
                 Campo obligatorio.
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 col-lg-12 col-xs-12 ">
-            <label for="icono">Icono</label>
-            <input type="file" id="icono" name="icono" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .svg|image/*"
-                required>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <label for="email">Correo electronico</label>
+            <input type="text" class="form-control" name="email" id="email" required>
             <div class="invalid-feedback">
                 Campo obligatorio.
             </div>
