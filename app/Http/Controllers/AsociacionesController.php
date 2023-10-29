@@ -9,19 +9,35 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Auth;
 
 class AsociacionesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('can:asociaciones.listar')->only('index');
+        $this->middleware('can:asociaciones.guardar')->only('guardarAsociaciones');
+        $this->middleware('can:asociaciones.actualizar')->only('actualizarAsociaciones');
+        $this->middleware('can:asociaciones.eliminar')->only('eliminarAsociaciones');
+    }
     public function index(Request $request)
     {
         $departamentos = Departamentos::all();
         if ($request->ajax()) {
             return DataTables::of(Asociaciones::with('municipio')->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
-                data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
-                    $btn .= "&nbsp";
-                    $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    $btn = "";
+                    if(Auth::user()->can('asociaciones.actualizar')){
+                        $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+                        data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
+                    }
+                    if(Auth::user()->can('asociaciones.eliminar')){
+                        $btn .= "&nbsp";
+                        $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    }
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -95,20 +111,23 @@ class AsociacionesController extends Controller
             $nuevoAsociacion->created_at = \Carbon\Carbon::now();
             $nuevoAsociacion->updated_at = \Carbon\Carbon::now();
             $nuevoAsociacion->save();
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            } else {
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            //Obtener el id asociacion del ultimo registro
+            $ultimoInsertado = Asociaciones::latest('id')->first();
+            
+            $nuevoUsuario = new User();
+            $nuevoUsuario->idrol = 2;
+            $nuevoUsuario->idasociacion = $ultimoInsertado->id;
+            $nuevoUsuario->email = $datos['email'];
+            $nuevoUsuario->password = Hash::make($datos['codigoasociacion']);
+            $nuevoUsuario->estado = 1;
+            $nuevoUsuario->save();
+            $nuevoUsuario->roles()->sync(2);
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
@@ -125,38 +144,23 @@ class AsociacionesController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $actualizarAsociacion = Asociaciones::findOrFail($datos['id']);;
+            $actualizarAsociacion = Asociaciones::with('usuario')->findOrFail($datos['id']);;
             $actualizarAsociacion->asociacion = $datos['asociacion'];
-            $actualizarAsociacion->descripcion = $datos['descripcion'];
-            if (!empty($datos['imagen'])) {
-                if ($datos['imagen'] != null) {
-                    //existe un archivo cargado?
-                    if (Storage::exists($actualizarAsociacion->imagen)) {
-                        // aquí la borro
-                        Storage::delete($actualizarAsociacion->imagen);
-                    }
-                    //guardo el archivo nuevo
-                    $imagen = Storage::disk('public')->put('/asociacions', $datos['imagen']);
-                    $url = Storage::url($imagen);
-                }
-                $actualizarAsociacion->imagen = $url;
+            $actualizarAsociacion->codigo_asociacion = $datos['codigoasociacion'];
+            $actualizarAsociacion->direccion = $datos['direccion'];
+            $actualizarAsociacion->n_celular = $datos['celular'];
+            if($actualizarAsociacion->email != $datos['email']){
+                $actualizarAsociacion->usuario->email = $datos['email'];
+                $actualizarAsociacion->usuario->save();
             }
+            $actualizarAsociacion->email = $datos['email'];
             $actualizarAsociacion->save();
-
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            } else {
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
@@ -167,7 +171,7 @@ class AsociacionesController extends Controller
         $aErrores = array();
         DB::beginTransaction();
         if ($datos['id'] == "") {
-            $aErrores[] = '- No existe asociacion a eliminar';
+            $aErrores[] = '- No existe asociación a eliminar';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
@@ -175,20 +179,12 @@ class AsociacionesController extends Controller
         try {
             $eliminarAsociacion = Asociaciones::findOrFail($datos['id']);
             $eliminarAsociacion->update(['estado' => '0']);
-            if (count($aErrores) > 0) {
-                $respuesta = array(
-                    'mensaje'      => $aErrores,
-                    'estado'      => 0,
-                );
-                return response()->json($respuesta);
-            } else {
-                DB::commit();
-                $respuesta = array(
-                    'mensaje'      => "",
-                    'estado'      => 1,
-                );
-                return response()->json($respuesta);
-            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;

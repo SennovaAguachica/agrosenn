@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('idvendedor')->references('id')->on('vendedores');
             $table->foreign('idasociacion')->references('id')->on('asociaciones');
             $table->foreign('idcliente')->references('id')->on('clientes');
-            $table->foreign('idadministrador')->references('id')->on('administradores');
+            $table->foreign('idadministrador')->references('id')->on('administradores')->onDelete('cascade');
         });
     }
 

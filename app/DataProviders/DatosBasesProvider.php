@@ -5356,6 +5356,61 @@ abstract class DatosBasesProvider
             ]
         ];
     }
+    public static function permisos(){
+        return [
+            //Permisos clientes
+            ['id' => '1','name' => 'clientes.listar', 'description' => 'Listar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            ['id' => '2','name' => 'clientes.guardar', 'description' => 'Guardar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            ['id' => '3','name' => 'clientes.actualizar', 'description' => 'Actualizar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            ['id' => '4','name' => 'clientes.eliminar', 'description' => 'Eliminar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            //Permisos vendedores
+            ['id' => '5','name' => 'vendedores.listar', 'description' => 'Listar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '6','name' => 'vendedores.guardar', 'description' => 'Guardar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '7','name' => 'vendedores.actualizar', 'description' => 'Actualizar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '8','name' => 'vendedores.eliminar', 'description' => 'Eliminar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            //Permisos administradores
+            ['id' => '9','name' => 'administradores.listar', 'description' => 'Listar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            ['id' => '10','name' => 'administradores.guardar', 'description' => 'Guardar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            ['id' => '11','name' => 'administradores.actualizar', 'description' => 'Actualizar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            ['id' => '12','name' => 'administradores.eliminar', 'description' => 'Eliminar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            //Permisos asociaciones
+            ['id' => '13','name' => 'asociaciones.listar', 'description' => 'Listar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '14','name' => 'asociaciones.guardar', 'description' => 'Guardar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '15','name' => 'asociaciones.actualizar', 'description' => 'Actualizar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '16','name' => 'asociaciones.eliminar', 'description' => 'Eliminar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            //Permisos productos
+            ['id' => '17','name' => 'productos.listar', 'description' => 'Listar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+            ['id' => '18','name' => 'productos.guardar', 'description' => 'Guardar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+            ['id' => '19','name' => 'productos.actualizar', 'description' => 'Actualizar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+            ['id' => '20','name' => 'productos.eliminar', 'description' => 'Eliminar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+             //Permisos categorias
+             ['id' => '21','name' => 'categorias.listar', 'description' => 'Listar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+             ['id' => '22','name' => 'categorias.guardar', 'description' => 'Guardar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+             ['id' => '23','name' => 'categorias.actualizar', 'description' => 'Actualizar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+             ['id' => '24','name' => 'categorias.eliminar', 'description' => 'Eliminar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+             //Permisos subcategorias
+             ['id' => '25','name' => 'subcategorias.listar', 'description' => 'Listar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+             ['id' => '26','name' => 'subcategorias.guardar', 'description' => 'Guardar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+             ['id' => '27','name' => 'subcategorias.actualizar', 'description' => 'Actualizar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+             ['id' => '28','name' => 'subcategorias.eliminar', 'description' => 'Eliminar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+            //Permisos usuarios
+            ['id' => '29','name' => 'usuarios.listar', 'description' => 'Listar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '30','name' => 'usuarios.guardar', 'description' => 'Guardar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '31','name' => 'usuarios.actualizar', 'description' => 'Actualizar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '32','name' => 'usuarios.eliminar', 'description' => 'Eliminar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '33','name' => 'usuarios.habilitar', 'description' => 'Habilitar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            //Permisos roles
+            ['id' => '34','name' => 'roles.listar', 'description' => 'Listar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            ['id' => '35','name' => 'roles.guardar', 'description' => 'Guardar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            ['id' => '36','name' => 'roles.actualizar', 'description' => 'Actualizar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            ['id' => '37','name' => 'roles.eliminar', 'description' => 'Eliminar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            //Permisos permisos
+            ['id' => '38','name' => 'permisos.listar', 'description' => 'Listar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+            ['id' => '39','name' => 'permisos.guardar', 'description' => 'Guardar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+            ['id' => '40','name' => 'permisos.actualizar', 'description' => 'Actualizar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+            ['id' => '41','name' => 'permisos.eliminar', 'description' => 'Eliminar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+        ];
+    }
     public static function TiposDocumentos()
     {
         return [
@@ -5370,7 +5425,14 @@ abstract class DatosBasesProvider
     public static function administradores()
     {
         return [
-            ['id' => 1, 'administrador' => 'admin 1']
+            ['id' => 1, 'administrador' => 'admin 1', 'codigo_administrador' => '12345', 'n_celular' => '12345', 'direccion' => '12345', 'email' => 'administrativo@gmail.com']
+        ];
+    }
+    public static function model_roles()
+    {
+        return [
+                [ 'role_id' => 1, 'model_type' => "App\Models\User",'model_id' => 1
+                ]
         ];
     }
     public static function clientes()

@@ -12,8 +12,8 @@ class Clientes extends Model
         'id',
         'cliente',
     ];
-    public function usuarios()
+    public function usuario()
     {
-      return $this->hasMany(User::class,'idcliente','id');
+      return $this->hasOne(User::class,'idcliente','id');
     }
 }

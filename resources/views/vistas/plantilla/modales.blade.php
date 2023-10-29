@@ -35,7 +35,9 @@
                 <br>
                 <form class="row g-3 needs-validation" id="formGuardar" novalidate>
                     @csrf
-                    @yield('informacionModal')
+                    <div class="container">
+                        @yield('informacionModal')
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
