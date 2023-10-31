@@ -32,7 +32,23 @@
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}">
     <!-- Template CSS -->
     <link href="assetsweb/css/main.css" rel="stylesheet" type="text/css" />
+    <style>
+        .colored-toast.swal2-icon-error {
+            background-color: #f27474 !important;
+        }
 
+        .colored-toast .swal2-title {
+            color: white;
+        }
+
+        .colored-toast .swal2-close {
+            color: white;
+        }
+
+        .colored-toast .swal2-html-container {
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -95,6 +111,15 @@
                             <i class="fa-solid fa-list-check fa-xl" id="i_administrador"
                                 style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
                             <span class="text">Administradores</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('vendedores.listar')
+                    <li class="menu-item" id="li_vendedores">
+                        <a class="menu-link" href="/vendedores">
+                            <i class="fa-solid fa-list-check fa-xl" id="i_vendedor"
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                            <span class="text">Vendedores</span>
                         </a>
                     </li>
                 @endcan

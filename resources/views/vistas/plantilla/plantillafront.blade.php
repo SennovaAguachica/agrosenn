@@ -754,6 +754,7 @@
     <script src="assetsfront/js/plugins/perfect-scrollbar.js"></script>
     <script src="assetsfront/js/plugins/magnific-popup.js"></script>
     <script src="assetsfront/js/plugins/select2.min.js"></script>
+    <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
     <script src="assetsfront/js/plugins/waypoints.js"></script>
     <script src="assetsfront/js/plugins/counterup.js"></script>
     <script src="assetsfront/js/plugins/jquery.countdown.min.js"></script>
@@ -766,6 +767,7 @@
     <!-- Template  JS -->
     <script src="./assetsfront/js/main.js?v=5.6"></script>
     <script src="./assetsfront/js/shop.js?v=5.6"></script>
+    @yield('script')
 </body>
 
 </html>

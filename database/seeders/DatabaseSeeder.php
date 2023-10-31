@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         Administradores::insert(DatosBasesProvider::administradores());
         Clientes::insert(DatosBasesProvider::clientes());
         Asociaciones::insert(DatosBasesProvider::asociaciones());
-        Vendedores::insert(DatosBasesProvider::vendedores());
+        // Vendedores::insert(DatosBasesProvider::vendedores());
         Role::insert(DatosBasesProvider::roles());
         User::insert(DatosBasesProvider::usuarios());
         Categorias::insert(DatosBasesProvider::categorias());

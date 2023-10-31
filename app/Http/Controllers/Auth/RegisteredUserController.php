@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Tipodocumentos;
+use App\Models\Departamentos;
+use App\Models\Ciudades;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +23,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('vistas.login.register');
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
+        return view('vistas.login.register',compact('tiposDocumentos','departamentos'));
     }
 
     /**
@@ -30,7 +35,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // dd($request->all());
+        dd($request->all());
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -51,5 +56,10 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+    public function buscarMunicipiosRegister(Request $request)
+    {
+        $municipios = Ciudades::where('iddepartamentos', $request->iddepartamento)->get();
+        return $municipios;
     }
 }

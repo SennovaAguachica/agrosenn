@@ -12,6 +12,7 @@ class Vendedores extends Model
         'id',
         'id_tipodocumento',
         'id_asociacion',
+        'id_municipio',
         'n_documento',
         'primer_nombre',
         'segundo_nombre',
@@ -24,5 +25,13 @@ class Vendedores extends Model
     public function usuario()
     {
       return $this->hasOne(User::class,'idvendedor','id');
+    }
+    public function tipodocumento()
+    {
+        return $this->belongsTo(Tipodocumentos::class,'id_tipodocumento','id');
+    }
+    public function municipio()
+    {
+        return $this->belongsTo(Ciudades::class,'id_municipio','id');
     }
 }

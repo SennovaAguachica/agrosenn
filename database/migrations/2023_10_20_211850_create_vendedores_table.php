@@ -15,18 +15,19 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_tipodocumento')->unsigned();
             $table->bigInteger('id_asociacion')->unsigned();
-            $table->string('n_documento');
-            $table->string('primer_nombre');
-            $table->string('segundo_nombre')->nullable();
-            $table->string('primer_apellido');
-            $table->string('segundo_apellido')->nullable();
+            $table->bigInteger('id_municipio')->unsigned();
+            $table->string('n_documento')->unique();
+            $table->string('nombres');
+            $table->string('apellidos');
             $table->string('direccion')->nullable();
             $table->string('n_celular')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->Integer('estado');
             $table->timestamps();
 
             $table->foreign('id_tipodocumento')->references('id')->on('tipodocumentos');
             $table->foreign('id_asociacion')->references('id')->on('asociaciones');
+            $table->foreign('id_municipio')->references('id')->on('ciudades');
         });
     }
 
