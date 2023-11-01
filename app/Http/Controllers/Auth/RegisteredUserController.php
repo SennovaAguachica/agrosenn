@@ -116,7 +116,7 @@ class RegisteredUserController extends Controller
                 $nuevoVendedor->direccion = $request->direccion;
                 $nuevoVendedor->n_celular = $request->celular;
                 $nuevoVendedor->email = $request->email;
-                $nuevoVendedor->estado = 2;
+                $nuevoVendedor->estado = 0;
                 $nuevoVendedor->created_at = \Carbon\Carbon::now();
                 $nuevoVendedor->updated_at = \Carbon\Carbon::now();
                 $nuevoVendedor->save();
@@ -127,7 +127,7 @@ class RegisteredUserController extends Controller
                 $nuevoUsuario->idvendedor = $ultimoInsertado->id;
                 $nuevoUsuario->email = $request->email;
                 $nuevoUsuario->password = Hash::make($request->password);
-                $nuevoUsuario->estado = 2;
+                $nuevoUsuario->estado = 0;
                 $nuevoUsuario->save();
                 $nuevoUsuario->roles()->sync(3);
             }else if($request->tiporegistro == 4){
