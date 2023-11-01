@@ -116,7 +116,7 @@ class VendedoresController extends Controller
             $nuevoVendedor = new Vendedores();
             $nuevoVendedor->id_tipodocumento = $datos['idtipodocumento'];
             $nuevoVendedor->id_municipio = $datos['idmunicipio'];
-            $nuevoVendedor->id_asociacion = Auth::user()->id;
+            $nuevoVendedor->id_asociacion = Auth::user()->idasociacion;
             $nuevoVendedor->n_documento = $datos['documento'];
             $nuevoVendedor->nombres = $datos['nombres'];
             $nuevoVendedor->apellidos = $datos['apellidos'];
