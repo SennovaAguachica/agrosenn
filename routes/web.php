@@ -9,6 +9,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AsociacionesController;
 use App\Http\Controllers\SeguridadController;
 use App\Http\Controllers\AdministradoresController;
+use App\Http\Controllers\VendedoresController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,10 +51,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/administradores', [AdministradoresController::class, 'index']);
     Route::post('/administradores_peticiones', [AdministradoresController::class, 'peticionesAction']);
 
+    Route::get('/vendedores', [VendedoresController::class, 'index']);
+    Route::post('/vendedores_peticiones', [VendedoresController::class, 'peticionesAction']);
+
+    Route::post('/login_peticiones', [VendedoresController::class, 'peticionesAction']);
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
+    Route::post('/seguridad_peticiones', [SeguridadController::class, 'peticionesAction']);
     Route::get('/roles', [SeguridadController::class, 'indexroles']);
     Route::get('/permisos', [SeguridadController::class, 'indexpermisos']);
-    Route::post('/seguridad_peticiones', [SeguridadController::class, 'peticionesAction']);
 });
 Route::get('/index', [IndexController::class, 'index']);
 require __DIR__ . '/auth.php';

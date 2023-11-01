@@ -27,16 +27,20 @@ class AsociacionesController extends Controller
     {
         $departamentos = Departamentos::all();
         if ($request->ajax()) {
-            return DataTables::of(Asociaciones::with('municipio')->get())->addIndexColumn()
+            return DataTables::of(Asociaciones::with('municipio.departamento')->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
-                    if(Auth::user()->can('asociaciones.actualizar')){
+                    if($data->estado == 1 && Auth::user()->can('asociaciones.actualizar')){
                         $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
                         data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
                     }
-                    if(Auth::user()->can('asociaciones.eliminar')){
+                    if($data->estado == 1 && Auth::user()->can('asociaciones.eliminar')){
                         $btn .= "&nbsp";
                         $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    }
+                    if($data->estado == 0 && Auth::user()->can('asociaciones.habilitar')){
+                        $btn .= "&nbsp";
+                        $btn .= '<button type="button"  class="habilitarbutton btn btn-primary" onclick="buscarId(' . $data->id . ',3)"><i class="fas fa-angle-double-up"></i> Habilitar</button>';
                     }
                     return $btn;
                 })
@@ -51,6 +55,7 @@ class AsociacionesController extends Controller
         $ACTUALIZAR_ASOCIACIONES = 2;
         $ELIMINAR_ASOCIACIONES = 3;
         $BUSCAR_MUNICIPIOS = 4;
+        $HABILITAR_ASOCIACION = 5;
         try {
             // buscar 001
             // crear 002
@@ -72,6 +77,10 @@ class AsociacionesController extends Controller
                 case $BUSCAR_MUNICIPIOS:
                     $municipios = $this->buscarMunicipios($request->all());
                     return $municipios;
+                    break;
+                case $HABILITAR_ASOCIACION:
+                    $respuesta = $this->habilitarAsociacion($request->all());
+                    return $respuesta;
                     break;
             }
         } catch (\Exception $e) {
@@ -97,6 +106,15 @@ class AsociacionesController extends Controller
         if (count($validacion) > 0) {
             $aErrores[] = '- El asociacion ya se encuentra registrada';
         }
+        $validacionCorreo = Asociaciones::where([
+            ['email', $datos['email']]
+        ])->get();
+        $validacionCorreoUser = User::where([
+            ['email', $datos['email']]
+        ])->get();
+        if (count($validacionCorreo) > 0 || count($validacionCorreoUser) > 0) {
+            $aErrores[] = '- El correo ya se encuentra registrado';
+        }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
@@ -108,6 +126,7 @@ class AsociacionesController extends Controller
             $nuevoAsociacion->direccion = $datos['direccion'];
             $nuevoAsociacion->email = $datos['email'];
             $nuevoAsociacion->id_municipio = $datos['idmunicipio'];
+            $nuevoAsociacion->estado = 1;
             $nuevoAsociacion->created_at = \Carbon\Carbon::now();
             $nuevoAsociacion->updated_at = \Carbon\Carbon::now();
             $nuevoAsociacion->save();
@@ -137,8 +156,24 @@ class AsociacionesController extends Controller
     {
         $aErrores = array();
         DB::beginTransaction();
-        if ($datos['asociacion'] == "") {
-            $aErrores[] = '- Diligencie el nombre de la asociacion';
+        if ($datos['asociacion'] == "" && $datos['codigoasociacion'] == "" && $datos['direccion'] == "" && $datos['celular'] == "" && $datos['email'] == "" && $datos['idmunicipio'] == "") {
+            $aErrores[] = '- Faltan datos necesarios';
+        }
+        $validacion = Asociaciones::where([
+            ['codigo_asociacion', $datos['codigoasociacion']]
+        ])->where('id', '!=', $datos['id'])->get();
+
+        if (count($validacion) > 0) {
+            $aErrores[] = '- El asociacion ya se encuentra registrada';
+        }
+        $validacionCorreo = Asociaciones::where([
+            ['email', $datos['email']]
+        ])->where('id', '!=', $datos['id'])->get();
+        $validacionCorreoUser = User::where([
+            ['email', $datos['email']]
+        ])->where('idasociacion', '!=', $datos['id'])->get();
+        if (count($validacionCorreo) > 0 || count($validacionCorreoUser) > 0) {
+            $aErrores[] = '- El correo ya se encuentra registrado';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
@@ -177,13 +212,43 @@ class AsociacionesController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $eliminarAsociacion = Asociaciones::findOrFail($datos['id']);
+            $eliminarAsociacion = Asociaciones::with('usuario')->findOrFail($datos['id']);
             $eliminarAsociacion->update(['estado' => '0']);
+            if($eliminarAsociacion->usuario){
+                $eliminarAsociacion->usuario->update(['estado' => '0']);
+            }
             DB::commit();
             $respuesta = array(
                 'mensaje'      => "",
                 'estado'      => 1,
             );
+            return response()->json($respuesta);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
+    }
+    public function habilitarAsociacion($datos)
+    {
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['id'] == "") {
+            $aErrores[] = '- No existe asociación a habilitar';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+        try {
+            $habilitarAsociacion = Asociaciones::findOrFail($datos['id']);
+            $habilitarAsociacion->update(['estado' => '1']);
+            if($habilitarAsociacion->usuario){
+                $habilitarAsociacion->usuario->update(['estado' => '1']);
+            }
+            DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
             return response()->json($respuesta);
         } catch (\Exception $e) {
             DB::rollback();

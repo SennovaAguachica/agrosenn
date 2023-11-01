@@ -15,7 +15,6 @@
             $('#li_administradores').addClass('active');
             $('#i_administrador').css('color', '#3BB77E');
             cargarTablaAdministradores();
-            guardarAdministrativo();
             buttonClicks();
         });
 
@@ -24,64 +23,6 @@
                 vista = 1;
                 $("#formGuardar")[0].reset();
             });
-        }
-
-        function buscarId(data, modo) {
-            vista = 2;
-            if (fila != "") {
-                $(fila).removeClass('selected');
-            }
-            fila = tablaAdministradores.row("." + data).node();
-            $(fila).addClass('selected');
-            parametro_seleccionado = $("#tablaadministradores").DataTable().row('.selected').data();
-            if (modo == 1) {
-                console.log(parametro_seleccionado);
-                $("#administrador").val(parametro_seleccionado.administrador);
-                $("#codigoadministrador").val(parametro_seleccionado.codigo_administrador);
-                $("#celular").val(parametro_seleccionado.n_celular);
-                $("#email").val(parametro_seleccionado.email);
-            } else if (modo == 2) {
-                Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara el producto!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/administradores_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_ADMINISTRADORES,
-                                id: parametro_seleccionado.id
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha eliminado el administrador con exito');
-                                    tablaAdministradores.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
-                            }
-                        });
-                    }
-                });
-            }
-        }
-
-        function guardarAdministrativo() {
             $("#enviar").on("click", function(e) {
                 let datosFormulario = "";
                 e.preventDefault();
@@ -128,7 +69,8 @@
                                             '- Se ha agregado el administrador con exito');
                                     } else if (vista == 2) {
                                         mensajeSuccessGeneral(
-                                            '- Se ha actualizado el administrador con exito');
+                                            '- Se ha actualizado el administrador con exito'
+                                        );
                                     }
                                     $("#formGuardar")[0].reset();
                                     tablaAdministradores.ajax.reload();
@@ -146,6 +88,25 @@
                     }
                 });
             });
+        }
+
+        function buscarId(data, modo) {
+            vista = 2;
+            if (fila != "") {
+                $(fila).removeClass('selected');
+            }
+            fila = tablaAdministradores.row("." + data).node();
+            $(fila).addClass('selected');
+            parametro_seleccionado = $("#tablaadministradores").DataTable().row('.selected').data();
+            if (modo == 1) {
+                console.log(parametro_seleccionado);
+                $("#administrador").val(parametro_seleccionado.administrador);
+                $("#codigoadministrador").val(parametro_seleccionado.codigo_administrador);
+                $("#celular").val(parametro_seleccionado.n_celular);
+                $("#email").val(parametro_seleccionado.email);
+            } else if (modo == 2) {
+                eliminarAdministrador(parametro_seleccionado.id);
+            }
         }
 
         function cargarTablaAdministradores() {
@@ -214,6 +175,46 @@
                 error: function(request, status, error) {
                     mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");
                     $(".carga").removeClass("show").addClass("hidden");
+                }
+            });
+        }
+
+        function eliminarAdministrador(id) {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Recuerde que se eliminara el producto!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/administradores_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_ADMINISTRADORES,
+                            id
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha eliminado el administrador con exito');
+                                tablaAdministradores.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
+                            }
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                        }
+                    });
                 }
             });
         }

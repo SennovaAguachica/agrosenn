@@ -12,4 +12,8 @@ class Tipodocumentos extends Model
         'id',
         'tipo_documento',
     ];
+    public function vendedores()
+    {
+      return $this->hasMany(Vendedores::class,'id_tipodocumento','id');
+    }
 }

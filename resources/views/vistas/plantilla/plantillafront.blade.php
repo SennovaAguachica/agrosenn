@@ -175,7 +175,8 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="assets/images/senova.png" alt="logo" width="20%" style="padding: 0; margin: 0" /></a>
+                        <a href="index.html"><img src="assets/images/senova.png" alt="logo" width="20%"
+                                style="padding: 0; margin: 0" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
@@ -220,14 +221,16 @@
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a href="shop-compare.html">
-                                        <img class="svgInject" alt="Nest" src="assetsfront/imgs/theme/icons/icon-compare.svg" />
+                                        <img class="svgInject" alt="Nest"
+                                            src="assetsfront/imgs/theme/icons/icon-compare.svg" />
                                         <span class="pro-count blue">3</span>
                                     </a>
                                     <a href="shop-compare.html"><span class="lable ml-0">Comparar</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a href="shop-wishlist.html">
-                                        <img class="svgInject" alt="Nest" src="assetsfront/imgs/theme/icons/icon-heart.svg" />
+                                        <img class="svgInject" alt="Nest"
+                                            src="assetsfront/imgs/theme/icons/icon-heart.svg" />
                                         <span class="pro-count blue">6</span>
                                     </a>
                                     <a href="shop-wishlist.html"><span class="lable">Favoritos</span></a>
@@ -242,7 +245,8 @@
                                         <ul>
                                             <li>
                                                 <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="assetsfront/imgs/shop/thumbnail-3.jpg" /></a>
+                                                    <a href="shop-product-right.html"><img alt="Nest"
+                                                            src="assetsfront/imgs/shop/thumbnail-3.jpg" /></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4><a href="shop-product-right.html">Bolso Casual Daisy</a></h4>
@@ -254,7 +258,8 @@
                                             </li>
                                             <li>
                                                 <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="assetsfront/imgs/shop/thumbnail-2.jpg" /></a>
+                                                    <a href="shop-product-right.html"><img alt="Nest"
+                                                            src="assetsfront/imgs/shop/thumbnail-2.jpg" /></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4><a href="shop-product-right.html">Camisas de Corduroy</a></h4>
@@ -278,17 +283,32 @@
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a href="/login">
-                                        <img class="svgInject" alt="Nest" src="assetsfront/imgs/theme/icons/icon-user.svg" />
+                                        <img class="svgInject" alt="Nest"
+                                            src="assetsfront/imgs/theme/icons/icon-user.svg" />
                                     </a>
                                     <a href="/login"><span class="lable ml-0">Cuenta</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
-                                            <li><a href="/login"><i class="fi fi-rs-user mr-10"></i>Mi Cuenta</a></li>
-                                            <li><a href="#"><i class="fi fi-rs-location-alt mr-10"></i>Seguimiento de Pedidos</a></li>
-                                            <li><a href="#"><i class="fi fi-rs-label mr-10"></i>Mis Cupones</a></li>
-                                            <li><a href="#"><i class="fi fi-rs-heart mr-10"></i>Mi Lista de Deseos</a></li>
-                                            <li><a href="#"><i class="fi fi-rs-settings-sliders mr-10"></i>Configuración</a></li>
-                                            <li><a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Cerrar Sesión</a></li>
+                                            <li><a href="/login"><i class="fi fi-rs-user mr-10"></i>Mi Cuenta</a>
+                                            </li>
+                                            <li><a href="#"><i
+                                                        class="fi fi-rs-location-alt mr-10"></i>Seguimiento de
+                                                    Pedidos</a></li>
+                                            <li><a href="#"><i class="fi fi-rs-label mr-10"></i>Mis Cupones</a>
+                                            </li>
+                                            <li><a href="#"><i class="fi fi-rs-heart mr-10"></i>Mi Lista de
+                                                    Deseos</a></li>
+                                            <li><a href="#"><i
+                                                        class="fi fi-rs-settings-sliders mr-10"></i>Configuración</a>
+                                            </li>
+                                            <li>
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
+                                                    <a class="dropdown-item" href="route('logout')"
+                                                        onclick="event.preventDefault(); this.closest('form').submit();"><i
+                                                            class="material-icons md-exit_to_app"></i>Cerrar sesión</a>
+                                                </form>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -298,12 +318,12 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
-                
+
                 @yield('categoria')
-                
+
             </div>
         </div>
     </header>
@@ -348,16 +368,21 @@
                                 <ul class="dropdown">
                                     <li><a href="shop-grid-right.html">Tienda - Barra lateral derecha</a></li>
                                     <li><a href="shop-grid-left.html">Tienda - Barra lateral izquierda</a></li>
-                                    <li><a href="shop-list-right.html">Lista de tiendas - Barra lateral derecha</a></li>
-                                    <li><a href="shop-list-left.html">Lista de tiendas - Barra lateral izquierda</a></li>
+                                    <li><a href="shop-list-right.html">Lista de tiendas - Barra lateral derecha</a>
+                                    </li>
+                                    <li><a href="shop-list-left.html">Lista de tiendas - Barra lateral izquierda</a>
+                                    </li>
                                     <li><a href="shop-fullwidth.html">Tienda - Ancho completo</a></li>
                                     <li class="menu-item-has-children">
                                         <a href="#">Producto Individual</a>
                                         <ul class="dropdown">
-                                            <li><a href="shop-product-right.html">Producto - Barra lateral derecha</a></li>
-                                            <li><a href="shop-product-left.html">Producto - Barra lateral izquierda</a></li>
+                                            <li><a href="shop-product-right.html">Producto - Barra lateral derecha</a>
+                                            </li>
+                                            <li><a href="shop-product-left.html">Producto - Barra lateral izquierda</a>
+                                            </li>
                                             <li><a href="shop-product-full.html">Producto - Sin barra lateral</a></li>
-                                            <li><a href="shop-product-vendor.html">Producto - Información del vendedor</a></li>
+                                            <li><a href="shop-product-vendor.html">Producto - Información del
+                                                    vendedor</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="shop-filter.html">Tienda - Filtro</a></li>
@@ -397,7 +422,8 @@
                                         <ul class="dropdown">
                                             <li><a href="shop-product-right.html">Vestidos</a></li>
                                             <li><a href="shop-product-right.html">Blusas y Camisas</a></li>
-                                            <li><a href="shop-product-right.html">Sudaderas con Capucha y Sudaderas</a></li>
+                                            <li><a href="shop-product-right.html">Sudaderas con Capucha y Sudaderas</a>
+                                            </li>
                                             <li><a href="shop-product-right.html">Conjuntos de Mujer</a></li>
                                         </ul>
                                     </li>
@@ -427,7 +453,8 @@
                                     <li><a href="blog-category-grid.html">Blog - Categoría en Cuadrícula</a></li>
                                     <li><a href="blog-category-list.html">Blog - Categoría en Lista</a></li>
                                     <li><a href="blog-category-big.html">Blog - Categoría Grande</a></li>
-                                    <li><a href="blog-category-fullwidth.html">Blog - Categoría de Ancho Completo</a></li>
+                                    <li><a href="blog-category-fullwidth.html">Blog - Categoría de Ancho Completo</a>
+                                    </li>
                                     <li class="menu-item-has-children">
                                         <a href="#">Diseño de Producto Individual</a>
                                         <ul class="dropdown">
@@ -491,11 +518,12 @@
                     <a href="#"><img src="assetsfront/imgs/theme/icons/icon-youtube-white.svg"
                             alt="" /></a>
                 </div>
-                <div class="site-copyright">Derechos de autor 2022 © Nest. Todos los derechos reservados. Desarrollado por AliThemes.</div>
+                <div class="site-copyright">Derechos de autor 2022 © Nest. Todos los derechos reservados. Desarrollado
+                    por AliThemes.</div>
             </div>
         </div>
     </div>
-    
+
     <!--End header-->
     <main class="main">
         {{-- <div class="page-header breadcrumb-wrap">
@@ -701,7 +729,8 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Nest</strong> - Plantilla de Comercio Electrónico HTML <br />Todos los derechos reservados</p>
+                    <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Nest</strong> - Plantilla de
+                        Comercio Electrónico HTML <br />Todos los derechos reservados</p>
                 </div>
                 <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                     <div class="hotline d-lg-inline-flex mr-30">
@@ -731,7 +760,7 @@
                 </div>
             </div>
         </div>
-        
+
     </footer>
     <!-- Preloader Start -->
     <div id="preloader-active">
@@ -754,6 +783,7 @@
     <script src="assetsfront/js/plugins/perfect-scrollbar.js"></script>
     <script src="assetsfront/js/plugins/magnific-popup.js"></script>
     <script src="assetsfront/js/plugins/select2.min.js"></script>
+    <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
     <script src="assetsfront/js/plugins/waypoints.js"></script>
     <script src="assetsfront/js/plugins/counterup.js"></script>
     <script src="assetsfront/js/plugins/jquery.countdown.min.js"></script>
@@ -763,9 +793,11 @@
     <script src="assetsfront/js/plugins/jquery.vticker-min.js"></script>
     <script src="assetsfront/js/plugins/jquery.theia.sticky.js"></script>
     <script src="assetsfront/js/plugins/jquery.elevatezoom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Template  JS -->
     <script src="./assetsfront/js/main.js?v=5.6"></script>
     <script src="./assetsfront/js/shop.js?v=5.6"></script>
+    @yield('script')
 </body>
 
 </html>
