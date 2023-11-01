@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('codigo_asociacion');
             $table->string('n_celular')->nullable();
             $table->string('direccion')->nullable();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->bigInteger('id_municipio')->unsigned();
+            $table->Integer('estado');
             $table->timestamps();
             $table->foreign('id_municipio')->references('id')->on('ciudades');
         });

@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\Categorias;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,7 +18,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('vistas.login.login');
+        $categorias = Categorias::all();
+        return view('vistas.login.login',compact('categorias'));
     }
 
     /**
@@ -29,7 +31,20 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::HOME);
+        
+        $rol = auth()->user();
+        if($rol->idrol == 1){
+            return redirect()->intended(RouteServiceProvider::ADMINISTRADORHOME);
+        }else if($rol->idrol == 2){
+            return redirect()->intended(RouteServiceProvider::ASOCIACIONHOME);
+        }else if($rol->idrol == 3){
+            return redirect()->intended(RouteServiceProvider::VENDEDORHOME);
+        }else if($rol->idrol == 4){
+            return redirect()->intended(RouteServiceProvider::CLIENTEHOME);
+        }else{
+            return redirect()->intended(RouteServiceProvider::VENDEDORHOME);
+        }
     }
 
     /**

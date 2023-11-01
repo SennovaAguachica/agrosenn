@@ -14,13 +14,12 @@ class Vendedores extends Model
         'id_asociacion',
         'id_municipio',
         'n_documento',
-        'primer_nombre',
-        'segundo_nombre',
-        'primer_apellido',
-        'segundo_apellido',
+        'nombres',
+        'apellidos',
         'direccion',
         'n_celular',
         'email',
+        'estado',
     ];
     public function usuario()
     {

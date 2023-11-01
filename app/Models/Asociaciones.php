@@ -15,7 +15,8 @@ class Asociaciones extends Model
         'n_celular',
         'direccion',
         'email',
-        'id_municipio'
+        'id_municipio',
+        'estado',
     ];
     public function municipio()
     {

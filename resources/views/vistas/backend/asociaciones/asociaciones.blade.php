@@ -44,9 +44,9 @@
                         <tr class="font-xxl">
                             <th>Asociación</th>
                             <th>Codigo</th>
+                            <th>Municipio</th>
                             <th>Celular</th>
                             <th>Email</th>
-                            <th>Nº asociados</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>

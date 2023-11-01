@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('codigo_administrador');
             $table->string('n_celular')->nullable();
             $table->string('direccion')->nullable();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

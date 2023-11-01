@@ -90,7 +90,16 @@ class AdministradoresController extends Controller
             ['codigo_administrador', $datos['codigoadministrador']]
         ])->get();
         if (count($validacion) > 0) {
-            $aErrores[] = '- El administrador ya se encuentra registrada';
+            $aErrores[] = '- El administrador ya se encuentra registrado';
+        }
+        $validacionCorreo = Administradores::where([
+            ['email', $datos['email']]
+        ])->get();
+        $validacionCorreoUser = User::where([
+            ['email', $datos['email']]
+        ])->get();
+        if (count($validacionCorreo) > 0 || count($validacionCorreoUser) > 0) {
+            $aErrores[] = '- El correo ya se encuentra registrado';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
@@ -130,8 +139,23 @@ class AdministradoresController extends Controller
     {
         $aErrores = array();
         DB::beginTransaction();
-        if ($datos['administrador'] == "") {
-            $aErrores[] = '- Diligencie el nombre del administrador';
+        if ($datos['administrador'] == "" && $datos['codigoadministrador'] == "" && $datos['direccion'] == "" && $datos['celular'] == "" && $datos['email'] == "" && $datos['idmunicipio'] == "") {
+            $aErrores[] = '- Faltan datos necesarios';
+        }
+        $validacion = Administradores::where([
+            ['codigo_administrador', $datos['codigoadministrador']]
+        ])->where('id', '!=', $datos['id'])->get();
+        if (count($validacion) > 0) {
+            $aErrores[] = '- El administrador ya se encuentra registrado';
+        }
+        $validacionCorreo = Administradores::where([
+            ['email', $datos['email']]
+        ])->where('id', '!=', $datos['id'])->get();
+        $validacionCorreoUser = User::where([
+            ['email', $datos['email']]
+        ])->where('idadministrador', '!=', $datos['id'])->get();
+        if (count($validacionCorreo) > 0 || count($validacionCorreoUser) > 0) {
+            $aErrores[] = '- El correo ya se encuentra registrado';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));

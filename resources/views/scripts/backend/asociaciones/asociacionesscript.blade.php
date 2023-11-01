@@ -7,6 +7,7 @@
         var ACTUALIZAR_ASOCIACIONES = 2;
         var ELIMINAR_ASOCIACIONES = 3;
         var BUSCAR_MUNICIPIOS = 4;
+        var HABILITAR_ASOCIACION = 5;
         var parametro_seleccionado = "";
         var tablaAsociaciones = "";
         var fila = "";
@@ -15,7 +16,6 @@
             $('#li_asociaciones').addClass('active');
             $('#i_asociacion').css('color', '#3BB77E');
             cargarTablaAsociaciones();
-            guardarAsociacion();
             cargarImagen("#imagen");
             buttonClicks();
             selectChanges();
@@ -27,74 +27,6 @@
                 $('#tipoAsociacion').val("").trigger("chosen:updated");
                 $("#formGuardar")[0].reset();
             });
-        }
-
-        function selectChanges() {
-            $("#iddepartamento").change(function() {
-                buscarMunicipios($(this).val());
-            })
-        }
-
-
-        function buscarId(data, modo) {
-            vista = 2;
-            if (fila != "") {
-                $(fila).removeClass('selected');
-            }
-            fila = tablaAsociaciones.row("." + data).node();
-            $(fila).addClass('selected');
-            parametro_seleccionado = $("#tablaasociaciones").DataTable().row('.selected').data();
-            if (modo == 1) {
-                console.log(parametro_seleccionado);
-                $("#asociacion").val(parametro_seleccionado.asociacion);
-                $("#codigoasociacion").val(parametro_seleccionado.codigo_asociacion);
-                $("#direccion").val(parametro_seleccionado.direccion);
-                $("#celular").val(parametro_seleccionado.n_celular);
-                $("#email").val(parametro_seleccionado.email);
-                $("#iddepartamento").val(parametro_seleccionado.municipio.iddepartamentos);
-                $('#iddepartamento').trigger("chosen:updated");
-            } else if (modo == 2) {
-                Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara el producto!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/asociaciones_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_ASOCIACIONES,
-                                id: parametro_seleccionado.id
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha eliminado el producto con exito');
-                                    tablaAsociaciones.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
-                            }
-                        });
-                    }
-                });
-            }
-        }
-
-        function guardarAsociacion() {
             $("#enviar").on("click", function(e) {
                 let datosFormulario = "";
                 e.preventDefault();
@@ -160,6 +92,122 @@
             });
         }
 
+        function selectChanges() {
+            $("#iddepartamento").change(function() {
+                buscarMunicipios($(this).val());
+            })
+        }
+
+
+        function buscarId(data, modo) {
+            vista = 2;
+            if (fila != "") {
+                $(fila).removeClass('selected');
+            }
+            fila = tablaAsociaciones.row("." + data).node();
+            $(fila).addClass('selected');
+            parametro_seleccionado = $("#tablaasociaciones").DataTable().row('.selected').data();
+            if (modo == 1) {
+                console.log(parametro_seleccionado);
+                $("#asociacion").val(parametro_seleccionado.asociacion);
+                $("#codigoasociacion").val(parametro_seleccionado.codigo_asociacion);
+                $("#direccion").val(parametro_seleccionado.direccion);
+                $("#celular").val(parametro_seleccionado.n_celular);
+                $("#email").val(parametro_seleccionado.email);
+                $("#iddepartamento").val(parametro_seleccionado.municipio.iddepartamentos);
+                $('#iddepartamento').trigger("chosen:updated");
+                $("#idmunicipio").find('option').remove().end().append('<option value="">Seleccione una opción</option>')
+                    .trigger("chosen:updated");
+                $("#idmunicipio").append(new Option(parametro_seleccionado.municipio.ciudad, parametro_seleccionado
+                    .id_municipio, true, true));
+                $('#idmunicipio').trigger("chosen:updated");
+            } else if (modo == 2) {
+                eliminarAsociacion(parametro_seleccionado.id);
+            } else if (modo == 3) {
+                habilitarAsociacion(parametro_seleccionado.id);
+            }
+        }
+
+        function eliminarAsociacion(id) {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Recuerde que se eliminara la asociación seleccionada!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/asociaciones_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_ASOCIACIONES,
+                            id
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha eliminado la asociación con exito');
+                                tablaAsociaciones.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
+                            }
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                        }
+                    });
+                }
+            });
+        }
+
+        function habilitarAsociacion(id) {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Recuerde que se habilitara la asociación seleccionada!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/asociaciones_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: HABILITAR_ASOCIACION,
+                            id
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha habilitado la asociación con exito');
+                                tablaAsociaciones.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
+                            }
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                        }
+                    });
+                }
+            });
+        }
+
         function cargarTablaAsociaciones() {
             tablaAsociaciones = $('#tablaasociaciones').DataTable({
                 "serverSide": true,
@@ -177,10 +225,13 @@
                         data: 'codigo_asociacion'
                     },
                     {
-                        data: 'n_celular'
+                        data: null,
+                        render: function(data, type, row) {
+                            return data.municipio.ciudad + ' - ' + data.municipio.departamento.departamento;
+                        }
                     },
                     {
-                        data: 'email'
+                        data: 'n_celular'
                     },
                     {
                         data: 'email'

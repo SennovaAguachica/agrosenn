@@ -91,7 +91,7 @@
                 @can('asociaciones.listar')
                     <li class="menu-item" id="li_asociaciones">
                         <a class="menu-link" href="/asociaciones">
-                            <i class="fa-solid fa-list-check fa-xl" id="i_asociacion"
+                            <i class="fa-solid fa-people-roof fa-xl" id="i_asociacion"
                                 style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
                             <span class="text">Asociaciones</span>
                         </a>
@@ -108,7 +108,7 @@
                 @can('administradores.listar')
                     <li class="menu-item" id="li_administradores">
                         <a class="menu-link" href="/administradores">
-                            <i class="fa-solid fa-list-check fa-xl" id="i_administrador"
+                            <i class="fa-solid fa-people-arrows fa-xl" id="i_administrador"
                                 style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
                             <span class="text">Administradores</span>
                         </a>
@@ -117,7 +117,7 @@
                 @can('vendedores.listar')
                     <li class="menu-item" id="li_vendedores">
                         <a class="menu-link" href="/vendedores">
-                            <i class="fa-solid fa-list-check fa-xl" id="i_vendedor"
+                            <i class="fa-solid fa-users fa-xl" id="i_vendedor"
                                 style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
                             <span class="text">Vendedores</span>
                         </a>
@@ -143,7 +143,7 @@
                         </div>
                     </li>
                 @endcanany
-                <li class="menu-item has-submenu">
+                {{-- <li class="menu-item has-submenu">
                     <a class="menu-link" href="page-orders-1.html">
                         <i class="icon material-icons md-shopping_cart"></i>
                         <span class="text">Pedidos</span>
@@ -235,7 +235,7 @@
                         <span class="text">Página de Inicio</span>
                     </a>
                 </li>
-            </ul>
+            </ul> --}}
             <br />
             <br />
         </nav>

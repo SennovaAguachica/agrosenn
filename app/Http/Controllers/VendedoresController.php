@@ -21,16 +21,20 @@ class VendedoresController extends Controller
         $tiposDocumentos = Tipodocumentos::all();
         $departamentos = Departamentos::all();
         if ($request->ajax()) {
-            return DataTables::of(Vendedores::with('tipodocumento','municipio.departamento')->where('id_asociacion', auth()->id())->get())->addIndexColumn()
+            return DataTables::of(Vendedores::with('tipodocumento','municipio.departamento')->where('id_asociacion', Auth::user()->idasociacion)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
-                    if(Auth::user()->can('vendedores.actualizar')){
+                    if($data->estado == 1 && Auth::user()->can('vendedores.actualizar')){
                             $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
                         data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
                     }
-                    if(Auth::user()->can('vendedores.eliminar')){
+                    if($data->estado == 1 && Auth::user()->can('vendedores.eliminar')){
                         $btn .= "&nbsp";
                         $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    }
+                    if($data->estado == 0 && Auth::user()->can('vendedores.habilitar')){
+                        $btn .= "&nbsp";
+                        $btn .= '<button type="button"  class="habilitarbutton btn btn-primary" onclick="buscarId(' . $data->id . ',3)"><i class="fas fa-angle-double-up"></i> Habilitar</button>';
                     }
                     return $btn;
                 })
@@ -45,6 +49,7 @@ class VendedoresController extends Controller
         $ACTUALIZAR_VENDEDORES = 2;
         $ELIMINAR_VENDEDORES = 3;
         $BUSCAR_MUNICIPIOS = 4;
+        $HABILITAR_VENDEDORES = 5;
         try {
             // buscar 001
             // crear 002
@@ -66,6 +71,10 @@ class VendedoresController extends Controller
                 case $BUSCAR_MUNICIPIOS:
                     $municipios = $this->buscarMunicipios($request->all());
                     return $municipios;
+                    break;
+                case $HABILITAR_VENDEDORES:
+                    $respuesta = $this->habilitarVendedor($request->all());
+                    return $respuesta;
                     break;
             }
         } catch (\Exception $e) {
@@ -93,7 +102,10 @@ class VendedoresController extends Controller
             $validacionCorreo = Vendedores::where([
                 ['email', $datos['email']]
             ])->get();
-            if (count($validacionCorreo) > 0) {
+            $validacionCorreoUser = User::where([
+                ['email', $datos['email']]
+            ])->get();
+            if (count($validacionCorreo) > 0 || count($validacionCorreoUser) > 0) {
                 $aErrores[] = '- Este correo electronico ya se encuentra registrado';
             }
         }
@@ -104,7 +116,7 @@ class VendedoresController extends Controller
             $nuevoVendedor = new Vendedores();
             $nuevoVendedor->id_tipodocumento = $datos['idtipodocumento'];
             $nuevoVendedor->id_municipio = $datos['idmunicipio'];
-            $nuevoVendedor->id_asociacion = auth()->id();
+            $nuevoVendedor->id_asociacion = Auth::user()->id;
             $nuevoVendedor->n_documento = $datos['documento'];
             $nuevoVendedor->nombres = $datos['nombres'];
             $nuevoVendedor->apellidos = $datos['apellidos'];
@@ -141,16 +153,38 @@ class VendedoresController extends Controller
     {
         $aErrores = array();
         DB::beginTransaction();
-        if ($datos['vendedor'] == "") {
-            $aErrores[] = '- Diligencie el nombre de la vendedor';
+        if ($datos['idtipodocumento'] == "" && $datos['documento'] == "" && $datos['nombres'] == "" && $datos['apellidos'] == "" && $datos['celular'] == "" && $datos['idmunicipio'] == "") {
+            $aErrores[] = '- Faltan datos necesarios';
+        }
+        $validacionDocumento = Vendedores::where([
+            ['n_documento', $datos['documento']]
+        ])->where('id', '!=', $datos['id'])->get();
+        if (count($validacionDocumento) > 0) {
+            $aErrores[] = '- El vendedor ya se encuentra registrado';
+        }
+        if($datos['email']){
+            $validacionCorreo = Vendedores::where([
+                ['email', $datos['email']]
+            ])->where('id', '!=', $datos['id'])->get();
+
+            $validacionCorreoUser = User::where([
+                ['email', $datos['email']]
+            ])->where('idvendedor', '!=', $datos['id'])->get();
+
+            if (count($validacionCorreo) > 0 || count($validacionCorreoUser) > 0) {
+                $aErrores[] = '- Este correo electronico ya se encuentra registrado';
+            }
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
             $actualizarVendedor = Vendedores::with('usuario')->findOrFail($datos['id']);;
-            $actualizarVendedor->vendedor = $datos['vendedor'];
-            $actualizarVendedor->codigo_vendedor = $datos['codigovendedor'];
+            $actualizarVendedor->id_tipodocumento = $datos['idtipodocumento'];
+            $actualizarVendedor->id_municipio = $datos['idmunicipio'];
+            $actualizarVendedor->n_documento = $datos['documento'];
+            $actualizarVendedor->nombres = $datos['nombres'];
+            $actualizarVendedor->apellidos = $datos['apellidos'];
             $actualizarVendedor->direccion = $datos['direccion'];
             $actualizarVendedor->n_celular = $datos['celular'];
             if($actualizarVendedor->email != $datos['email']){
@@ -181,8 +215,11 @@ class VendedoresController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $eliminarVendedor = Vendedores::findOrFail($datos['id']);
+            $eliminarVendedor = Vendedores::with('usuario')->findOrFail($datos['id']);
             $eliminarVendedor->update(['estado' => '0']);
+            if($eliminarVendedor->usuario){
+                $eliminarVendedor->usuario->update(['estado' => '0']);
+            }
             DB::commit();
             $respuesta = array(
                 'mensaje'      => "",
@@ -198,5 +235,32 @@ class VendedoresController extends Controller
     {
         $municipios = Ciudades::where('iddepartamentos', $datos['iddepartamento'])->get();
         return $municipios;
+    }
+    public function habilitarVendedor($datos)
+    {
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['id'] == "") {
+            $aErrores[] = '- No existe vendedor a habilitar';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+        try {
+            $habilitarVendedor = Vendedores::with('usuario')->findOrFail($datos['id']);
+            $habilitarVendedor->update(['estado' => '1']);
+            if($habilitarVendedor->usuario){
+                $habilitarVendedor->usuario->update(['estado' => '1']);
+            }
+            DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
+            return response()->json($respuesta);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
     }
 }

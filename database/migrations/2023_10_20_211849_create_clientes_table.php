@@ -13,8 +13,19 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('cliente');
+            $table->bigInteger('id_tipodocumento')->unsigned();
+            $table->bigInteger('id_municipio')->unsigned();
+            $table->string('n_documento')->unique();
+            $table->string('nombres');
+            $table->string('apellidos');
+            $table->string('direccion')->nullable();
+            $table->string('n_celular')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->Integer('estado');
             $table->timestamps();
+
+            $table->foreign('id_tipodocumento')->references('id')->on('tipodocumentos');
+            $table->foreign('id_municipio')->references('id')->on('ciudades');
         });
     }
 

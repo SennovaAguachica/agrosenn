@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/login_peticiones', [VendedoresController::class, 'peticionesAction']);
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
+    Route::post('/seguridad_peticiones', [SeguridadController::class, 'peticionesAction']);
     Route::get('/roles', [SeguridadController::class, 'indexroles']);
     Route::get('/permisos', [SeguridadController::class, 'indexpermisos']);
 });
