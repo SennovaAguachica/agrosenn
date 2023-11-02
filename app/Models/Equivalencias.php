@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Imagenes extends Model
+class Equivalencias extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'id',
-        'ruta',
-        'publicaciones_id',
+        'unidad',
+        'estado',
     ];
-    public function publicaciones()
+    public function equivalencias_unidades()
     {
-        return $this->belongsTo(Publicaciones::class, 'publicaciones_id', 'id');
+        return $this->hasMany(EquivalenciasUnidades::class, 'equivalencias_id', 'id');
     }
 }

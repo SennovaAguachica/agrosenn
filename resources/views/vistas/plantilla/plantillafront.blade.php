@@ -167,10 +167,10 @@
         </div>
     </div>
     <header class="header-area header-style-1 header-height-2">
-        <div class="mobile-promotion">
+        {{-- <div class="mobile-promotion">
             <span>Gran inauguración, <strong>hasta un 15%</strong> de descuento en todos los artículos. Solo quedan
                 <strong>3 días</strong></span>
-        </div>
+        </div> --}}
         <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
             <div class="container">
                 <div class="header-wrap">
@@ -499,7 +499,7 @@
                         <a href="page-contact.html"><i class="fi-rs-marker"></i> Nuestra ubicación </a>
                     </div>
                     <div class="single-mobile-header-info">
-                        <a href="page-login.html"><i class="fi-rs-user"></i>Iniciar Sesión / Registrarse </a>
+                        <a href="/login"><i class="fi-rs-user"></i>Iniciar Sesión / Registrarse </a>
                     </div>
                     <div class="single-mobile-header-info">
                         <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>
@@ -729,10 +729,9 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Nest</strong> - Plantilla de
-                        Comercio Electrónico HTML <br />Todos los derechos reservados</p>
+                    <p class="font-sm mb-0">&copy; 2023, <strong class="text-brand">Sennova</strong> - Plataforma virtual <br />Todos los derechos reservados</p>
                 </div>
-                <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
+                {{-- <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                     <div class="hotline d-lg-inline-flex mr-30">
                         <img src="assetsfront/imgs/theme/icons/phone-call.svg" alt="línea directa" />
                         <p>1900 - 6666<span>Horario de atención: 8:00 - 22:00</span></p>
@@ -741,8 +740,8 @@
                         <img src="assetsfront/imgs/theme/icons/phone-call.svg" alt="línea directa" />
                         <p>1900 - 8888<span>Centro de Soporte 24/7</span></p>
                     </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 text-end d-none d-md-block">
+                </div> --}}
+                {{-- <div class="col-xl-4 col-lg-6 col-md-6 text-end d-none d-md-block">
                     <div class="mobile-social-icon">
                         <h6>Síguenos</h6>
                         <a href="#"><img src="assetsfront/imgs/theme/icons/icon-facebook-white.svg"
@@ -756,8 +755,8 @@
                         <a href="#"><img src="assetsfront/imgs/theme/icons/icon-youtube-white.svg"
                                 alt="" /></a>
                     </div>
-                    <p class="font-sm">Hasta un 15% de descuento en tu primera suscripción</p>
-                </div>
+                     <p class="font-sm">Hasta un 15% de descuento en tu primera suscripción</p> 
+                </div> --}}
             </div>
         </div>
 

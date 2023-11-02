@@ -23,14 +23,19 @@ class Vendedores extends Model
     ];
     public function usuario()
     {
-      return $this->hasOne(User::class,'idvendedor','id');
+        return $this->hasOne(User::class, 'idvendedor', 'id');
     }
     public function tipodocumento()
     {
-        return $this->belongsTo(Tipodocumentos::class,'id_tipodocumento','id');
+        return $this->belongsTo(Tipodocumentos::class, 'id_tipodocumento', 'id');
     }
     public function municipio()
     {
-        return $this->belongsTo(Ciudades::class,'id_municipio','id');
+        return $this->belongsTo(Ciudades::class, 'id_municipio', 'id');
+    }
+
+    public function publicaciones()
+    {
+        return $this->hasMany(Publicaciones::class, 'vendedores_id', 'id');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Productos;
-use App\Models\Categorias;
+use App\Models\Subcategorias;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\File;
@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->middleware('can:productos.listar')->only('index');
         $this->middleware('can:productos.guardar')->only('guardarProductos');
@@ -22,9 +23,9 @@ class ProductosController extends Controller
     public function index(Request $request)
     {
         // dd($request->ajax());
-        $categorias = Categorias::all();
+        $categorias = Subcategorias::all();
         if ($request->ajax()) {
-            return DataTables::of(Productos::with('categoria')->where('estado', 1)->get())->addIndexColumn()
+            return DataTables::of(Productos::with('subcategoria')->where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
                 data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
@@ -117,9 +118,7 @@ class ProductosController extends Controller
                 'estado'      => 1,
             );
             return response()->json($respuesta);
-        }
-        catch (\Exception $e) 
-        {
+        } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
         }
@@ -166,9 +165,7 @@ class ProductosController extends Controller
                 'estado'      => 1,
             );
             return response()->json($respuesta);
-        }
-        catch (\Exception $e) 
-        {
+        } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
         }
@@ -185,16 +182,14 @@ class ProductosController extends Controller
         }
         try {
             $eliminarProducto = Productos::findOrFail($datos['id']);
-            $eliminarProducto->update(['estado'=>'0']);
+            $eliminarProducto->update(['estado' => '0']);
             DB::commit();
             $respuesta = array(
                 'mensaje'      => "",
                 'estado'      => 1,
             );
             return response()->json($respuesta);
-        }
-        catch (\Exception $e) 
-        {
+        } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
         }
