@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('imagenes', function (Blueprint $table) {
+        Schema::create('equivalencias', function (Blueprint $table) {
             $table->id();
-
-            $table->string('ruta');
-            $table->string('nombre');
-            // $table->Integer('estado');
-            // $table->unsignedBigInteger('producto_id');
-            // $table->foreign('producto_id')->references('id')->on('productos');
+            $table->string('unidad');
+            $table->Integer('estado');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('imagenes');
+        Schema::dropIfExists('equivalencias');
     }
 };
