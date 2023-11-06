@@ -12,7 +12,8 @@ use Auth;
 
 class CategoriasController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->middleware('can:categorias.listar')->only('index');
         $this->middleware('can:categorias.guardar')->only('guardarCategorias');
@@ -25,11 +26,11 @@ class CategoriasController extends Controller
             return DataTables::of(Categorias::where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
-                    if(Auth::user()->can('categorias.actualizar')){
+                    if (Auth::user()->can('categorias.actualizar')) {
                         $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
                         data-bs-target="#modalGuardarForm"><i class="fa-solid fa-pencil"></i></button>';
                     }
-                    if(Auth::user()->can('categorias.eliminar')){
+                    if (Auth::user()->can('categorias.eliminar')) {
                         $btn .= "&nbsp";
                         $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
                     }
@@ -173,11 +174,20 @@ class CategoriasController extends Controller
             }
             $actualizarCategoria->save();
 
-            DB::commit();
-            $respuesta = array(
-                'mensaje'      => "",
-                'estado'      => 1,
-            );
+            if (count($aErrores) > 0) {
+                $respuesta = array(
+                    'mensaje'      => $aErrores,
+                    'estado'      => 0,
+                );
+                return response()->json($respuesta);
+            } else {
+                DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
+                return response()->json($respuesta);
+            }
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;

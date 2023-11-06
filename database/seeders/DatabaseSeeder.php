@@ -14,6 +14,9 @@ use App\Models\User;
 use App\Models\Categorias;
 use App\Models\Subcategorias;
 use App\Models\Productos;
+use App\Models\Equivalencias;
+use App\Models\Unidades;
+use App\Models\EquivalenciasUnidades;
 use App\DataProviders\DatosBasesProvider;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +44,9 @@ class DatabaseSeeder extends Seeder
         Subcategorias::insert(DatosBasesProvider::subcategorias());
         Productos::insert(DatosBasesProvider::productos());
         Permission::insert(DatosBasesProvider::permisos());
+        Equivalencias::insert(DatosBasesProvider::unidadMinima());
+        Unidades::insert(DatosBasesProvider::unidades());
+        EquivalenciasUnidades::insert(DatosBasesProvider::equivalenciasUnidades());
         DB::table('model_has_roles')->insert([
             [
                 'model_id' => 1,

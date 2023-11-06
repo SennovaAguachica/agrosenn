@@ -10,6 +10,8 @@ use App\Http\Controllers\AsociacionesController;
 use App\Http\Controllers\SeguridadController;
 use App\Http\Controllers\AdministradoresController;
 use App\Http\Controllers\VendedoresController;
+use App\Http\Controllers\UnidadesController;
+use App\Http\Controllers\EquivalenciasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +55,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/vendedores', [VendedoresController::class, 'index']);
     Route::post('/vendedores_peticiones', [VendedoresController::class, 'peticionesAction']);
+
+    Route::get('/unidades', [UnidadesController::class, 'index']);
+    Route::post('/unidades_peticiones', [UnidadesController::class, 'peticionesAction']);
+    Route::get('/equivalencias', [EquivalenciasController::class, 'index']);
+    Route::post('/equivalencias_peticiones', [EquivalenciasController::class, 'peticionesAction']);
 
     Route::post('/login_peticiones', [VendedoresController::class, 'peticionesAction']);
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
