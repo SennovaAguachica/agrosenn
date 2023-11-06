@@ -45,8 +45,10 @@
                             <th>Imagen</th>
                             <th>Producto</th>
                             <th>Categoria</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
+                            <th>Subcategoria</th>
+                            <th>Descripcion</th>
+                            {{-- <th>Precio</th> --}}
+                            {{-- <th>Estado</th> --}}
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -60,9 +62,26 @@
 
 @section('modal')
     <div class="row">
-        <div class="col-md-12">
+        {{-- <div class="col-md-12">
             <label for="tipoProducto" class="form-label">Tipo producto</label>
             <select class="form-control form-control-chosen" name="tipoProducto" id="tipoProducto"
+                data-placeholder="Seleccione una opción" required>
+                <option value=""></option>
+                @foreach ($categorias as $item)
+                    <option value="{{ $item->id }}">{{ $item->categoria }}</option>
+                @endforeach --
+                @foreach ($subcategorias as $item)
+                    <option value="{{ $item->id }}">{{ $item->subcategoria }}</option>
+                @endforeach 
+            </select>
+            <div class="invalid-feedback">
+                Selecciona un tipo de producto válido.
+            </div> 
+        </div> --}}
+
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <label for="idcategoria">Categorías</label>
+            <select class="form-control form-control-chosen" name="idcategoria" id="idcategoria"
                 data-placeholder="Seleccione una opción" required>
                 <option value=""></option>
                 @foreach ($categorias as $item)
@@ -70,8 +89,24 @@
                 @endforeach
             </select>
             <div class="invalid-feedback">
-                Selecciona un tipo de producto válido.
+                Selecciona una categoría válida.
             </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-6">
+            <label for="tipoProducto" class="form-label">Subcategoría</label>
+            <select class="form-control form-control-chosen" name="tipoProducto" id="tipoProducto"
+                data-placeholder="Seleccione una opción" required>
+                {{-- <option value=""></option>
+                {{-- @foreach ($categorias as $item)
+                    <option value="{{ $item->id }}">{{ $item->categoria }}</option>
+                @endforeach  --
+                @foreach ($subcategorias as $item)
+                    <option value="{{ $item->id }}">{{ $item->subcategoria }}</option>
+                @endforeach  --}}
+            </select>
+            <div class="invalid-feedback">
+                Selecciona una subcategoría válida.
+            </div> 
         </div>
     </div>
     <br>
@@ -83,13 +118,13 @@
                 Campo obligatorio.
             </div>
         </div>
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
             <label for="precioProducto" class="form-label">Precio</label>
             <input type="text" class="form-control moneda" name="precioProducto" id="precioProducto" required>
             <div class="invalid-feedback">
                 Campo obligatorio.
             </div>
-        </div>
+        </div> --}}
     </div>
     <br>
     <div class="row">
@@ -103,7 +138,7 @@
         <div class="col-md-12">
             <label for="imagenproducto" class="form-label">Imagen</label>
             <input type="file" id="imagenproducto" name="imagenproducto"
-                accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" required>
+                accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp,|image/*" required>
             <div class="invalid-feedback">
                 Campo obligatorio.
             </div>

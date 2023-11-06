@@ -100,7 +100,7 @@
                 @can('productos.listar')
                     <li class="menu-item" id="li_productos">
                         <a class="menu-link" href="/productos">
-                            <i class="icon material-icons md-shopping_bag"></i>
+                            <i class="icon material-icons md-shopping_bag" id="i_productos"></i>
                             <span class="text">Productos</span>
                         </a>
                     </li>

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Productos;
+use App\Models\Categorias;
 use App\Models\Subcategorias;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class ProductosController extends Controller
 {
@@ -23,19 +25,41 @@ class ProductosController extends Controller
     public function index(Request $request)
     {
         // dd($request->ajax());
-        $categorias = Subcategorias::all();
+        $categorias = Categorias::all();
+        //$subcategorias = Subcategorias::all();
         if ($request->ajax()) {
-            return DataTables::of(Productos::with('subcategoria')->where('estado', 1)->get())->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+            return DataTables::of(Productos::with('subcategoria.categorias')->where('estado', 1)->get())->addIndexColumn()->addColumn('action', function ($data) {
+                $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
                 data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
-                    $btn .= "&nbsp";
-                    $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
-                    return $btn;
-                })
+                $btn .= "&nbsp";
+                $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                return $btn;
+            })
                 ->rawColumns(['action'])
                 ->make(true);
         }
+
+        // if ($request->ajax()) {
+        //     return DataTables::of(Productos::with('subcategoria.categorias')->get())->addIndexColumn()
+        //         ->addColumn('action', function ($data) {
+        //             $btn = "";
+        //             if ($data->estado == 1 && Auth::user()->can('productos.actualizar')) {
+        //                 $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+        //                 data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
+        //             }
+        //             if ($data->estado == 1 && Auth::user()->can('productos.eliminar')) {
+        //                 $btn .= "&nbsp";
+        //                 $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+        //             }
+        //             // if ($data->estado == 0 && Auth::user()->can('productos.habilitar')) {
+        //             //     $btn .= "&nbsp";
+        //             //     $btn .= '<button type="button"  class="habilitarbutton btn btn-primary" onclick="buscarId(' . $data->id . ',3)"><i class="fas fa-angle-double-up"></i> Habilitar</button>';
+        //             // }
+        //             return $btn;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->make(true);
+        // }
         return view('vistas.backend.productos.productos', compact('categorias'));
     }
     public function peticionesAction(Request $request)
@@ -43,6 +67,8 @@ class ProductosController extends Controller
         $GUARDAR_PRODUCTOS = 1;
         $ACTUALIZAR_PRODUCTOS = 2;
         $ELIMINAR_PRODUCTOS = 3;
+        $BUSCAR_SUBCATEGORIAS = 4;
+        $HABILITAR_PRODUCTO = 5;
         try {
             // buscar 001
             // crear 002
@@ -59,6 +85,14 @@ class ProductosController extends Controller
                     break;
                 case $ELIMINAR_PRODUCTOS:
                     $respuesta = $this->eliminarProductos($request->all());
+                    return $respuesta;
+                    break;
+                case $BUSCAR_SUBCATEGORIAS:
+                    $subcategorias = $this->buscarSubcategorias($request->all());
+                    return $subcategorias;
+                    break;
+                case $HABILITAR_PRODUCTO:
+                    $respuesta = $this->habilitarProducto($request->all());
                     return $respuesta;
                     break;
             }
@@ -80,44 +114,60 @@ class ProductosController extends Controller
         if ($datos['nombreProducto'] == "") {
             $aErrores[] = '- Diligencie el nombre del producto';
         }
-        if ($datos['precioProducto'] == "") {
-            $aErrores[] = '- Diligencie el precio del producto';
-        }
+        // if ($datos['precioProducto'] == "") {
+        //     $aErrores[] = '- Diligencie el precio del producto';
+        // }
         if ($datos['imagenproducto'] == "") {
             $aErrores[] = '- Escoja la imagen del producto';
         }
-        $validacion = Productos::where([
-            ['categoria_id', $datos['tipoProducto']],
-            //['categoria_id',$datos['tipoCategoria']],
-            ['producto', $datos['nombreProducto']],
-            ['estado', 1]
-        ])->get();
-        if (count($validacion) > 0) {
-            $aErrores[] = '- El producto ya se encuentra registrado';
-        }
+
+
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $nuevoProducto = new Productos();
-            $nuevoProducto->categoria_id = $datos['tipoProducto'];
-            $nuevoProducto->producto = $datos['nombreProducto'];
-            $nuevoProducto->precio = $datos['precioProducto'];
-            $nuevoProducto->descripcion = $datos['descripcionProducto'];
-            $fileName  = time() . $datos['imagenproducto']->getClientOriginalName();
-            $imagen = Storage::disk('public')->put('/productos', $datos['imagenproducto']);
-            $url = Storage::url($imagen);
-            $nuevoProducto->imagen = $url;
-            $nuevoProducto->estado = 1;
-            $nuevoProducto->created_at = \Carbon\Carbon::now();
-            $nuevoProducto->updated_at = \Carbon\Carbon::now();
-            $nuevoProducto->save();
-            DB::commit();
-            $respuesta = array(
-                'mensaje'      => "",
-                'estado'      => 1,
-            );
-            return response()->json($respuesta);
+
+            $validacion = Productos::where([
+                ['subcategoria_id', $datos['tipoProducto']],
+                //['categoria_id',$datos['tipoCategoria']],
+
+                //prueba
+                //['subcategoria_id', $datos['tipoSubcategoria']],
+                ['producto', $datos['nombreProducto']],
+                // ['estado', 1]
+                ['estado', 0]
+            ])->first();
+            if ($validacion) {
+                $validacion->update(['estado' => 1]);
+            } else {
+                $nuevoProducto = new Productos();
+                $nuevoProducto->subcategoria_id = $datos['tipoProducto'];
+                $nuevoProducto->producto = $datos['nombreProducto'];
+                // $nuevoProducto->precio = $datos['precioProducto'];
+                $nuevoProducto->descripcion = $datos['descripcionProducto'];
+                // $fileName  = time() . $datos['imagenproducto']->getClientOriginalName();
+                $imagen = Storage::disk('public')->put('/productos', $datos['imagenproducto']);
+                $url = Storage::url($imagen);
+                $nuevoProducto->imagen = $url;
+                $nuevoProducto->estado = 1;
+                $nuevoProducto->created_at = \Carbon\Carbon::now();
+                $nuevoProducto->updated_at = \Carbon\Carbon::now();
+                $nuevoProducto->save();
+            }
+            if (count($aErrores) > 0) {
+                $respuesta = array(
+                    'mensaje'      => $aErrores,
+                    'estado'      => 0,
+                );
+                return response()->json($respuesta);
+            } else {
+                DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
+                return response()->json($respuesta);
+            }
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
@@ -133,17 +183,17 @@ class ProductosController extends Controller
         if ($datos['nombreProducto'] == "") {
             $aErrores[] = '- Diligencie el nombre del producto';
         }
-        if ($datos['precioProducto'] == "") {
-            $aErrores[] = '- Diligencie el precio del producto';
-        }
+        // if ($datos['precioProducto'] == "") {
+        //     $aErrores[] = '- Diligencie el precio del producto';
+        // }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
             $actualizarProducto = Productos::findOrFail($datos['id']);;
-            $actualizarProducto->categoria_id = $datos['tipoProducto'];
+            // $actualizarProducto->subcategoria_id = $datos['tipoProducto'];
             $actualizarProducto->producto = $datos['nombreProducto'];
-            $actualizarProducto->precio = $datos['precioProducto'];
+            // $actualizarProducto->precio = $datos['precioProducto'];
             $actualizarProducto->descripcion = $datos['descripcionProducto'];
             if (!empty($datos['imagenproducto'])) {
                 if ($datos['imagenproducto'] != null) {
@@ -159,12 +209,20 @@ class ProductosController extends Controller
                 $actualizarProducto->imagen = $url;
             }
             $actualizarProducto->save();
-            DB::commit();
-            $respuesta = array(
-                'mensaje'      => "",
-                'estado'      => 1,
-            );
-            return response()->json($respuesta);
+            if (count($aErrores) > 0) {
+                $respuesta = array(
+                    'mensaje'      => $aErrores,
+                    'estado'      => 0,
+                );
+                return response()->json($respuesta);
+            } else {
+                DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
+                return response()->json($respuesta);
+            }
         } catch (\Exception $e) {
             DB::rollback();
             throw  $e;
@@ -183,6 +241,42 @@ class ProductosController extends Controller
         try {
             $eliminarProducto = Productos::findOrFail($datos['id']);
             $eliminarProducto->update(['estado' => '0']);
+            if (count($aErrores) > 0) {
+                $respuesta = array(
+                    'mensaje'      => $aErrores,
+                    'estado'      => 0,
+                );
+                return response()->json($respuesta);
+            } else {
+                DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
+                return response()->json($respuesta);
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
+    }
+
+    public function habilitarProducto($datos)
+    {
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['id'] == "") {
+            $aErrores[] = '- No existe producto a habilitar';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+        try {
+            $habilitarProducto = Productos::findOrFail($datos['id']);
+            $habilitarProducto->update(['estado' => '1']);
+            // if ($habilitarProducto->usuario) {
+            //     $habilitarProducto->usuario->update(['estado' => '1']);
+            // }
             DB::commit();
             $respuesta = array(
                 'mensaje'      => "",
@@ -193,5 +287,11 @@ class ProductosController extends Controller
             DB::rollback();
             throw  $e;
         }
+    }
+    public function buscarSubcategorias($datos)
+    {
+        $subcategorias = Subcategorias::where('categoria_id', $datos['idcategoria'])->get();
+
+        return $subcategorias;
     }
 }

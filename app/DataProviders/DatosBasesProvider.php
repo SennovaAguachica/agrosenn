@@ -6146,20 +6146,21 @@ abstract class DatosBasesProvider
             [
                 'id' => 1,
                 'producto' => 'Uvas',
-                'descripcion' => '',
                 'imagen' => '/storage/categorias/categoria-cereales.webp',
+                'estado' => 1,
+                'descripcion' => '',
                 //'precio' => 1200,
                 'subcategoria_id' => 1,
-                'estado' => 1,
             ],
             [
                 'id' => 2,
                 'producto' => 'Papas',
-                'descripcion' => '',
                 'imagen' => '/storage/subcategorias/subcategoria-huevos.webp',
-                //'precio' => 1200,
-                'subcategoria_id' => 1,
                 'estado' => 1,
+                'descripcion' => '',
+                //'precio' => 1200,
+                'subcategoria_id' => 24,
+
             ],
         ];
     }

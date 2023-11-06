@@ -78,63 +78,6 @@
                         @endforeach
                     </ul>
                     
-                    
-                    {{-- <ul>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-1.svg" alt="" />Lácteos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-2.svg" alt="" />Ropa y belleza</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-3.svg" alt="" />Alimentos para mascotas y juguetes</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-4.svg" alt="" />Material para hornear</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-5.svg" alt="" />Frutas frescas</a>
-                        </li>
-                    </ul>
-                    <ul class="end">
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-6.svg" alt="" />Vinos y bebidas</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-7.svg" alt="" />Mariscos frescos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-8.svg" alt="" />Comida rápida</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-9.svg" alt="" />Vegetales</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-10.svg" alt="" />Pan y jugo</a>
-                        </li>
-                    </ul> 
-                </div>
-                <div class="more_slide_open" style="display: none">
-                    <div class="d-flex categori-dropdown-inner">
-                        <ul>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-1.svg" alt="" />Lácteos</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-2.svg" alt="" />Ropa y belleza</a>
-                            </li>
-                        </ul>
-                        <ul class="end">
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-3.svg" alt="" />Vinos y bebidas</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-4.svg" alt="" />Mariscos frescos</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Mostrar más...</span></div> --}}
                 </div>
             </div>
         </div>

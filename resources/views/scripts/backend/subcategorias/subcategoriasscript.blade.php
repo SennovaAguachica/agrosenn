@@ -46,7 +46,7 @@
             } else if (modo == 2) {
                 Swal.fire({
                     title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara el producto!",
+                    text: "Recuerde que se eliminara la subcategoria!",
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -150,10 +150,10 @@
                                 if (respuesta.estado === 1) {
                                     if (vista == 1) {
                                         mensajeSuccessGeneral(
-                                            '- Se ha agregado la categoria con exito');
+                                            '- Se ha agregado la subcategoria con exito');
                                     } else if (vista == 2) {
                                         mensajeSuccessGeneral(
-                                            '- Se ha actualizado la categoria con exito');
+                                            '- Se ha actualizado la subcategoria con exito');
                                     }
                                     $("#formGuardarSubcategoria")[0].reset();
                                     tablaSubcategorias.ajax.reload();

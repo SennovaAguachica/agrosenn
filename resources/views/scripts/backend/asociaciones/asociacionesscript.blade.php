@@ -69,10 +69,10 @@
                                 if (respuesta.estado === 1) {
                                     if (vista == 1) {
                                         mensajeSuccessGeneral(
-                                            '- Se ha agregado la categoria con exito');
+                                            '- Se ha agregado la asociación con exito');
                                     } else if (vista == 2) {
                                         mensajeSuccessGeneral(
-                                            '- Se ha actualizado la categoria con exito');
+                                            '- Se ha actualizado la asociación con exito');
                                     }
                                     $("#formGuardar")[0].reset();
                                     tablaAsociaciones.ajax.reload();
@@ -101,14 +101,19 @@
 
         function buscarId(data, modo) {
             vista = 2;
+            
             if (fila != "") {
                 $(fila).removeClass('selected');
             }
             fila = tablaAsociaciones.row("." + data).node();
+            console.log("DATA: "+data);
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablaasociaciones").DataTable().row('.selected').data();
             if (modo == 1) {
                 console.log(parametro_seleccionado);
+                console.log("DEPARTAMENTOS: "+parametro_seleccionado.municipio.iddepartamentos);
+                console.log("MUNICIPIOS: "+parametro_seleccionado.municipio.ciudad);
+                console.log("ID_MUNICIPIO: "+parametro_seleccionado.id_municipio);
                 $("#asociacion").val(parametro_seleccionado.asociacion);
                 $("#codigoasociacion").val(parametro_seleccionado.codigo_asociacion);
                 $("#direccion").val(parametro_seleccionado.direccion);

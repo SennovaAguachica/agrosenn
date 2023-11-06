@@ -182,7 +182,7 @@
         function eliminarAdministrador(id) {
             Swal.fire({
                 title: '¿Esta seguro?',
-                text: "Recuerde que se eliminara el producto!",
+                text: "Recuerde que se eliminara el administrador!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

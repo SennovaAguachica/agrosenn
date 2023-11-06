@@ -103,7 +103,14 @@
 
                 if (form.checkValidity() === false) {
                     form.classList.add("was-validated");
-                    if ($("#imagen").val() == "" || $("#icono").val() == "") {
+                    if ($("#imagen").val() == "") {
+                        $(".file-input").removeClass("valid");
+                        $(".file-input").addClass("is-invalid");
+                    } else {
+                        $(".file-input").removeClass("is-invalid");
+                        $(".file-input").addClass("valid");
+                    }
+                    if ($("#icono").val() == "") {
                         $(".file-input").removeClass("valid");
                         $(".file-input").addClass("is-invalid");
                     } else {
