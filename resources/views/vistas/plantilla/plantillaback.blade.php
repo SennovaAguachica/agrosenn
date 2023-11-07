@@ -100,8 +100,34 @@
                 @can('productos.listar')
                     <li class="menu-item" id="li_productos">
                         <a class="menu-link" href="/productos">
-                            <i class="icon material-icons md-shopping_bag"></i>
+                            <i class="icon material-icons md-shopping_bag" id="i_productos"></i>
                             <span class="text">Productos</span>
+                        </a>
+                    </li>
+                @endcan
+                @canany(['unidades.listar', 'equivalencias.listar'])
+                    <li class="menu-item has-submenu" id="li_gestion_unidades">
+                        <a class="menu-link">
+                            <i class="fas fa-weight fa-xl" id="i_unidades"
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                            <span class="text">Gestion de unidades</span>
+                        </a>
+                        <div class="submenu">
+                            @can('unidades.listar')
+                                <a href="/unidades" id="a_unidades">Unidades</a>
+                            @endcan
+                            @can('equivalencias.listar')
+                                <a href="/equivalencias" id="a_equivalencias">Equivalencias</a>
+                            @endcan
+                        </div>
+                    </li>
+                @endcanany
+                @can('precios.listar')
+                    <li class="menu-item" id="li_precios">
+                        <a class="menu-link" href="/precios">
+                            <i class="fa-solid fa-money-bill fa-xl" id="i_precios"
+                            style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
+                            <span class="text">Precios</span>
                         </a>
                     </li>
                 @endcan

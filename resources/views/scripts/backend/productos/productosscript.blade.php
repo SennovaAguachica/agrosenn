@@ -6,25 +6,36 @@
         var GUARDAR_PRODUCTOS = 1;
         var ACTUALIZAR_PRODUCTOS = 2;
         var ELIMINAR_PRODUCTOS = 3;
+        var BUSCAR_SUBCATEGORIAS = 4;
+        var HABILITAR_PRODUCTO = 5;
         var parametro_seleccionado = "";
         var tablaProductos = "";
         var fila = "";
         var vista = "";
         $(document).ready(function() {
             $('#li_productos').addClass('active');
+            $('#i_productos').css('color', '#3BB77E');
             cargarTablaProductos();
             guardarProducto();
             cargarImagen("#imagenproducto");
-            inputMoneda('#precioProducto');
+            // inputMoneda('#precioProducto');
             buttonClicks();
+            selectChanges();
         });
 
         function buttonClicks() {
             $("#btnguardar").on("click", function(e) {
                 vista = 1;
                 $('#tipoProducto').val("").trigger("chosen:updated");
+                // $('#idcategoria').val("").trigger("chosen:updated");
                 $("#formProductos")[0].reset();
             });
+        }
+
+        function selectChanges() {
+            $("#idcategoria").change(function() {
+                buscarSubcategorias($(this).val());
+            })
         }
 
         function buscarId(data, modo) {
@@ -33,27 +44,41 @@
                 $(fila).removeClass('selected');
             }
             fila = tablaProductos.row("." + data).node();
+            console.log("DATA: "+data);
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablaproductos").DataTable().row('.selected').data();
+            
             if (modo == 1) {
-                $("#tipoProducto").val(parametro_seleccionado.categoria_id);
-                $("#tipoProducto").trigger("chosen:updated");
+                // $("#tipoProducto").val(parametro_seleccionado.categoria_id);
+                // $("#tipoProducto").trigger("chosen:updated");
+                $("#idcategoria").val(parametro_seleccionado.subcategoria.categoria_id);
+                $('#idcategoria').trigger("chosen:updated");
+                $("#tipoProducto").find('option').remove().end().append('<option value="">Seleccione una opción</option>').trigger("chosen:updated");
+                $("#tipoProducto").append(new Option(parametro_seleccionado.subcategoria.subcategoria, parametro_seleccionado.subcategoria_id, true, true));
+                $('#tipoProducto').trigger("chosen:updated");
                 $("#nombreProducto").val(parametro_seleccionado.producto);
-                $("#precioProducto").val('$' + number_format(parametro_seleccionado.precio));
+                // $("#precioProducto").val('$' + number_format(parametro_seleccionado.precio));
                 $("#descripcionProducto").val(parametro_seleccionado.descripcion);
                 cargarImg("#imagenproducto", parametro_seleccionado.imagen);
             } else if (modo == 2) {
-                Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara el producto!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
+                eliminarProducto(parametro_seleccionado.id);
+            } else if (modo == 3) {
+                habilitarProducto(parametro_seleccionado.id);
+            }
+        }
+
+        function eliminarProducto(id){
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Recuerde que se eliminara el producto seleccionado!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
                             url: "/productos_peticiones", // Reemplaza esto con la URL del servidor
                             type: 'POST',
                             dataType: 'json',
@@ -78,9 +103,8 @@
                                 );
                             }
                         });
-                    }
-                });
-            }
+                 }
+            });
         }
 
         function guardarProducto() {
@@ -118,14 +142,15 @@
 
                 // Recopila los datos del formulario
                 datosFormulario = new FormData($('#formProductos')[0]);
-                datosFormulario.append('precioProducto', $("#precioProducto").unmask());
+                // datosFormulario.append('precioProducto', $("#precioProducto").unmask());
                 if (vista == 1) {
                     datosFormulario.append('accion', GUARDAR_PRODUCTOS);
                 } else if (vista == 2) {
                     datosFormulario.append('id', parametro_seleccionado.id);
+                    console.log(parametro_seleccionado.id);
                     datosFormulario.append('accion', ACTUALIZAR_PRODUCTOS);
                 }
-                console.log(datosFormulario);
+                //console.log(datosFormulario);
                 // Realiza la solicitud Ajax
                 Swal.fire({
                     title: 'Esta seguro?',
@@ -172,6 +197,7 @@
         }
 
         function cargarTablaProductos() {
+
             tablaProductos = $('#tablaproductos').DataTable({
                 "serverSide": true,
                 "processing": true,
@@ -191,20 +217,26 @@
                         data: 'producto'
                     },
                     {
-                        data: 'categoria.categoria'
+                        data: 'subcategoria.categorias.categoria'
                     },
                     {
-                        data: 'precio',
-                        render: function(data, type, row) {
-                            return '$' + number_format(data);
-                        }
+                        data: 'subcategoria.subcategoria'
                     },
                     {
-                        data: null,
-                        render: function(data, type, row) {
-                            return '<span class="badge rounded-pill alert-success">Disponible</span>';
-                        }
+                        data: 'descripcion'
                     },
+                    // {
+                    //     data: 'precio',
+                    //     render: function(data, type, row) {
+                    //         return '$' + number_format(data);
+                    //     }
+                    // },
+                    // {
+                    //     data: null,
+                    //     render: function(data, type, row) {
+                    //         return '<span class="badge rounded-pill alert-success">Disponible</span>';
+                    //     }
+                    // },
                     {
                         data: 'action'
                     }
@@ -219,6 +251,84 @@
                 },
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+        }
+
+
+        function buscarSubcategorias(idcategoria) {
+            $.ajax({
+                type: 'POST',
+                url: AJAX,
+                dataType: 'json',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    accion: BUSCAR_SUBCATEGORIAS,
+                    idcategoria
+                },
+                
+                beforeSend: function() {
+                    // console.log(idcategoria);
+                    // console.log(respuesta.length);
+                    // console.log(respuesta[0].id);
+                    // console.log(respuesta[0].subcategoria);
+                    // $(".carga").removeClass("hidden").addClass("show");
+                },
+                success: function(respuesta) {
+                    
+                    $(".carga").removeClass("show").addClass("hidden");
+                    var subcategorias_select = '<option value="">Seleccione una opción</option>'
+                    for (var i = 0; i < respuesta.length; i++) {
+                        subcategorias_select += '<option value="' + respuesta[i].id + '">' + respuesta[i].subcategoria +
+                            '</option>';
+                        $("#tipoProducto").html(subcategorias_select);
+                        $("#tipoProducto").trigger("chosen:updated");
+                    }
+                },
+                error: function(request, status, error) {
+                    mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");
+                    $(".carga").removeClass("show").addClass("hidden");
+                }
+            });
+        }
+
+
+        function habilitarProducto(id) {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Recuerde que se habilitara la asociación seleccionada!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/productos_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: HABILITAR_PRODUCTO,
+                            id
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha habilitado el producto con exito');
+                                tablaProductos.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
+                            }
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                        }
+                    });
                 }
             });
         }

@@ -94,7 +94,7 @@
                 @endforeach
             </select>
             <div class="invalid-feedback">
-                Selecciona un tipo de producto válido.
+                Selecciona una categoría válida.
             </div>
         </div>
     </div>

@@ -5413,6 +5413,22 @@ abstract class DatosBasesProvider
 
             ['id' => '42', 'name' => 'vendedores.habilitar', 'description' => 'Habilitar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
             ['id' => '43', 'name' => 'asociaciones.habilitar', 'description' => 'Habilitar Asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+
+            //Permisos unidades
+            ['id' => '44', 'name' => 'unidades.listar', 'description' => 'Listar unidades', 'grupo' => 'Unidades', 'guard_name' => 'web'],
+            ['id' => '45', 'name' => 'unidades.guardar', 'description' => 'Guardar unidades', 'grupo' => 'Unidades', 'guard_name' => 'web'],
+            ['id' => '46', 'name' => 'unidades.actualizar', 'description' => 'Actualizar unidades', 'grupo' => 'Unidades', 'guard_name' => 'web'],
+            ['id' => '47', 'name' => 'unidades.eliminar', 'description' => 'Eliminar unidades', 'grupo' => 'Unidades', 'guard_name' => 'web'],
+            //Permisos equivalencias
+            ['id' => '48', 'name' => 'equivalencias.listar', 'description' => 'Listar equivalencias', 'grupo' => 'Equivalencias', 'guard_name' => 'web'],
+            ['id' => '49', 'name' => 'equivalencias.guardar', 'description' => 'Guardar equivalencias', 'grupo' => 'Equivalencias', 'guard_name' => 'web'],
+            ['id' => '50', 'name' => 'equivalencias.actualizar', 'description' => 'Actualizar equivalencias', 'grupo' => 'Equivalencias', 'guard_name' => 'web'],
+            ['id' => '51', 'name' => 'equivalencias.eliminar', 'description' => 'Eliminar equivalencias', 'grupo' => 'Equivalencias', 'guard_name' => 'web'],
+            //Permisos precios
+            ['id' => '52', 'name' => 'precios.listar', 'description' => 'Listar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
+            ['id' => '53', 'name' => 'precios.guardar', 'description' => 'Guardar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
+            ['id' => '54', 'name' => 'precios.actualizar', 'description' => 'Actualizar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
+            ['id' => '55', 'name' => 'precios.eliminar', 'description' => 'Eliminar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
         ];
     }
     public static function TiposDocumentos()
@@ -6147,24 +6163,92 @@ abstract class DatosBasesProvider
             [
                 'id' => 1,
                 'producto' => 'Uvas',
-                'descripcion' => '',
                 'imagen' => '/storage/categorias/categoria-cereales.webp',
+                'estado' => 1,
+                'descripcion' => '',
                 //'precio' => 1200,
                 'subcategoria_id' => 1,
-                'estado' => 1,
             ],
             [
                 'id' => 2,
                 'producto' => 'Papas',
-                'descripcion' => '',
                 'imagen' => '/storage/subcategorias/subcategoria-huevos.webp',
+                'estado' => 1,
+                'descripcion' => '',
                 //'precio' => 1200,
-                'subcategoria_id' => 1,
+                'subcategoria_id' => 24,
+
+            ],
+        ];
+    }
+
+    public static function unidadMinima()
+    {
+        return [
+            [
+                'id' => 1,
+                'unidad' => 'gramo',
+                'estado' => 1,
+            ],
+            [
+                'id' => 2,
+                'unidad' => 'litro',
+                'estado' => 1,
+            ],
+            [
+                'id' => 3,
+                'unidad' => 'unidad',
                 'estado' => 1,
             ],
         ];
     }
 
+    public static function unidades()
+    {
+        return [
+            [
+                'id' => 1,
+                'unidad' => 'Gramo',
+                'abreviatura' => 'grm',
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 2,
+                'unidad' => 'Kilogramo',
+                'abreviatura' => 'kg',
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 3,
+                'unidad' => 'Libra',
+                'abreviatura' => 'lb',
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 4,
+                'unidad' => 'Tonelada',
+                'abreviatura' => 't',
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+        ];
+    }
+
+    public static function equivalenciasUnidades()
+    {
+        return [
+            [
+                'id' => 1,
+                'equivalencia' => 1000,
+                'estado' => 1,
+                'equivalencias_id' => 1,
+                'unidades_id' => 2,
+            ],
+        ];
+    }
     // public static function imagenes()
     // {
     //     return [

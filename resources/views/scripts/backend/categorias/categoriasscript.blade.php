@@ -46,7 +46,7 @@
             } else if (modo == 2) {
                 Swal.fire({
                     title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara el producto!",
+                    text: "Recuerde que se eliminará la categoría!",
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -103,7 +103,14 @@
 
                 if (form.checkValidity() === false) {
                     form.classList.add("was-validated");
-                    if ($("#imagen").val() == "" || $("#icono").val() == "") {
+                    if ($("#imagen").val() == "") {
+                        $(".file-input").removeClass("valid");
+                        $(".file-input").addClass("is-invalid");
+                    } else {
+                        $(".file-input").removeClass("is-invalid");
+                        $(".file-input").addClass("valid");
+                    }
+                    if ($("#icono").val() == "") {
                         $(".file-input").removeClass("valid");
                         $(".file-input").addClass("is-invalid");
                     } else {

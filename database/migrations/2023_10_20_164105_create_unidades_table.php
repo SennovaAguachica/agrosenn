@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('unidad');
             $table->string('abreviatura');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->Integer('estado');
             $table->timestamps();
         });
