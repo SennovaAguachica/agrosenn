@@ -15,7 +15,7 @@
             $('#i_precios').css('color', '#3BB77E');
             cargarTablaPrecios();
             guardarPrecio();
-            inputMoneda('#precio');
+            // inputMoneda('#precio');
             buttonClicks();
         });
 
@@ -38,8 +38,8 @@
             parametro_seleccionado = $("#tablaprecios").DataTable().row('.selected').data();
             
             if (modo == 1) {
-                // $("#precio").val(parametro_seleccionado.precio);
-                $("#precio").val('$' + number_format(parametro_seleccionado.precio));
+                $("#precio").val(parametro_seleccionado.precio);
+                // $("#precio").val('$' + number_format(parametro_seleccionado.precio));
                 $("#idproductos").val(parametro_seleccionado.producto_id);
                 $("#idproductos").trigger("chosen:updated");
                 $("#idunidades").val(parametro_seleccionado.unidades_id);
@@ -64,7 +64,7 @@
 
                 // Recopila los datos del formulario
                 datosFormulario = new FormData($('#formGuardar')[0]);
-                datosFormulario.append('precio', $("#precio").unmask());
+                // datosFormulario.append('precio', $("#precio").unmask());
                 if (vista == 1) {
                     datosFormulario.append('accion', GUARDAR_PRECIOS);
                 } else if (vista == 2) {

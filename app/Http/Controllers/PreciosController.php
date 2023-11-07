@@ -137,7 +137,7 @@ class PreciosController extends Controller
         }
     }
 
-    public function actualizarProductos($datos)
+    public function actualizarPrecios($datos)
     {
         $aErrores = array();
         DB::beginTransaction();
@@ -180,7 +180,7 @@ class PreciosController extends Controller
         }
     }
 
-    public function eliminarProductos($datos)
+    public function eliminarPrecios($datos)
     {
         //dd($datos['id']);
         $aErrores = array();
