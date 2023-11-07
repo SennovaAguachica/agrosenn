@@ -95,8 +95,11 @@ class VendedoresController extends Controller
         $validacionDocumento = Vendedores::where([
             ['n_documento', $datos['documento']]
         ])->get();
-        if (count($validacionDocumento) > 0) {
-            $aErrores[] = '- El vendedor ya se encuentra registrado';
+        $validacionUser = User::where([
+            ['documento', $datos['documento']]
+        ])->get();
+        if (count($validacionDocumento) > 0 || count($validacionUser) > 0) {
+            $aErrores[] = '- El vendedor o el usuario ya se encuentra registrado';
         }
         if($datos['email']){
             $validacionCorreo = Vendedores::where([
@@ -133,6 +136,7 @@ class VendedoresController extends Controller
             $nuevoUsuario = new User();
             $nuevoUsuario->idrol = 3;
             $nuevoUsuario->idvendedor = $ultimoInsertado->id;
+            $nuevoUsuario->documento = $datos['documento'];
             $nuevoUsuario->email = $datos['email'];
             $nuevoUsuario->password = Hash::make($datos['documento']);
             $nuevoUsuario->estado = 1;
@@ -187,7 +191,8 @@ class VendedoresController extends Controller
             $actualizarVendedor->apellidos = $datos['apellidos'];
             $actualizarVendedor->direccion = $datos['direccion'];
             $actualizarVendedor->n_celular = $datos['celular'];
-            if($actualizarVendedor->email != $datos['email']){
+            if($actualizarVendedor->email != $datos['email']|| $actualizarVendedor->n_documento != $datos['documento']){
+                $actualizarVendedor->usuario->documento = $datos['documento'];
                 $actualizarVendedor->usuario->email = $datos['email'];
                 $actualizarVendedor->usuario->save();
             }

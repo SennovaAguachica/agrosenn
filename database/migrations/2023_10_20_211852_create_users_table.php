@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('idasociacion')->unsigned()->nullable();
             $table->bigInteger('idcliente')->unsigned()->nullable();
             $table->bigInteger('idadministrador')->unsigned()->nullable();
+            $table->string('documento')->unique();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -125,6 +125,7 @@ class RegisteredUserController extends Controller
                 $nuevoUsuario = new User();
                 $nuevoUsuario->idrol = 3;
                 $nuevoUsuario->idvendedor = $ultimoInsertado->id;
+                $nuevoUsuario->documento = $request->documento;
                 $nuevoUsuario->email = $request->email;
                 $nuevoUsuario->password = Hash::make($request->password);
                 $nuevoUsuario->estado = 0;
@@ -149,6 +150,7 @@ class RegisteredUserController extends Controller
                 $nuevoCliente = new User();
                 $nuevoCliente->idrol = 4;
                 $nuevoCliente->idcliente = $ultimoInsertado->id;
+                $nuevoCliente->documento = $request->documento;
                 $nuevoCliente->email = $request->email;
                 $nuevoCliente->password = Hash::make($request->password);
                 $nuevoCliente->estado = 1;

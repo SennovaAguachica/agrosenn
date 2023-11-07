@@ -102,9 +102,11 @@ class AsociacionesController extends Controller
         $validacion = Asociaciones::where([
             ['codigo_asociacion', $datos['codigoasociacion']]
         ])->get();
-
-        if (count($validacion) > 0) {
-            $aErrores[] = '- El asociacion ya se encuentra registrada';
+        $validacionUser = User::where([
+            ['documento', $datos['codigoasociacion']]
+        ])->get();
+        if (count($validacion) > 0 || count($validacionUser) > 0) {
+            $aErrores[] = '- El asociacion o el usuario ya se encuentra registrada';
         }
         $validacionCorreo = Asociaciones::where([
             ['email', $datos['email']]
@@ -136,6 +138,7 @@ class AsociacionesController extends Controller
             $nuevoUsuario = new User();
             $nuevoUsuario->idrol = 2;
             $nuevoUsuario->idasociacion = $ultimoInsertado->id;
+            $nuevoUsuario->documento = $datos['codigoasociacion'];
             $nuevoUsuario->email = $datos['email'];
             $nuevoUsuario->password = Hash::make($datos['codigoasociacion']);
             $nuevoUsuario->estado = 1;
@@ -184,7 +187,8 @@ class AsociacionesController extends Controller
             $actualizarAsociacion->codigo_asociacion = $datos['codigoasociacion'];
             $actualizarAsociacion->direccion = $datos['direccion'];
             $actualizarAsociacion->n_celular = $datos['celular'];
-            if($actualizarAsociacion->email != $datos['email']){
+            if($actualizarAsociacion->email != $datos['email'] || $actualizarAsociacion->codigo_asociacion != $datos['codigoasociacion']){
+                $actualizarAsociacion->usuario->documento = $datos['codigoasociacion'];
                 $actualizarAsociacion->usuario->email = $datos['email'];
                 $actualizarAsociacion->usuario->save();
             }

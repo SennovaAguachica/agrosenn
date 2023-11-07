@@ -5513,6 +5513,7 @@ abstract class DatosBasesProvider
                 'idasociacion' => null,
                 'idcliente' => null,
                 'idadministrador' => 1,
+                'documento' => '12345',
                 'email' => 'admin@gmail.com',
                 'password' => '$2y$10$0Fu.4tLLgxFMJaLtWK0ideB115VR91MGtS/uKuI862I7hPUixK2Xm',
                 'estado' => '1'
