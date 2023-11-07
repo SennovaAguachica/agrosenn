@@ -122,6 +122,15 @@
                         </div>
                     </li>
                 @endcanany
+                @can('precios.listar')
+                    <li class="menu-item" id="li_precios">
+                        <a class="menu-link" href="/precios">
+                            <i class="fa-solid fa-money-bill fa-xl" id="i_precios"
+                            style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
+                            <span class="text">Precios</span>
+                        </a>
+                    </li>
+                @endcan
                 @can('administradores.listar')
                     <li class="menu-item" id="li_administradores">
                         <a class="menu-link" href="/administradores">

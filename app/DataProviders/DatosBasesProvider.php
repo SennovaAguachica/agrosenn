@@ -5424,6 +5424,11 @@ abstract class DatosBasesProvider
             ['id' => '49', 'name' => 'equivalencias.guardar', 'description' => 'Guardar equivalencias', 'grupo' => 'Equivalencias', 'guard_name' => 'web'],
             ['id' => '50', 'name' => 'equivalencias.actualizar', 'description' => 'Actualizar equivalencias', 'grupo' => 'Equivalencias', 'guard_name' => 'web'],
             ['id' => '51', 'name' => 'equivalencias.eliminar', 'description' => 'Eliminar equivalencias', 'grupo' => 'Equivalencias', 'guard_name' => 'web'],
+            //Permisos precios
+            ['id' => '52', 'name' => 'precios.listar', 'description' => 'Listar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
+            ['id' => '53', 'name' => 'precios.guardar', 'description' => 'Guardar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
+            ['id' => '54', 'name' => 'precios.actualizar', 'description' => 'Actualizar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
+            ['id' => '55', 'name' => 'precios.eliminar', 'description' => 'Eliminar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
         ];
     }
     public static function TiposDocumentos()
