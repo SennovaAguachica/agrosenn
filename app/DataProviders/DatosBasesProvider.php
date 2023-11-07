@@ -2292,127 +2292,127 @@ abstract class DatosBasesProvider
             [
                 "id" => "12960",
                 "iddepartamentos" => "786",
-                "ciudad" => "aguachica"
+                "ciudad" => "Aguachica"
             ],
             [
                 "id" => "12961",
                 "iddepartamentos" => "786",
-                "ciudad" => "agustin codazzi"
+                "ciudad" => "Agustín Codazzi"
             ],
             [
                 "id" => "12962",
                 "iddepartamentos" => "786",
-                "ciudad" => "astrea"
+                "ciudad" => "Astrea"
             ],
             [
                 "id" => "12963",
                 "iddepartamentos" => "786",
-                "ciudad" => "becerril"
+                "ciudad" => "Becerril"
             ],
             [
                 "id" => "12964",
                 "iddepartamentos" => "786",
-                "ciudad" => "bosconia"
+                "ciudad" => "Bosconia"
             ],
             [
                 "id" => "12965",
                 "iddepartamentos" => "786",
-                "ciudad" => "chimichagua"
+                "ciudad" => "Chimichagua"
             ],
             [
                 "id" => "12966",
                 "iddepartamentos" => "786",
-                "ciudad" => "chiriguana"
+                "ciudad" => "Chiriguaná"
             ],
             [
                 "id" => "12967",
                 "iddepartamentos" => "786",
-                "ciudad" => "curumani"
+                "ciudad" => "Curumaní"
             ],
             [
                 "id" => "12968",
                 "iddepartamentos" => "786",
-                "ciudad" => "el copey"
+                "ciudad" => "El Copey"
             ],
             [
                 "id" => "12969",
                 "iddepartamentos" => "786",
-                "ciudad" => "el paso"
+                "ciudad" => "El Paso"
             ],
             [
                 "id" => "12970",
                 "iddepartamentos" => "786",
-                "ciudad" => "gamarra"
+                "ciudad" => "Gamarra"
             ],
             [
                 "id" => "12971",
                 "iddepartamentos" => "786",
-                "ciudad" => "gonzalez"
+                "ciudad" => "González"
             ],
             [
                 "id" => "12972",
                 "iddepartamentos" => "786",
-                "ciudad" => "la gloria"
+                "ciudad" => "La Gloria"
             ],
             [
                 "id" => "12973",
                 "iddepartamentos" => "786",
-                "ciudad" => "la jagua ibirico"
+                "ciudad" => "La Jagua de Ibirico"
             ],
             [
                 "id" => "12974",
                 "iddepartamentos" => "786",
-                "ciudad" => "manaure"
+                "ciudad" => "Manaure"
             ],
             [
                 "id" => "12975",
                 "iddepartamentos" => "786",
-                "ciudad" => "pailitas"
+                "ciudad" => "Pailitas"
             ],
             [
                 "id" => "12976",
                 "iddepartamentos" => "786",
-                "ciudad" => "pelaya"
+                "ciudad" => "Pelaya"
             ],
             [
                 "id" => "12977",
                 "iddepartamentos" => "786",
-                "ciudad" => "pueblo bello"
+                "ciudad" => "Pueblo Bello"
             ],
             [
                 "id" => "12978",
                 "iddepartamentos" => "786",
-                "ciudad" => "rio de oro"
+                "ciudad" => "Rio de Oro"
             ],
             [
                 "id" => "12979",
                 "iddepartamentos" => "786",
-                "ciudad" => "robles la paz"
+                "ciudad" => "La Paz Robles"
             ],
             [
                 "id" => "12980",
                 "iddepartamentos" => "786",
-                "ciudad" => "san alberto"
+                "ciudad" => "San Alberto"
             ],
             [
                 "id" => "12981",
                 "iddepartamentos" => "786",
-                "ciudad" => "san diego"
+                "ciudad" => "San Diego"
             ],
             [
                 "id" => "12982",
                 "iddepartamentos" => "786",
-                "ciudad" => "san martin"
+                "ciudad" => "San Martín"
             ],
             [
                 "id" => "12983",
                 "iddepartamentos" => "786",
-                "ciudad" => "tamalameque"
+                "ciudad" => "Tamalameque"
             ],
             [
                 "id" => "12984",
                 "iddepartamentos" => "786",
-                "ciudad" => "valledupar"
+                "ciudad" => "Valledupar"
             ],
             [
                 "id" => "12985",
@@ -5356,62 +5356,63 @@ abstract class DatosBasesProvider
             ]
         ];
     }
-    public static function permisos(){
+    public static function permisos()
+    {
         return [
             //Permisos clientes
-            ['id' => '1','name' => 'clientes.listar', 'description' => 'Listar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
-            ['id' => '2','name' => 'clientes.guardar', 'description' => 'Guardar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
-            ['id' => '3','name' => 'clientes.actualizar', 'description' => 'Actualizar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
-            ['id' => '4','name' => 'clientes.eliminar', 'description' => 'Eliminar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            ['id' => '1', 'name' => 'clientes.listar', 'description' => 'Listar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            ['id' => '2', 'name' => 'clientes.guardar', 'description' => 'Guardar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            ['id' => '3', 'name' => 'clientes.actualizar', 'description' => 'Actualizar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
+            ['id' => '4', 'name' => 'clientes.eliminar', 'description' => 'Eliminar clientes', 'grupo' => 'Clientes', 'guard_name' => 'web'],
             //Permisos vendedores
-            ['id' => '5','name' => 'vendedores.listar', 'description' => 'Listar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
-            ['id' => '6','name' => 'vendedores.guardar', 'description' => 'Guardar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
-            ['id' => '7','name' => 'vendedores.actualizar', 'description' => 'Actualizar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
-            ['id' => '8','name' => 'vendedores.eliminar', 'description' => 'Eliminar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '5', 'name' => 'vendedores.listar', 'description' => 'Listar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '6', 'name' => 'vendedores.guardar', 'description' => 'Guardar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '7', 'name' => 'vendedores.actualizar', 'description' => 'Actualizar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '8', 'name' => 'vendedores.eliminar', 'description' => 'Eliminar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
             //Permisos administradores
-            ['id' => '9','name' => 'administradores.listar', 'description' => 'Listar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
-            ['id' => '10','name' => 'administradores.guardar', 'description' => 'Guardar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
-            ['id' => '11','name' => 'administradores.actualizar', 'description' => 'Actualizar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
-            ['id' => '12','name' => 'administradores.eliminar', 'description' => 'Eliminar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            ['id' => '9', 'name' => 'administradores.listar', 'description' => 'Listar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            ['id' => '10', 'name' => 'administradores.guardar', 'description' => 'Guardar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            ['id' => '11', 'name' => 'administradores.actualizar', 'description' => 'Actualizar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
+            ['id' => '12', 'name' => 'administradores.eliminar', 'description' => 'Eliminar administradores', 'grupo' => 'Administradores', 'guard_name' => 'web'],
             //Permisos asociaciones
-            ['id' => '13','name' => 'asociaciones.listar', 'description' => 'Listar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
-            ['id' => '14','name' => 'asociaciones.guardar', 'description' => 'Guardar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
-            ['id' => '15','name' => 'asociaciones.actualizar', 'description' => 'Actualizar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
-            ['id' => '16','name' => 'asociaciones.eliminar', 'description' => 'Eliminar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '13', 'name' => 'asociaciones.listar', 'description' => 'Listar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '14', 'name' => 'asociaciones.guardar', 'description' => 'Guardar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '15', 'name' => 'asociaciones.actualizar', 'description' => 'Actualizar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '16', 'name' => 'asociaciones.eliminar', 'description' => 'Eliminar asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
             //Permisos productos
-            ['id' => '17','name' => 'productos.listar', 'description' => 'Listar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
-            ['id' => '18','name' => 'productos.guardar', 'description' => 'Guardar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
-            ['id' => '19','name' => 'productos.actualizar', 'description' => 'Actualizar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
-            ['id' => '20','name' => 'productos.eliminar', 'description' => 'Eliminar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
-             //Permisos categorias
-             ['id' => '21','name' => 'categorias.listar', 'description' => 'Listar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
-             ['id' => '22','name' => 'categorias.guardar', 'description' => 'Guardar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
-             ['id' => '23','name' => 'categorias.actualizar', 'description' => 'Actualizar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
-             ['id' => '24','name' => 'categorias.eliminar', 'description' => 'Eliminar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
-             //Permisos subcategorias
-             ['id' => '25','name' => 'subcategorias.listar', 'description' => 'Listar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
-             ['id' => '26','name' => 'subcategorias.guardar', 'description' => 'Guardar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
-             ['id' => '27','name' => 'subcategorias.actualizar', 'description' => 'Actualizar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
-             ['id' => '28','name' => 'subcategorias.eliminar', 'description' => 'Eliminar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+            ['id' => '17', 'name' => 'productos.listar', 'description' => 'Listar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+            ['id' => '18', 'name' => 'productos.guardar', 'description' => 'Guardar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+            ['id' => '19', 'name' => 'productos.actualizar', 'description' => 'Actualizar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+            ['id' => '20', 'name' => 'productos.eliminar', 'description' => 'Eliminar productos', 'grupo' => 'Productos', 'guard_name' => 'web'],
+            //Permisos categorias
+            ['id' => '21', 'name' => 'categorias.listar', 'description' => 'Listar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+            ['id' => '22', 'name' => 'categorias.guardar', 'description' => 'Guardar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+            ['id' => '23', 'name' => 'categorias.actualizar', 'description' => 'Actualizar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+            ['id' => '24', 'name' => 'categorias.eliminar', 'description' => 'Eliminar categorias', 'grupo' => 'Categorias', 'guard_name' => 'web'],
+            //Permisos subcategorias
+            ['id' => '25', 'name' => 'subcategorias.listar', 'description' => 'Listar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+            ['id' => '26', 'name' => 'subcategorias.guardar', 'description' => 'Guardar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+            ['id' => '27', 'name' => 'subcategorias.actualizar', 'description' => 'Actualizar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
+            ['id' => '28', 'name' => 'subcategorias.eliminar', 'description' => 'Eliminar subcategorias', 'grupo' => 'Subcategorias', 'guard_name' => 'web'],
             //Permisos usuarios
-            ['id' => '29','name' => 'usuarios.listar', 'description' => 'Listar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
-            ['id' => '30','name' => 'usuarios.guardar', 'description' => 'Guardar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
-            ['id' => '31','name' => 'usuarios.actualizar', 'description' => 'Actualizar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
-            ['id' => '32','name' => 'usuarios.eliminar', 'description' => 'Eliminar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
-            ['id' => '33','name' => 'usuarios.habilitar', 'description' => 'Habilitar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '29', 'name' => 'usuarios.listar', 'description' => 'Listar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '30', 'name' => 'usuarios.guardar', 'description' => 'Guardar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '31', 'name' => 'usuarios.actualizar', 'description' => 'Actualizar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '32', 'name' => 'usuarios.eliminar', 'description' => 'Eliminar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
+            ['id' => '33', 'name' => 'usuarios.habilitar', 'description' => 'Habilitar usuarios', 'grupo' => 'Usuarios', 'guard_name' => 'web'],
             //Permisos roles
-            ['id' => '34','name' => 'roles.listar', 'description' => 'Listar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
-            ['id' => '35','name' => 'roles.guardar', 'description' => 'Guardar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
-            ['id' => '36','name' => 'roles.actualizar', 'description' => 'Actualizar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
-            ['id' => '37','name' => 'roles.eliminar', 'description' => 'Eliminar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            ['id' => '34', 'name' => 'roles.listar', 'description' => 'Listar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            ['id' => '35', 'name' => 'roles.guardar', 'description' => 'Guardar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            ['id' => '36', 'name' => 'roles.actualizar', 'description' => 'Actualizar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
+            ['id' => '37', 'name' => 'roles.eliminar', 'description' => 'Eliminar roles', 'grupo' => 'Roles', 'guard_name' => 'web'],
             //Permisos permisos
-            ['id' => '38','name' => 'permisos.listar', 'description' => 'Listar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
-            ['id' => '39','name' => 'permisos.guardar', 'description' => 'Guardar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
-            ['id' => '40','name' => 'permisos.actualizar', 'description' => 'Actualizar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
-            ['id' => '41','name' => 'permisos.eliminar', 'description' => 'Eliminar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
-            
-            ['id' => '42','name' => 'vendedores.habilitar', 'description' => 'Habilitar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
-            ['id' => '43','name' => 'asociaciones.habilitar', 'description' => 'Habilitar Asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
+            ['id' => '38', 'name' => 'permisos.listar', 'description' => 'Listar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+            ['id' => '39', 'name' => 'permisos.guardar', 'description' => 'Guardar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+            ['id' => '40', 'name' => 'permisos.actualizar', 'description' => 'Actualizar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+            ['id' => '41', 'name' => 'permisos.eliminar', 'description' => 'Eliminar permisos', 'grupo' => 'Permisos', 'guard_name' => 'web'],
+
+            ['id' => '42', 'name' => 'vendedores.habilitar', 'description' => 'Habilitar vendedores', 'grupo' => 'Vendedores', 'guard_name' => 'web'],
+            ['id' => '43', 'name' => 'asociaciones.habilitar', 'description' => 'Habilitar Asociaciones', 'grupo' => 'Asociaciones', 'guard_name' => 'web'],
         ];
     }
     public static function TiposDocumentos()
@@ -5434,8 +5435,9 @@ abstract class DatosBasesProvider
     public static function model_roles()
     {
         return [
-                [ 'role_id' => 1, 'model_type' => "App\Models\User",'model_id' => 1
-                ]
+            [
+                'role_id' => 1, 'model_type' => "App\Models\User", 'model_id' => 1
+            ]
         ];
     }
     public static function clientes()

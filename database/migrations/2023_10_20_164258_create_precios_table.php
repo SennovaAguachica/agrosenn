@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unidades', function (Blueprint $table) {
+        Schema::create('precios', function (Blueprint $table) {
             $table->id();
-            $table->string('unidad');
-            $table->string('abreviatura');
-            $table->text('descripcion');
+            $table->decimal('precio', 10, 2);
+
             $table->Integer('estado');
+
+            $table->unsignedBigInteger('producto_id');
+            $table->foreign('producto_id')->references('id')->on('productos');
+
+            $table->unsignedBigInteger('unidades_id');
+            // $table->foreign('unidades_id')->references('id')->on('unidades');
+
             $table->timestamps();
         });
     }
@@ -26,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unidades');
+        Schema::dropIfExists('precios');
     }
 };

@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medida_producto', function (Blueprint $table) {
+        Schema::create('equivalencias', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('producto_id');
-            $table->foreign('producto_id')->references('id')->on('producto');
-
-            $table->unsignedBigInteger('medida_id');
-            // $table->foreign('medida_id')->references('id')->on('medidas');
-
+            $table->string('unidad');
+            $table->Integer('estado');
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medida_producto');
+        Schema::dropIfExists('equivalencias');
     }
 };

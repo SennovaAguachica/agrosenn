@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->string('ruta');
-            $table->string('nombre');
-            // $table->Integer('estado');
-            // $table->unsignedBigInteger('producto_id');
-            // $table->foreign('producto_id')->references('id')->on('productos');
+            //$table->Integer('estado');
+            $table->unsignedBigInteger('publicaciones_id');
+            $table->foreign('publicaciones_id')->references('id')->on('publicaciones');
             $table->timestamps();
         });
     }
