@@ -119,6 +119,7 @@ class AdministradoresController extends Controller
             $nuevoUsuario = new User();
             $nuevoUsuario->idrol = 1;
             $nuevoUsuario->idadministrador = $ultimoInsertado->id;
+            $nuevoUsuario->documento = $datos['codigoadministrador'];
             $nuevoUsuario->email = $datos['email'];
             $nuevoUsuario->password = Hash::make($datos['codigoadministrador']);
             $nuevoUsuario->estado = 1;
@@ -145,8 +146,11 @@ class AdministradoresController extends Controller
         $validacion = Administradores::where([
             ['codigo_administrador', $datos['codigoadministrador']]
         ])->where('id', '!=', $datos['id'])->get();
-        if (count($validacion) > 0) {
-            $aErrores[] = '- El administrador ya se encuentra registrado';
+        $validacionUser = User::where([
+            ['documento', $datos['codigoadministrador']]
+        ])->get();
+        if (count($validacion) > 0 || count($validacionUser) > 0) {
+            $aErrores[] = '- El administrador o el usuario ya se encuentra registrado';
         }
         $validacionCorreo = Administradores::where([
             ['email', $datos['email']]
@@ -165,7 +169,8 @@ class AdministradoresController extends Controller
             $actualizarAdministrador->administrador = $datos['administrador'];
             $actualizarAdministrador->codigo_administrador = $datos['codigoadministrador'];
             $actualizarAdministrador->n_celular = $datos['celular'];
-            if($actualizarAdministrador->email != $datos['email']){
+            if($actualizarAdministrador->email != $datos['email'] || $actualizarAdministrador->codigo_administrador != $datos['codigoadministrador']){
+                $actualizarAdministrador->usuario->documento = $datos['codigoadministrador'];
                 $actualizarAdministrador->usuario->email = $datos['email'];
                 $actualizarAdministrador->usuario->save();
             }

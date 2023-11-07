@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
+use App\Models\Administradores;
+use App\Models\Clientes;
+use App\Models\Vendedores;
+use App\Models\Asociaciones;
 
 class LoginRequest extends FormRequest
 {
@@ -27,7 +32,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'usuario' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -39,17 +44,67 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
+        // $this->ensureIsNotRateLimited();
+        // $user = User::where('email',$this->only('email'))->first();
+        // if($user){
+        //     if($user->estado==0){
+        //         throw ValidationException::withMessages([
+        //             'name' => 'Este usuario se encuentra desactivado',
+        //         ]);  
+        //     }
+        // }
+        // if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        //     RateLimiter::hit($this->throttleKey());
+
+        //     throw ValidationException::withMessages([
+        //         'email' => trans('auth.failed'),
+        //     ]);
+        // }
+
+        // RateLimiter::clear($this->throttleKey());
+
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $credentials = $this->only(['usuario', 'password']); // Obtener las credenciales del usuario
+        // Asegúrate de que la clave 'usuario' sea reemplazada por 'email' o 'documento' según corresponda
+        if (filter_var($credentials['usuario'], FILTER_VALIDATE_EMAIL)) {
+            $credentials['email'] = $credentials['usuario'];
+            unset($credentials['usuario']);
+        } else {
+            $credentials['documento'] = $credentials['usuario'];
+            unset($credentials['usuario']);
+        }
+        
+        $user = User::where(function ($query) use ($credentials) {
+            if (isset($credentials['email'])) {
+                $query->where('email', $credentials['email']);
+            }
+            if (isset($credentials['documento'])) {
+                $query->orWhere('documento', $credentials['documento']);
+            }
+        })->first();
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'name' => trans('auth.failed'),
+            ]);
+        }
+
+        if ($user->estado == 0) {
+            throw ValidationException::withMessages([
+                'name' => 'Este usuario se encuentra desactivado',
+            ]);
+        }
+
+        if (!Auth::attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'usuario' => trans('auth.failed'),
             ]);
         }
 
         RateLimiter::clear($this->throttleKey());
+
     }
 
     /**
@@ -59,6 +114,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
+
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
@@ -66,7 +122,6 @@ class LoginRequest extends FormRequest
         event(new Lockout($this));
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
-
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [
                 'seconds' => $seconds,

@@ -82,7 +82,7 @@
                                 if (request.responseJSON.errors && request.responseJSON.errors
                                     .password) {
                                     mensajeErrorGeneral(request.responseJSON.errors.password[
-                                    0]);
+                                        0]);
                                 } else if (request.responseJSON.message) {
                                     mensajeErrorGeneral(request.responseJSON.message);
                                 } else {

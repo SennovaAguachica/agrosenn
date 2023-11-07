@@ -28,6 +28,7 @@ class User extends Authenticatable
         'idcliente',
         'idadministrador',
         'estado',
+        'documento',
         'email',
         'password',
     ];
