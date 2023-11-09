@@ -6248,7 +6248,7 @@ abstract class DatosBasesProvider
             [
                 'id' => 10,
                 'producto' => 'Cebolla Blanca',
-                'imagen' => '/assets/images/productos/producto-cebolla-balnca.webp',
+                'imagen' => '/assets/images/productos/producto-cebolla-blanca.webp',
                 'estado' => 1,
                 'descripcion' => '',
                 'subcategoria_id' => 14,
