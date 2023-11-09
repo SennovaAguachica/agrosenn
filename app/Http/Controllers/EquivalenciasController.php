@@ -99,13 +99,23 @@ class EquivalenciasController extends Controller
         try {
 
             $validacion = EquivalenciasUnidades::where([
-                ['equivalencia', $datos['equivalencia']],
+                // ['equivalencia', $datos['equivalencia']],
                 ['equivalencias_id', $datos['idequivalencias']],
                 ['unidades_id', $datos['idunidades']],
                 ['estado', 0]
             ])->first();
             if ($validacion) {
+                $validacion->update(['equivalencia' => $datos['equivalencia']]);
                 $validacion->update(['estado' => 1]);
+            }
+            $validacionEquivalencias = EquivalenciasUnidades::where([
+                ['equivalencias_id', $datos['idequivalencias']],
+            ])->get();
+            $validacionUnidad = EquivalenciasUnidades::where([
+                ['unidades_id', $datos['idunidades']],
+            ])->get();
+            if (count($validacionEquivalencias) > 0 && count($validacionUnidad) > 0) {
+                $aErrores[] = '- Esta unidad ya tiene una equivalencia';
             } else {
                 $nuevoEquivalencia = new EquivalenciasUnidades();
                 $nuevoEquivalencia->equivalencia = $datos['equivalencia'];
