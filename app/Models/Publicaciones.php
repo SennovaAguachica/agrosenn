@@ -10,7 +10,7 @@ class Publicaciones extends Model
     use HasFactory;
     protected $fillable = [
         'id',
-        'disponible',
+        'ofertado',
         'estado',
         'producto_id',
         'unidades_id',

@@ -10,9 +10,18 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class SubcategoriasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:subcategorias.listar')->only('index');
+        $this->middleware('can:subcategorias.guardar')->only('guardarSubcategorias');
+        $this->middleware('can:subcategorias.actualizar')->only('actualizarSubcategorias');
+        $this->middleware('can:subcategorias.eliminar')->only('eliminarSubcategorias');
+    }
     public function index(Request $request)
     {
         $categorias = Categorias::all();
@@ -21,10 +30,19 @@ class SubcategoriasController extends Controller
             //categorias es el nombre de la funcion que relaciona en el modelo de subcategoria
             return DataTables::of(Subcategorias::with('categorias')->where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
-                data-bs-target="#modalGuardarFormSubcategoria"><i class="fa-solid fa-pencil"></i></button>';
-                    $btn .= "&nbsp";
-                    $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    $btn = "";
+                    if (Auth::user()->can('subcategorias.actualizar')) {
+                        $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+                        data-bs-target="#modalGuardarFormSubcategoria"><i class="fa-solid fa-pencil"></i></button>';
+                    }
+                    if (Auth::user()->can('subcategorias.eliminar')) {
+                        $btn .= "&nbsp";
+                        $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                    }
+                    //     $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+                    // data-bs-target="#modalGuardarFormSubcategoria"><i class="fa-solid fa-pencil"></i></button>';
+                    //     $btn .= "&nbsp";
+                    //     $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
