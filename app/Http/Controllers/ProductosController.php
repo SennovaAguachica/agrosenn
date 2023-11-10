@@ -29,37 +29,25 @@ class ProductosController extends Controller
         //$subcategorias = Subcategorias::all();
         if ($request->ajax()) {
             return DataTables::of(Productos::with('subcategoria.categorias')->where('estado', 1)->get())->addIndexColumn()->addColumn('action', function ($data) {
-                $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
-                data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
-                $btn .= "&nbsp";
-                $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                // $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+                // data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
+                // $btn .= "&nbsp";
+                // $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                $btn = "";
+                if (Auth::user()->can('productos.actualizar')) {
+                    $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
+                        data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
+                }
+                if (Auth::user()->can('productos.eliminar')) {
+                    $btn .= "&nbsp";
+                    $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
+                }
                 return $btn;
             })
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
-        // if ($request->ajax()) {
-        //     return DataTables::of(Productos::with('subcategoria.categorias')->get())->addIndexColumn()
-        //         ->addColumn('action', function ($data) {
-        //             $btn = "";
-        //             if ($data->estado == 1 && Auth::user()->can('productos.actualizar')) {
-        //                 $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
-        //                 data-bs-target="#modalGuardarProductos"><i class="fa-solid fa-pencil"></i></button>';
-        //             }
-        //             if ($data->estado == 1 && Auth::user()->can('productos.eliminar')) {
-        //                 $btn .= "&nbsp";
-        //                 $btn .= '<button type="button"  class="deletebutton btn btn-danger" onclick="buscarId(' . $data->id . ',2)"><i class="fas fa-trash"></i></button>';
-        //             }
-        //             // if ($data->estado == 0 && Auth::user()->can('productos.habilitar')) {
-        //             //     $btn .= "&nbsp";
-        //             //     $btn .= '<button type="button"  class="habilitarbutton btn btn-primary" onclick="buscarId(' . $data->id . ',3)"><i class="fas fa-angle-double-up"></i> Habilitar</button>';
-        //             // }
-        //             return $btn;
-        //         })
-        //         ->rawColumns(['action'])
-        //         ->make(true);
-        // }
         return view('vistas.backend.productos.productos', compact('categorias'));
     }
     public function peticionesAction(Request $request)

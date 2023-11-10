@@ -99,13 +99,23 @@ class PreciosController extends Controller
         try {
 
             $validacion = Precios::where([
-                ['precio', $datos['precio']],
+                // ['precio', $datos['precio']],
                 ['producto_id', $datos['idproductos']],
                 ['unidades_id', $datos['idunidades']],
                 ['estado', 0]
             ])->first();
             if ($validacion) {
+                $validacion->update(['precio' => $datos['precio']]);
                 $validacion->update(['estado' => 1]);
+            }
+            $validacionProducto = Precios::where([
+                ['producto_id', $datos['idproductos']],
+            ])->get();
+            $validacionUnidad = Precios::where([
+                ['unidades_id', $datos['idunidades']],
+            ])->get();
+            if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
+                $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
             } else {
                 $nuevoPrecio = new Precios();
                 $nuevoPrecio->precio = $datos['precio'];

@@ -131,6 +131,15 @@
                         </a>
                     </li>
                 @endcan
+                @can('publicaciones.listar')
+                    <li class="menu-item" id="li_publicaciones">
+                        <a class="menu-link" href="/publicaciones">
+                            <i class="fa fa-upload fa-xl" id="i_publicaciones"
+                            style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
+                            <span class="text">Publicaciones</span>
+                        </a>
+                    </li>
+                @endcan
                 @can('administradores.listar')
                     <li class="menu-item" id="li_administradores">
                         <a class="menu-link" href="/administradores">

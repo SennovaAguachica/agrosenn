@@ -84,8 +84,8 @@
         <div class="invalid-feedback">
             Selecciona una unidad válida.
         </div>
-    </div>
-    <br>
+</div>
+<br>
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12 ">
         <label for="equivalencia">Equivalencia entre unidades</label>
@@ -94,7 +94,6 @@
             Campo obligatorio.
         </div>
     </div>
-</div>
 </div>
 <br>
 @endsection

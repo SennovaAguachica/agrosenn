@@ -13,6 +13,7 @@ use App\Http\Controllers\VendedoresController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EquivalenciasController;
 use App\Http\Controllers\PreciosController;
+use App\Http\Controllers\PublicacionesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,6 +65,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/precios', [PreciosController::class, 'index']);
     Route::post('/precios_peticiones', [PreciosController::class, 'peticionesAction']);
+
+    Route::get('/publicaciones', [PublicacionesController::class, 'index']);
+    Route::post('/publicaciones_peticiones', [PublicacionesController::class, 'peticionesAction']);
 
     Route::post('/login_peticiones', [VendedoresController::class, 'peticionesAction']);
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
