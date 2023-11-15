@@ -14,6 +14,7 @@ class Precios extends Model
         'estado',
         'producto_id',
         'unidades_id',
+        'id_asociacion',
     ];
 
     //Relacion uno a muchos
@@ -25,6 +26,11 @@ class Precios extends Model
     public function unidades()
     {
         return $this->belongsTo(Unidades::class, 'unidades_id', 'id');
+    }
+
+    public function asociacion()
+    {
+        return $this->belongsTo(Asociaciones::class, 'id_asociacion', 'id');
     }
 
     //relacion muchos a muchos
