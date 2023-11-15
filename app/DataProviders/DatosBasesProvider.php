@@ -6320,6 +6320,26 @@ abstract class DatosBasesProvider
         ];
     }
 
+    public static function tipoUnidad()
+    {
+        return [
+            [
+                'id' => 1,
+                'tipo_unidad' => 'peso',
+                'estado' => 1,
+            ],
+            [
+                'id' => 2,
+                'tipo_unidad' => 'litro',
+                'estado' => 1,
+            ],
+            [
+                'id' => 3,
+                'tipo_unidad' => 'unidades',
+                'estado' => 1,
+            ],
+        ];
+    }
     public static function unidadMinima()
     {
         return [
@@ -6348,6 +6368,7 @@ abstract class DatosBasesProvider
                 'id' => 1,
                 'unidad' => 'Gramo',
                 'abreviatura' => 'grm',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6355,6 +6376,7 @@ abstract class DatosBasesProvider
                 'id' => 2,
                 'unidad' => 'Kilogramo',
                 'abreviatura' => 'kg',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6362,6 +6384,7 @@ abstract class DatosBasesProvider
                 'id' => 3,
                 'unidad' => 'Libra',
                 'abreviatura' => 'lb',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6369,6 +6392,7 @@ abstract class DatosBasesProvider
                 'id' => 4,
                 'unidad' => 'Tonelada',
                 'abreviatura' => 't',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6376,6 +6400,23 @@ abstract class DatosBasesProvider
                 'id' => 5,
                 'unidad' => 'Arroba',
                 'abreviatura' => 'a',
+                'tipounidades_id' => 1,
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 6,
+                'unidad' => 'Litro',
+                'abreviatura' => 'L',
+                'tipounidades_id' => 2,
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 7,
+                'unidad' => 'Canasta',
+                'abreviatura' => 'Cn',
+                'tipounidades_id' => 3,
                 'descripcion' => '',
                 'estado' => 1,
             ],

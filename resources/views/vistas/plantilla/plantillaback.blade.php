@@ -66,9 +66,9 @@
         <nav>
             <ul class="menu-aside">
                 <li class="menu-item" id="li_dashboard">
-                    <a class="menu-link" href="/dashboard">
+                    <a class="menu-link" href="/">
                         <i class="icon material-icons md-home"></i>
-                        <span class="text">Tablero</span>
+                        <span class="text">Inicio</span>
                     </a>
                 </li>
                 @canany(['categorias.listar', 'subcategorias.listar'])

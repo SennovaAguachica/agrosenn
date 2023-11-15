@@ -44,6 +44,7 @@
                         <tr class="font-xxl">
                             <th>Unidad</th>
                             <th>Abreviatura</th>
+                            <th>Tipo de unidad</th>
                             <th>Descripcion</th>
                             <th>Acciones</th>
                         </tr>
@@ -72,6 +73,22 @@
             <input type="text" class="form-control" name="abreviatura" id="abreviatura" required>
             <div class="invalid-feedback">
                 Campo obligatorio.
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xs-12">
+            <label for="idtipounidades">Tipo de unidad</label>
+            <select class="form-control form-control-chosen" name="idtipounidades" id="idtipounidades"
+                data-placeholder="Seleccione una opción" required>
+                <option value=""></option>
+                @foreach ($tipounidades as $item)
+                    <option value="{{ $item->id }}">{{ $item->tipo_unidad }}</option>
+                @endforeach
+            </select>
+            <div class="invalid-feedback">
+                Selecciona una tipo de unidad válido.
             </div>
         </div>
     </div>

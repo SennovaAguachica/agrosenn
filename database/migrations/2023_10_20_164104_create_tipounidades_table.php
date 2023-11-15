@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unidades', function (Blueprint $table) {
+        Schema::create('tipounidades', function (Blueprint $table) {
             $table->id();
-            $table->string('unidad');
-            $table->string('abreviatura');
-            $table->text('descripcion')->nullable();
+            $table->string('tipo_unidad');
             $table->Integer('estado');
-
-            $table->unsignedBigInteger('tipounidades_id');
-            $table->foreign('tipounidades_id')->references('id')->on('tipounidades');
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unidades');
+        Schema::dropIfExists('tipounidades');
     }
 };

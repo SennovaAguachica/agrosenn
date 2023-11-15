@@ -14,6 +14,7 @@ class Unidades extends Model
         'abreviatura',
         'descripcion',
         'estado',
+        'tipounidades_id',
     ];
 
     public function precios()
@@ -24,6 +25,11 @@ class Unidades extends Model
     public function publicaciones()
     {
         return $this->hasMany(Publicaciones::class, 'unidades_id', 'id');
+    }
+
+    public function tipounidades()
+    {
+        return $this->belongsTo(Tipounidades::class, 'tipounidades_id', 'id');
     }
 
     public function equivalencias_unidades()
