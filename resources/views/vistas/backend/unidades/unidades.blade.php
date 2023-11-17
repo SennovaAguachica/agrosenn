@@ -81,9 +81,11 @@
         <div class="col-md-12 col-lg-12 col-xs-12">
             <label for="idtipounidades">Tipo de unidad</label>
             <select class="form-control form-control-chosen" name="idtipounidades" id="idtipounidades"
+            {{-- <select class="selectpicker form-control form-control-chosen" multiple name="idtipounidades" id="idtipounidades" --}}
                 data-placeholder="Seleccione una opción" required>
                 <option value=""></option>
                 @foreach ($tipounidades as $item)
+                    {{-- <option value="{{ $item->id }}">{{ $item->id }} {{ $item->tipo_unidad }} {{ $item->estado }}</option> --}}
                     <option value="{{ $item->id }}">{{ $item->tipo_unidad }}</option>
                 @endforeach
             </select>
