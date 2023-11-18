@@ -269,11 +269,13 @@
                 beforeSend: function() {
                 },
                 success: function(respuesta) {
-                    console.log(respuesta.length);
+                    console.log("RESPUESTA: "+respuesta);
                     $(".carga").removeClass("show").addClass("hidden");
                     var precios_select = '<option value=""></option>'
                     for (var i = 0; i < respuesta.length; i++) {
-                        precios_select += '<option value="' + respuesta[i].id + '">' + respuesta[i].precio + respuesta[i].unidades_id +
+                        console.log(respuesta[i].unidad);
+
+                        precios_select += '<option value="' + respuesta[i].id + '">' + '$'+ number_format(respuesta[i].precio) + ' ' +respuesta[i].unidades.unidad +
                             '</option>';
                         $("#listadoprecios").html(precios_select);
                         $("#listadoprecios").trigger("chosen:updated");

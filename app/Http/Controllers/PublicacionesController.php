@@ -95,8 +95,12 @@ class PublicacionesController extends Controller
 
     public function buscarPrecios($datos)
     {
-        $listaPrecios = Precios::where('producto_id', $datos['idproductos'])->get();
+        $idAsociacionVendedor = Auth::user()->vendedor->id_asociacion;
+        $listaPrecios = Precios::with('unidades')->where('producto_id', $datos['idproductos'])
+            ->where('id_asociacion', $idAsociacionVendedor)
+            ->get();
 
+        // \Log::info($listaPrecios);
         return $listaPrecios;
     }
 }
