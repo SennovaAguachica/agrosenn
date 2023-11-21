@@ -14,6 +14,7 @@ use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EquivalenciasController;
 use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\PublicacionesController;
+use App\Http\Controllers\PerfilController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,6 +75,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/seguridad_peticiones', [SeguridadController::class, 'peticionesAction']);
     Route::get('/roles', [SeguridadController::class, 'indexroles']);
     Route::get('/permisos', [SeguridadController::class, 'indexpermisos']);
+
+    Route::get('/perfil', [PerfilController::class, 'index']);
+    Route::post('/perfil_peticiones', [PerfilController::class, 'peticionesAction']);
 });
 Route::get('/index', [IndexController::class, 'index']);
 require __DIR__ . '/auth.php';
