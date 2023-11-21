@@ -18,6 +18,7 @@ use App\Models\Equivalencias;
 use App\Models\Unidades;
 use App\Models\EquivalenciasUnidades;
 use App\DataProviders\DatosBasesProvider;
+use App\Models\Tipounidades;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 
@@ -45,6 +46,7 @@ class DatabaseSeeder extends Seeder
         Productos::insert(DatosBasesProvider::productos());
         Permission::insert(DatosBasesProvider::permisos());
         Equivalencias::insert(DatosBasesProvider::unidadMinima());
+        Tipounidades::insert(DatosBasesProvider::tipoUnidad());
         Unidades::insert(DatosBasesProvider::unidades());
         EquivalenciasUnidades::insert(DatosBasesProvider::equivalenciasUnidades());
         DB::table('model_has_roles')->insert([
@@ -101,6 +103,10 @@ class DatabaseSeeder extends Seeder
             ['permission_id' => 25, 'role_id' => 2],
             ['permission_id' => 26, 'role_id' => 2],
             ['permission_id' => 42, 'role_id' => 2],
+            ['permission_id' => 52, 'role_id' => 2],
+            ['permission_id' => 53, 'role_id' => 2],
+            ['permission_id' => 54, 'role_id' => 2],
+            ['permission_id' => 55, 'role_id' => 2],
             ['permission_id' => 43, 'role_id' => 1],
             ['permission_id' => 17, 'role_id' => 3],
             ['permission_id' => 18, 'role_id' => 3],

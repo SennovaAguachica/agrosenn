@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unidades;
+use App\Models\Tipounidades;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +22,9 @@ class UnidadesController extends Controller
     }
     public function index(Request $request)
     {
+        $tipounidades = Tipounidades::all();
         if ($request->ajax()) {
-            return DataTables::of(Unidades::where('estado', 1)->get())->addIndexColumn()
+            return DataTables::of(Unidades::with('tipounidades')->where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
                     if (Auth::user()->can('unidades.actualizar')) {
@@ -38,7 +40,7 @@ class UnidadesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.unidades.unidades');
+        return view('vistas.backend.unidades.unidades', compact('tipounidades'));
     }
 
     public function peticionesAction(Request $request)
@@ -83,7 +85,10 @@ class UnidadesController extends Controller
             $aErrores[] = '- Diligencie el nombre de la unidad';
         }
         if ($datos['abreviatura'] == "") {
-            $aErrores[] = '- Escoja la abreviatura de la unidad';
+            $aErrores[] = '- Diligencie la abreviatura de la unidad';
+        }
+        if ($datos['idtipounidades'] == "") {
+            $aErrores[] = '- Escoja el tipo de la unidad';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
@@ -97,14 +102,25 @@ class UnidadesController extends Controller
             if ($validacion) {
                 $validacion->update(['estado' => 1]);
             } else {
-                $nuevoUnidad = new Unidades();
-                $nuevoUnidad->unidad = $datos['unidad'];
-                $nuevoUnidad->abreviatura = $datos['abreviatura'];
-                $nuevoUnidad->descripcion = $datos['descripcion'];
-                $nuevoUnidad->estado = 1;
-                $nuevoUnidad->created_at = \Carbon\Carbon::now();
-                $nuevoUnidad->updated_at = \Carbon\Carbon::now();
-                $nuevoUnidad->save();
+                $validacionUnidad = Unidades::where([
+                    ['unidad', $datos['unidad']],
+                ])->get();
+                $validacionTipo = Unidades::where([
+                    ['tipounidades_id', $datos['idtipounidades']],
+                ])->get();
+                if (count($validacionUnidad) > 0 && count($validacionTipo) > 0) {
+                    $aErrores[] = '- Esta unidad ya existe';
+                } else {
+                    $nuevoUnidad = new Unidades();
+                    $nuevoUnidad->unidad = $datos['unidad'];
+                    $nuevoUnidad->abreviatura = $datos['abreviatura'];
+                    $nuevoUnidad->tipounidades_id = $datos['idtipounidades'];
+                    $nuevoUnidad->descripcion = $datos['descripcion'];
+                    $nuevoUnidad->estado = 1;
+                    $nuevoUnidad->created_at = \Carbon\Carbon::now();
+                    $nuevoUnidad->updated_at = \Carbon\Carbon::now();
+                    $nuevoUnidad->save();
+                }
             }
 
             if (count($aErrores) > 0) {
@@ -144,6 +160,7 @@ class UnidadesController extends Controller
             $actualizarUnidad = Unidades::findOrFail($datos['id']);;
             $actualizarUnidad->unidad = $datos['unidad'];
             $actualizarUnidad->abreviatura = $datos['abreviatura'];
+            $actualizarUnidad->tipounidades_id = $datos['idtipounidades'];
             $actualizarUnidad->descripcion = $datos['descripcion'];
             $actualizarUnidad->save();
 

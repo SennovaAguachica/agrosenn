@@ -15,6 +15,7 @@ class Publicaciones extends Model
         'producto_id',
         'unidades_id',
         'vendedores_id',
+        'equivalencias_unidades_id',
     ];
 
     //Relacion uno a muchos
@@ -31,6 +32,11 @@ class Publicaciones extends Model
     public function vendedores()
     {
         return $this->belongsTo(Vendedores::class, 'vendedores_id', 'id');
+    }
+
+    public function equivalencias_unidades()
+    {
+        return $this->belongsTo(EquivalenciasUnidades::class, 'equivalencias_unidades_id', 'id');
     }
 
     //relacion muchos a muchos

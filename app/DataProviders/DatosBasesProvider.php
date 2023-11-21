@@ -147,172 +147,172 @@ abstract class DatosBasesProvider
             [
                 "id" => "12531",
                 "iddepartamentos" => "775",
-                "ciudad" => "leticia"
+                "ciudad" => "Leticia"
             ],
             [
                 "id" => "12532",
                 "iddepartamentos" => "775",
-                "ciudad" => "puerto narino"
+                "ciudad" => "Puerto Nariño"
             ],
             [
                 "id" => "12533",
                 "iddepartamentos" => "776",
-                "ciudad" => "abejorral"
+                "ciudad" => "Abejorral"
             ],
             [
                 "id" => "12534",
                 "iddepartamentos" => "776",
-                "ciudad" => "abriaqui"
+                "ciudad" => "Abriaqui"
             ],
             [
                 "id" => "12535",
                 "iddepartamentos" => "776",
-                "ciudad" => "alejandria"
+                "ciudad" => "Alejandría"
             ],
             [
                 "id" => "12536",
                 "iddepartamentos" => "776",
-                "ciudad" => "amaga"
+                "ciudad" => "Amagá"
             ],
             [
                 "id" => "12537",
                 "iddepartamentos" => "776",
-                "ciudad" => "amalfi"
+                "ciudad" => "Amalfi"
             ],
             [
                 "id" => "12538",
                 "iddepartamentos" => "776",
-                "ciudad" => "andes"
+                "ciudad" => "Andes"
             ],
             [
                 "id" => "12539",
                 "iddepartamentos" => "776",
-                "ciudad" => "angelopolis"
+                "ciudad" => "Angelopolis"
             ],
             [
                 "id" => "12540",
                 "iddepartamentos" => "776",
-                "ciudad" => "angostura"
+                "ciudad" => "Angostura"
             ],
             [
                 "id" => "12541",
                 "iddepartamentos" => "776",
-                "ciudad" => "anori"
+                "ciudad" => "Anorí"
             ],
             [
                 "id" => "12542",
                 "iddepartamentos" => "776",
-                "ciudad" => "antioquia"
+                "ciudad" => "Antioquia"
             ],
             [
                 "id" => "12543",
                 "iddepartamentos" => "776",
-                "ciudad" => "anza"
+                "ciudad" => "Anza"
             ],
             [
                 "id" => "12544",
                 "iddepartamentos" => "776",
-                "ciudad" => "apartado"
+                "ciudad" => "Apartadó"
             ],
             [
                 "id" => "12545",
                 "iddepartamentos" => "776",
-                "ciudad" => "arboletes"
+                "ciudad" => "Arboletes"
             ],
             [
                 "id" => "12546",
                 "iddepartamentos" => "776",
-                "ciudad" => "argelia"
+                "ciudad" => "Argelia"
             ],
             [
                 "id" => "12547",
                 "iddepartamentos" => "776",
-                "ciudad" => "armenia"
+                "ciudad" => "Armenia"
             ],
             [
                 "id" => "12548",
                 "iddepartamentos" => "776",
-                "ciudad" => "barbosa"
+                "ciudad" => "Barbosa"
             ],
             [
                 "id" => "12549",
                 "iddepartamentos" => "776",
-                "ciudad" => "bello"
+                "ciudad" => "Bello"
             ],
             [
                 "id" => "12550",
                 "iddepartamentos" => "776",
-                "ciudad" => "belmira"
+                "ciudad" => "Belmira"
             ],
             [
                 "id" => "12551",
                 "iddepartamentos" => "776",
-                "ciudad" => "betania"
+                "ciudad" => "Betania"
             ],
             [
                 "id" => "12552",
                 "iddepartamentos" => "776",
-                "ciudad" => "betulia"
+                "ciudad" => "Betulia"
             ],
             [
                 "id" => "12553",
                 "iddepartamentos" => "776",
-                "ciudad" => "bolivar"
+                "ciudad" => "Bolívar"
             ],
             [
                 "id" => "12554",
                 "iddepartamentos" => "776",
-                "ciudad" => "briceno"
+                "ciudad" => "Briceño"
             ],
             [
                 "id" => "12555",
                 "iddepartamentos" => "776",
-                "ciudad" => "buritica"
+                "ciudad" => "Buritica"
             ],
             [
                 "id" => "12556",
                 "iddepartamentos" => "776",
-                "ciudad" => "caceres"
+                "ciudad" => "Cáceres"
             ],
             [
                 "id" => "12557",
                 "iddepartamentos" => "776",
-                "ciudad" => "caicedo"
+                "ciudad" => "Caicedo"
             ],
             [
                 "id" => "12558",
                 "iddepartamentos" => "776",
-                "ciudad" => "caldas"
+                "ciudad" => "Caldas"
             ],
             [
                 "id" => "12559",
                 "iddepartamentos" => "776",
-                "ciudad" => "campamento"
+                "ciudad" => "Campamento"
             ],
             [
                 "id" => "12560",
                 "iddepartamentos" => "776",
-                "ciudad" => "canasgordas"
+                "ciudad" => "Cañasgordas"
             ],
             [
                 "id" => "12561",
                 "iddepartamentos" => "776",
-                "ciudad" => "caracoli"
+                "ciudad" => "Caracolí"
             ],
             [
                 "id" => "12562",
                 "iddepartamentos" => "776",
-                "ciudad" => "caramanta"
+                "ciudad" => "Caramanta"
             ],
             [
                 "id" => "12563",
                 "iddepartamentos" => "776",
-                "ciudad" => "carepa"
+                "ciudad" => "Carepa"
             ],
             [
                 "id" => "12564",
                 "iddepartamentos" => "776",
-                "ciudad" => "carmen de viboral"
+                "ciudad" => "Carmen de Viboral"
             ],
             [
                 "id" => "12565",
@@ -6320,6 +6320,26 @@ abstract class DatosBasesProvider
         ];
     }
 
+    public static function tipoUnidad()
+    {
+        return [
+            [
+                'id' => 1,
+                'tipo_unidad' => 'peso',
+                'estado' => 1,
+            ],
+            [
+                'id' => 2,
+                'tipo_unidad' => 'litro',
+                'estado' => 1,
+            ],
+            [
+                'id' => 3,
+                'tipo_unidad' => 'unidades',
+                'estado' => 1,
+            ],
+        ];
+    }
     public static function unidadMinima()
     {
         return [
@@ -6348,6 +6368,7 @@ abstract class DatosBasesProvider
                 'id' => 1,
                 'unidad' => 'Gramo',
                 'abreviatura' => 'grm',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6355,6 +6376,7 @@ abstract class DatosBasesProvider
                 'id' => 2,
                 'unidad' => 'Kilogramo',
                 'abreviatura' => 'kg',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6362,6 +6384,7 @@ abstract class DatosBasesProvider
                 'id' => 3,
                 'unidad' => 'Libra',
                 'abreviatura' => 'lb',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6369,6 +6392,7 @@ abstract class DatosBasesProvider
                 'id' => 4,
                 'unidad' => 'Tonelada',
                 'abreviatura' => 't',
+                'tipounidades_id' => 1,
                 'descripcion' => '',
                 'estado' => 1,
             ],
@@ -6376,6 +6400,23 @@ abstract class DatosBasesProvider
                 'id' => 5,
                 'unidad' => 'Arroba',
                 'abreviatura' => 'a',
+                'tipounidades_id' => 1,
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 6,
+                'unidad' => 'Litro',
+                'abreviatura' => 'L',
+                'tipounidades_id' => 2,
+                'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 7,
+                'unidad' => 'Canasta',
+                'abreviatura' => 'Cn',
+                'tipounidades_id' => 3,
                 'descripcion' => '',
                 'estado' => 1,
             ],

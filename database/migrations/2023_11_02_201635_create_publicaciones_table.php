@@ -25,6 +25,9 @@ return new class extends Migration
             $table->unsignedBigInteger('vendedores_id');
             $table->foreign('vendedores_id')->references('id')->on('vendedores');
 
+            $table->unsignedBigInteger('equivalencias_unidades_id');
+            $table->foreign('equivalencias_unidades_id')->references('id')->on('equivalencias_unidades');
+
             $table->timestamps();
         });
     }

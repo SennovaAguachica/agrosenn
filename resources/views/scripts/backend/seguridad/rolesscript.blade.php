@@ -52,7 +52,7 @@
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
                                     mensajeSuccessGeneral(
-                                        '- Se ha actualizado la rol y los permisos con exito'
+                                        '- Se ha actualizado el rol y los permisos con exito'
                                     );
                                     $("#formGuardar")[0].reset();
                                     tablaRoles.ajax.reload();

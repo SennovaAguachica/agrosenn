@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Auth;
 
 class PreciosController extends Controller
@@ -27,7 +29,7 @@ class PreciosController extends Controller
         $productos = Productos::all();
         $unidades = Unidades::all();
         if ($request->ajax()) {
-            return DataTables::of(Precios::with('productos', 'unidades')->where('estado', 1)->get())->addIndexColumn()
+            return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_asociacion' => Auth::user()->idasociacion])->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
                     if (Auth::user()->can('precios.actualizar')) {
@@ -97,34 +99,40 @@ class PreciosController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-
+            $idasociacion = Auth::user()->idasociacion;
             $validacion = Precios::where([
-                // ['precio', $datos['precio']],
                 ['producto_id', $datos['idproductos']],
                 ['unidades_id', $datos['idunidades']],
+                ['id_asociacion', $idasociacion],
                 ['estado', 0]
             ])->first();
             if ($validacion) {
-                $validacion->update(['precio' => $datos['precio']]);
-                $validacion->update(['estado' => 1]);
-            }
-            $validacionProducto = Precios::where([
-                ['producto_id', $datos['idproductos']],
-            ])->get();
-            $validacionUnidad = Precios::where([
-                ['unidades_id', $datos['idunidades']],
-            ])->get();
-            if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
-                $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
+                $validacion->update([
+                    'precio' => $datos['precio'],
+                    'estado' => 1
+                ]);
             } else {
-                $nuevoPrecio = new Precios();
-                $nuevoPrecio->precio = $datos['precio'];
-                $nuevoPrecio->producto_id = $datos['idproductos'];
-                $nuevoPrecio->unidades_id = $datos['idunidades'];
-                $nuevoPrecio->estado = 1;
-                $nuevoPrecio->created_at = \Carbon\Carbon::now();
-                $nuevoPrecio->updated_at = \Carbon\Carbon::now();
-                $nuevoPrecio->save();
+                $validacionProducto = Precios::where([
+                    ['producto_id', $datos['idproductos']],
+                    ['id_asociacion', $idasociacion],
+                ])->get();
+                $validacionUnidad = Precios::where([
+                    ['unidades_id', $datos['idunidades']],
+                    ['id_asociacion', $idasociacion],
+                ])->get();
+                if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
+                    $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
+                } else {
+                    $nuevoPrecio = new Precios();
+                    $nuevoPrecio->precio = $datos['precio'];
+                    $nuevoPrecio->producto_id = $datos['idproductos'];
+                    $nuevoPrecio->unidades_id = $datos['idunidades'];
+                    $nuevoPrecio->id_asociacion = $idasociacion;
+                    $nuevoPrecio->estado = 1;
+                    $nuevoPrecio->created_at = \Carbon\Carbon::now();
+                    $nuevoPrecio->updated_at = \Carbon\Carbon::now();
+                    $nuevoPrecio->save();
+                }
             }
 
             if (count($aErrores) > 0) {

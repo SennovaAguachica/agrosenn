@@ -23,6 +23,7 @@
         function buttonClicks() {
             $("#btnmodalguardar").on("click", function(e) {
                 vista = 1;
+                $('#idtipounidades').val("").trigger("chosen:updated");
                 $("#formGuardar")[0].reset();
             });
         }
@@ -39,6 +40,8 @@
             if (modo == 1) {
                 $("#unidad").val(parametro_seleccionado.unidad);
                 $("#abreviatura").val(parametro_seleccionado.abreviatura);
+                $("#idtipounidades").val(parametro_seleccionado.tipounidades_id);
+                $("#idtipounidades").trigger("chosen:updated");
                 $("#descripcion").val(parametro_seleccionado.descripcion);
             } else if (modo == 2) {
                 eliminarUnidad(parametro_seleccionado.id);
@@ -128,6 +131,9 @@
                     },
                     {
                         data: 'abreviatura'
+                    },
+                    {
+                        data: 'tipounidades.tipo_unidad'
                     },
                     {
                         data: 'descripcion'
