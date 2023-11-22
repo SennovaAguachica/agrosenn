@@ -91,6 +91,87 @@ class PublicacionesController extends Controller
     }
 
 
+    public function guardarPublicaciones($datos)
+    {
+        // dd($datos);
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['idunidades'] == "") {
+            $aErrores[] = '- Escoja la unidad';
+        }
+        if ($datos['idproductos'] == "") {
+            $aErrores[] = '- Escoja el producto';
+        }
+        if ($datos['oferta'] == "") {
+            $aErrores[] = '- Digite la cantidad ofertada';
+        }
+        if ($datos['listadoprecios'] == "") {
+            $aErrores[] = '- Escoja por lo menos un precio de venta';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+        try {
+            $idvendedor = Auth::user()->idvendedor;
+            $validacion = Publicaciones::where([
+                ['producto_id', $datos['idproductos']],
+                ['unidades_id', $datos['idunidades']],
+                ['vendedores_id', $idvendedor],
+                ['estado', 0]
+            ])->first();
+            if ($validacion) {
+                $validacion->update([
+                    'estado' => 1
+                ]);
+                $precios = $validacion->precios;
+
+                // Iterar sobre los precios para actualizar su estado o cualquier otro campo necesario
+                foreach ($precios as $precio) {
+                    $precio->update(['estado' => 1]); // Actualizar el estado a 1
+                }
+            } else {
+                $validacionProducto = Publicaciones::where([
+                    ['producto_id', $datos['idproductos']],
+                    ['vendedores_id', $idvendedor],
+                ])->get();
+                $validacionUnidad = Publicaciones::where([
+                    ['unidades_id', $datos['idunidades']],
+                    ['vendedores_id', $idvendedor],
+                ])->get();
+                if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
+                    $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
+                } else {
+                    $nuevoPrecio = new Publicaciones();
+                    $nuevoPrecio->precio = $datos['precio'];
+                    $nuevoPrecio->producto_id = $datos['idproductos'];
+                    $nuevoPrecio->unidades_id = $datos['idunidades'];
+                    $nuevoPrecio->vendedores_id = $idvendedor;
+                    $nuevoPrecio->estado = 1;
+                    $nuevoPrecio->created_at = \Carbon\Carbon::now();
+                    $nuevoPrecio->updated_at = \Carbon\Carbon::now();
+                    $nuevoPrecio->save();
+                }
+            }
+
+            if (count($aErrores) > 0) {
+                $respuesta = array(
+                    'mensaje'      => $aErrores,
+                    'estado'      => 0,
+                );
+                return response()->json($respuesta);
+            } else {
+                DB::commit();
+                $respuesta = array(
+                    'mensaje'      => "",
+                    'estado'      => 1,
+                );
+                return response()->json($respuesta);
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
+    }
 
 
     public function buscarPrecios($datos)
