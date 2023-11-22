@@ -52,7 +52,6 @@
             
             if (modo == 1) {
                 $("#oferta").val(parametro_seleccionado.ofertado);
-                // $("#precio").val('$' + number_format(parametro_seleccionado.precio));
                 $("#idproductos").val(parametro_seleccionado.producto_id);
                 $("#idproductos").trigger("chosen:updated");
                 $("#idunidades").val(parametro_seleccionado.unidades_id);

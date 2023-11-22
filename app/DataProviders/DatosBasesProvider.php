@@ -5641,6 +5641,14 @@ abstract class DatosBasesProvider
                 'icono' => '/assets/images/categorias/categoria-huevos.svg',
                 'estado' => 1,
             ],
+            [
+                'id' => 15,
+                'categoria' => 'Carnes',
+                'descripcion' => '',
+                'imagen' => '/assets/images/categorias/categoria-carne.webp',
+                'icono' => '/assets/images/categorias/categoria-carne.svg',
+                'estado' => 1,
+            ],
         ];
     }
 
@@ -6159,6 +6167,30 @@ abstract class DatosBasesProvider
                 'estado' => 1,
                 'categoria_id' => 14,
             ],
+            [
+                'id' => 65,
+                'subcategoria' => 'Carne de pollo',
+                'descripcion' => '',
+                'imagen' => '/assets/images/subcategorias/subcategoria-carne-pollo.webp',
+                'estado' => 1,
+                'categoria_id' => 15,
+            ],
+            [
+                'id' => 66,
+                'subcategoria' => 'Carne de pescado',
+                'descripcion' => '',
+                'imagen' => '/assets/images/subcategorias/subcategoria-carne-pescado.webp',
+                'estado' => 1,
+                'categoria_id' => 15,
+            ],
+            [
+                'id' => 67,
+                'subcategoria' => 'Carne de res',
+                'descripcion' => '',
+                'imagen' => '/assets/images/subcategorias/subcategoria-carne-res.webp',
+                'estado' => 1,
+                'categoria_id' => 15,
+            ],
         ];
     }
 
@@ -6167,10 +6199,10 @@ abstract class DatosBasesProvider
         return [
             [
                 'id' => 1,
-                'producto' => 'Maíz',
+                'producto' => 'Maíz mazorca',
                 'imagen' => '/assets/images/productos/producto-maiz.webp',
                 'estado' => 1,
-                'descripcion' => '',
+                'descripcion' => 'Mazorca',
                 'subcategoria_id' => 2,
             ],
             [
@@ -6238,19 +6270,19 @@ abstract class DatosBasesProvider
             ],
             [
                 'id' => 9,
-                'producto' => 'Cebolla Morada',
-                'imagen' => '/assets/images/productos/producto-cebolla-morada.webp',
+                'producto' => 'Cebolla cabezona roja',
+                'imagen' => '/assets/images/productos/producto-cebolla-roja.webp',
                 'estado' => 1,
-                'descripcion' => '',
+                'descripcion' => 'Cebolla morada',
                 'subcategoria_id' => 14,
 
             ],
             [
                 'id' => 10,
-                'producto' => 'Cebolla Blanca',
+                'producto' => 'Cebolla cabezona blanca',
                 'imagen' => '/assets/images/productos/producto-cebolla-blanca.webp',
                 'estado' => 1,
-                'descripcion' => '',
+                'descripcion' => 'Cebolla blanca',
                 'subcategoria_id' => 14,
 
             ],
@@ -6283,7 +6315,7 @@ abstract class DatosBasesProvider
             ],
             [
                 'id' => 14,
-                'producto' => 'Limón',
+                'producto' => 'Limón común',
                 'imagen' => '/assets/images/productos/producto-limon.webp',
                 'estado' => 1,
                 'descripcion' => '',
@@ -6315,6 +6347,141 @@ abstract class DatosBasesProvider
                 'estado' => 1,
                 'descripcion' => '',
                 'subcategoria_id' => 63,
+
+            ],
+            [
+                'id' => 18,
+                'producto' => 'Cebolla larga',
+                'imagen' => '/assets/images/productos/producto-cebolla-larga.webp',
+                'estado' => 1,
+                'descripcion' => 'Cebollín, cebolla junca',
+                'subcategoria_id' => 14,
+
+            ],
+            [
+                'id' => 19,
+                'producto' => 'Pepino',
+                'imagen' => '/assets/images/productos/producto-pepino.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 12,
+
+            ],
+            [
+                'id' => 20,
+                'producto' => 'Ají topito',
+                'imagen' => '/assets/images/productos/producto-aji-topito.webp',
+                'estado' => 1,
+                'descripcion' => 'Ají topito dulce',
+                'subcategoria_id' => 12,
+
+            ],
+            [
+                'id' => 21,
+                'producto' => 'Cilantro',
+                'imagen' => '/assets/images/productos/producto-cilantro.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 10,
+
+            ],
+            [
+                'id' => 22,
+                'producto' => 'Papa común',
+                'imagen' => '/assets/images/productos/producto-papa-comun.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 32,
+
+            ],
+            [
+                'id' => 23,
+                'producto' => 'Repollo',
+                'imagen' => '/assets/images/productos/producto-repollo.webp',
+                'estado' => 1,
+                'descripcion' => 'Repollo blanco',
+                'subcategoria_id' => 10,
+
+            ],
+            [
+                'id' => 24,
+                'producto' => 'Mandarina',
+                'imagen' => '/assets/images/productos/producto-mandarina.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 19,
+
+            ],
+            [
+                'id' => 25,
+                'producto' => 'Brócoli',
+                'imagen' => '/assets/images/productos/producto-brocoli.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 10,
+
+            ],
+            [
+                'id' => 26,
+                'producto' => 'Coliflor',
+                'imagen' => '/assets/images/productos/producto-coliflor.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 10,
+
+            ],
+            [
+                'id' => 27,
+                'producto' => 'Ahuyama',
+                'imagen' => '/assets/images/productos/producto-ahuyama.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 12,
+
+            ],
+            [
+                'id' => 28,
+                'producto' => 'Remolacha',
+                'imagen' => '/assets/images/productos/producto-remolacha.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 14,
+
+            ],
+            [
+                'id' => 29,
+                'producto' => 'Arracacha',
+                'imagen' => '/assets/images/productos/producto-arracacha.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 6,
+
+            ],
+            [
+                'id' => 30,
+                'producto' => 'Yota',
+                'imagen' => '/assets/images/productos/producto-yota.webp',
+                'estado' => 1,
+                'descripcion' => 'Guatila, cidra, chayote',
+                'subcategoria_id' => 3,
+
+            ],
+            [
+                'id' => 31,
+                'producto' => 'Pollo entero',
+                'imagen' => '/assets/images/productos/producto-pollo-entero.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 65,
+
+            ],
+            [
+                'id' => 32,
+                'producto' => 'Pescado',
+                'imagen' => '/assets/images/productos/producto-pescado.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 66,
 
             ],
         ];
