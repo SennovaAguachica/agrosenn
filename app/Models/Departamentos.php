@@ -15,7 +15,7 @@ class Departamentos extends Model
     ];
     public function ciudades()
     {
-      return $this->hasMany(Ciudades::class,'id','id');
+      return $this->hasMany(Ciudades::class,'iddepartamentos','id');
     }
 
     public function ordenes()
