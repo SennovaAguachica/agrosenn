@@ -14,16 +14,20 @@
             var clienteRadio = document.getElementById("radiocliente");
             var vendedorRadio = document.getElementById("radiovendedor");
             var associationCodeField = document.getElementById("checkPayment");
-            clienteRadio.addEventListener("change", function() {
-                if (clienteRadio.checked) {
-                    associationCodeField.style.display = "none";
-                }
-            });
-            vendedorRadio.addEventListener("change", function() {
-                if (vendedorRadio.checked) {
-                    associationCodeField.style.display = "block";
-                }
-            });
+
+            if (clienteRadio && vendedorRadio && associationCodeField) {
+                clienteRadio.addEventListener("change", function() {
+                    if (clienteRadio.checked) {
+                        associationCodeField.style.display = "none";
+                    }
+                });
+
+                vendedorRadio.addEventListener("change", function() {
+                    if (vendedorRadio.checked) {
+                        associationCodeField.style.display = "block";
+                    }
+                });
+            }
         }
 
         function onClick() {
@@ -95,6 +99,22 @@
                     }
                 });
             });
+            $("#show_hide_password a").on('click', function(event) {
+                mostrarContrasenas("#show_hide_password")
+            });
+        }
+
+        function mostrarContrasenas(campo) {
+            event.preventDefault();
+            if ($('' + campo + ' input').attr("type") == "text") {
+                $('' + campo + ' input').attr('type', 'password');
+                $('' + campo + ' i').addClass("fa-eye-slash");
+                $('' + campo + ' i').removeClass("fa-eye");
+            } else if ($('' + campo + ' input').attr("type") == "password") {
+                $('' + campo + ' input').attr('type', 'text');
+                $('' + campo + ' i').removeClass("fa-eye-slash");
+                $('' + campo + ' i').addClass("fa-eye");
+            }
         }
 
         function buscarMunicipios(iddepartamento) {

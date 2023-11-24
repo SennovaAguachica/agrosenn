@@ -14,6 +14,8 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assetsfront/imgs/theme/favicon.svg" />
     <!-- Template CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="assetsfront/css/main.css?v=5.6" />
 </head>
 

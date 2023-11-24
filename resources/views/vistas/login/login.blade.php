@@ -30,12 +30,19 @@
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text" required="" id="usuario" name="usuario"
-                                                placeholder="Nº de  documento o correo electronico *" />
+                                            <label for="usuario" class="fw-bold">Usuario</label>
+                                            <input class="form-control" type="text" required="" id="usuario"
+                                                name="usuario" placeholder="Nº de  documento o correo electronico *" />
                                         </div>
                                         <div class="form-group">
-                                            <input required="" type="password" id="password" name="password"
-                                                placeholder="Tu contraseña *" />
+                                            <label for="password" class="fw-bold">Contraseña</label>
+                                            <div class="input-group" id="show_hide_password">
+                                                <input class="form-control" type="password" id="password" name="password"
+                                                    placeholder="Tu contraseña *" required>
+                                                <div class="input-group-text">
+                                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="login_footer form-group mb-50">
                                             <div class="chek-form">

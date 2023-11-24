@@ -243,8 +243,13 @@
                                 <!-- col.// -->
                                 <aside class="col-lg-4">
                                     <figure class="text-lg-center">
-                                        <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                        @if ($perfil->fotoperfil)
+                                            <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
                                             src="{{ $perfil->fotoperfil }}" alt="User Photo" />
+                                        @else
+                                            <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                            src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}" alt="User Photo" />
+                                        @endif
                                         <figcaption>
                                             <label class="btn btn-light rounded font-md" for="fotoinput">
                                                 <i class="icons material-icons md-backup font-md"></i> Cargar foto
@@ -283,7 +288,8 @@
                                         <div class="row">
                                             <label>Contraseña actual</label>
                                             <div class="input-group" id="show_hide_password_actual">
-                                                <input class="form-control" type="password" id="passwordactual" name="passwordactual" required>
+                                                <input class="form-control" type="password" id="passwordactual"
+                                                    name="passwordactual" required>
                                                 <div class="input-group-text">
                                                     <a href=""><i class="fa fa-eye-slash"
                                                             aria-hidden="true"></i></a>
@@ -296,7 +302,8 @@
                                         <div class="row">
                                             <label>Contraseña nueva</label>
                                             <div class="input-group" id="show_hide_password_nueva">
-                                                <input class="form-control" type="password" id="passwordnuevo" name="passwordnuevo" required>
+                                                <input class="form-control" type="password" id="passwordnuevo"
+                                                    name="passwordnuevo" required>
                                                 <div class="input-group-text">
                                                     <a href=""><i class="fa fa-eye-slash"
                                                             aria-hidden="true"></i></a>
@@ -309,7 +316,8 @@
                                         <div class="row">
                                             <label>Confirmar contraseña nueva</label>
                                             <div class="input-group" id="show_hide_password_confirmar">
-                                                <input class="form-control" type="password" id="passwordconfirmar" name="passwordconfirmar" required>
+                                                <input class="form-control" type="password" id="passwordconfirmar"
+                                                    name="passwordconfirmar" required>
                                                 <div class="input-group-text">
                                                     <a href=""><i class="fa fa-eye-slash"
                                                             aria-hidden="true"></i></a>

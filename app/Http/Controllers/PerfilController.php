@@ -75,8 +75,11 @@ class PerfilController extends Controller
     }
     public function actualizarPerfil($datos)
     {
-        $aErrores = array();
         DB::beginTransaction();
+        $aErrores = $this->validacionGeneral($datos,$datos['idrol']);
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
         try {
             switch ($datos['idrol']) {
                 case 1:
@@ -216,5 +219,118 @@ class PerfilController extends Controller
             throw $e;
             // something went wrong
         }
+    }
+    public function validacionGeneral($datos, $tipo){
+        $aErrores = array();
+        if($tipo==1){
+            $administrador = Administradores::with('usuario')->findOrFail($datos['id']);
+            //Validar si existe otra asociacion con el codigo de asociacion a actualizar
+            $validacion = Administradores::where([
+                ['codigo_administrador', $datos['codadministrador']]
+            ])->where('id', '!=', $datos['id'])->get();
+
+            //Validar si existe otro usuario con el correo a actualizar
+            $validacionEmail = Administradores::where([
+                ['email', $datos['emailadmin']]
+            ])->where('id', '!=', $datos['id'])->get();
+            
+            //Validar si existe otro usuario con el codigo de administrador a actualizar
+            $validacionUser = User::where([
+                ['documento', $datos['codadministrador']]
+            ])->where('id', '!=', $administrador->usuario->id)->get();
+
+            //Validar si existe otro adminsitrador con el correo a actualizar
+            $validacionEmailUser = User::where([
+                ['email', $datos['emailadmin']]
+            ])->where('id', '!=', $administrador->usuario->id)->get();
+
+            if (count($validacion) > 0) {
+                $aErrores[] = '- Este codigo de administrador ya se encuentra registrado';
+            }
+            if (count($validacionEmail) > 0) {
+                $aErrores[] = '- Este correo ya se encuentra registrado';
+            }
+            if (count($validacionUser) > 0) {
+                $aErrores[] = '- Este codigo de administrador ya se encuentra registrado a un usuario';
+            }
+            if (count($validacionEmailUser) > 0) {
+                $aErrores[] = '- Este email ya se encuentra registrado en otro usuario';
+            }
+        }else if($tipo==2){
+            $asociacion = Asociaciones::with('usuario')->findOrFail($datos['id']);
+
+            //Validar si existe otra asociacion con el codigo de asociacion a actualizar
+            $validacion = Asociaciones::where([
+                ['codigo_asociacion', $datos['codasociacion']]
+            ])->where('id', '!=', $datos['id'])->get();
+
+            //Validar si existe otro usuario con el correo a actualizar
+            $validacionEmail = Asociaciones::where([
+                ['email', $datos['emailasociacion']]
+            ])->where('id', '!=', $datos['id'])->get();
+
+            //Validar si existe otro usuario con el codigo de asociacion a actualizar
+            $validacionUser = User::where([
+                ['documento', $datos['codasociacion']]
+            ])->where('id', '!=', $asociacion->usuario->id)->get();
+
+            //Validar si existe otra asociacion con el correo a actualizar
+            $validacionEmailUser = User::where([
+                ['email', $datos['emailasociacion']]
+            ])->where('id', '!=', $asociacion->usuario->id)->get();
+
+            if (count($validacion) > 0) {
+                $aErrores[] = '- Este codigo de asociación ya se encuentra registrado';
+            }
+            if (count($validacionEmail) > 0) {
+                $aErrores[] = '- Este correo ya se encuentra registrado';
+            }
+            if (count($validacionUser) > 0) {
+                $aErrores[] = '- Este codigo de administrador ya se encuentra registrado a un usuario';
+            }
+            if (count($validacionEmailUser) > 0) {
+                $aErrores[] = '- Este email ya se encuentra registrado en otro usuario';
+            }
+        }else if($tipo==3){
+            $vendedor = Vendedores::with('usuario')->findOrFail($datos['id']);
+
+            //Validar si existe otro vendedor con el codigo de asociacion a actualizar
+            $validacion = Vendedores::where([
+                ['n_documento', $datos['documentovendedor']]
+            ])->where('id', '!=', $datos['id'])->get();
+
+            $validacionEmail = Vendedores::where([
+                ['email', $datos['emailvendedor']]
+            ])->where('id', '!=', $datos['id'])->get();
+
+            //Validar si existe otro usuario con el documento a actualizar
+            $validacionUser = User::where([
+                ['documento', $datos['documentovendedor']]
+            ])->where('id', '!=', $asociacion->vendedor->id)->get();
+
+            //Validar si existe otro vendedor con el correo a actualizar
+            $validacionEmailUser = User::where([
+                ['email', $datos['emailvendedor']]
+            ])->where('id', '!=', $asociacion->vendedor->id)->get();
+
+            if (count($validacion) > 0) {
+                $aErrores[] = '- Este Nº de documento ya se encuentra registrado';
+            }
+            if (count($validacionEmail) > 0) {
+                $aErrores[] = '- Este correo ya se encuentra registrado';
+            }
+            if (count($aErrores) > 0) {
+                throw new \Exception(join('</br>', $aErrores));
+            }
+            if (count($validacionUser) > 0) {
+                $aErrores[] = '- Este codigo de administrador ya se encuentra registrado a un usuario';
+            }
+            if (count($validacionEmailUser) > 0) {
+                $aErrores[] = '- Este email ya se encuentra registrado en otro usuario';
+            }
+        }
+
+        return $aErrores;
+        
     }
 }
