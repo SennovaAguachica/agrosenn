@@ -26,7 +26,7 @@ class ProductosController extends Controller
     {
         // dd($request->ajax());
         $categorias = Categorias::all();
-        //$subcategorias = Subcategorias::all();
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Productos::with('subcategoria.categorias')->where('estado', 1)->get())->addIndexColumn()->addColumn('action', function ($data) {
                 // $btn = '<button type="button"  class="editbutton btn btn-success" style="color:white" onclick="buscarId(' . $data->id . ',1)" data-bs-toggle="modal"
@@ -48,7 +48,7 @@ class ProductosController extends Controller
                 ->make(true);
         }
 
-        return view('vistas.backend.productos.productos', compact('categorias'));
+        return view('vistas.backend.productos.productos', compact('categorias','perfil'));
     }
     public function peticionesAction(Request $request)
     {

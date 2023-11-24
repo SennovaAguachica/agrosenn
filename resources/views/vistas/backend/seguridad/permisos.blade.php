@@ -1,26 +1,6 @@
 @extends('../scripts.backend.seguridad.permisosscript')
 @section('titulo')
     <title>Permisos</title>
-    <style>
-        .is-invalid {
-            border-color: #f00;
-            /* Color rojo */
-        }
-
-        .valid {
-            border-color: #198754 !important;
-        }
-
-        .selected {
-            color: white !important;
-            background-color: #ffffff !important;
-        }
-
-        .table-hover tbody tr:hover td,
-        .table-hover tbody tr:hover th {
-            background-color: #f00;
-        }
-    </style>
 @endsection
 @section('contenido')
     <div id="seccionlistar">

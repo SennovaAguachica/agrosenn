@@ -12,7 +12,8 @@ class IndexController extends Controller
     {
         $categorias = Categorias::all();
         $subcategorias = Subcategorias::all();
+        $perfil = auth()->user();
         //dd($categorias);
-        return view('vistas.frontend.index.index', compact('categorias', 'subcategorias'));
+        return view('vistas.frontend.index.index', compact('categorias', 'subcategorias','perfil'));
     }
 }

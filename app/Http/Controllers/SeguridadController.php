@@ -34,6 +34,7 @@ class SeguridadController extends Controller
     {
         // dd(Auth::user()->can('usuarios.listar'));
         $roles = Role::all();
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(User::with('rol','vendedor','asociacion','cliente','administrador')->where('id', '!=', auth()->id())->get())->addIndexColumn()
             ->addColumn('action', function($data){
@@ -54,12 +55,12 @@ class SeguridadController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view ('vistas.backend.seguridad.usuarios',compact('roles'));
+        return view ('vistas.backend.seguridad.usuarios',compact('roles','perfil'));
     }
     public function indexroles(Request $request)
     {
         $usuario = auth()->user();
-
+        $perfil = auth()->user();
         // Obtener los roles del usuario
         $roles = $usuario->getPermissionNames();
         // dd($roles);
@@ -77,10 +78,11 @@ class SeguridadController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view ('vistas.backend.seguridad.roles',compact('permisos'));
+        return view ('vistas.backend.seguridad.roles',compact('permisos','perfil'));
     }
     public function indexpermisos(Request $request)
     {
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Permission::all())->addIndexColumn()
             ->addColumn('action', function($data){
@@ -98,7 +100,7 @@ class SeguridadController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        return view ('vistas.backend.seguridad.permisos');
+        return view ('vistas.backend.seguridad.permisos',compact('perfil'));
     }
     public function peticionesAction(Request $request)
     {

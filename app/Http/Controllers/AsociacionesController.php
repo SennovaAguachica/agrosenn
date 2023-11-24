@@ -26,6 +26,7 @@ class AsociacionesController extends Controller
     public function index(Request $request)
     {
         $departamentos = Departamentos::all();
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Asociaciones::with('municipio.departamento')->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -47,7 +48,7 @@ class AsociacionesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.asociaciones.asociaciones', compact('departamentos'));
+        return view('vistas.backend.asociaciones.asociaciones', compact('departamentos','perfil'));
     }
     public function peticionesAction(Request $request)
     {

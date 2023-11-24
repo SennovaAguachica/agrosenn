@@ -31,7 +31,7 @@ class PublicacionesController extends Controller
         $unidades = Unidades::all();
         $vendedores = Vendedores::all();
         $equivalencias_unidades = EquivalenciasUnidades::all();
-
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Publicaciones::with('productos', 'unidades', 'vendedores', 'equivalencias_unidades')->where(['estado' => 1, 'vendedores_id' => Auth::user()->idvendedor])->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -49,7 +49,7 @@ class PublicacionesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.publicaciones.publicaciones', compact('productos', 'unidades', 'vendedores', 'equivalencias_unidades',));
+        return view('vistas.backend.publicaciones.publicaciones', compact('productos', 'unidades', 'vendedores', 'equivalencias_unidades','perfil'));
     }
 
     public function peticionesAction(Request $request)

@@ -28,6 +28,7 @@ class PreciosController extends Controller
     {
         $productos = Productos::all();
         $unidades = Unidades::all();
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_asociacion' => Auth::user()->idasociacion])->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -45,7 +46,7 @@ class PreciosController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.precios.precios', compact('productos', 'unidades'));
+        return view('vistas.backend.precios.precios', compact('productos', 'unidades','perfil'));
     }
 
     public function peticionesAction(Request $request)

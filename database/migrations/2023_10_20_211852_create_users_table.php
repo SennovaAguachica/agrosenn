@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('fotoperfil')->nullable();
             $table->string('estado');
             $table->timestamps();
             $table->foreign('idrol')->references('id')->on('roles');

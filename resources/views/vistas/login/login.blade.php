@@ -18,14 +18,14 @@
                                         <h1 class="mb-5">Inicio de sesión</h1>
                                         <p class="mb-30">No tienes una cuenta? <a href="/register">Crear una</a></p>
                                     </div>
-                                    @if($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach($errors->all() as $error)
-                                                <li>{{$error}}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     @endif
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf

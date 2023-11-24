@@ -20,6 +20,7 @@ class VendedoresController extends Controller
     {
         $tiposDocumentos = Tipodocumentos::all();
         $departamentos = Departamentos::all();
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Vendedores::with('tipodocumento','municipio.departamento')->where('id_asociacion', Auth::user()->idasociacion)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -41,7 +42,7 @@ class VendedoresController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.vendedores.vendedores',compact('tiposDocumentos','departamentos'));
+        return view('vistas.backend.vendedores.vendedores',compact('tiposDocumentos','departamentos','perfil'));
     }
     public function peticionesAction(Request $request)
     {

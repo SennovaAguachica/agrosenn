@@ -22,6 +22,7 @@ class AdministradoresController extends Controller
     }
     public function index(Request $request)
     {
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Administradores::where('id', '!=', auth()->id())->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -39,7 +40,7 @@ class AdministradoresController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.administradores.administradores');
+        return view('vistas.backend.administradores.administradores',compact('perfil'));
     }
     public function peticionesAction(Request $request)
     {

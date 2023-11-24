@@ -22,6 +22,7 @@ class CategoriasController extends Controller
     }
     public function index(Request $request)
     {
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Categorias::where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -39,7 +40,7 @@ class CategoriasController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.categorias.categorias');
+        return view('vistas.backend.categorias.categorias',compact('perfil'));
     }
     public function peticionesAction(Request $request)
     {

@@ -25,6 +25,7 @@ class SubcategoriasController extends Controller
     public function index(Request $request)
     {
         $categorias = Categorias::all();
+        $perfil = auth()->user();
         //dd($categorias);
         if ($request->ajax()) {
             //categorias es el nombre de la funcion que relaciona en el modelo de subcategoria
@@ -48,7 +49,7 @@ class SubcategoriasController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.subcategorias.subcategorias', compact('categorias'));
+        return view('vistas.backend.subcategorias.subcategorias', compact('categorias','perfil'));
     }
 
     public function peticionesAction(Request $request)

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard</title>
+    @yield('titulo')
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}">
     <!-- Template CSS -->
     <link href="assetsweb/css/main.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.1/css/bootstrapValidator.min.css" />
     <style>
         .colored-toast.swal2-icon-error {
             background-color: #f27474 !important;
@@ -126,7 +129,7 @@
                     <li class="menu-item" id="li_precios">
                         <a class="menu-link" href="/precios">
                             <i class="fa-solid fa-money-bill fa-xl" id="i_precios"
-                            style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
                             <span class="text">Precios</span>
                         </a>
                     </li>
@@ -135,7 +138,7 @@
                     <li class="menu-item" id="li_publicaciones">
                         <a class="menu-link" href="/publicaciones">
                             <i class="fa fa-upload fa-xl" id="i_publicaciones"
-                            style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
                             <span class="text">Publicaciones</span>
                         </a>
                     </li>
@@ -178,6 +181,13 @@
                         </div>
                     </li>
                 @endcanany
+                <li class="menu-item" id="li_perfil">
+                    <a class="menu-link" href="/perfil">
+                        <i class="fa-solid fa-id-card fa-xl" id="i_perfil"
+                            style="color: #999898; margin-top: 12px; margin-bottom: 12px"> &nbsp</i>
+                        <span class="text">Editar perfil</span>
+                    </a>
+                </li>
                 {{-- <li class="menu-item has-submenu">
                     <a class="menu-link" href="page-orders-1.html">
                         <i class="icon material-icons md-shopping_cart"></i>
@@ -271,8 +281,8 @@
                     </a>
                 </li>
             </ul> --}}
-            <br />
-            <br />
+                <br />
+                <br />
         </nav>
 
     </aside>
@@ -327,19 +337,13 @@
                     </li>
                     <li class="dropdown nav-item">
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
-                            aria-expanded="false"> <img class="img-xs rounded-circle"
-                                src="assetsweb/imgs/people/avatar-2.png" alt="User" /></a>
+                            aria-expanded="false"> <img class="img-xs rounded-circle" src="{{ $perfil->fotoperfil }}"
+                                alt="User" width="100%" /></a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                             <a class="dropdown-item" href="#"><i
-                                    class="material-icons md-perm_identity"></i>Edit Profile</a>
-                            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account
-                                Settings</a>
+                                    class="material-icons md-perm_identity"></i>Editar Perfil</a>
                             <a class="dropdown-item" href="#"><i
-                                    class="material-icons md-account_balance_wallet"></i>Wallet</a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="material-icons md-receipt"></i>Billing</a>
-                            <a class="dropdown-item" href="#"><i
-                                    class="material-icons md-help_outline"></i>Help center</a>
+                                    class="material-icons md-help_outline"></i>Ayuda</a>
                             <div class="dropdown-divider"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -855,6 +859,7 @@
     <!-- Main Script -->
     <script src="assetsweb/js/main.js?v=1.1" type="text/javascript"></script>
     <script src="assetsweb/js/custom-chart.js" type="text/javascript"></script>
+    {{-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.1/js/bootstrapValidator.min.js"></script> --}}
     @yield('script')
 
     @extends('../scripts.funcionesgenerales.funcionesgenerales')

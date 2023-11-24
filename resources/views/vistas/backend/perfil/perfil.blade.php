@@ -1,6 +1,31 @@
 @extends('../scripts.backend.perfil.perfilscript')
 @section('titulo')
     <title>Edición perfil</title>
+    <style>
+        .kv-avatar .krajee-default.file-preview-frame,
+        .kv-avatar .krajee-default.file-preview-frame:hover {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .kv-avatar {
+            display: inline-block;
+        }
+
+        .kv-avatar .file-input {
+            display: table-cell;
+            width: 213px;
+        }
+
+        .kv-reqd {
+            color: red;
+            font-family: monospace;
+            font-weight: normal;
+        }
+    </style>
 @endsection
 @section('contenido')
     <div class="content-header">
@@ -11,15 +36,11 @@
             <div class="row gx-5">
                 <aside class="col-lg-3 border-end">
                     <nav class="nav nav-pills flex-lg-column mb-4">
-                        <a class="nav-link active" aria-current="page" href="#">General</a>
-                        {{-- <a class="nav-link" href="#">Moderators</a> --}}
-                        <a class="nav-link" href="#">Cambio de contraseña</a>
-                        {{-- <a class="nav-link" href="#">SEO settings</a>
-                        <a class="nav-link" href="#">Mail settings</a>
-                        <a class="nav-link" href="#">Newsletter</a> --}}
+                        <a class="nav-link active" aria-current="page" id="btnseccionperfil">General</a>
+                        <a class="nav-link" id="btncambiarcontrasena">Cambio de contraseña</a>
                     </nav>
                 </aside>
-                <div class="col-lg-9">
+                <div class="col-lg-9" id="divseccionperfil" style="display: none;">
                     <section class="content-body p-xl-4">
                         <form id="formGuardar">
                             @csrf
@@ -222,11 +243,14 @@
                                 <!-- col.// -->
                                 <aside class="col-lg-4">
                                     <figure class="text-lg-center">
-                                        <img class="img-lg mb-3 img-avatar" src="assetsweb/imgs/people/avatar-1.png"
-                                            alt="User Photo" />
+                                        <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                            src="{{ $perfil->fotoperfil }}" alt="User Photo" />
                                         <figcaption>
-                                            <a class="btn btn-light rounded font-md" href="#"> <i
-                                                    class="icons material-icons md-backup font-md"></i> Cargar foto </a>
+                                            <label class="btn btn-light rounded font-md" for="fotoinput">
+                                                <i class="icons material-icons md-backup font-md"></i> Cargar foto
+                                            </label>
+                                            <input type="file" id="fotoinput" name="fotoinput" style="display: none"
+                                                onchange="loadPhoto(this)">
                                         </figcaption>
                                     </figure>
                                 </aside>
@@ -235,6 +259,73 @@
                             <!-- row.// -->
                             <br />
                             <button class="btn btn-primary" type="button" id="enviar">Guardar</button>
+                        </form>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <!-- row.// -->
+                    </section>
+                    <!-- content-body .// -->
+                </div>
+                <div class="col-lg-9" id="divcambiarcontrasena" style="display: none;">
+                    <section class="content-body p-xl-4">
+                        <form id="formcambiarpassword">
+                            @csrf
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="row gx-3">
+                                        <input type="text" id="idrolpassword" name="idrolpassword"
+                                            value="{{ $user->idrol }}" hidden>
+                                        <input type="text" id="iduserpassword" name="iduserpassword"
+                                            value="{{ $user->id }}" hidden>
+                                        <div class="row">
+                                            <label>Contraseña actual</label>
+                                            <div class="input-group" id="show_hide_password_actual">
+                                                <input class="form-control" type="password" id="passwordactual" name="passwordactual" required>
+                                                <div class="input-group-text">
+                                                    <a href=""><i class="fa fa-eye-slash"
+                                                            aria-hidden="true"></i></a>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Campo obligatorio.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label>Contraseña nueva</label>
+                                            <div class="input-group" id="show_hide_password_nueva">
+                                                <input class="form-control" type="password" id="passwordnuevo" name="passwordnuevo" required>
+                                                <div class="input-group-text">
+                                                    <a href=""><i class="fa fa-eye-slash"
+                                                            aria-hidden="true"></i></a>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Campo obligatorio.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label>Confirmar contraseña nueva</label>
+                                            <div class="input-group" id="show_hide_password_confirmar">
+                                                <input class="form-control" type="password" id="passwordconfirmar" name="passwordconfirmar" required>
+                                                <div class="input-group-text">
+                                                    <a href=""><i class="fa fa-eye-slash"
+                                                            aria-hidden="true"></i></a>
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Campo obligatorio.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- row.// -->
+                            <br />
+                            <button class="btn btn-primary" type="button" id="enviarcambiarcontrasena">Actualizar
+                                contraseña</button>
                         </form>
                         <br>
                         <br>

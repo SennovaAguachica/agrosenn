@@ -25,6 +25,7 @@ class EquivalenciasController extends Controller
     {
         $equivalencias = Equivalencias::all();
         $unidades = Unidades::all();
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(EquivalenciasUnidades::with('equivalencias', 'unidades')->where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -42,7 +43,7 @@ class EquivalenciasController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.equivalencias.equivalencias', compact('equivalencias', 'unidades'));
+        return view('vistas.backend.equivalencias.equivalencias', compact('equivalencias', 'unidades','perfil'));
     }
 
 

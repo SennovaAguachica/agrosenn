@@ -23,6 +23,7 @@ class UnidadesController extends Controller
     public function index(Request $request)
     {
         $tipounidades = Tipounidades::all();
+        $perfil = auth()->user();
         if ($request->ajax()) {
             return DataTables::of(Unidades::with('tipounidades')->where('estado', 1)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
@@ -40,7 +41,7 @@ class UnidadesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.unidades.unidades', compact('tipounidades'));
+        return view('vistas.backend.unidades.unidades', compact('tipounidades','perfil'));
     }
 
     public function peticionesAction(Request $request)
