@@ -14,8 +14,8 @@ class Publicaciones extends Model
         'estado',
         'producto_id',
         'unidades_id',
-        'vendedores_id',
-        'equivalencias_unidades_id',
+        'id_usuario',
+        'precios_id',
     ];
 
     //Relacion uno a muchos
@@ -34,16 +34,25 @@ class Publicaciones extends Model
         return $this->belongsTo(Vendedores::class, 'vendedores_id', 'id');
     }
 
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
+    }
+
+    public function precios()
+    {
+        return $this->belongsTo(Precios::class, 'precios_id', 'id');
+    }
     public function equivalencias_unidades()
     {
         return $this->belongsTo(EquivalenciasUnidades::class, 'equivalencias_unidades_id', 'id');
     }
 
     //relacion muchos a muchos
-    public function precios()
-    {
-        return $this->belongsToMany(Precios::class, 'precios_publicacion', 'publicaciones_id', 'precios_id');
-    }
+    // public function precios()
+    // {
+    //     return $this->belongsToMany(Precios::class, 'precios_publicacion', 'publicaciones_id', 'precios_id');
+    // }
 
     public function imagenes()
     {
