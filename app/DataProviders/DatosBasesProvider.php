@@ -317,987 +317,987 @@ abstract class DatosBasesProvider
             [
                 "id" => "12565",
                 "iddepartamentos" => "776",
-                "ciudad" => "carolina"
+                "ciudad" => "Carolina"
             ],
             [
                 "id" => "12566",
                 "iddepartamentos" => "776",
-                "ciudad" => "caucasia"
+                "ciudad" => "Caucasia"
             ],
             [
                 "id" => "12567",
                 "iddepartamentos" => "776",
-                "ciudad" => "chigorodo"
+                "ciudad" => "Chigorodó"
             ],
             [
                 "id" => "12568",
                 "iddepartamentos" => "776",
-                "ciudad" => "cisneros"
+                "ciudad" => "Cisneros"
             ],
             [
                 "id" => "12569",
                 "iddepartamentos" => "776",
-                "ciudad" => "cocorna"
+                "ciudad" => "Cocorná"
             ],
             [
                 "id" => "12570",
                 "iddepartamentos" => "776",
-                "ciudad" => "concepcion"
+                "ciudad" => "Concepción"
             ],
             [
                 "id" => "12571",
                 "iddepartamentos" => "776",
-                "ciudad" => "concordia"
+                "ciudad" => "Concordia"
             ],
             [
                 "id" => "12572",
                 "iddepartamentos" => "776",
-                "ciudad" => "copacabana"
+                "ciudad" => "Copacabana"
             ],
             [
                 "id" => "12573",
                 "iddepartamentos" => "776",
-                "ciudad" => "dabeiba"
+                "ciudad" => "Dabeiba"
             ],
             [
                 "id" => "12574",
                 "iddepartamentos" => "776",
-                "ciudad" => "don matias"
+                "ciudad" => "Don Matías"
             ],
             [
                 "id" => "12575",
                 "iddepartamentos" => "776",
-                "ciudad" => "ebejico"
+                "ciudad" => "Ebéjico"
             ],
             [
                 "id" => "12576",
                 "iddepartamentos" => "776",
-                "ciudad" => "el bagre"
+                "ciudad" => "El Bagre"
             ],
             [
                 "id" => "12577",
                 "iddepartamentos" => "776",
-                "ciudad" => "entrerrios"
+                "ciudad" => "Entrerrios"
             ],
             [
                 "id" => "12578",
                 "iddepartamentos" => "776",
-                "ciudad" => "envigado"
+                "ciudad" => "Envigado"
             ],
             [
                 "id" => "12579",
                 "iddepartamentos" => "776",
-                "ciudad" => "fredonia"
+                "ciudad" => "Fredonia"
             ],
             [
                 "id" => "12580",
                 "iddepartamentos" => "776",
-                "ciudad" => "frontino"
+                "ciudad" => "Frontino"
             ],
             [
                 "id" => "12581",
                 "iddepartamentos" => "776",
-                "ciudad" => "giraldo"
+                "ciudad" => "Giraldo"
             ],
             [
                 "id" => "12582",
                 "iddepartamentos" => "776",
-                "ciudad" => "girardota"
+                "ciudad" => "Girardota"
             ],
             [
                 "id" => "12583",
                 "iddepartamentos" => "776",
-                "ciudad" => "gomez plata"
+                "ciudad" => "Gómez Plata"
             ],
             [
                 "id" => "12584",
                 "iddepartamentos" => "776",
-                "ciudad" => "granada"
+                "ciudad" => "Granada"
             ],
             [
                 "id" => "12585",
                 "iddepartamentos" => "776",
-                "ciudad" => "guadalupe"
+                "ciudad" => "Guadalupe"
             ],
             [
                 "id" => "12586",
                 "iddepartamentos" => "776",
-                "ciudad" => "guarne"
+                "ciudad" => "Guarne"
             ],
             [
                 "id" => "12587",
                 "iddepartamentos" => "776",
-                "ciudad" => "guatape"
+                "ciudad" => "Guatapé"
             ],
             [
                 "id" => "12588",
                 "iddepartamentos" => "776",
-                "ciudad" => "heliconia"
+                "ciudad" => "Heliconia"
             ],
             [
                 "id" => "12589",
                 "iddepartamentos" => "776",
-                "ciudad" => "hispania"
+                "ciudad" => "Hispania"
             ],
             [
                 "id" => "12590",
                 "iddepartamentos" => "776",
-                "ciudad" => "itagui"
+                "ciudad" => "Itaguí"
             ],
             [
                 "id" => "12591",
                 "iddepartamentos" => "776",
-                "ciudad" => "ituango"
+                "ciudad" => "Ituango"
             ],
             [
                 "id" => "12592",
                 "iddepartamentos" => "776",
-                "ciudad" => "jardin"
+                "ciudad" => "Jardín"
             ],
             [
                 "id" => "12593",
                 "iddepartamentos" => "776",
-                "ciudad" => "jerico"
+                "ciudad" => "Jericó"
             ],
             [
                 "id" => "12594",
                 "iddepartamentos" => "776",
-                "ciudad" => "la ceja"
+                "ciudad" => "La Ceja"
             ],
             [
                 "id" => "12595",
                 "iddepartamentos" => "776",
-                "ciudad" => "la estrella"
+                "ciudad" => "La Estrella"
             ],
             [
                 "id" => "12596",
                 "iddepartamentos" => "776",
-                "ciudad" => "la pintada"
+                "ciudad" => "La Pintada"
             ],
             [
                 "id" => "12597",
                 "iddepartamentos" => "776",
-                "ciudad" => "la union"
+                "ciudad" => "La Unión"
             ],
             [
                 "id" => "12598",
                 "iddepartamentos" => "776",
-                "ciudad" => "liborina"
+                "ciudad" => "Liborina"
             ],
             [
                 "id" => "12599",
                 "iddepartamentos" => "776",
-                "ciudad" => "maceo"
+                "ciudad" => "Maceo"
             ],
             [
                 "id" => "12600",
                 "iddepartamentos" => "776",
-                "ciudad" => "marinilla"
+                "ciudad" => "Marinilla"
             ],
             [
                 "id" => "12601",
                 "iddepartamentos" => "776",
-                "ciudad" => "medellin"
+                "ciudad" => "Medellín"
             ],
             [
                 "id" => "12602",
                 "iddepartamentos" => "776",
-                "ciudad" => "montebello"
+                "ciudad" => "Montebello"
             ],
             [
                 "id" => "12603",
                 "iddepartamentos" => "776",
-                "ciudad" => "murindo"
+                "ciudad" => "Murindó"
             ],
             [
                 "id" => "12604",
                 "iddepartamentos" => "776",
-                "ciudad" => "mutata"
+                "ciudad" => "Mutata"
             ],
             [
                 "id" => "12605",
                 "iddepartamentos" => "776",
-                "ciudad" => "narino"
+                "ciudad" => "Nariño"
             ],
             [
                 "id" => "12606",
                 "iddepartamentos" => "776",
-                "ciudad" => "nechi"
+                "ciudad" => "Nechí"
             ],
             [
                 "id" => "12607",
                 "iddepartamentos" => "776",
-                "ciudad" => "necocli"
+                "ciudad" => "Necoclí"
             ],
             [
                 "id" => "12608",
                 "iddepartamentos" => "776",
-                "ciudad" => "olaya"
+                "ciudad" => "Olaya"
             ],
             [
                 "id" => "12609",
                 "iddepartamentos" => "776",
-                "ciudad" => "penol"
+                "ciudad" => "Peñol"
             ],
             [
                 "id" => "12610",
                 "iddepartamentos" => "776",
-                "ciudad" => "peque"
+                "ciudad" => "Peque"
             ],
             [
                 "id" => "12611",
                 "iddepartamentos" => "776",
-                "ciudad" => "pueblorrico"
+                "ciudad" => "Pueblorrico"
             ],
             [
                 "id" => "12612",
                 "iddepartamentos" => "776",
-                "ciudad" => "puerto berrio"
+                "ciudad" => "Puerto Berrío"
             ],
             [
                 "id" => "12613",
                 "iddepartamentos" => "776",
-                "ciudad" => "puerto nare"
+                "ciudad" => "Puerto Nare"
             ],
             [
                 "id" => "12614",
                 "iddepartamentos" => "776",
-                "ciudad" => "puerto triunfo"
+                "ciudad" => "Puerto Triunfo"
             ],
             [
                 "id" => "12615",
                 "iddepartamentos" => "776",
-                "ciudad" => "remedios"
+                "ciudad" => "Remedios"
             ],
             [
                 "id" => "12616",
                 "iddepartamentos" => "776",
-                "ciudad" => "retiro"
+                "ciudad" => "Retiro"
             ],
             [
                 "id" => "12617",
                 "iddepartamentos" => "776",
-                "ciudad" => "rionegro"
+                "ciudad" => "Rionegro"
             ],
             [
                 "id" => "12618",
                 "iddepartamentos" => "776",
-                "ciudad" => "sabanalarga"
+                "ciudad" => "Sabanalarga"
             ],
             [
                 "id" => "12619",
                 "iddepartamentos" => "776",
-                "ciudad" => "sabaneta"
+                "ciudad" => "Sabaneta"
             ],
             [
                 "id" => "12620",
                 "iddepartamentos" => "776",
-                "ciudad" => "salgar"
+                "ciudad" => "Salgar"
             ],
             [
                 "id" => "12621",
                 "iddepartamentos" => "776",
-                "ciudad" => "san andres"
+                "ciudad" => "San Andrés"
             ],
             [
                 "id" => "12622",
                 "iddepartamentos" => "776",
-                "ciudad" => "san carlos"
+                "ciudad" => "San Carlos"
             ],
             [
                 "id" => "12623",
                 "iddepartamentos" => "776",
-                "ciudad" => "san francisco"
+                "ciudad" => "San Francisco"
             ],
             [
                 "id" => "12624",
                 "iddepartamentos" => "776",
-                "ciudad" => "san jeronimo"
+                "ciudad" => "San Jerónimo"
             ],
             [
                 "id" => "12625",
                 "iddepartamentos" => "776",
-                "ciudad" => "san jose de la montana"
+                "ciudad" => "San José de la Montaña"
             ],
             [
                 "id" => "12626",
                 "iddepartamentos" => "776",
-                "ciudad" => "san juan de uraba"
+                "ciudad" => "San Juan de Urabá"
             ],
             [
                 "id" => "12627",
                 "iddepartamentos" => "776",
-                "ciudad" => "san luis"
+                "ciudad" => "San Luís"
             ],
             [
                 "id" => "12628",
                 "iddepartamentos" => "776",
-                "ciudad" => "san pedro"
+                "ciudad" => "San Pedro"
             ],
             [
                 "id" => "12629",
                 "iddepartamentos" => "776",
-                "ciudad" => "san pedro de uraba"
+                "ciudad" => "San Pedro de Urabá"
             ],
             [
                 "id" => "12630",
                 "iddepartamentos" => "776",
-                "ciudad" => "san rafael"
+                "ciudad" => "San Rafael"
             ],
             [
                 "id" => "12631",
                 "iddepartamentos" => "776",
-                "ciudad" => "san roque"
+                "ciudad" => "San Roque"
             ],
             [
                 "id" => "12632",
                 "iddepartamentos" => "776",
-                "ciudad" => "san vicente"
+                "ciudad" => "San Vicente"
             ],
             [
                 "id" => "12633",
                 "iddepartamentos" => "776",
-                "ciudad" => "santa barbara"
+                "ciudad" => "Santa Bárbara"
             ],
             [
                 "id" => "12634",
                 "iddepartamentos" => "776",
-                "ciudad" => "santa rosa de osos"
+                "ciudad" => "Santa Rosa de Osos"
             ],
             [
                 "id" => "12635",
                 "iddepartamentos" => "776",
-                "ciudad" => "santo domingo"
+                "ciudad" => "Santo Domingo"
             ],
             [
                 "id" => "12636",
                 "iddepartamentos" => "776",
-                "ciudad" => "santuario"
+                "ciudad" => "Santuario"
             ],
             [
                 "id" => "12637",
                 "iddepartamentos" => "776",
-                "ciudad" => "segovia"
+                "ciudad" => "Segovia"
             ],
             [
                 "id" => "12638",
                 "iddepartamentos" => "776",
-                "ciudad" => "sonson"
+                "ciudad" => "Sonsón"
             ],
             [
                 "id" => "12639",
                 "iddepartamentos" => "776",
-                "ciudad" => "sopetran"
+                "ciudad" => "Sopetrán"
             ],
             [
                 "id" => "12640",
                 "iddepartamentos" => "776",
-                "ciudad" => "tamesis"
+                "ciudad" => "Támesis"
             ],
             [
                 "id" => "12641",
                 "iddepartamentos" => "776",
-                "ciudad" => "taraza"
+                "ciudad" => "Tarazá"
             ],
             [
                 "id" => "12642",
                 "iddepartamentos" => "776",
-                "ciudad" => "tarso"
+                "ciudad" => "Tarso"
             ],
             [
                 "id" => "12643",
                 "iddepartamentos" => "776",
-                "ciudad" => "titiribi"
+                "ciudad" => "Titiribí"
             ],
             [
                 "id" => "12644",
                 "iddepartamentos" => "776",
-                "ciudad" => "toledo"
+                "ciudad" => "Toledo"
             ],
             [
                 "id" => "12645",
                 "iddepartamentos" => "776",
-                "ciudad" => "turbo"
+                "ciudad" => "Turbo"
             ],
             [
                 "id" => "12646",
                 "iddepartamentos" => "776",
-                "ciudad" => "uramita"
+                "ciudad" => "Uramita"
             ],
             [
                 "id" => "12647",
                 "iddepartamentos" => "776",
-                "ciudad" => "urrao"
+                "ciudad" => "Urrao"
             ],
             [
                 "id" => "12648",
                 "iddepartamentos" => "776",
-                "ciudad" => "valdivia"
+                "ciudad" => "Valdivia"
             ],
             [
                 "id" => "12649",
                 "iddepartamentos" => "776",
-                "ciudad" => "valparaiso"
+                "ciudad" => "Valparaiso"
             ],
             [
                 "id" => "12650",
                 "iddepartamentos" => "776",
-                "ciudad" => "vegachi"
+                "ciudad" => "Vegachí"
             ],
             [
                 "id" => "12651",
                 "iddepartamentos" => "776",
-                "ciudad" => "venecia"
+                "ciudad" => "Venecia"
             ],
             [
                 "id" => "12652",
                 "iddepartamentos" => "776",
-                "ciudad" => "vigia del fuerte"
+                "ciudad" => "Vigía del Fuerte"
             ],
             [
                 "id" => "12653",
                 "iddepartamentos" => "776",
-                "ciudad" => "yali"
+                "ciudad" => "Yalí"
             ],
             [
                 "id" => "12654",
                 "iddepartamentos" => "776",
-                "ciudad" => "yarumal"
+                "ciudad" => "Yarumal"
             ],
             [
                 "id" => "12655",
                 "iddepartamentos" => "776",
-                "ciudad" => "yolombo"
+                "ciudad" => "Yolombó"
             ],
             [
                 "id" => "12656",
                 "iddepartamentos" => "776",
-                "ciudad" => "yondo"
+                "ciudad" => "Yondó"
             ],
             [
                 "id" => "12657",
                 "iddepartamentos" => "776",
-                "ciudad" => "zaragoza"
+                "ciudad" => "Zaragoza"
             ],
             [
                 "id" => "12658",
                 "iddepartamentos" => "777",
-                "ciudad" => "arauca"
+                "ciudad" => "Arauca"
             ],
             [
                 "id" => "12659",
                 "iddepartamentos" => "777",
-                "ciudad" => "arauquita"
+                "ciudad" => "Arauquita"
             ],
             [
                 "id" => "12660",
                 "iddepartamentos" => "777",
-                "ciudad" => "cravo norte"
+                "ciudad" => "Cravo Norte"
             ],
             [
                 "id" => "12661",
                 "iddepartamentos" => "777",
-                "ciudad" => "fortul"
+                "ciudad" => "Fortul"
             ],
             [
                 "id" => "12662",
                 "iddepartamentos" => "777",
-                "ciudad" => "puerto rondon"
+                "ciudad" => "Puerto Rondón"
             ],
             [
                 "id" => "12663",
                 "iddepartamentos" => "777",
-                "ciudad" => "saravena"
+                "ciudad" => "Saravena"
             ],
             [
                 "id" => "12664",
                 "iddepartamentos" => "777",
-                "ciudad" => "tame"
+                "ciudad" => "Tame"
             ],
             [
                 "id" => "12665",
                 "iddepartamentos" => "778",
-                "ciudad" => "baranoa"
+                "ciudad" => "Baranoa"
             ],
             [
                 "id" => "12666",
                 "iddepartamentos" => "778",
-                "ciudad" => "barranquilla"
+                "ciudad" => "Barranquilla"
             ],
             [
                 "id" => "12667",
                 "iddepartamentos" => "778",
-                "ciudad" => "campo de la cruz"
+                "ciudad" => "Campo de la Cruz"
             ],
             [
                 "id" => "12668",
                 "iddepartamentos" => "778",
-                "ciudad" => "candelaria"
+                "ciudad" => "Candelaria"
             ],
             [
                 "id" => "12669",
                 "iddepartamentos" => "778",
-                "ciudad" => "galapa"
+                "ciudad" => "Galapa"
             ],
             [
                 "id" => "12670",
                 "iddepartamentos" => "778",
-                "ciudad" => "juan de acosta"
+                "ciudad" => "Juan de Acosta"
             ],
             [
                 "id" => "12671",
                 "iddepartamentos" => "778",
-                "ciudad" => "luruaco"
+                "ciudad" => "Luruaco"
             ],
             [
                 "id" => "12672",
                 "iddepartamentos" => "778",
-                "ciudad" => "malambo"
+                "ciudad" => "Malambo"
             ],
             [
                 "id" => "12673",
                 "iddepartamentos" => "778",
-                "ciudad" => "manati"
+                "ciudad" => "Manatí"
             ],
             [
                 "id" => "12674",
                 "iddepartamentos" => "778",
-                "ciudad" => "palmar de varela"
+                "ciudad" => "Palmar de Varela"
             ],
             [
                 "id" => "12675",
                 "iddepartamentos" => "778",
-                "ciudad" => "piojo"
+                "ciudad" => "Piojó"
             ],
             [
                 "id" => "12676",
                 "iddepartamentos" => "778",
-                "ciudad" => "polo nuevo"
+                "ciudad" => "Polo Nuevo"
             ],
             [
                 "id" => "12677",
                 "iddepartamentos" => "778",
-                "ciudad" => "ponedera"
+                "ciudad" => "Ponedera"
             ],
             [
                 "id" => "12678",
                 "iddepartamentos" => "778",
-                "ciudad" => "puerto colombia"
+                "ciudad" => "Puerto Colombia"
             ],
             [
                 "id" => "12679",
                 "iddepartamentos" => "778",
-                "ciudad" => "repelon"
+                "ciudad" => "Repelón"
             ],
             [
                 "id" => "12680",
                 "iddepartamentos" => "778",
-                "ciudad" => "sabanagrande"
+                "ciudad" => "Sabanagrande"
             ],
             [
                 "id" => "12681",
                 "iddepartamentos" => "778",
-                "ciudad" => "sabanalarga"
+                "ciudad" => "Sabanalarga"
             ],
             [
                 "id" => "12682",
                 "iddepartamentos" => "778",
-                "ciudad" => "santa lucia"
+                "ciudad" => "Santa Lucía"
             ],
             [
                 "id" => "12683",
                 "iddepartamentos" => "778",
-                "ciudad" => "santo tomas"
+                "ciudad" => "Santo Tomás"
             ],
             [
                 "id" => "12684",
                 "iddepartamentos" => "778",
-                "ciudad" => "soledad"
+                "ciudad" => "Soledad"
             ],
             [
                 "id" => "12685",
                 "iddepartamentos" => "778",
-                "ciudad" => "suan"
+                "ciudad" => "Suan"
             ],
             [
                 "id" => "12686",
                 "iddepartamentos" => "778",
-                "ciudad" => "tubara"
+                "ciudad" => "Tubará"
             ],
             [
                 "id" => "12687",
                 "iddepartamentos" => "778",
-                "ciudad" => "usiacuri"
+                "ciudad" => "Usiacurí"
             ],
             [
                 "id" => "12688",
                 "iddepartamentos" => "779",
-                "ciudad" => "bogota"
+                "ciudad" => "Bogotá"
             ],
             [
                 "id" => "12689",
                 "iddepartamentos" => "780",
-                "ciudad" => "achi"
+                "ciudad" => "Achí"
             ],
             [
                 "id" => "12690",
                 "iddepartamentos" => "780",
-                "ciudad" => "altos del rosario"
+                "ciudad" => "Altos del Rosario"
             ],
             [
                 "id" => "12691",
                 "iddepartamentos" => "780",
-                "ciudad" => "arenal"
+                "ciudad" => "Arenal"
             ],
             [
                 "id" => "12692",
                 "iddepartamentos" => "780",
-                "ciudad" => "arjona"
+                "ciudad" => "Arjona"
             ],
             [
                 "id" => "12693",
                 "iddepartamentos" => "780",
-                "ciudad" => "arroyohondo"
+                "ciudad" => "Arroyohondo"
             ],
             [
                 "id" => "12694",
                 "iddepartamentos" => "780",
-                "ciudad" => "barranco de loba"
+                "ciudad" => "Barranco de Loba"
             ],
             [
                 "id" => "12695",
                 "iddepartamentos" => "780",
-                "ciudad" => "calamar"
+                "ciudad" => "Calamar"
             ],
             [
                 "id" => "12696",
                 "iddepartamentos" => "780",
-                "ciudad" => "cantagallo"
+                "ciudad" => "Cantagallo"
             ],
             [
                 "id" => "12697",
                 "iddepartamentos" => "780",
-                "ciudad" => "cartagena"
+                "ciudad" => "Cartagena"
             ],
             [
                 "id" => "12698",
                 "iddepartamentos" => "780",
-                "ciudad" => "cicuco"
+                "ciudad" => "Cicuco"
             ],
             [
                 "id" => "12699",
                 "iddepartamentos" => "780",
-                "ciudad" => "clemencia"
+                "ciudad" => "Clemencia"
             ],
             [
                 "id" => "12700",
                 "iddepartamentos" => "780",
-                "ciudad" => "cordoba"
+                "ciudad" => "Córdoba"
             ],
             [
                 "id" => "12701",
                 "iddepartamentos" => "780",
-                "ciudad" => "el carmen de bolivar"
+                "ciudad" => "El Carmen de Bolívar"
             ],
             [
                 "id" => "12702",
                 "iddepartamentos" => "780",
-                "ciudad" => "el guamo"
+                "ciudad" => "El Guamo"
             ],
             [
                 "id" => "12703",
                 "iddepartamentos" => "780",
-                "ciudad" => "el penon"
+                "ciudad" => "El Peñón"
             ],
             [
                 "id" => "12704",
                 "iddepartamentos" => "780",
-                "ciudad" => "hatillo de loba"
+                "ciudad" => "Hatillo de Loba"
             ],
             [
                 "id" => "12705",
                 "iddepartamentos" => "780",
-                "ciudad" => "magangue"
+                "ciudad" => "Magangué"
             ],
             [
                 "id" => "12706",
                 "iddepartamentos" => "780",
-                "ciudad" => "mahates"
+                "ciudad" => "Mahates"
             ],
             [
                 "id" => "12707",
                 "iddepartamentos" => "780",
-                "ciudad" => "margarita"
+                "ciudad" => "Margarita"
             ],
             [
                 "id" => "12708",
                 "iddepartamentos" => "780",
-                "ciudad" => "maria la baja"
+                "ciudad" => "María La Baja"
             ],
             [
                 "id" => "12709",
                 "iddepartamentos" => "780",
-                "ciudad" => "mompos"
+                "ciudad" => "Mompós"
             ],
             [
                 "id" => "12710",
                 "iddepartamentos" => "780",
-                "ciudad" => "montecristo"
+                "ciudad" => "Montecristo"
             ],
             [
                 "id" => "12711",
                 "iddepartamentos" => "780",
-                "ciudad" => "morales"
+                "ciudad" => "Morales"
             ],
             [
                 "id" => "12712",
                 "iddepartamentos" => "780",
-                "ciudad" => "pinillos"
+                "ciudad" => "Pinillos"
             ],
             [
                 "id" => "12713",
                 "iddepartamentos" => "780",
-                "ciudad" => "regidor"
+                "ciudad" => "Regidor"
             ],
             [
                 "id" => "12714",
                 "iddepartamentos" => "780",
-                "ciudad" => "rio viejo"
+                "ciudad" => "Río Viejo"
             ],
             [
                 "id" => "12715",
                 "iddepartamentos" => "780",
-                "ciudad" => "san cristobal"
+                "ciudad" => "San Cristóbal"
             ],
             [
                 "id" => "12716",
                 "iddepartamentos" => "780",
-                "ciudad" => "san estanislao"
+                "ciudad" => "San Estanislao"
             ],
             [
                 "id" => "12717",
                 "iddepartamentos" => "780",
-                "ciudad" => "san fernando"
+                "ciudad" => "San Fernando"
             ],
             [
                 "id" => "12718",
                 "iddepartamentos" => "780",
-                "ciudad" => "san jacinto"
+                "ciudad" => "San Jacinto"
             ],
             [
                 "id" => "12719",
                 "iddepartamentos" => "780",
-                "ciudad" => "san jacinto del cauca"
+                "ciudad" => "San Jacinto del Cauca"
             ],
             [
                 "id" => "12720",
                 "iddepartamentos" => "780",
-                "ciudad" => "san juan nepomuceno"
+                "ciudad" => "San Juan Nepomuceno"
             ],
             [
                 "id" => "12721",
                 "iddepartamentos" => "780",
-                "ciudad" => "san martin de loba"
+                "ciudad" => "San Martín de Loba"
             ],
             [
                 "id" => "12722",
                 "iddepartamentos" => "780",
-                "ciudad" => "san pablo"
+                "ciudad" => "San Pablo"
             ],
             [
                 "id" => "12723",
                 "iddepartamentos" => "780",
-                "ciudad" => "santa catalina"
+                "ciudad" => "Santa Catalina"
             ],
             [
                 "id" => "12724",
                 "iddepartamentos" => "780",
-                "ciudad" => "santa rosa"
+                "ciudad" => "Santa Rosa"
             ],
             [
                 "id" => "12725",
                 "iddepartamentos" => "780",
-                "ciudad" => "santa rosa del sur"
+                "ciudad" => "Santa Rosa del Sur"
             ],
             [
                 "id" => "12726",
                 "iddepartamentos" => "780",
-                "ciudad" => "simiti"
+                "ciudad" => "Simití"
             ],
             [
                 "id" => "12727",
                 "iddepartamentos" => "780",
-                "ciudad" => "soplaviento"
+                "ciudad" => "Soplaviento"
             ],
             [
                 "id" => "12728",
                 "iddepartamentos" => "780",
-                "ciudad" => "talaigua nuevo"
+                "ciudad" => "Talaigua Nuevo"
             ],
             [
                 "id" => "12729",
                 "iddepartamentos" => "780",
-                "ciudad" => "tiquisio"
+                "ciudad" => "Tiquisio"
             ],
             [
                 "id" => "12730",
                 "iddepartamentos" => "780",
-                "ciudad" => "turbaco"
+                "ciudad" => "Turbaco"
             ],
             [
                 "id" => "12731",
                 "iddepartamentos" => "780",
-                "ciudad" => "turbana"
+                "ciudad" => "Turbaná"
             ],
             [
                 "id" => "12732",
                 "iddepartamentos" => "780",
-                "ciudad" => "villanueva"
+                "ciudad" => "Villanueva"
             ],
             [
                 "id" => "12733",
                 "iddepartamentos" => "780",
-                "ciudad" => "zambrano"
+                "ciudad" => "Zambrano"
             ],
             [
                 "id" => "12734",
                 "iddepartamentos" => "781",
-                "ciudad" => "almeida"
+                "ciudad" => "Almeida"
             ],
             [
                 "id" => "12735",
                 "iddepartamentos" => "781",
-                "ciudad" => "aquitania"
+                "ciudad" => "Aquitania"
             ],
             [
                 "id" => "12736",
                 "iddepartamentos" => "781",
-                "ciudad" => "arcabuco"
+                "ciudad" => "Arcabuco"
             ],
             [
                 "id" => "12737",
                 "iddepartamentos" => "781",
-                "ciudad" => "belen"
+                "ciudad" => "Belén"
             ],
             [
                 "id" => "12738",
                 "iddepartamentos" => "781",
-                "ciudad" => "berbeo"
+                "ciudad" => "Berbeo"
             ],
             [
                 "id" => "12739",
                 "iddepartamentos" => "781",
-                "ciudad" => "beteitiva"
+                "ciudad" => "Beteitiva"
             ],
             [
                 "id" => "12740",
                 "iddepartamentos" => "781",
-                "ciudad" => "boavita"
+                "ciudad" => "Boavita"
             ],
             [
                 "id" => "12741",
                 "iddepartamentos" => "781",
-                "ciudad" => "boyaca"
+                "ciudad" => "Boyacá"
             ],
             [
                 "id" => "12742",
                 "iddepartamentos" => "781",
-                "ciudad" => "briceno"
+                "ciudad" => "Briceño"
             ],
             [
                 "id" => "12743",
                 "iddepartamentos" => "781",
-                "ciudad" => "buenavista"
+                "ciudad" => "Buenavista"
             ],
             [
                 "id" => "12744",
                 "iddepartamentos" => "781",
-                "ciudad" => "busbanza"
+                "ciudad" => "Busbanza"
             ],
             [
                 "id" => "12745",
                 "iddepartamentos" => "781",
-                "ciudad" => "caldas"
+                "ciudad" => "Caldas"
             ],
             [
                 "id" => "12746",
                 "iddepartamentos" => "781",
-                "ciudad" => "campohermoso"
+                "ciudad" => "Campohermoso"
             ],
             [
                 "id" => "12747",
                 "iddepartamentos" => "781",
-                "ciudad" => "cerinza"
+                "ciudad" => "Cerinza"
             ],
             [
                 "id" => "12748",
                 "iddepartamentos" => "781",
-                "ciudad" => "chinavita"
+                "ciudad" => "Chinavita"
             ],
             [
                 "id" => "12749",
                 "iddepartamentos" => "781",
-                "ciudad" => "chiquinquira"
+                "ciudad" => "Chiquinquirá"
             ],
             [
                 "id" => "12750",
                 "iddepartamentos" => "781",
-                "ciudad" => "chiquiza"
+                "ciudad" => "Chiquiza"
             ],
             [
                 "id" => "12751",
                 "iddepartamentos" => "781",
-                "ciudad" => "chiscas"
+                "ciudad" => "Chiscas"
             ],
             [
                 "id" => "12752",
                 "iddepartamentos" => "781",
-                "ciudad" => "chita"
+                "ciudad" => "Chita"
             ],
             [
                 "id" => "12753",
                 "iddepartamentos" => "781",
-                "ciudad" => "chitaraque"
+                "ciudad" => "Chitaraque"
             ],
             [
                 "id" => "12754",
                 "iddepartamentos" => "781",
-                "ciudad" => "chivata"
+                "ciudad" => "Chivata"
             ],
             [
                 "id" => "12755",
                 "iddepartamentos" => "781",
-                "ciudad" => "chivor"
+                "ciudad" => "Chivor"
             ],
             [
                 "id" => "12756",
                 "iddepartamentos" => "781",
-                "ciudad" => "cienega"
+                "ciudad" => "Cienega"
             ],
             [
                 "id" => "12757",
                 "iddepartamentos" => "781",
-                "ciudad" => "combita"
+                "ciudad" => "Cómbita"
             ],
             [
                 "id" => "12758",
                 "iddepartamentos" => "781",
-                "ciudad" => "coper"
+                "ciudad" => "Coper"
             ],
             [
                 "id" => "12759",
                 "iddepartamentos" => "781",
-                "ciudad" => "corrales"
+                "ciudad" => "Corrales"
             ],
             [
                 "id" => "12760",
                 "iddepartamentos" => "781",
-                "ciudad" => "covarachia"
+                "ciudad" => "Covarachia"
             ],
             [
                 "id" => "12761",
                 "iddepartamentos" => "781",
-                "ciudad" => "cubara"
+                "ciudad" => "Cubara"
             ],
             [
                 "id" => "12762",
@@ -5504,11 +5504,12 @@ abstract class DatosBasesProvider
             ['id' => '53', 'name' => 'precios.guardar', 'description' => 'Guardar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
             ['id' => '54', 'name' => 'precios.actualizar', 'description' => 'Actualizar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
             ['id' => '55', 'name' => 'precios.eliminar', 'description' => 'Eliminar precios', 'grupo' => 'Precios', 'guard_name' => 'web'],
+            ['id' => '56', 'name' => 'sugeridos.listar', 'description' => 'Precios sugeridos', 'grupo' => 'Precios', 'guard_name' => 'web'],
             //Permisos publicaciones
-            ['id' => '56', 'name' => 'publicaciones.listar', 'description' => 'Listar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
-            ['id' => '57', 'name' => 'publicaciones.guardar', 'description' => 'Guardar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
-            ['id' => '58', 'name' => 'publicaciones.actualizar', 'description' => 'Actualizar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
-            ['id' => '59', 'name' => 'publicaciones.eliminar', 'description' => 'Eliminar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
+            ['id' => '57', 'name' => 'publicaciones.listar', 'description' => 'Listar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
+            ['id' => '58', 'name' => 'publicaciones.guardar', 'description' => 'Guardar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
+            ['id' => '59', 'name' => 'publicaciones.actualizar', 'description' => 'Actualizar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
+            ['id' => '60', 'name' => 'publicaciones.eliminar', 'description' => 'Eliminar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
         ];
     }
     public static function TiposDocumentos()

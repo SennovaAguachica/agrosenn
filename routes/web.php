@@ -13,6 +13,7 @@ use App\Http\Controllers\VendedoresController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EquivalenciasController;
 use App\Http\Controllers\PreciosController;
+use App\Http\Controllers\SugeridosController;
 use App\Http\Controllers\PublicacionesController;
 use App\Http\Controllers\PerfilController;
 /*
@@ -66,6 +67,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/precios', [PreciosController::class, 'index']);
     Route::post('/precios_peticiones', [PreciosController::class, 'peticionesAction']);
+    Route::get('/sugeridos', [PreciosController::class, 'indexsugeridos']);
 
     Route::get('/publicaciones', [PublicacionesController::class, 'index']);
     Route::post('/publicaciones_peticiones', [PublicacionesController::class, 'peticionesAction']);
