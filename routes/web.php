@@ -13,7 +13,6 @@ use App\Http\Controllers\VendedoresController;
 use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EquivalenciasController;
 use App\Http\Controllers\PreciosController;
-use App\Http\Controllers\SugeridosController;
 use App\Http\Controllers\PublicacionesController;
 use App\Http\Controllers\PerfilController;
 /*

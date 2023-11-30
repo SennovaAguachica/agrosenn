@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('publicaciones', function (Blueprint $table) {
             $table->id();
-            $table->decimal('ofertado', 10, 2);
+            // $table->decimal('ofertado', 10, 2);
             $table->Integer('estado');
 
             $table->unsignedBigInteger('producto_id');
