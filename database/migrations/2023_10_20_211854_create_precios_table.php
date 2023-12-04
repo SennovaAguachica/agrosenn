@@ -23,8 +23,8 @@ return new class extends Migration
             $table->unsignedBigInteger('unidades_id');
             $table->foreign('unidades_id')->references('id')->on('unidades');
 
-            $table->bigInteger('id_asociacion')->unsigned();
-            $table->foreign('id_asociacion')->references('id')->on('asociaciones');
+            $table->bigInteger('id_usuario')->unsigned();
+            $table->foreign('id_usuario')->references('id')->on('users');
 
 
             $table->timestamps();

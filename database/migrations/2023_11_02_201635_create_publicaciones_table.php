@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('publicaciones', function (Blueprint $table) {
             $table->id();
-            $table->decimal('ofertado', 10, 2);
+            // $table->decimal('ofertado', 10, 2);
             $table->Integer('estado');
 
             $table->unsignedBigInteger('producto_id');
@@ -22,11 +22,11 @@ return new class extends Migration
             $table->unsignedBigInteger('unidades_id');
             $table->foreign('unidades_id')->references('id')->on('unidades');
 
-            $table->unsignedBigInteger('vendedores_id');
-            $table->foreign('vendedores_id')->references('id')->on('vendedores');
+            $table->unsignedBigInteger('precios_id');
+            $table->foreign('precios_id')->references('id')->on('precios');
 
-            $table->unsignedBigInteger('equivalencias_unidades_id');
-            $table->foreign('equivalencias_unidades_id')->references('id')->on('equivalencias_unidades');
+            $table->bigInteger('id_usuario')->unsigned();
+            $table->foreign('id_usuario')->references('id')->on('users');
 
             $table->timestamps();
         });

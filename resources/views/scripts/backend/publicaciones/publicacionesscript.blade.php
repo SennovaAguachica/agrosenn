@@ -6,7 +6,8 @@
         var GUARDAR_PUBLICACIONES = 1;
         var ACTUALIZAR_PUBLICACIONES = 2;
         var ELIMINAR_PUBLICACIONES = 3;
-        var BUSCAR_PRECIOS = 4;
+        var BUSCAR_PRECIOSVENDEDOR = 4;
+        var BUSCAR_PRECIOSASOCIACION = 5;
         var parametro_seleccionado = "";
         var tablaPublicaciones = "";
         var fila = "";
@@ -24,7 +25,7 @@
             $("#btnmodalguardar").on("click", function(e) {
                 vista = 1;
                 $('#idunidades').val("").trigger("chosen:updated");
-                // $('#idproductos').val("").trigger("chosen:updated");
+                $('#idproductos').val("").trigger("chosen:updated");
                 $('#listadoprecios').val("").trigger("chosen:updated");
                 $("#formGuardar")[0].reset();
             });
@@ -36,8 +37,11 @@
         // });
 
         function selectChanges() {
-            $("#idproductos").change(function() {
-                buscarPrecios($(this).val());
+            $("#idproductos, #idunidades").change(function() {
+                // buscarPrecios($(this).val());
+                buscarPreciosAsociacion($("#idproductos").val(), $("#idunidades").val());
+                buscarPreciosVendedor($("#idproductos").val(), $("#idunidades").val());
+                // buscarPrecios($("#idproductos").val());
             })
         }
 
@@ -254,39 +258,77 @@
         }
 
 
-        function buscarPrecios(idproductos) {
-            $.ajax({
-                type: 'POST',
-                url: AJAX,
-                dataType: 'json',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    accion: BUSCAR_PRECIOS,
-                    idproductos
-                },
+        function buscarPreciosAsociacion(idproductos, idunidades) {
+            var idproductosSelect = $('#idproductos').val();
+            var idunidadesSelect = $('#idunidades').val();
+            
+            if (idproductosSelect && idunidadesSelect) {
+                $.ajax({
+                    type: 'POST',
+                    url: AJAX,
+                    dataType: 'json',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        accion: BUSCAR_PRECIOSASOCIACION,
+                        idproductos: idproductos,
+                        idunidades: idunidades
+                    },
                 
-                beforeSend: function() {
-                },
-                success: function(respuesta) {
-                    console.log("RESPUESTA: "+respuesta);
-                    $(".carga").removeClass("show").addClass("hidden");
-                    var precios_select = '<option value=""></option>'
-                    for (var i = 0; i < respuesta.length; i++) {
-                        console.log(respuesta[i].unidad);
-
-                        precios_select += '<option value="' + respuesta[i].id + '">' + '$'+ number_format(respuesta[i].precio) + ' ' +respuesta[i].unidades.unidad +
-                            '</option>';
-                        $("#listadoprecios").html(precios_select);
-                        $("#listadoprecios").trigger("chosen:updated");
+                    beforeSend: function() {
+                    },
+                    success: function(respuesta) {
+                        $(".carga").removeClass("show").addClass("hidden");
+                        var precios_input ='';
+                        if (respuesta) {
+                            precios_input = '$'+ number_format(respuesta.precio);
+                        }
+                        // $("#listadoprecios").val(precios_input);
+                        $("#listadoprecios").attr('placeholder', precios_input);
+                    },
+                    error: function(request, status, error) {
+                        $("#listadoprecios").attr('placeholder', 'Tu asociación no ha definido un precio para este producto');
+                        // $("#listadoprecios").val('Tu asociación no ha definido un precio para este producto');
+                        $(".carga").removeClass("show").addClass("hidden");
                     }
-                    // $("#listadoprecios").html(precios_select);
-                    // $("#listadoprecios").trigger("chosen:updated");
-                },
-                error: function(request, status, error) {
-                    mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");
-                    $(".carga").removeClass("show").addClass("hidden");
-                }
-            });
+                });
+            }
+            
+        }
+
+        function buscarPreciosVendedor(idproductos, idunidades) {
+            var idproductosSelect = $('#idproductos').val();
+            var idunidadesSelect = $('#idunidades').val();
+            
+            if (idproductosSelect && idunidadesSelect) {
+                $.ajax({
+                    type: 'POST',
+                    url: AJAX,
+                    dataType: 'json',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        accion: BUSCAR_PRECIOSVENDEDOR,
+                        idproductos: idproductos,
+                        idunidades: idunidades
+                    },
+                
+                    beforeSend: function() {
+                    },
+                    success: function(respuesta) {
+                        $(".carga").removeClass("show").addClass("hidden");
+                        var precios_input ='';
+                        $("#precio").val('');
+                        if (respuesta) {
+                            precios_input = number_format(respuesta.precio);
+                        }
+                        $("#precio").val(precios_input);
+                    },
+                    error: function(request, status, error) {
+                        $("#precio").val('');
+                        $("#precio").attr('placeholder', 'Define un precio');
+                        $(".carga").removeClass("show").addClass("hidden");
+                    }
+                });
+            }
         }
     </script>
 @endsection

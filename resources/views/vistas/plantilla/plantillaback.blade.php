@@ -125,15 +125,23 @@
                         </div>
                     </li>
                 @endcanany
-                @can('precios.listar')
-                    <li class="menu-item" id="li_precios">
-                        <a class="menu-link" href="/precios">
+                @canany(['precios.listar', 'sugeridos.listar'])
+                    <li class="menu-item has-submenu" id="li_precios">
+                        <a class="menu-link">
                             <i class="fa-solid fa-money-bill fa-xl" id="i_precios"
                                 style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
                             <span class="text">Precios</span>
                         </a>
+                        <div class="submenu">
+                            @can('precios.listar')
+                                <a href="/precios" id="a_precios">Mis precios</a>
+                            @endcan
+                            @can('sugeridos.listar')
+                                <a href="/sugeridos" id="a_sugeridos">Precios sugeridos</a>
+                            @endcan
+                        </div>
                     </li>
-                @endcan
+                @endcanany
                 @can('publicaciones.listar')
                     <li class="menu-item" id="li_publicaciones">
                         <a class="menu-link" href="/publicaciones">
@@ -290,11 +298,11 @@
         <header class="main-header navbar">
             <div class="col-search">
                 <form class="searchform">
-                    <div class="input-group">
+                    {{-- <div class="input-group">
                         <input list="search_terms" type="text" class="form-control" placeholder="Search term" />
                         <button class="btn btn-light bg" type="button"><i
                                 class="material-icons md-search"></i></button>
-                    </div>
+                    </div> --}}
                     <datalist id="search_terms">
                         <option value="Products"></option>
                         <option value="New orders"></option>

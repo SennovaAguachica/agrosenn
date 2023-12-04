@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Precios;
 use App\Models\Productos;
 use App\Models\Unidades;
+use App\Models\Vendedores;
+use App\Models\Asociaciones;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +21,7 @@ class PreciosController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('can:precios.listar')->only('index');
+        $this->middleware('can:sugeridos.listar')->only('indexsugeridos');
         $this->middleware('can:precios.guardar')->only('guardarPrecios');
         $this->middleware('can:precios.actualizar')->only('actualizarPrecios');
         $this->middleware('can:precios.eliminar')->only('eliminarPrecios');
@@ -30,7 +33,8 @@ class PreciosController extends Controller
         $unidades = Unidades::all();
         $perfil = auth()->user();
         if ($request->ajax()) {
-            return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_asociacion' => Auth::user()->idasociacion])->get())->addIndexColumn()
+            // return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_asociacion' => Auth::user()->idasociacion])->get())->addIndexColumn()
+            return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_usuario' => Auth::user()->id])->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
                     if (Auth::user()->can('precios.actualizar')) {
@@ -46,7 +50,34 @@ class PreciosController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.precios.precios', compact('productos', 'unidades','perfil'));
+        return view('vistas.backend.precios.precios', compact('productos', 'unidades', 'perfil'));
+    }
+
+    public function indexsugeridos(Request $request)
+    {
+        $productos = Productos::all();
+        $unidades = Unidades::all();
+        $perfil = auth()->user();
+        if ($request->ajax()) {
+
+
+            $userID = Auth::user()->id;
+
+            $vendedor = Vendedores::whereHas('usuario', function ($query) use ($userID) {
+                $query->where('id', $userID);
+            })->first();
+
+            $id_asociacion = $vendedor->id_asociacion;
+            $asociacionVendedor = Asociaciones::find($id_asociacion);
+            $usuarioAsociado = $asociacionVendedor->usuario;
+            $id_usuario_asociado = $usuarioAsociado->id;
+            return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_usuario' => $id_usuario_asociado])->get())->addIndexColumn()
+
+                ->make(true);
+        }
+
+
+        return view('vistas.backend.precios.sugeridos', compact('productos', 'unidades', 'perfil'));
     }
 
     public function peticionesAction(Request $request)
@@ -85,6 +116,7 @@ class PreciosController extends Controller
     public function guardarPrecios($datos)
     {
         // dd($datos);
+        // dd(Auth::user()->idasociacion);
         $aErrores = array();
         DB::beginTransaction();
         if ($datos['idunidades'] == "") {
@@ -100,11 +132,13 @@ class PreciosController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $idasociacion = Auth::user()->idasociacion;
+            // $idasociacion = Auth::user()->idasociacion;
+            $idusuario = Auth::user()->id;
             $validacion = Precios::where([
                 ['producto_id', $datos['idproductos']],
                 ['unidades_id', $datos['idunidades']],
-                ['id_asociacion', $idasociacion],
+                // ['id_asociacion', $idasociacion],
+                ['id_usuario', $idusuario],
                 ['estado', 0]
             ])->first();
             if ($validacion) {
@@ -115,11 +149,13 @@ class PreciosController extends Controller
             } else {
                 $validacionProducto = Precios::where([
                     ['producto_id', $datos['idproductos']],
-                    ['id_asociacion', $idasociacion],
+                    // ['id_asociacion', $idasociacion],
+                    ['id_usuario', $idusuario],
                 ])->get();
                 $validacionUnidad = Precios::where([
                     ['unidades_id', $datos['idunidades']],
-                    ['id_asociacion', $idasociacion],
+                    // ['id_asociacion', $idasociacion],
+                    ['id_usuario', $idusuario],
                 ])->get();
                 if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
                     $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
@@ -128,7 +164,8 @@ class PreciosController extends Controller
                     $nuevoPrecio->precio = $datos['precio'];
                     $nuevoPrecio->producto_id = $datos['idproductos'];
                     $nuevoPrecio->unidades_id = $datos['idunidades'];
-                    $nuevoPrecio->id_asociacion = $idasociacion;
+                    // $nuevoPrecio->id_asociacion = $idasociacion;
+                    $nuevoPrecio->id_usuario = $idusuario;
                     $nuevoPrecio->estado = 1;
                     $nuevoPrecio->created_at = \Carbon\Carbon::now();
                     $nuevoPrecio->updated_at = \Carbon\Carbon::now();

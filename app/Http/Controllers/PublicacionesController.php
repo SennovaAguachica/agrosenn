@@ -8,6 +8,7 @@ use App\Models\Publicaciones;
 use App\Models\Productos;
 use App\Models\Unidades;
 use App\Models\Vendedores;
+use App\Models\Asociaciones;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,7 @@ class PublicacionesController extends Controller
         $equivalencias_unidades = EquivalenciasUnidades::all();
         $perfil = auth()->user();
         if ($request->ajax()) {
-            return DataTables::of(Publicaciones::with('productos', 'unidades', 'vendedores', 'equivalencias_unidades')->where(['estado' => 1, 'vendedores_id' => Auth::user()->idvendedor])->get())->addIndexColumn()
+            return DataTables::of(Publicaciones::with('productos', 'unidades', 'vendedores', 'equivalencias_unidades')->where(['estado' => 1, 'id_usuario' => Auth::user()->id])->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
                     if (Auth::user()->can('publicaciones.actualizar')) {
@@ -49,7 +50,7 @@ class PublicacionesController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('vistas.backend.publicaciones.publicaciones', compact('productos', 'unidades', 'vendedores', 'equivalencias_unidades','perfil'));
+        return view('vistas.backend.publicaciones.publicaciones', compact('productos', 'unidades', 'vendedores', 'equivalencias_unidades', 'perfil'));
     }
 
     public function peticionesAction(Request $request)
@@ -57,8 +58,11 @@ class PublicacionesController extends Controller
         $GUARDAR_PUBLICACIONES = 1;
         $ACTUALIZAR_PUBLICACIONES = 2;
         $ELIMINAR_PUBLICACIONES = 3;
-        $BUSCAR_PRECIOS = 4;
+        $BUSCAR_PRECIOSVENDEDOR = 4;
+        $BUSCAR_PRECIOSASOCIACION = 5;
         try {
+            $idproductosSelect = $request->input('idproductos');
+            $idunidadesSelect = $request->input('idunidades');
             // buscar 001
             // crear 002
             // editar 003
@@ -76,9 +80,13 @@ class PublicacionesController extends Controller
                     $respuesta = $this->eliminarProductos($request->all());
                     return $respuesta;
                     break;
-                case $BUSCAR_PRECIOS:
-                    $listaPrecios = $this->buscarPrecios($request->all());
-                    return $listaPrecios;
+                case $BUSCAR_PRECIOSVENDEDOR:
+                    $listaPreciosVendedor = $this->buscarPreciosVendedor($idproductosSelect, $idunidadesSelect);
+                    return $listaPreciosVendedor;
+                    break;
+                case $BUSCAR_PRECIOSASOCIACION:
+                    $listaPreciosAsociacion = $this->buscarPreciosAsociacion($idproductosSelect, $idunidadesSelect);
+                    return $listaPreciosAsociacion;
                     break;
             }
         } catch (\Exception $e) {
@@ -102,21 +110,18 @@ class PublicacionesController extends Controller
         if ($datos['idproductos'] == "") {
             $aErrores[] = '- Escoja el producto';
         }
-        if ($datos['oferta'] == "") {
-            $aErrores[] = '- Digite la cantidad ofertada';
-        }
-        if ($datos['listadoprecios'] == "") {
-            $aErrores[] = '- Escoja por lo menos un precio de venta';
+        if ($datos['precio'] == "") {
+            $aErrores[] = '- Añada el precio de venta';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $idvendedor = Auth::user()->idvendedor;
+            $idusuario = Auth::user()->id;
             $validacion = Publicaciones::where([
                 ['producto_id', $datos['idproductos']],
                 ['unidades_id', $datos['idunidades']],
-                ['vendedores_id', $idvendedor],
+                ['id_usuario', $idusuario],
                 ['estado', 0]
             ])->first();
             if ($validacion) {
@@ -132,11 +137,11 @@ class PublicacionesController extends Controller
             } else {
                 $validacionProducto = Publicaciones::where([
                     ['producto_id', $datos['idproductos']],
-                    ['vendedores_id', $idvendedor],
+                    ['id_usuario', $idusuario],
                 ])->get();
                 $validacionUnidad = Publicaciones::where([
                     ['unidades_id', $datos['idunidades']],
-                    ['vendedores_id', $idvendedor],
+                    ['id_usuario', $idusuario],
                 ])->get();
                 if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
                     $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
@@ -145,7 +150,7 @@ class PublicacionesController extends Controller
                     $nuevoPrecio->precio = $datos['precio'];
                     $nuevoPrecio->producto_id = $datos['idproductos'];
                     $nuevoPrecio->unidades_id = $datos['idunidades'];
-                    $nuevoPrecio->vendedores_id = $idvendedor;
+                    $nuevoPrecio->vendedores_id = $idusuario;
                     $nuevoPrecio->estado = 1;
                     $nuevoPrecio->created_at = \Carbon\Carbon::now();
                     $nuevoPrecio->updated_at = \Carbon\Carbon::now();
@@ -174,14 +179,46 @@ class PublicacionesController extends Controller
     }
 
 
-    public function buscarPrecios($datos)
-    {
-        $idAsociacionVendedor = Auth::user()->vendedor->id_asociacion;
-        $listaPrecios = Precios::with('unidades')->where('producto_id', $datos['idproductos'])
-            ->where('id_asociacion', $idAsociacionVendedor)
-            ->get();
 
-        // \Log::info($listaPrecios);
+    public function buscarPreciosAsociacion($idproductos, $idunidades)
+    {
+        $userID = Auth::user()->id;
+
+        $vendedor = Vendedores::whereHas('usuario', function ($query) use ($userID) {
+            $query->where('id', $userID);
+        })->first();
+
+        $id_asociacion = $vendedor->id_asociacion;
+        $asociacionVendedor = Asociaciones::find($id_asociacion);
+        $usuarioAsociado = $asociacionVendedor->usuario;
+        $id_usuario_asociado = $usuarioAsociado->id;
+        $listaPrecios = Precios::where([
+            ['producto_id', $idproductos],
+            ['unidades_id', $idunidades],
+            ['id_usuario', $id_usuario_asociado],
+        ])->first();
+
+        return $listaPrecios;
+    }
+
+    public function buscarPreciosVendedor($idproductos, $idunidades)
+    {
+        $userID = Auth::user()->id;
+
+        // $vendedor = Vendedores::whereHas('usuario', function ($query) use ($userID) {
+        //     $query->where('id', $userID);
+        // })->first();
+
+        // $id_asociacion = $vendedor->id_asociacion;
+        // $asociacionVendedor = Asociaciones::find($id_asociacion);
+        // $usuarioAsociado = $asociacionVendedor->usuario;
+        // $id_usuario_asociado = $usuarioAsociado->id;
+        $listaPrecios = Precios::where([
+            ['producto_id', $idproductos],
+            ['unidades_id', $idunidades],
+            ['id_usuario', $userID],
+        ])->first();
+
         return $listaPrecios;
     }
 }

@@ -13,6 +13,7 @@
         $(document).ready(function() {
             $('#li_precios').addClass('active');
             $('#i_precios').css('color', '#3BB77E');
+            $('#a_precios').addClass('active');
             cargarTablaPrecios();
             guardarPrecio();
             // inputMoneda('#precio');

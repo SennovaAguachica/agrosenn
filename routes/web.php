@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/precios', [PreciosController::class, 'index']);
     Route::post('/precios_peticiones', [PreciosController::class, 'peticionesAction']);
+    Route::get('/sugeridos', [PreciosController::class, 'indexsugeridos']);
 
     Route::get('/publicaciones', [PublicacionesController::class, 'index']);
     Route::post('/publicaciones_peticiones', [PublicacionesController::class, 'peticionesAction']);

@@ -37,4 +37,8 @@ class Vendedores extends Model
     {
         return $this->hasMany(Publicaciones::class, 'vendedores_id', 'id');
     }
+    public function asociacion()
+    {
+        return $this->belongsTo(Asociaciones::class, 'idasociacion', 'id');
+    }
 }
