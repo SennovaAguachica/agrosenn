@@ -12,11 +12,13 @@
         var tablaPublicaciones = "";
         var fila = "";
         var vista = "";
+        var id_precio_vendedor = "";
         $(document).ready(function() {
             $('#li_publicaciones').addClass('active');
             $('#i_publicaciones').css('color', '#3BB77E');
             cargarTablaPublicaciones();
             guardarPublicacion();
+            cargarVariasImagen("#imagen");
             buttonClicks();
             selectChanges();
         });
@@ -38,10 +40,8 @@
 
         function selectChanges() {
             $("#idproductos, #idunidades").change(function() {
-                // buscarPrecios($(this).val());
                 buscarPreciosAsociacion($("#idproductos").val(), $("#idunidades").val());
                 buscarPreciosVendedor($("#idproductos").val(), $("#idunidades").val());
-                // buscarPrecios($("#idproductos").val());
             })
         }
 
@@ -55,18 +55,17 @@
             parametro_seleccionado = $("#tablapublicaciones").DataTable().row('.selected').data();
             
             if (modo == 1) {
-                $("#oferta").val(parametro_seleccionado.ofertado);
+                $("#idpreciovendedor").val(parametro_seleccionado.precios_id);
+                $("#precio").val(parametro_seleccionado.precios.precio);
                 $("#idproductos").val(parametro_seleccionado.producto_id);
                 $("#idproductos").trigger("chosen:updated");
                 $("#idunidades").val(parametro_seleccionado.unidades_id);
                 $("#idunidades").trigger("chosen:updated");
-                $("#listadoprecios").find('option').remove().end().append('<option value=""></option>').trigger("chosen:updated");
-                $("#listadoprecios").append(new Option(parametro_seleccionado.productos.precios.precio, parametro_seleccionado.productos.precios.unidades.unidad, parametro_seleccionado.productos.precios.id, true, true, true));
-                $('#listadoprecios').trigger("chosen:updated");
-
-                cargarImg("#imagenes", parametro_seleccionado.imagen);
+                $("#listadoprecios").val(buscarPreciosAsociacion(parametro_seleccionado.producto_id, parametro_seleccionado.unidades_id));
+                let rutasImagenes = parametro_seleccionado.imagenes.map(imagen => imagen.ruta);
+                cargarVariasImg("#imagen", rutasImagenes);
             } else if (modo == 2) {
-                eliminarProducto(parametro_seleccionado.id);
+                eliminarPublicacion(parametro_seleccionado.id);
                 
             }
         }
@@ -95,16 +94,15 @@
                         $("#idunidades_chosen").removeClass("is-invalid");
                         $("#idunidades_chosen").addClass("valid");
                     }
-
-                    if ($("#listadoprecios").val() == "") {
-                        $("#listadoprecios_chosen").removeClass("valid");
-                        $("#listadoprecios_chosen").addClass("is-invalid");
+                    if ($("#precio").val() == "") {
+                        $("#precio").removeClass("valid");
+                        $("#precio").addClass("is-invalid");
                     } else {
-                        $("#listadoprecios_chosen").removeClass("is-invalid");
-                        $("#listadoprecios_chosen").addClass("valid");
+                        $("#precio").removeClass("is-invalid");
+                        $("#precio").addClass("valid");
                     }
 
-                    if ($("#imagenes").val() == "") {
+                    if ($("#imagen")[0].files.length === 0) {
                         $(".file-input").removeClass("valid");
                         $(".file-input").addClass("is-invalid");
                     } else {
@@ -187,13 +185,31 @@
                         data: 'unidades.unidad'
                     },
                     {
+                        data: 'precios.precio',
+                        render: function(data, type, row) {
+                            return '$' + number_format(data);
+                        }
+                    },
+                    {
                         data: null,
                         render: function(data, type, row) {
-                            let datos = "";
-                            for (let index = 0; index < data.length; index++) {
-
+                            if (data.estado == 1) {
+                                return '<span class="badge bg-success ">Disponible</span>';
+                            } else {
+                                return '<span class="badge bg-primary ">No disponible</span>';
                             }
-                            return data.apellidos + ' ' + data.nombres;
+                        }
+                    },
+                    {
+                        data: 'imagenes',
+                        render: function(data, type, row) {
+                            let images = '';
+                            row.imagenes.forEach(function(imagen) {
+                                images += '<img loading="lazy" src="' + imagen.ruta + '" width="100px" />';
+                            });
+                            // return images;
+                            return '<div class="slider" style="width: 100px;">' + images + '</div>';
+
                         }
                     },
                     {
@@ -210,8 +226,16 @@
                 },
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                }
-            });
+                },
+
+            }).on('draw.dt', function() {
+                    $('.slider').slick({
+                        autoplay: false,
+                        arrows: true,
+                        dots: false,
+                        // Otras configuraciones
+                    });
+                });
         }
 
         function eliminarPublicacion(id) {
@@ -319,11 +343,14 @@
                         $("#precio").val('');
                         if (respuesta) {
                             precios_input = number_format(respuesta.precio);
+                            id_precio_vendedor = respuesta.id;
                         }
-                        $("#precio").val(precios_input);
+                        $("#precio").val(respuesta.precio);
+                        $("#idpreciovendedor").val(respuesta.id);
+                        // $("#precio").attr('placeholder', precios_input);
                     },
                     error: function(request, status, error) {
-                        $("#precio").val('');
+                        $("#idpreciovendedor").val('');
                         $("#precio").attr('placeholder', 'Define un precio');
                         $(".carga").removeClass("show").addClass("hidden");
                     }

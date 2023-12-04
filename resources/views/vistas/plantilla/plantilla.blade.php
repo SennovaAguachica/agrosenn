@@ -22,10 +22,13 @@
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.2/css/fileinput.min.css" media="all"
         rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="assets/css/lineicons.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    {{-- <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" /> --}}
 
     <link rel="stylesheet" href="{{ asset('assets/css/chosen.min.css') }}">
     <link rel="stylesheet" href="assets/css/main.css" />
+    {{-- slick CSS--}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
 </head>
 
 <body>
@@ -408,6 +411,9 @@
     <script src="assets/js/world-merc.js"></script>
     <script src="assets/js/polyfill.js"></script> --}}
     <script src="assets/js/main.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    {{--slick script--}}
 
     <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.2/js/plugins/buffer.min.js"
         type="text/javascript"></script>

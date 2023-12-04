@@ -15,6 +15,10 @@
     <link rel="shortcut icon" type="image/x-icon" href="assetsfront/imgs/theme/favicon.svg" />
     <!-- Template CSS -->
     <link rel="stylesheet" href="assetsfront/css/main.css?v=5.6" />
+
+    {{-- slick CSS--}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
 </head>
 
 <body>
@@ -796,6 +800,8 @@
     <!-- Template  JS -->
     <script src="./assetsfront/js/main.js?v=5.6"></script>
     <script src="./assetsfront/js/shop.js?v=5.6"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    {{--slick script--}}
     @yield('script')
 </body>
 

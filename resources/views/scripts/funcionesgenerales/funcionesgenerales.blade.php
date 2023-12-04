@@ -1,3 +1,5 @@
+<link href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.form-control-chosen').chosen({
@@ -19,6 +21,18 @@
             allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp",],
             showUpload: false,
             maxFilesNum: 1,
+            required: true,
+        });
+    }
+
+    function cargarVariasImagen(campo) {
+        $(campo).fileinput({
+            theme: 'fa5',
+            language: 'es',
+            previewFileType: "png",
+            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp",],
+            showUpload: false,
+            maxFilesNum: 5,
             required: true,
         });
     }
@@ -114,7 +128,7 @@
     function cargarImg(campo, ruta) {
         $(campo).fileinput('destroy');
         $(campo).fileinput({
-            initialPreview: '<img src=' + ruta + ' id="imgcargada" class="kv-preview-data file-preview-image">',
+            initialPreview: '<img src=' + ruta + ' id="imgcargada" class="kv-preview-data file-preview-image" loading="lazy">',
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
@@ -125,4 +139,95 @@
         });
         $('#imgcargada').prop('src', ruta);
     }
+
+    // function cargarVariasImg(campo, rutas) {
+    //     $(campo).fileinput('destroy');
+    //     const initialPreview = [];
+    
+    //     rutas.forEach((ruta, index) => {
+    //         const imgId = 'imgcargada_' + index;
+    //         const img = `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
+
+    //         initialPreview.push(img);
+    //     });
+
+    //     $(campo).fileinput({
+    //         initialPreview: initialPreview,
+    //         initialPreviewConfig: [], 
+    //         theme: 'fa5',
+    //         language: 'es',
+    //         previewFileType: "image",
+    //         allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
+    //         showUpload: false,
+    //         maxFilesNum: 5, 
+    //         required: true,
+    //     });
+
+    //     rutas.forEach((ruta, index) => {
+    //         const imgId = 'imgcargada_' + index;
+    //         $('#' + imgId).prop('src', ruta);
+    //     });
+    // }
+
+    function cargarVariasImg(campo, rutas) {
+    $(campo).fileinput('destroy');
+    const initialPreview = [];
+    const initialPreviewConfig = [];
+
+    rutas.forEach((ruta, index) => {
+        const imgId = 'imgcargada_' + index;
+        const img = `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
+        
+        initialPreview.push(img);
+        initialPreviewConfig.push({
+            caption: `Imagen ${index + 1}`,
+            width: '120px', // Ancho de la vista previa
+            type: 'GET',
+            url: '/eliminar_imagen',
+            data: {
+                "_token": "{{ csrf_token() }}",
+                id: index
+                // accion: ELIMINAR_PRODUCTOS,
+            },
+            key: index, // Identificador único para la imagen
+        });
+    });
+
+    $(campo).fileinput({
+        initialPreview: initialPreview,
+        initialPreviewConfig: initialPreviewConfig,
+        theme: 'fa5',
+        language: 'es',
+        previewFileType: "image",
+        allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
+        showUpload: false,
+        maxFilesNum: 5,
+        required: true,
+    }).on('filebeforedelete', function(event, key, data) {
+        return new Promise(function(resolve, reject) {
+            $.confirm({
+                title: '¡Atención!',
+                content: '¿Estás seguro de que quieres eliminar esta imagen?',
+                type: 'red',
+                buttons: {
+                    ok: {
+                        btnClass: 'btn-primary text-white',
+                        keys: ['enter'],
+                        action: function () {
+                            resolve();
+                        }
+                    },
+                    cancel: function () {
+                        $.alert('Eliminación cancelada');
+                    }
+                }
+            });
+        });
+    }).on('filedeleted', function (event, key, data) {
+        setTimeout(function () {
+            $.alert('Imagen eliminada con éxito');
+        }, 900);
+    });
+}
+    
 </script>
