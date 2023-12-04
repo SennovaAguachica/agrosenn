@@ -25,8 +25,8 @@
                             <th>Producto</th>
                             <th>Unidad</th>
                             <th>Precio</th>
-                            <th>Imágenes</th>
                             <th>Estado</th>
+                            <th>Imágenes</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -89,9 +89,15 @@
     </div>
     <div class="col-md-6 col-lg-6 col-xs-6">
         <label for="precio">Mi precio</label>
-        <input type="number" class="form-control" name="precio" id="precio" required>
-        <div class="invalid-feedback">
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text">$</div>
+            </div>
+            <input id="idpreciovendedor" name="idpreciovendedor" type="hidden" value="" />
+            <input type="number" class="form-control" name="precio" id="precio" required>
+            <div class="invalid-feedback">
             Campo obligatorio.
+            </div>
         </div>
     </div>
 </div>
@@ -99,8 +105,7 @@
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12 ">
         <label for="imagen">Imágenes</label>
-        <br>
-        <input type="file" id="imagen" name="imagen" multiple accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp, |image/*"
+        <input type="file" id="imagen" name="imagen[]" multiple accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp, |image/*"
             required>
         <div class="invalid-feedback">
             Campo obligatorio.

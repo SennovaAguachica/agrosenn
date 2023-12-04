@@ -203,6 +203,7 @@
                 "processing": true,
                 "responsive": true,
                 "select": true,
+                "pageLength": 5,
                 "ajax": {
                     "url": "/productos",
                     "type": "GET",
@@ -210,7 +211,7 @@
                 "columns": [{
                         data: 'imagen',
                         render: function(data, type, row) {
-                            return '<img src="' + data + '" width="100px" />';
+                            return '<img loading="lazy" src="' + data + '" width="100px" height="100%"  />';
                         }
                     },
                     {

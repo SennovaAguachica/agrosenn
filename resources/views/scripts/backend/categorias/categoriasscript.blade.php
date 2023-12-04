@@ -180,6 +180,7 @@
                 "processing": true,
                 "responsive": true,
                 "select": true,
+                "pageLength": 5,
                 "ajax": {
                     "url": "/categorias",
                     "type": "GET",
@@ -187,13 +188,13 @@
                 "columns": [{
                         data: 'icono',
                         render: function(data, type, row) {
-                            return '<img src="' + data + '" width="50px" />';
+                            return '<img loading="lazy" src="' + data + '" width="50px" />';
                         }
                     },
                     {
                         data: 'imagen',
                         render: function(data, type, row) {
-                            return '<img src="' + data + '" width="100px" />';
+                            return '<img loading="lazy" src="' + data + '" width="100px" />';
                         }
                     },
                     {

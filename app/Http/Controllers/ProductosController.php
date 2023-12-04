@@ -48,7 +48,7 @@ class ProductosController extends Controller
                 ->make(true);
         }
 
-        return view('vistas.backend.productos.productos', compact('categorias','perfil'));
+        return view('vistas.backend.productos.productos', compact('categorias', 'perfil'));
     }
     public function peticionesAction(Request $request)
     {
@@ -186,11 +186,15 @@ class ProductosController extends Controller
             if (!empty($datos['imagenproducto'])) {
                 if ($datos['imagenproducto'] != null) {
                     //existe un archivo cargado?
-                    if (Storage::exists($actualizarProducto->imagen)) {
+                    $rutaImagenAnterior = '/productos/' . basename($actualizarProducto->imagen);
+                    if (Storage::disk('public')->exists($rutaImagenAnterior)) {
                         // aquí la borro
-                        Storage::delete($actualizarProducto->imagen);
+                        Storage::disk('public')->delete($rutaImagenAnterior);
                     }
                     //guardo el archivo nuevo
+                    $imagen = Storage::disk('public')->put('/productos', $datos['imagenproducto']);
+                    $url = Storage::url($imagen);
+                } else {
                     $imagen = Storage::disk('public')->put('/productos', $datos['imagenproducto']);
                     $url = Storage::url($imagen);
                 }

@@ -56,7 +56,7 @@ class Publicaciones extends Model
 
     public function imagenes()
     {
-        return $this->hasMany(Imagenes::class, 'publicacion_id', 'id');
+        return $this->hasMany(Imagenes::class, 'publicaciones_id', 'id');
     }
 
     public function inventarios()

@@ -36,8 +36,8 @@ class Precios extends Model
     }
 
     //relacion muchos a muchos
-    public function publicaciones()
-    {
-        return $this->belongsToMany(Publicaciones::class, 'precios_publicacion', 'precios_id', 'publicaciones_id');
-    }
+    // public function publicaciones()
+    // {
+    //     return $this->belongsToMany(Publicaciones::class, 'precios_publicacion', 'precios_id', 'publicaciones_id');
+    // }
 }
