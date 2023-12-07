@@ -26,4 +26,8 @@ class Asociaciones extends Model
     {
       return $this->hasOne(User::class,'idasociacion','id');
     }
+    public function vendedores()
+    {
+        return $this->hasMany(Vendedores::class, 'id_asociacion', 'id');
+    }
 }

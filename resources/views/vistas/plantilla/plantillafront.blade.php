@@ -12,13 +12,17 @@
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assetsfront/imgs/theme/favicon.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assetsfront/imgs/theme/favicon.svg') }}" />
     <!-- Template CSS -->
-    <link rel="stylesheet" href="assetsfront/css/main.css?v=5.6" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('assetsfront/css/main.css?v=5.6') }}" />
 
-    {{-- slick CSS--}}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    {{-- slick CSS --}}
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 </head>
 
 <body>
@@ -30,7 +34,7 @@
             <div class="modal-content">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="modal-body">
-                    <div class="deal" style="background-image: url('assetsfront/imgs/banner/popup-1.png')">
+                    <div class="deal" style="background-image: url('{{ asset('assetsfront/imgs/banner/popup-1.png')">
                         <div class="deal-top">
                             <h6 class="mb-10 text-brand-2">Deal of the Day</h6>
                         </div>
@@ -88,45 +92,59 @@
                                 <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                 <!-- MAIN SLIDES -->
                                 <div class="product-image-slider">
-                                    <figure class="border-radius-10">
-                                        <img src="assetsfront/imgs/shop/product-16-2.jpg" alt="product image" />
+                                    {{-- <figure class="border-radius-10">
+                                        <img src="{{ asset('assetsfront/imgs/shop/product-16-2.jpg') }}"
+                                            alt="product image" />
                                     </figure>
                                     <figure class="border-radius-10">
-                                        <img src="assetsfront/imgs/shop/product-16-1.jpg" alt="product image" />
+                                        <img src="{{ asset('assetsfront/imgs/shop/product-16-1.jpg') }}"
+                                            alt="product image" />
                                     </figure>
                                     <figure class="border-radius-10">
-                                        <img src="assetsfront/imgs/shop/product-16-3.jpg" alt="product image" />
+                                        <img src="{{ asset('assetsfront/imgs/shop/product-16-3.jpg') }}"
+                                            alt="product image" />
                                     </figure>
                                     <figure class="border-radius-10">
-                                        <img src="assetsfront/imgs/shop/product-16-4.jpg" alt="product image" />
+                                        <img src="{{ asset('assetsfront/imgs/shop/product-16-4.jpg') }}"
+                                            alt="product image" />
                                     </figure>
                                     <figure class="border-radius-10">
-                                        <img src="assetsfront/imgs/shop/product-16-5.jpg" alt="product image" />
+                                        <img src="{{ asset('assetsfront/imgs/shop/product-16-5.jpg') }}"
+                                            alt="product image" />
                                     </figure>
                                     <figure class="border-radius-10">
-                                        <img src="assetsfront/imgs/shop/product-16-6.jpg" alt="product image" />
+                                        <img src="{{ asset('assetsfront/imgs/shop/product-16-6.jpg') }}"
+                                            alt="product image" />
                                     </figure>
                                     <figure class="border-radius-10">
-                                        <img src="assetsfront/imgs/shop/product-16-7.jpg" alt="product image" />
-                                    </figure>
+                                        <img src="{{ asset('assetsfront/imgs/shop/product-16-7.jpg') }}"
+                                            alt="product image" />
+                                    </figure> --}}
                                 </div>
                                 <!-- THUMBNAILS -->
                                 <div class="slider-nav-thumbnails">
-                                    <div><img src="assetsfront/imgs/shop/thumbnail-3.jpg" alt="product image" /></div>
-                                    <div><img src="assetsfront/imgs/shop/thumbnail-4.jpg" alt="product image" /></div>
-                                    <div><img src="assetsfront/imgs/shop/thumbnail-5.jpg" alt="product image" /></div>
-                                    <div><img src="assetsfront/imgs/shop/thumbnail-6.jpg" alt="product image" /></div>
-                                    <div><img src="assetsfront/imgs/shop/thumbnail-7.jpg" alt="product image" /></div>
-                                    <div><img src="assetsfront/imgs/shop/thumbnail-8.jpg" alt="product image" /></div>
-                                    <div><img src="assetsfront/imgs/shop/thumbnail-9.jpg" alt="product image" /></div>
+                                    {{-- <div><img src="{{ asset('assetsfront/imgs/shop/thumbnail-3.jpg') }}"
+                                            alt="product image" /></div>
+                                    <div><img src="{{ asset('assetsfront/imgs/shop/thumbnail-4.jpg') }}"
+                                            alt="product image" /></div>
+                                    <div><img src="{{ asset('assetsfront/imgs/shop/thumbnail-5.jpg') }}"
+                                            alt="product image" /></div>
+                                    <div><img src="{{ asset('assetsfront/imgs/shop/thumbnail-6.jpg') }}"
+                                            alt="product image" /></div>
+                                    <div><img src="{{ asset('assetsfront/imgs/shop/thumbnail-7.jpg') }}"
+                                            alt="product image" /></div>
+                                    <div><img src="{{ asset('assetsfront/imgs/shop/thumbnail-8.jpg') }}"
+                                            alt="product image" /></div>
+                                    <div><img src="{{ asset('assetsfront/imgs/shop/thumbnail-9.jpg') }}"
+                                            alt="product image" /></div> --}}
                                 </div>
                             </div>
                             <!-- End Gallery -->
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
-                            <div class="detail-info pr-30 pl-30">
-                                <span class="stock-status out-stock"> Sale Off </span>
-                                <h3 class="title-detail"><a href="shop-product-right.html" class="text-heading">Seeds
+                            <div class="detail-info pr-30 pl-30 divinformacionproducto">
+                                {{-- <span class="stock-status out-stock"> Sale Off </span> --}}
+                                {{-- <h3 class="title-detail"><a href="shop-product-right.html" class="text-heading">Seeds
                                         of Change Organic Quinoa, Brown</a></h3>
                                 <div class="product-detail-rating">
                                     <div class="product-rate-cover text-end">
@@ -155,13 +173,13 @@
                                         <button type="submit" class="button button-add-to-cart"><i
                                                 class="fi-rs-shopping-cart"></i>Add to cart</button>
                                     </div>
-                                </div>
-                                <div class="font-xs">
+                                </div> --}}
+                                {{-- <div class="font-xs">
                                     <ul>
                                         <li class="mb-5">Vendor: <span class="text-brand">Nest</span></li>
                                         <li class="mb-5">MFG:<span class="text-brand"> Jun 4.2022</span></li>
                                     </ul>
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- Detail Info -->
                         </div>
@@ -179,8 +197,8 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="assets/images/senova.png" alt="logo" width="20%"
-                                style="padding: 0; margin: 0" /></a>
+                        <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
+                                width="20%" style="padding: 0; margin: 0" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
@@ -226,7 +244,7 @@
                                 <div class="header-action-icon-2">
                                     <a href="shop-compare.html">
                                         <img class="svgInject" alt="Nest"
-                                            src="assetsfront/imgs/theme/icons/icon-compare.svg" />
+                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-compare.svg') }}" />
                                         <span class="pro-count blue">3</span>
                                     </a>
                                     <a href="shop-compare.html"><span class="lable ml-0">Comparar</span></a>
@@ -234,14 +252,15 @@
                                 <div class="header-action-icon-2">
                                     <a href="shop-wishlist.html">
                                         <img class="svgInject" alt="Nest"
-                                            src="assetsfront/imgs/theme/icons/icon-heart.svg" />
+                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-heart.svg') }}" />
                                         <span class="pro-count blue">6</span>
                                     </a>
                                     <a href="shop-wishlist.html"><span class="lable">Favoritos</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="shop-cart.html">
-                                        <img alt="Nest" src="assetsfront/imgs/theme/icons/icon-cart.svg" />
+                                        <img alt="Nest"
+                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-cart.svg') }}" />
                                         <span class="pro-count blue">2</span>
                                     </a>
                                     <a href="shop-cart.html"><span class="lable">Carrito</span></a>
@@ -250,7 +269,7 @@
                                             <li>
                                                 <div class="shopping-cart-img">
                                                     <a href="shop-product-right.html"><img alt="Nest"
-                                                            src="assetsfront/imgs/shop/thumbnail-3.jpg" /></a>
+                                                            src="{{ asset('assetsfront/imgs/shop/thumbnail-3.jpg') }}" /></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4><a href="shop-product-right.html">Bolso Casual Daisy</a></h4>
@@ -263,7 +282,7 @@
                                             <li>
                                                 <div class="shopping-cart-img">
                                                     <a href="shop-product-right.html"><img alt="Nest"
-                                                            src="assetsfront/imgs/shop/thumbnail-2.jpg" /></a>
+                                                            src="{{ asset('assetsfront/imgs/shop/thumbnail-2.jpg') }}" /></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4><a href="shop-product-right.html">Camisas de Corduroy</a></h4>
@@ -288,7 +307,7 @@
                                 <div class="header-action-icon-2">
                                     <a href="/login">
                                         <img class="svgInject" alt="Nest"
-                                            src="assetsfront/imgs/theme/icons/icon-user.svg" />
+                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-user.svg') }}" />
                                     </a>
                                     <a href="/login"><span class="lable ml-0">Cuenta</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
@@ -335,8 +354,8 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="assets/images/senova.png" alt="logo" width="20%"
-                            style="padding: 0; margin: 0" /></a>
+                    <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
+                            width="20%" style="padding: 0; margin: 0" /></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -511,15 +530,15 @@
                 </div>
                 <div class="mobile-social-icon mb-50">
                     <h6 class="mb-15">Síguenos</h6>
-                    <a href="#"><img src="assetsfront/imgs/theme/icons/icon-facebook-white.svg"
+                    <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-facebook-white.svg') }}"
                             alt="" /></a>
-                    <a href="#"><img src="assetsfront/imgs/theme/icons/icon-twitter-white.svg"
+                    <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-twitter-white.svg') }}"
                             alt="" /></a>
-                    <a href="#"><img src="assetsfront/imgs/theme/icons/icon-instagram-white.svg"
+                    <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-instagram-white.svg') }}"
                             alt="" /></a>
-                    <a href="#"><img src="assetsfront/imgs/theme/icons/icon-pinterest-white.svg"
+                    <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-pinterest-white.svg') }}"
                             alt="" /></a>
-                    <a href="#"><img src="assetsfront/imgs/theme/icons/icon-youtube-white.svg"
+                    <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-youtube-white.svg') }}"
                             alt="" /></a>
                 </div>
                 <div class="site-copyright">Derechos de autor 2022 © Nest. Todos los derechos reservados. Desarrollado
@@ -562,7 +581,7 @@
                                     <button class="btn" type="submit">Subscribe</button>
                                 </form>
                             </div>
-                            <img src="assetsfront/imgs/banner/banner-13.png" alt="newsletter" />
+                            <img src="{{ asset('assetsfront/imgs/banner/banner-13.png" alt="newsletter" />
                         </div>
                     </div>
                 </div>
@@ -574,7 +593,7 @@
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 mb-md-4 mb-xl-0">
                         <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
                             <div class="banner-icon">
-                                <img src="assetsfront/imgs/theme/icons/icon-1.svg" alt="" />
+                                <img src="{{ asset('assetsfront/imgs/theme/icons/icon-1.svg" alt="" />
                             </div>
                             <div class="banner-text">
                                 <h3 class="icon-box-title">Best prices & offers</h3>
@@ -585,7 +604,7 @@
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
                             <div class="banner-icon">
-                                <img src="assetsfront/imgs/theme/icons/icon-2.svg" alt="" />
+                                <img src="{{ asset('assetsfront/imgs/theme/icons/icon-2.svg" alt="" />
                             </div>
                             <div class="banner-text">
                                 <h3 class="icon-box-title">Free delivery</h3>
@@ -596,7 +615,7 @@
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
                             <div class="banner-icon">
-                                <img src="assetsfront/imgs/theme/icons/icon-3.svg" alt="" />
+                                <img src="{{ asset('assetsfront/imgs/theme/icons/icon-3.svg" alt="" />
                             </div>
                             <div class="banner-text">
                                 <h3 class="icon-box-title">Great daily deal</h3>
@@ -607,7 +626,7 @@
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
                             <div class="banner-icon">
-                                <img src="assetsfront/imgs/theme/icons/icon-4.svg" alt="" />
+                                <img src="{{ asset('assetsfront/imgs/theme/icons/icon-4.svg" alt="" />
                             </div>
                             <div class="banner-text">
                                 <h3 class="icon-box-title">Wide assortment</h3>
@@ -618,7 +637,7 @@
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
                             <div class="banner-icon">
-                                <img src="assetsfront/imgs/theme/icons/icon-5.svg" alt="" />
+                                <img src="{{ asset('assetsfront/imgs/theme/icons/icon-5.svg" alt="" />
                             </div>
                             <div class="banner-text">
                                 <h3 class="icon-box-title">Easy returns</h3>
@@ -629,7 +648,7 @@
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 d-xl-none">
                         <div class="banner-left-icon d-flex align-items-center wow fadeIn animated">
                             <div class="banner-icon">
-                                <img src="assetsfront/imgs/theme/icons/icon-6.svg" alt="" />
+                                <img src="{{ asset('assetsfront/imgs/theme/icons/icon-6.svg" alt="" />
                             </div>
                             <div class="banner-text">
                                 <h3 class="icon-box-title">Safe delivery</h3>
@@ -646,19 +665,19 @@
                     <div class="col">
                         <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0">
                             <div class="logo mb-30">
-                                <a href="index.html" class="mb-15"><img src="assetsfront/imgs/theme/logo.svg"
+                                <a href="index.html" class="mb-15"><img src="{{ asset('assetsfront/imgs/theme/logo.svg"
                                         alt="logo" /></a>
                                 <p class="font-lg text-heading">Awesome grocery store website template</p>
                             </div>
                             <ul class="contact-infor">
-                                <li><img src="assetsfront/imgs/theme/icons/icon-location.svg"
+                                <li><img src="{{ asset('assetsfront/imgs/theme/icons/icon-location.svg"
                                         alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined
                                         Kent, Utah 53127 United States</span></li>
-                                <li><img src="assetsfront/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call
+                                <li><img src="{{ asset('assetsfront/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call
                                         Us:</strong><span>(+91) - 540-025-124553</span></li>
-                                <li><img src="assetsfront/imgs/theme/icons/icon-email-2.svg"
+                                <li><img src="{{ asset('assetsfront/imgs/theme/icons/icon-email-2.svg"
                                         alt="" /><strong>Email:</strong><span>sale@Nest.com</span></li>
-                                <li><img src="assetsfront/imgs/theme/icons/icon-clock.svg"
+                                <li><img src="{{ asset('assetsfront/imgs/theme/icons/icon-clock.svg"
                                         alt="" /><strong>Hours:</strong><span>10:00 - 18:00, Mon - Sat</span>
                                 </li>
                             </ul>
@@ -717,12 +736,12 @@
                         <p class="wow fadeIn animated">From App Store or Google Play</p>
                         <div class="download-app">
                             <a href="#" class="hover-up mb-sm-2 mb-lg-0"><img class="active"
-                                    src="assetsfront/imgs/theme/app-store.jpg" alt="" /></a>
-                            <a href="#" class="hover-up mb-sm-2"><img src="assetsfront/imgs/theme/google-play.jpg"
+                                    src="{{ asset('assetsfront/imgs/theme/app-store.jpg" alt="" /></a>
+                            <a href="#" class="hover-up mb-sm-2"><img src="{{ asset('assetsfront/imgs/theme/google-play.jpg"
                                     alt="" /></a>
                         </div>
                         <p class="mb-20">Secured Payment Gateways</p>
-                        <img class="wow fadeIn animated" src="assetsfront/imgs/theme/payment-method.png" alt="" />
+                        <img class="wow fadeIn animated" src="{{ asset('assetsfront/imgs/theme/payment-method.png" alt="" />
                     </div>
                 </div>
             </div> --}}
@@ -733,30 +752,31 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <p class="font-sm mb-0">&copy; 2023, <strong class="text-brand">Sennova</strong> - Plataforma virtual <br />Todos los derechos reservados</p>
+                    <p class="font-sm mb-0">&copy; 2023, <strong class="text-brand">Sennova</strong> - Plataforma
+                        virtual <br />Todos los derechos reservados</p>
                 </div>
                 {{-- <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                     <div class="hotline d-lg-inline-flex mr-30">
-                        <img src="assetsfront/imgs/theme/icons/phone-call.svg" alt="línea directa" />
+                        <img src="{{ asset('assetsfront/imgs/theme/icons/phone-call.svg" alt="línea directa" />
                         <p>1900 - 6666<span>Horario de atención: 8:00 - 22:00</span></p>
                     </div>
                     <div class="hotline d-lg-inline-flex">
-                        <img src="assetsfront/imgs/theme/icons/phone-call.svg" alt="línea directa" />
+                        <img src="{{ asset('assetsfront/imgs/theme/icons/phone-call.svg" alt="línea directa" />
                         <p>1900 - 8888<span>Centro de Soporte 24/7</span></p>
                     </div>
                 </div> --}}
                 {{-- <div class="col-xl-4 col-lg-6 col-md-6 text-end d-none d-md-block">
                     <div class="mobile-social-icon">
                         <h6>Síguenos</h6>
-                        <a href="#"><img src="assetsfront/imgs/theme/icons/icon-facebook-white.svg"
+                        <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-facebook-white.svg"
                                 alt="" /></a>
-                        <a href="#"><img src="assetsfront/imgs/theme/icons/icon-twitter-white.svg"
+                        <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-twitter-white.svg"
                                 alt="" /></a>
-                        <a href="#"><img src="assetsfront/imgs/theme/icons/icon-instagram-white.svg"
+                        <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-instagram-white.svg"
                                 alt="" /></a>
-                        <a href="#"><img src="assetsfront/imgs/theme/icons/icon-pinterest-white.svg"
+                        <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-pinterest-white.svg"
                                 alt="" /></a>
-                        <a href="#"><img src="assetsfront/imgs/theme/icons/icon-youtube-white.svg"
+                        <a href="#"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-youtube-white.svg"
                                 alt="" /></a>
                     </div>
                      <p class="font-sm">Hasta un 15% de descuento en tu primera suscripción</p> 
@@ -770,38 +790,38 @@
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="text-center">
-                    <img src="assetsfront/imgs/theme/loading2.gif" alt="" />
+                    <img src="{{ asset('assetsfront/imgs/theme/loading2.gif') }}" alt="" />
                 </div>
             </div>
         </div>
     </div>
     <!-- Vendor JS-->
-    <script src="assetsfront/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="assetsfront/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assetsfront/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="assetsfront/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="assetsfront/js/plugins/slick.js"></script>
-    <script src="assetsfront/js/plugins/jquery.syotimer.min.js"></script>
-    <script src="assetsfront/js/plugins/wow.js"></script>
-    <script src="assetsfront/js/plugins/perfect-scrollbar.js"></script>
-    <script src="assetsfront/js/plugins/magnific-popup.js"></script>
-    <script src="assetsfront/js/plugins/select2.min.js"></script>
-    <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
-    <script src="assetsfront/js/plugins/waypoints.js"></script>
-    <script src="assetsfront/js/plugins/counterup.js"></script>
-    <script src="assetsfront/js/plugins/jquery.countdown.min.js"></script>
-    <script src="assetsfront/js/plugins/images-loaded.js"></script>
-    <script src="assetsfront/js/plugins/isotope.js"></script>
-    <script src="assetsfront/js/plugins/scrollup.js"></script>
-    <script src="assetsfront/js/plugins/jquery.vticker-min.js"></script>
-    <script src="assetsfront/js/plugins/jquery.theia.sticky.js"></script>
-    <script src="assetsfront/js/plugins/jquery.elevatezoom.js"></script>
+    <script src="{{ asset('assetsfront/js/vendor/modernizr-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/slick.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/jquery.syotimer.min.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/wow.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/magnific-popup.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/select2.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/chosen.jquery.min.js') }}') }}"></script> --}}
+    <script src="{{ asset('assetsfront/js/plugins/waypoints.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/counterup.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/images-loaded.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/isotope.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/scrollup.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/jquery.vticker-min.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/jquery.theia.sticky.js') }}"></script>
+    <script src="{{ asset('assetsfront/js/plugins/jquery.elevatezoom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Template  JS -->
-    <script src="./assetsfront/js/main.js?v=5.6"></script>
-    <script src="./assetsfront/js/shop.js?v=5.6"></script>
+    <script src="{{ asset('./assetsfront/js/main.js?v=5.6') }}"></script>
+    <script src="{{ asset('./assetsfront/js/shop.js?v=5.6') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    {{--slick script--}}
+    {{-- slick script --}}
     @yield('script')
 </body>
 

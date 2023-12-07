@@ -1,71 +1,150 @@
-﻿@extends('../scripts.login.loginscript')
+@extends('../scripts.frontend.paginas.paginasscript')
 @section('titulo')
-    <title>Login</title>
+    <title>Index</title>
 @endsection
 @section('contenido')
-    <div class="page-content pt-150 pb-150">
+    <div class="page-header breadcrumb-wrap">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
-                    <div class="row">
-                        <div class="col-lg-6 pr-30 d-none d-lg-block">
-                            <img class="border-radius-15" src="assetsfront/imgs/page/login-1.png" alt="" />
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <span></span> Asociaciones
+            </div>
+        </div>
+    </div>
+    <div class="page-content pt-50">
+        <div class="container">
+            <div class="archive-header-2 text-center">
+                <h1 class="display-2 mb-50">Lista de asociaciones</h1>
+                {{-- <div class="row">
+                    <div class="col-lg-5 mx-auto">
+                        <div class="sidebar-widget-2 widget_search mb-50">
+                            <div class="search-form">
+                                <form action="#">
+                                    <input type="text" placeholder="Search vendors (by name or ID)..." />
+                                    <button type="submit"><i class="fi-rs-search"></i></button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-8">
-                            <div class="login_wrap widget-taber-content background-white">
-                                <div class="padding_eight_all bg-white">
-                                    <div class="heading_s1">
-                                        <h1 class="mb-5">Inicio de sesión</h1>
-                                        <p class="mb-30">No tienes una cuenta? <a href="/register">Crear una</a></p>
+                    </div>
+                </div> --}}
+            </div>
+            {{-- <div class="row mb-50">
+                <div class="col-12 col-lg-8 mx-auto">
+                    <div class="shop-product-fillter">
+                        <div class="totall-product">
+                            <p>We have <strong class="text-brand">780</strong> vendors now</p>
+                        </div>
+                        <div class="sort-by-product-area">
+                            <div class="sort-by-cover mr-10">
+                                <div class="sort-by-product-wrap">
+                                    <div class="sort-by">
+                                        <span><i class="fi-rs-apps"></i>Show:</span>
                                     </div>
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                    <form method="POST" action="{{ route('login') }}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="usuario" class="fw-bold">Usuario</label>
-                                            <input class="form-control" type="text" required="" id="usuario"
-                                                name="usuario" placeholder="Nº de  documento o correo electronico *" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password" class="fw-bold">Contraseña</label>
-                                            <div class="input-group" id="show_hide_password">
-                                                <input class="form-control" type="password" id="password" name="password"
-                                                    placeholder="Tu contraseña *" required>
-                                                <div class="input-group-text">
-                                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="login_footer form-group mb-50">
-                                            <div class="chek-form">
-                                                <div class="custome-checkbox">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                                        id="exampleCheckbox1" value="" />
-                                                    <label class="form-check-label" for="exampleCheckbox1"><span>Recordar
-                                                            me</span></label>
-                                                </div>
-                                            </div>
-                                            <a class="text-muted" href="#">Olvidaste tu contraseña?</a>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-heading btn-block hover-up"
-                                                name="login">Entrar</button>
-                                        </div>
-                                    </form>
+                                    <div class="sort-by-dropdown-wrap">
+                                        <span> 50 <i class="fi-rs-angle-small-down"></i></span>
+                                    </div>
+                                </div>
+                                <div class="sort-by-dropdown">
+                                    <ul>
+                                        <li><a class="active" href="#">50</a></li>
+                                        <li><a href="#">100</a></li>
+                                        <li><a href="#">150</a></li>
+                                        <li><a href="#">200</a></li>
+                                        <li><a href="#">All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sort-by-cover">
+                                <div class="sort-by-product-wrap">
+                                    <div class="sort-by">
+                                        <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
+                                    </div>
+                                    <div class="sort-by-dropdown-wrap">
+                                        <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                    </div>
+                                </div>
+                                <div class="sort-by-dropdown">
+                                    <ul>
+                                        <li><a class="active" href="#">Mall</a></li>
+                                        <li><a href="#">Featured</a></li>
+                                        <li><a href="#">Preferred</a></li>
+                                        <li><a href="#">Total items</a></li>
+                                        <li><a href="#">Avg. Rating</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div> --}}
+            <div class="row vendor-grid">
+                @foreach ($asociaciones as $asociacion)
+                    <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+                        <div class="vendor-wrap style-2 mb-40">
+                            {{-- <div class="product-badges product-badges-position product-badges-mrg">
+                                <span class="hot">Mall</span>
+                            </div> --}}
+                            <div class="vendor-img-action-wrap">
+                                <div class="vendor-img" style="text-align: center !important">
+                                    <a href="#">
+                                        <img class="default-img" src="{{ $asociacion->usuario->fotoperfil }}"
+                                            alt="" />
+                                    </a>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="font-small total-product">{{count($asociacion->vendedores)}} vendedores asociados</span>
+                                </div>
+                            </div>
+                            <div class="vendor-content-wrap">
+                                <div class="mb-30">
+                                    <div class="product-category">
+                                        <span class="text-muted">Desde 2013</span>
+                                    </div>
+                                    <h4 class="mb-5"><a href="vendor-details-1.html">{{ $asociacion->asociacion }}</a>
+                                    </h4>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
+                                        <ul class="contact-infor text-muted">
+                                            <li><img src="assets/imgs/theme/icons/icon-location.svg"
+                                                    alt="" /><strong>Dirección: </strong>
+                                                <span>{{ $asociacion->direccion }}</span>
+                                            </li>
+                                            <li><img src="assets/imgs/theme/icons/icon-contact.svg"
+                                                    alt="" /><strong>Contacto:</strong><span>(+57) -
+                                                    {{ $asociacion->n_celular }} </span></li>
+                                        </ul>
+                                        <br>
+                                        <a href='vervendedores/{{ $asociacion->id }}' class="btn btn-xs">Ver
+                                            vendedores <i class="fi-rs-arrow-small-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+            {{-- <div class="pagination-area mt-20 mb-20">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-start">
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div> --}}
         </div>
     </div>
 @endsection
@@ -95,64 +174,6 @@
                                 @endif
                             @endforeach
                         </ul>
-
-
-                        {{-- <ul>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-1.svg" alt="" />Lácteos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-2.svg" alt="" />Ropa y belleza</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-3.svg" alt="" />Alimentos para mascotas y juguetes</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-4.svg" alt="" />Material para hornear</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-5.svg" alt="" />Frutas frescas</a>
-                        </li>
-                    </ul>
-                    <ul class="end">
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-6.svg" alt="" />Vinos y bebidas</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-7.svg" alt="" />Mariscos frescos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-8.svg" alt="" />Comida rápida</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-9.svg" alt="" />Vegetales</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-10.svg" alt="" />Pan y jugo</a>
-                        </li>
-                    </ul> 
-                </div>
-                <div class="more_slide_open" style="display: none">
-                    <div class="d-flex categori-dropdown-inner">
-                        <ul>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-1.svg" alt="" />Lácteos</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-2.svg" alt="" />Ropa y belleza</a>
-                            </li>
-                        </ul>
-                        <ul class="end">
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-3.svg" alt="" />Vinos y bebidas</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-4.svg" alt="" />Mariscos frescos</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Mostrar más...</span></div> --}}
                     </div>
                 </div>
             </div>
@@ -228,14 +249,12 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#">Campesinos <i class="fi-rs-angle-down"></i></a>
+                            <a href="/verasociaciones">Asociaciones <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="vendors-grid.html">Vendedores en cuadrícula</a></li>
-                                <li><a href="vendors-list.html">Vendedores en lista</a></li>
-                                <li><a href="vendor-details-1.html">Detalles del vendedor 01</a></li>
-                                <li><a href="vendor-details-2.html">Detalles del vendedor 02</a></li>
-                                <li><a href="vendor-dashboard.html">Panel de control del vendedor</a></li>
-                                <li><a href="vendor-guide.html">Guía del vendedor</a></li>
+                                @foreach ($asociaciones as $asociacion)
+                                    <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
                         <li>

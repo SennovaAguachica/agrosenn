@@ -5371,11 +5371,11 @@ table .product-thumbnail img {
 }
 
 .detail-info .product-price .save-price {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 6px;
     display: block;
-    color: #fdc040;
+    color: rgb(255, 174, 0);
 }
 
 .detail-info .product-meta {
@@ -7019,7 +7019,7 @@ h6.post-title {
 }
 
 .vendor-wrap .vendor-img-action-wrap img {
-    max-width: 144px;
+    max-width: 100px;
 }
 
 .vendor-wrap .vendor-content-wrap {

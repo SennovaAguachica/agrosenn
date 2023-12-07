@@ -1,3 +1,5 @@
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.form-control-chosen').chosen({
@@ -17,7 +19,7 @@
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
-            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp",],
+            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp", ],
             showUpload: false,
             maxFilesNum: 1,
             required: true,
@@ -33,7 +35,7 @@
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
-            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp",],
+            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp", ],
             showUpload: false,
             maxFilesNum: 5,
             required: true,
@@ -146,11 +148,12 @@
     function cargarImg(campo, ruta) {
         $(campo).fileinput('destroy');
         $(campo).fileinput({
-            initialPreview: '<img src=' + ruta + ' id="imgcargada" class="kv-preview-data file-preview-image" loading="lazy">',
+            initialPreview: '<img src=' + ruta +
+                ' id="imgcargada" class="kv-preview-data file-preview-image" loading="lazy">',
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
-            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp",],
+            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp", ],
             showUpload: false,
             maxFilesNum: 1,
             required: true,
@@ -161,7 +164,7 @@
     // function cargarVariasImg(campo, rutas) {
     //     $(campo).fileinput('destroy');
     //     const initialPreview = [];
-    
+
     //     rutas.forEach((ruta, index) => {
     //         const imgId = 'imgcargada_' + index;
     //         const img = `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
@@ -257,5 +260,4 @@ function obtenerConfiguracionImagenesExist() {
         return [];
     }
 }
-    
 </script>

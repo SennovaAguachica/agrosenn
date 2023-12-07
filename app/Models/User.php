@@ -73,4 +73,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Administradores::class,'idadministrador','id');
     }
+    public function publicaciones()
+    {
+        return $this->hasMany(Publicaciones::class, 'id_usuario', 'id');
+    }
 }

@@ -358,10 +358,19 @@
                     </li> --}}
                     <li class="dropdown nav-item">
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
-                            aria-expanded="false"> <img class="img-xs rounded-circle" src="{{ $perfil->fotoperfil }}"
-                                alt="User" width="100%" /></a>
+                            aria-expanded="false">
+                            @if ($perfil->fotoperfil)
+                                <img class="img-xs rounded-circle" src="{{ $perfil->fotoperfil }}" alt="User"
+                                    width="100%" />
+                            @else
+                                <!-- Ruta a tu imagen por defecto si no hay foto de perfil -->
+                                <img class="img-xs rounded-circle"
+                                    src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}" alt="User"
+                                    width="100%" />
+                            @endif
+                        </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                            <a class="dropdown-item" href="#"><i
+                            <a class="dropdown-item" href="/perfil"><i
                                     class="material-icons md-perm_identity"></i>Editar Perfil</a>
                             <a class="dropdown-item" href="#"><i
                                     class="material-icons md-help_outline"></i>Ayuda</a>

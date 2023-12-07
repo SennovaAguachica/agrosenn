@@ -107,7 +107,7 @@ class AsociacionesController extends Controller
             ['documento', $datos['codigoasociacion']]
         ])->get();
         if (count($validacion) > 0 || count($validacionUser) > 0) {
-            $aErrores[] = '- El asociacion o el usuario ya se encuentra registrada';
+            $aErrores[] = '- El codigo de asociación ya se encuentra registrado';
         }
         $validacionCorreo = Asociaciones::where([
             ['email', $datos['email']]

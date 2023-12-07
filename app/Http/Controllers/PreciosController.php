@@ -33,7 +33,6 @@ class PreciosController extends Controller
         $unidades = Unidades::all();
         $perfil = auth()->user();
         if ($request->ajax()) {
-            // return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_asociacion' => Auth::user()->idasociacion])->get())->addIndexColumn()
             return DataTables::of(Precios::with('productos', 'unidades')->where(['estado' => 1, 'id_usuario' => Auth::user()->id])->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
