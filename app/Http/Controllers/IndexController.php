@@ -21,12 +21,13 @@ class IndexController extends Controller
     }
     public function verAsociaciones()
     {
+        $vendedor = [];
         $categorias = Categorias::all();
         $subcategorias = Subcategorias::all();
         $perfil = auth()->user();
-        $asociaciones = Asociaciones::with('usuario')->get();
+        $asociaciones = Asociaciones::with('usuario','vendedores')->get();
         //dd($categorias);
-        return view('vistas.frontend.paginas.verasociaciones', compact('categorias', 'subcategorias','perfil','asociaciones'));
+        return view('vistas.frontend.paginas.verasociaciones', compact('categorias', 'subcategorias','perfil','asociaciones','vendedor'));
     }
     public function verVendedores($idasociacion)
     {

@@ -85,14 +85,14 @@
                                 <span class="hot">Mall</span>
                             </div> --}}
                             <div class="vendor-img-action-wrap">
-                                <div class="vendor-img">
+                                <div class="vendor-img" style="text-align: center !important">
                                     <a href="#">
                                         <img class="default-img" src="{{ $asociacion->usuario->fotoperfil }}"
                                             alt="" />
                                     </a>
                                 </div>
                                 <div class="mt-10">
-                                    <span class="font-small total-product">380 vendedores asociados</span>
+                                    <span class="font-small total-product">{{count($asociacion->vendedores)}} vendedores asociados</span>
                                 </div>
                             </div>
                             <div class="vendor-content-wrap">

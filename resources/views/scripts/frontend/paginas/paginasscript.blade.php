@@ -4,7 +4,6 @@
         var AJAX = "/index_peticiones";
         var datosProductos = @json($vendedor);
         $(document).ready(function() {
-            console.log(datosProductos);
             $(".btnverimagenes").on("click", function(e) {
                 var valorData = $(this).data("idpublicacion");
                 var divimgprincipal = $(".product-image-slider");
