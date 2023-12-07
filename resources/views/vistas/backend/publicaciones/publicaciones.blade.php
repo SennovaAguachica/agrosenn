@@ -1,6 +1,10 @@
 @extends('../scripts.backend.publicaciones.publicacionesscript')
 @section('titulo')
     <title>Publicaciones</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+<link href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+
+
 @endsection
 @section('contenido')
     <div id="seccionlistar">

@@ -66,11 +66,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/precios', [PreciosController::class, 'index']);
     Route::post('/precios_peticiones', [PreciosController::class, 'peticionesAction']);
-    Route::post('/sugeridos', [PreciosController::class, 'indexsugeridos']);
+    Route::get('/sugeridos', [PreciosController::class, 'indexsugeridos']);
 
     Route::get('/publicaciones', [PublicacionesController::class, 'index']);
     Route::post('/publicaciones_peticiones', [PublicacionesController::class, 'peticionesAction']);
-    Route::get('/eliminar_imagen', [PublicacionesController::class, 'eliminarImagen']);
+    Route::post('/eliminar_imagen', [PublicacionesController::class, 'eliminarImagen']);
 
     Route::post('/login_peticiones', [VendedoresController::class, 'peticionesAction']);
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
