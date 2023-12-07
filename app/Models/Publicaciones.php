@@ -47,13 +47,6 @@ class Publicaciones extends Model
     {
         return $this->belongsTo(EquivalenciasUnidades::class, 'equivalencias_unidades_id', 'id');
     }
-
-    //relacion muchos a muchos
-    // public function precios()
-    // {
-    //     return $this->belongsToMany(Precios::class, 'precios_publicacion', 'publicaciones_id', 'precios_id');
-    // }
-
     public function imagenes()
     {
         return $this->hasMany(Imagenes::class, 'publicaciones_id', 'id');

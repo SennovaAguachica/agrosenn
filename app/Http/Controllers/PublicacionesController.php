@@ -130,22 +130,19 @@ class PublicacionesController extends Controller
 
                 $validacionProducto = Precios::where([
                     ['producto_id', $datos['idproductos']],
-                    // ['id_asociacion', $idasociacion],
                     ['id_usuario', $idusuario],
                 ])->get();
                 $validacionUnidad = Precios::where([
                     ['unidades_id', $datos['idunidades']],
-                    // ['id_asociacion', $idasociacion],
                     ['id_usuario', $idusuario],
                 ])->get();
-                if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
+                if (count($validacionProducto) > 0 && count($validacionUnidad) === 0) {
                     $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
                 } else {
                     $nuevoPrecio = new Precios();
                     $nuevoPrecio->precio = $datos['precio'];
                     $nuevoPrecio->producto_id = $datos['idproductos'];
                     $nuevoPrecio->unidades_id = $datos['idunidades'];
-                    // $nuevoPrecio->id_asociacion = $idasociacion;
                     $nuevoPrecio->id_usuario = $idusuario;
                     $nuevoPrecio->estado = 1;
                     $nuevoPrecio->created_at = \Carbon\Carbon::now();
@@ -411,6 +408,18 @@ class PublicacionesController extends Controller
 
     public function eliminarImagen(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        $imagenId = $request->input('id');
+
+        // dd($imagenId);
+        // Encuentra la imagen por su ID
+        $imagen = Imagenes::find($imagenId);
+
+        if ($imagen) {
+            // Borra la imagen si se encuentra
+            $imagen->delete();
+            return response()->json(['message' => 'Imagen eliminada con éxito']);
+        }
+        return response()->json(['message' => 'No se encontró la imagen']);
     }
 }

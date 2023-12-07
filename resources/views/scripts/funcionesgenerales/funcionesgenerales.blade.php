@@ -1,5 +1,3 @@
-<link href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.form-control-chosen').chosen({
@@ -11,6 +9,7 @@
         $('table tr').mouseout(function() {
             $(this).removeClass('row_selected');
         });
+        
     });
 
     function cargarImagen(campo) {
@@ -25,8 +24,12 @@
         });
     }
 
+
+    
     function cargarVariasImagen(campo) {
+        // var imagenesSeleccionadas = [];
         $(campo).fileinput({
+            uploadUrl:'#',
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
@@ -34,7 +37,22 @@
             showUpload: false,
             maxFilesNum: 5,
             required: true,
-        });
+            overwriteInitial: false,
+            fileActionSettings: {
+                showRemove: true,
+                showUpload: true, //This remove the upload button
+                showZoom: true,
+                showDrag: false,
+                showRotate: false,
+                removeIcon: '<i class="fa fa-trash"></i>', // Cambiar el icono de eliminación si es necesario
+                removeClass: 'btn btn-sm btn-danger', // Cambiar la clase de estilo del botón de eliminación si es necesario
+                indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
+                indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
+                indicatorError: '<i class="fa fa-times-circle text-danger"></i>',
+            },
+});
+
+    
     }
 
     function inputMoneda(campo) {
@@ -169,65 +187,75 @@
     //     });
     // }
 
-    function cargarVariasImg(campo, rutas) {
-    $(campo).fileinput('destroy');
-    const initialPreview = [];
-    const initialPreviewConfig = [];
-
-    rutas.forEach((ruta, index) => {
-        const imgId = 'imgcargada_' + index;
-        const img = `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
-        
-        initialPreview.push(img);
-        initialPreviewConfig.push({
-            caption: `Imagen ${index + 1}`,
-            width: '120px', // Ancho de la vista previa
-            type: 'GET',
-            url: '/eliminar_imagen',
-            data: {
-                "_token": "{{ csrf_token() }}",
-                id: index
-                // accion: ELIMINAR_PRODUCTOS,
-            },
-            key: index, // Identificador único para la imagen
-        });
-    });
-
+    function cargarVariasImagenes(campo) {
+    // Obtener las rutas de las imágenes existentes
+    var rutasImagenes = obtenerRutasImagenesExist();
+    
     $(campo).fileinput({
-        initialPreview: initialPreview,
-        initialPreviewConfig: initialPreviewConfig,
+        uploadUrl: '#',
         theme: 'fa5',
         language: 'es',
-        previewFileType: "image",
-        allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
+        previewFileType: "png",
+        allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp",],
         showUpload: false,
         maxFilesNum: 5,
         required: true,
-    }).on('filebeforedelete', function(event, key, data) {
-        return new Promise(function(resolve, reject) {
-            $.confirm({
-                title: '¡Atención!',
-                content: '¿Estás seguro de que quieres eliminar esta imagen?',
-                type: 'red',
-                buttons: {
-                    ok: {
-                        btnClass: 'btn-primary text-white',
-                        keys: ['enter'],
-                        action: function () {
-                            resolve();
-                        }
-                    },
-                    cancel: function () {
-                        $.alert('Eliminación cancelada');
-                    }
-                }
-            });
-        });
-    }).on('filedeleted', function (event, key, data) {
-        setTimeout(function () {
-            $.alert('Imagen eliminada con éxito');
-        }, 900);
+        overwriteInitial: false,
+        initialPreview: rutasImagenes,  // Rutas de las imágenes existentes
+        initialPreviewConfig: obtenerConfiguracionImagenesExist(),
+        fileActionSettings: {
+            showRemove: true,
+            showUpload: false,
+            showZoom: true,
+            showDrag: false,
+            showRotate: false,
+                removeIcon: '<i class="fa fa-trash"></i>', // Cambiar el icono de eliminación si es necesario
+    removeClass: 'btn btn-sm btn-danger', // Cambiar la clase de estilo del botón de eliminación si es necesario
+    indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
+    indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
+    indicatorError: '<i class="fa fa-times-circle text-danger"></i>',
+        },
     });
+}
+
+function obtenerRutasImagenesExist() {
+    // Obtén las imágenes seleccionadas por el usuario
+    var imagenesSeleccionadas = $('#imagen').fileinput('getFileStack');
+
+    // Verifica si imagenesSeleccionadas es un iterable antes de usar map
+    if (Array.isArray(imagenesSeleccionadas)) {
+        // Mapea las imágenes seleccionadas para obtener sus rutas
+        var rutasImagenes = imagenesSeleccionadas.map(function(imagen) {
+            return URL.createObjectURL(imagen);
+        }).toArray();
+
+        return rutasImagenes;
+    } else {
+        // Si no es un iterable, devuelve un array vacío o maneja el caso según sea necesario
+        return [];
+    }
+}
+
+function obtenerConfiguracionImagenesExist() {
+    // Obtén las imágenes seleccionadas por el usuario
+    var imagenesSeleccionadas = $('#imagen').fileinput('getFileStack');
+
+    // Verifica si imagenesSeleccionadas es un array antes de usar map
+    if (Array.isArray(imagenesSeleccionadas)) {
+        // Mapea las imágenes seleccionadas para obtener su configuración
+        var configuracionImagenes = imagenesSeleccionadas.map(function(imagen, index) {
+            return {
+                caption: "Imagen " + (index + 1),
+                width: "120px",
+                key: index
+            };
+        });
+
+        return configuracionImagenes;
+    } else {
+        // Si no es un array, devuelve un array vacío o maneja el caso según sea necesario
+        return [];
+    }
 }
     
 </script>

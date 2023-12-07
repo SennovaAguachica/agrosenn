@@ -115,56 +115,50 @@ class PreciosController extends Controller
 
     public function guardarPrecios($datos)
     {
-        // dd($datos);
-        // dd(Auth::user()->idasociacion);
+
         $aErrores = array();
         DB::beginTransaction();
-        if ($datos['idunidades'] == "") {
+        if ($datos['precios_idunidades'] == "") {
             $aErrores[] = '- Escoja la unidad';
         }
-        if ($datos['idproductos'] == "") {
+        if ($datos['precios_idproductos'] == "") {
             $aErrores[] = '- Escoja el producto';
         }
-        if ($datos['precio'] == "") {
+        if ($datos['precios_precio'] == "") {
             $aErrores[] = '- Digite el precio del producto según la unidad';
         }
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            // $idasociacion = Auth::user()->idasociacion;
             $idusuario = Auth::user()->id;
             $validacion = Precios::where([
-                ['producto_id', $datos['idproductos']],
-                ['unidades_id', $datos['idunidades']],
-                // ['id_asociacion', $idasociacion],
+                ['producto_id', $datos['precios_idproductos']],
+                ['unidades_id', $datos['precios_idunidades']],
                 ['id_usuario', $idusuario],
                 ['estado', 0]
             ])->first();
             if ($validacion) {
                 $validacion->update([
-                    'precio' => $datos['precio'],
+                    'precio' => $datos['precios_precio'],
                     'estado' => 1
                 ]);
             } else {
                 $validacionProducto = Precios::where([
-                    ['producto_id', $datos['idproductos']],
-                    // ['id_asociacion', $idasociacion],
+                    ['producto_id', $datos['precios_idproductos']],
                     ['id_usuario', $idusuario],
                 ])->get();
                 $validacionUnidad = Precios::where([
-                    ['unidades_id', $datos['idunidades']],
-                    // ['id_asociacion', $idasociacion],
+                    ['unidades_id', $datos['precios_idunidades']],
                     ['id_usuario', $idusuario],
                 ])->get();
-                if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
+                if (count($validacionProducto) > 0 && count($validacionUnidad) === 0) {
                     $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
                 } else {
                     $nuevoPrecio = new Precios();
-                    $nuevoPrecio->precio = $datos['precio'];
-                    $nuevoPrecio->producto_id = $datos['idproductos'];
-                    $nuevoPrecio->unidades_id = $datos['idunidades'];
-                    // $nuevoPrecio->id_asociacion = $idasociacion;
+                    $nuevoPrecio->precio = $datos['precios_precio'];
+                    $nuevoPrecio->producto_id = $datos['precios_idproductos'];
+                    $nuevoPrecio->unidades_id = $datos['precios_idunidades'];
                     $nuevoPrecio->id_usuario = $idusuario;
                     $nuevoPrecio->estado = 1;
                     $nuevoPrecio->created_at = \Carbon\Carbon::now();
@@ -197,13 +191,13 @@ class PreciosController extends Controller
     {
         $aErrores = array();
         DB::beginTransaction();
-        if ($datos['idunidades'] == "") {
+        if ($datos['precios_idunidades'] == "") {
             $aErrores[] = '- Escoja la unidad';
         }
-        if ($datos['idproductos'] == "") {
+        if ($datos['precios_idproductos'] == "") {
             $aErrores[] = '- Escoja el producto';
         }
-        if ($datos['precio'] == "") {
+        if ($datos['precios_precio'] == "") {
             $aErrores[] = '- Digite el precio del producto según la unidad';
         }
         if (count($aErrores) > 0) {
@@ -211,9 +205,9 @@ class PreciosController extends Controller
         }
         try {
             $actualizarPrecio = Precios::findOrFail($datos['id']);;
-            $actualizarPrecio->precio = $datos['precio'];
-            $actualizarPrecio->producto_id = $datos['idproductos'];
-            $actualizarPrecio->unidades_id = $datos['idunidades'];
+            $actualizarPrecio->precio = $datos['precios_precio'];
+            $actualizarPrecio->producto_id = $datos['precios_idproductos'];
+            $actualizarPrecio->unidades_id = $datos['precios_idunidades'];
             $actualizarPrecio->save();
 
             if (count($aErrores) > 0) {
