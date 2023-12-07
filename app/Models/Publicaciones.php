@@ -43,6 +43,7 @@ class Publicaciones extends Model
     {
         return $this->belongsTo(Precios::class, 'precios_id', 'id');
     }
+    
     public function equivalencias_unidades()
     {
         return $this->belongsTo(EquivalenciasUnidades::class, 'equivalencias_unidades_id', 'id');

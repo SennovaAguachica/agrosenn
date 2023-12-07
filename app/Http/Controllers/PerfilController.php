@@ -306,12 +306,12 @@ class PerfilController extends Controller
             //Validar si existe otro usuario con el documento a actualizar
             $validacionUser = User::where([
                 ['documento', $datos['documentovendedor']]
-            ])->where('id', '!=', $asociacion->vendedor->id)->get();
+            ])->where('id', '!=', $vendedor->usuario->id)->get();
 
             //Validar si existe otro vendedor con el correo a actualizar
             $validacionEmailUser = User::where([
                 ['email', $datos['emailvendedor']]
-            ])->where('id', '!=', $asociacion->vendedor->id)->get();
+            ])->where('id', '!=', $vendedor->usuario->id)->get();
 
             if (count($validacion) > 0) {
                 $aErrores[] = '- Este Nº de documento ya se encuentra registrado';
@@ -329,7 +329,6 @@ class PerfilController extends Controller
                 $aErrores[] = '- Este email ya se encuentra registrado en otro usuario';
             }
         }
-
         return $aErrores;
         
     }

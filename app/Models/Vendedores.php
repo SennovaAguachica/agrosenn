@@ -33,10 +33,7 @@ class Vendedores extends Model
     {
         return $this->belongsTo(Ciudades::class, 'id_municipio', 'id');
     }
-    public function publicaciones()
-    {
-        return $this->hasMany(Publicaciones::class, 'vendedores_id', 'id');
-    }
+    
     public function asociacion()
     {
         return $this->belongsTo(Asociaciones::class, 'idasociacion', 'id');
