@@ -7019,7 +7019,9 @@ h6.post-title {
 }
 
 .vendor-wrap .vendor-img-action-wrap img {
-    max-width: 100px;
+    width: 200px;
+    height: 200px;
+    /* max-width: 100px; */
 }
 
 .vendor-wrap .vendor-content-wrap {

@@ -41,20 +41,13 @@
         </div>
     </section>
 
-    {{-- <section class="popular-categories section-padding">
+    <section class="popular-categories section-padding">
         <div class="container wow animate__animated animate__fadeIn">
             <div class="section-title">
                 <div class="title">
-                    <h3>Categorías Destacadas</h3>
+                    <h3>Categorías ofertadas</h3>
                     <ul class="list-inline nav nav-tabs links">
-                        <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Pastel &
-                                Leche</a></li>
-                        <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Café & Té</a>
-                        </li>
-                        <li class="list-inline-item nav-item"><a class="nav-link active" href="shop-grid-right.html">Comida
-                                para Mascotas</a></li>
-                        <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Verduras</a>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
@@ -62,7 +55,21 @@
             </div>
             <div class="carausel-10-columns-cover position-relative">
                 <div class="carausel-10-columns" id="carausel-10-columns">
-                    <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                    @foreach ($categorias as $item)
+                        @php
+                            // Obtiene el índice actual del bucle + 9 para que esté en el rango de 9 a 15
+                            $bgClass = 'bg-' . (($loop->index % 7) + 9);
+                        @endphp
+                        <div class="card-2 {{ $bgClass }} wow animate__animated animate__fadeInUp"
+                            data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="shop-grid-right.html"><img src="{{ $item->imagen }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="shop-grid-right.html">{{ $item->categoria }}</a></h6>
+                            <span>26 artículos</span>
+                        </div>
+                    @endforeach
+                    {{-- <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                         <figure class="img-hover-scale overflow-hidden">
                             <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-13.png" alt="" /></a>
                         </figure>
@@ -113,8 +120,7 @@
                     </div>
                     <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
                         <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-4.png"
-                                    alt="" /></a>
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-4.png" alt="" /></a>
                         </figure>
                         <h6><a href="shop-grid-right.html">Ciruela Negra</a></h6>
                         <span>123 artículos</span>
@@ -142,11 +148,11 @@
                         </figure>
                         <h6><a href="shop-grid-right.html">Auriculares</a></h6>
                         <span>87 artículos</span>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
 
     {{-- <!--End category slider-->
     <section class="banners mb-25">
@@ -5258,8 +5264,8 @@
                                 </li>
                                 <li class="sub-mega-menu sub-mega-menu-width-34">
                                     <div class="menu-banner-wrap">
-                                        <a href="shop-product-right.html"><img src="assetsfront/imgs/banner/banner-menu.png"
-                                                alt="Nest" /></a>
+                                        <a href="shop-product-right.html"><img
+                                                src="assetsfront/imgs/banner/banner-menu.png" alt="Nest" /></a>
                                         <div class="menu-banner-content">
                                             <h4>Ofertas especiales</h4>
                                             <h3>
@@ -5287,7 +5293,8 @@
                             <a href="/verasociaciones">Asociaciones <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($asociaciones as $asociacion)
-                                    <li><a href='/vervendedores/{{$asociacion->id}}'>{{$asociacion->asociacion}}</a></li>
+                                    <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>

@@ -31,7 +31,7 @@ class IndexController extends Controller
     }
     public function verVendedores($idasociacion)
     {
-        $vendedores = Vendedores::with('usuario')->where('id_asociacion',$idasociacion)->get();
+        $vendedores = Vendedores::with('usuario.publicaciones')->where('id_asociacion',$idasociacion)->get();
         $categorias = Categorias::all();
         $subcategorias = Subcategorias::all();
         $perfil = auth()->user();

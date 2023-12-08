@@ -92,7 +92,8 @@
                                     </a>
                                 </div>
                                 <div class="mt-10">
-                                    <span class="font-small total-product">{{count($asociacion->vendedores)}} vendedores asociados</span>
+                                    <span class="font-small total-product">{{ count($asociacion->vendedores) }} vendedores
+                                        asociados</span>
                                 </div>
                             </div>
                             <div class="vendor-content-wrap">
@@ -118,10 +119,11 @@
                                                     alt="" /><strong>Contacto:</strong><span>(+57) -
                                                     {{ $asociacion->n_celular }} </span></li>
                                         </ul>
-                                        <br>
-                                        <a href='vervendedores/{{ $asociacion->id }}' class="btn btn-xs">Ver
-                                            vendedores <i class="fi-rs-arrow-small-right"></i></a>
                                     </div>
+                                </div>
+                                <div class="mb-30">
+                                    <a href='vervendedores/{{ $asociacion->id }}' class="btn btn-md">Ver
+                                        vendedores <i class="fa-solid fa-eye fa-xl"></i></a>
                                 </div>
                             </div>
                         </div>

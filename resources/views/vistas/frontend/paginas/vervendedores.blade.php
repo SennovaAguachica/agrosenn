@@ -123,7 +123,9 @@
                                             </a>
                                         </div>
                                         <div class="mt-10">
-                                            <span class="font-small total-product">380 productos ofertados</span>
+                                            <span
+                                                class="font-small total-product">{{ count($vendedor->usuario->publicaciones) }}
+                                                productos ofertados</span>
                                         </div>
                                     </div>
                                     <div class="vendor-content-wrap">
@@ -150,10 +152,11 @@
                                                             alt="" /><strong>Contacto:</strong><span>(+57) -
                                                             {{ $vendedor->n_celular }} </span></li>
                                                 </ul>
-                                                <br>
-                                                <a href='/verproductos/{{ $vendedor->id }}' class="btn btn-xs">Ver
-                                                    productos <i class="fi-rs-arrow-small-right"></i></a>
                                             </div>
+                                        </div>
+                                        <div class="mb-30">
+                                            <a href='/verproductos/{{ $vendedor->id }}' class="btn btn-md">Ver
+                                                productos <i class="fa-solid fa-right-long fa-xl"></i></a>
                                         </div>
                                     </div>
                                 </div>

@@ -20,7 +20,7 @@
                 <div class="col-lg-4-5">
                     <div class="shop-product-fillter">
                         <div class="totall-product">
-                            <p>We found <strong class="text-brand">29</strong> items for you!</p>
+                            <p>Encontramos <strong class="text-brand">{{ count($vendedor->usuario->publicaciones) }}</strong> productos disponibles para ti!</p>
                         </div>
                         <div class="sort-by-product-area">
                             <div class="sort-by-cover mr-10">
@@ -72,9 +72,9 @@
                                             <a class="btnverimagenes" data-bs-toggle="modal"
                                                 data-bs-target="#quickViewModal"
                                                 data-idpublicacion='{{ $publicacion->id }}'>
-                                                <img class="default-img" src="{{ $publicacion->productos->imagen }}"
+                                                <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta}}"
                                                     alt="" />
-                                                <img class="hover-img" src="{{ $publicacion->productos->imagen }}"
+                                                <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                     alt="" />
                                             </a>
                                         </div>
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fa-brands fa-whatsapp"></i> Lo
+                                                <a class="add" href="#"><i class="fa-brands fa-whatsapp fa-xl"></i> Lo
                                                     quiero! </a>
                                             </div>
                                         </div>
