@@ -1,6 +1,7 @@
 @extends('../vistas.plantilla.modales')
 @extends('../vistas.plantilla.plantillaback')
 @section('script')
+
     <script>
         var AJAX = "/publicaciones_peticiones";
         var GUARDAR_PUBLICACIONES = 1;
@@ -21,22 +22,30 @@
             cargarVariasImagen("#imagen");
             buttonClicks();
             selectChanges();
+            $('#modalGuardarForm').on('show.bs.modal', function () {
+                // Restablecer el formulario
+                $("#formGuardar")[0].reset();
+                $("#formGuardar").removeClass("was-validated");
+        
+                // Restablecer la visualización de validación de Bootstrap
+                $("#idproductos_chosen, #idunidades_chosen, #precio, .file-input").removeClass("is-invalid is-valid");
+            });
         });
+
+        
 
         function buttonClicks() {
             $("#btnmodalguardar").on("click", function(e) {
                 vista = 1;
                 $('#idunidades').val("").trigger("chosen:updated");
                 $('#idproductos').val("").trigger("chosen:updated");
-                $('#listadoprecios').val("").trigger("chosen:updated");
+                $('#listadoprecios').attr('placeholder', '');
                 $("#formGuardar")[0].reset();
+                
             });
         }
 
-        // $('#idproductos').change(function () {
-        //     var productoSeleccionado = $(this).val();
-        //     buscarPrecios(productoSeleccionado); // Llama a la función buscarPrecios con el ID del producto seleccionado
-        // });
+        
 
         function selectChanges() {
             $("#idproductos, #idunidades").change(function() {
@@ -53,7 +62,7 @@
             fila = tablaPublicaciones.row("." + data).node();
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablapublicaciones").DataTable().row('.selected').data();
-            
+
             if (modo == 1) {
                 $("#idpreciovendedor").val(parametro_seleccionado.precios_id);
                 $("#precio").val(parametro_seleccionado.precios.precio);
@@ -66,7 +75,7 @@
                 cargarVariasImg("#imagen", rutasImagenes);
             } else if (modo == 2) {
                 eliminarPublicacion(parametro_seleccionado.id);
-                
+
             }
         }
 
@@ -257,7 +266,7 @@
                                 "_token": "{{ csrf_token() }}",
                                 accion: ELIMINAR_PUBLICACIONES,
                                 id: parametro_seleccionado.id,
-                                
+
                             },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
@@ -267,14 +276,14 @@
                                     tablaPublicaciones.ajax.reload();
                                 } else {
                                     mensajeError(respuesta.mensaje);
-                                    
+
                                 }
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
-                               
+
                             }
                         });
                     }
@@ -285,7 +294,7 @@
         function buscarPreciosAsociacion(idproductos, idunidades) {
             var idproductosSelect = $('#idproductos').val();
             var idunidadesSelect = $('#idunidades').val();
-            
+
             if (idproductosSelect && idunidadesSelect) {
                 $.ajax({
                     type: 'POST',
@@ -297,7 +306,7 @@
                         idproductos: idproductos,
                         idunidades: idunidades
                     },
-                
+
                     beforeSend: function() {
                     },
                     success: function(respuesta) {
@@ -316,13 +325,13 @@
                     }
                 });
             }
-            
+
         }
 
         function buscarPreciosVendedor(idproductos, idunidades) {
             var idproductosSelect = $('#idproductos').val();
             var idunidadesSelect = $('#idunidades').val();
-            
+
             if (idproductosSelect && idunidadesSelect) {
                 $.ajax({
                     type: 'POST',
@@ -334,7 +343,7 @@
                         idproductos: idproductos,
                         idunidades: idunidades
                     },
-                
+
                     beforeSend: function() {
                     },
                     success: function(respuesta) {
@@ -351,11 +360,93 @@
                     },
                     error: function(request, status, error) {
                         $("#idpreciovendedor").val('');
+                        $("#precio").val('');
                         $("#precio").attr('placeholder', 'Define un precio');
                         $(".carga").removeClass("show").addClass("hidden");
                     }
                 });
             }
         }
+
+        function cargarVariasImg(campo, rutas) {
+            $(campo).fileinput('destroy');
+            const initialPreview = [];
+            const initialPreviewConfig = [];
+
+            rutas.forEach((ruta, index) => {
+                const imgId = 'imgcargada_' + index;
+                const img =
+                    `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
+
+                initialPreview.push(img);
+                initialPreviewConfig.push({
+                    caption: `Imagen ${index + 1}`,
+                    width: '120px', // Ancho de la vista previa
+                    type: 'POST',
+                    url: '/eliminar_imagen',
+                    key: index, // Identificador único para la imagen
+                });
+            });
+
+            $(campo).fileinput({
+                initialPreview: initialPreview,
+                initialPreviewConfig: initialPreviewConfig,
+                theme: 'fa5',
+                language: 'es',
+                previewFileType: "image",
+                allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
+                showUpload: false,
+                maxFilesNum: 5,
+                required: true,
+            }).on('filebeforedelete', function(event, key, data) {
+                return new Promise(function(resolve, reject) {
+                    $.confirm({
+                        title: '¡Atención!',
+                        content: '¿Estás seguro de que quieres eliminar esta imagen?',
+                        type: 'red',
+                        buttons: {
+                            ok: {
+                                btnClass: 'btn-primary text-white',
+                                keys: ['enter'],
+                                action: function() {
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/eliminar_imagen',
+                                        data: {
+                                            // "_token": "{{ csrf_token() }}",
+                                            "_token": $('meta[name="csrf-token"]').attr('content'),
+                                            id: key
+                                        },
+                                        success: function(response) {
+                                            resolve();
+                                        },
+                                        error: function(error) {
+                                            reject();
+                                        }
+                                    });
+                                }
+                            },
+                            cancel: function() {
+                                $.alert('Eliminación cancelada');
+                            }
+                        }
+                    });
+                });
+            }).on('filedeleted', function(event, key, data) {
+                setTimeout(function() {
+                    $.alert('Imagen eliminada con éxito');
+                }, 900);
+            });
+        }
+
+
+        
     </script>
+
+
 @endsection

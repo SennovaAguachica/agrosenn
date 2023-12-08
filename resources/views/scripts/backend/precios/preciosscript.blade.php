@@ -18,13 +18,21 @@
             guardarPrecio();
             // inputMoneda('#precio');
             buttonClicks();
+            $('#modalGuardarForm').on('show.bs.modal', function () {
+                // Restablecer el formulario
+                $("#formGuardar")[0].reset();
+                $("#formGuardar").removeClass("was-validated");
+        
+                // Restablecer la visualización de validación de Bootstrap
+                $("#precios_idproductos_chosen, #precios_idunidades_chosen, #precios_precio").removeClass("is-invalid is-valid");
+            });
         });
 
         function buttonClicks() {
             $("#btnmodalguardar").on("click", function(e) {
                 vista = 1;
-                $('#idunidades').val("").trigger("chosen:updated");
-                $('#idproductos').val("").trigger("chosen:updated");
+                $('#precios_idunidades').val("").trigger("chosen:updated");
+                $('#precios_idproductos').val("").trigger("chosen:updated");
                 $("#formGuardar")[0].reset();
             });
         }
@@ -39,12 +47,12 @@
             parametro_seleccionado = $("#tablaprecios").DataTable().row('.selected').data();
             
             if (modo == 1) {
-                $("#precio").val(parametro_seleccionado.precio);
+                $("#precios_precio").val(parametro_seleccionado.precio);
                 // $("#precio").val('$' + number_format(parametro_seleccionado.precio));
-                $("#idproductos").val(parametro_seleccionado.producto_id);
-                $("#idproductos").trigger("chosen:updated");
-                $("#idunidades").val(parametro_seleccionado.unidades_id);
-                $("#idunidades").trigger("chosen:updated");
+                $("#precios_idproductos").val(parametro_seleccionado.producto_id);
+                $("#precios_idproductos").trigger("chosen:updated");
+                $("#precios_idunidades").val(parametro_seleccionado.unidades_id);
+                $("#precios_idunidades").trigger("chosen:updated");
             } else if (modo == 2) {
                 eliminarPrecio(parametro_seleccionado.id);
                 

@@ -38,8 +38,8 @@
 @section('informacionModal')
 <div class="row">
     <div class="col-md-6 col-lg-6 col-xs-6">
-        <label for="idproductos">Producto</label>
-        <select class="form-control form-control-chosen" name="idproductos" id="idproductos"
+        <label for="precios_idproductos">Producto</label>
+        <select class="form-control form-control-chosen" name="precios_idproductos" id="precios_idproductos"
             data-placeholder="Seleccione una opción" required>
             <option value=""></option>
             @foreach ($productos as $item)
@@ -54,8 +54,8 @@
 <br>
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12">
-        <label for="idunidades">Unidad</label>
-        <select class="form-control form-control-chosen" name="idunidades" id="idunidades"
+        <label for="precios_idunidades">Unidad</label>
+        <select class="form-control form-control-chosen" name="precios_idunidades" id="precios_idunidades"
             data-placeholder="Seleccione una opción" required>
             <option value=""></option>
             @foreach ($unidades as $item)
@@ -70,8 +70,8 @@
 <br>
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12 ">
-        <label for="precio">Precio</label>
-        <input type="number" class="form-control" name="precio" id="precio" required>
+        <label for="precios_precio">Precio</label>
+        <input type="number" class="form-control" name="precios_precio" id="precios_precio" required>
         <div class="invalid-feedback">
             Campo obligatorio.
         </div>
