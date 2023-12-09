@@ -63,9 +63,9 @@
                         <div class="card-2 {{ $bgClass }} wow animate__animated animate__fadeInUp"
                             data-wow-delay=".1s">
                             <figure class="img-hover-scale overflow-hidden">
-                                <a href="shop-grid-right.html"><img src="{{ $item->imagen }}" alt="" /></a>
+                                <a href="/vercategoria/{{$item->id}}"><img src="{{ $item->imagen }}" alt="" /></a>
                             </figure>
-                            <h6><a href="shop-grid-right.html">{{ $item->categoria }}</a></h6>
+                            <h6><a href="/vercategoria/{{$item->id}}">{{ $item->categoria }}</a></h6>
                             <span>26 artículos</span>
                         </div>
                     @endforeach
@@ -314,10 +314,10 @@
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
                                                     <a
-                                                        href="shop-grid-right.html">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
+                                                        href="/versubcategoria/{{$publicacion->productos->subcategoria->id}}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                                                 </div>
                                                 <h2><a
-                                                        href="shop-product-right.html">{{ $publicacion->productos->producto }}</a>
+                                                        href="/versubcategoria/{{$publicacion->id}}">{{ $publicacion->productos->producto }}</a>
                                                 </h2>
                                                 <div class="product-rate-cover">
                                                     <div class="product-rate d-inline-block">
@@ -327,7 +327,7 @@
                                                 </div>
                                                 <div>
                                                     <span class="font-small text-muted">Producto de <a
-                                                            href="vendor-details-1.html">{{ $publicacion->usuario->vendedor->nombres }}
+                                                            href="/vervendedor/{{$publicacion->usuario->vendedor->id}}">{{ $publicacion->usuario->vendedor->nombres }}
                                                             {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
                                                 </div>
                                                 <div class="product-card-bottom">

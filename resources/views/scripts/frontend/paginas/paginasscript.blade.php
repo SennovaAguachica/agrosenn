@@ -2,7 +2,7 @@
 @section('script')
     <script>
         var AJAX = "/index_peticiones";
-        $(document).ready(function() {            
+        $(document).ready(function() {
             $(".btnverimagenes").on("click", function(e) {
                 var valorData = $(this).data("idpublicacion");
                 var datos = $(this).data("datos");

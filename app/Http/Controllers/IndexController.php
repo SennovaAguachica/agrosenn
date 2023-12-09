@@ -110,8 +110,11 @@ class IndexController extends Controller
         $categorias = Categorias::with('subcategorias')->get();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario')->get();
-        $publicacion = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->findOrFail($idpublicacion);
-        return view('vistas.frontend.paginas.verpublicacion', compact('categorias', 'perfil','asociaciones','publicacion'));
+        $publicacion = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','precios','unidades')->findOrFail($idpublicacion);
+        $relacionados = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($publicacion) {
+            $query->where('subcategoria_id', $publicacion->productos->subcategoria_id);
+        })->get();
+        return view('vistas.frontend.paginas.verpublicacion', compact('categorias', 'perfil','asociaciones','publicacion','relacionados'));
 
     }
 }

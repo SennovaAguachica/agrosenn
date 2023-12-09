@@ -1,4 +1,4 @@
-@extends('../scripts.frontend.paginas.paginasscript')
+@extends('../scripts.frontend.paginas.publicacionscript')
 @section('titulo')
     <title>Index</title>
 @endsection
@@ -6,8 +6,11 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                <span></span> <a href="shop-grid-right.html">Vegetables & tubers</a> <span></span> Seeds of Change Organic
+                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
+                <span></span> <a
+                    href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
+                <span></span>
+                {{ $publicacion->productos->producto }}
             </div>
         </div>
     </div>
@@ -15,51 +18,35 @@
         <div class="row">
             <div class="col-xl-10 col-lg-12 m-auto">
                 <div class="product-detail accordion-detail">
-                    <div class="row mb-50 mt-30">
+                    <div class="row mb-50 mt-30" style="display: flex; align-items:center;justify-content: center;">
                         <div class="col-md-6 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
                             <div class="detail-gallery">
                                 <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                 <!-- MAIN SLIDES -->
                                 <div class="product-image-slider">
-                                    <figure class="border-radius-10">
-                                        <img src="assets/imgs/shop/product-16-2.jpg" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="assets/imgs/shop/product-16-1.jpg" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="assets/imgs/shop/product-16-3.jpg" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="assets/imgs/shop/product-16-4.jpg" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="assets/imgs/shop/product-16-5.jpg" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="assets/imgs/shop/product-16-6.jpg" alt="product image" />
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="assets/imgs/shop/product-16-7.jpg" alt="product image" />
-                                    </figure>
+                                    @foreach ($publicacion->imagenes as $imagen)
+                                        <figure class='border-radius-10'
+                                            style='height: 300px; display: flex; align-items:center;justify-content: center;'>
+                                            <img src="{{ $imagen->ruta }}" alt="product image" />
+                                        </figure>
+                                    @endforeach
                                 </div>
                                 <!-- THUMBNAILS -->
                                 <div class="slider-nav-thumbnails">
-                                    <div><img src="assets/imgs/shop/thumbnail-3.jpg" alt="product image" /></div>
-                                    <div><img src="assets/imgs/shop/thumbnail-4.jpg" alt="product image" /></div>
-                                    <div><img src="assets/imgs/shop/thumbnail-5.jpg" alt="product image" /></div>
-                                    <div><img src="assets/imgs/shop/thumbnail-6.jpg" alt="product image" /></div>
-                                    <div><img src="assets/imgs/shop/thumbnail-7.jpg" alt="product image" /></div>
-                                    <div><img src="assets/imgs/shop/thumbnail-8.jpg" alt="product image" /></div>
-                                    <div><img src="assets/imgs/shop/thumbnail-9.jpg" alt="product image" /></div>
+                                    @foreach ($publicacion->imagenes as $imagen)
+                                        <div
+                                            style='height: 50px; display: flex; align-items:center;justify-content: center; '>
+                                            <img src="{{ $imagen->ruta }}" style="max-width:50px;"alt="product image" />
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <!-- End Gallery -->
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="detail-info pr-30 pl-30">
-                                <span class="stock-status out-stock"> Sale Off </span>
-                                <h2 class="title-detail">Seeds of Change Organic Quinoa, Brown</h2>
+                                <span class="stock-status in-stock">Disponible</span>
+                                <h2 class="title-detail">{{ $publicacion->productos->producto }}</h2>
                                 <div class="product-detail-rating">
                                     <div class="product-rate-cover text-end">
                                         <div class="product-rate d-inline-block">
@@ -70,19 +57,18 @@
                                 </div>
                                 <div class="clearfix product-price-cover">
                                     <div class="product-price primary-color float-left">
-                                        <span class="current-price text-brand">$38</span>
+                                        <span class="current-price text-brand">$ {{ $publicacion->precios->precio }}</span>
                                         <span>
-                                            <span class="save-price font-md color3 ml-15">26% Off</span>
-                                            <span class="old-price font-md ml-15">$52</span>
+                                            <span class="save-price font-md color3 ml-15">X
+                                                {{ $publicacion->unidades->unidad }}</span>
+                                            {{-- <span class="old-price font-md ml-15">$52</span> --}}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="short-desc mb-30">
-                                    <p class="font-lg">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam rem
-                                        officia, corrupti reiciendis minima nisi modi, quasi, odio minus dolore impedit fuga
-                                        eum eligendi.</p>
+                                    <p class="font-lg">{{ $publicacion->descripcion }}</p>
                                 </div>
-                                <div class="attr-detail attr-size mb-30">
+                                {{-- <div class="attr-detail attr-size mb-30">
                                     <strong class="mr-10">Size / Weight: </strong>
                                     <ul class="list-filter size-filter font-small">
                                         <li><a href="#">50g</a></li>
@@ -91,34 +77,41 @@
                                         <li><a href="#">100g</a></li>
                                         <li><a href="#">150g</a></li>
                                     </ul>
-                                </div>
+                                </div> --}}
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
                                         <input type="text" name="quantity" class="qty-val" value="1" min="1">
                                         <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                     </div>
+                                    <br>
                                     <div class="product-extra-link2">
                                         <button type="submit" class="button button-add-to-cart"><i
-                                                class="fi-rs-shopping-cart"></i>Add to cart</button>
-                                        <a aria-label="Add To Wishlist" class="action-btn hover-up"
+                                                class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</button>
+                                        {{-- <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                             href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
                                         <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
+                                                class="fi-rs-shuffle"></i></a> --}}
                                     </div>
                                 </div>
                                 <div class="font-xs">
                                     <ul class="mr-50 float-start">
-                                        <li class="mb-5">Type: <span class="text-brand">Organic</span></li>
-                                        <li class="mb-5">MFG:<span class="text-brand"> Jun 4.2022</span></li>
-                                        <li>LIFE: <span class="text-brand">70 days</span></li>
+                                        <li class="mb-5">Categoria: <a
+                                                href="/vercategoria/{{ $publicacion->productos->subcategoria->categoria_id }}">{{ $publicacion->productos->subcategoria->categorias->categoria }}</a>
+                                        </li>
+                                        <li class="mb-5">Subcategoria: <a
+                                                href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
+                                        </li>
+                                        {{-- <li>LIFE: <span class="text-brand">70 days</span></li> --}}
                                     </ul>
                                     <ul class="float-start">
-                                        <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
-                                        <li class="mb-5">Tags: <a href="#" rel="tag">Snack</a>, <a
-                                                href="#" rel="tag">Organic</a>, <a href="#"
-                                                rel="tag">Brown</a></li>
-                                        <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li>
+                                        <li class="mb-5">Vendedor: <a
+                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}"
+                                                rel="tag">{{ $publicacion->usuario->vendedor->nombres }}
+                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></li>
+                                        <li class="mb-5">Fecha publicación:<span class="text-brand">
+                                                {{ $publicacion->created_at }}</span></li>
+                                        {{-- <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -130,18 +123,14 @@
                             <ul class="nav nav-tabs text-uppercase">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="Description-tab" data-bs-toggle="tab"
-                                        href="#Description">Description</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab"
-                                        href="#Additional-info">Additional info</a>
+                                        href="#Description">Detalles</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab"
-                                        href="#Vendor-info">Vendor</a>
+                                        href="#Vendor-info">Vendedor</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Reviews
+                                    <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Comentarios
                                         (3)</a>
                                 </li>
                             </ul>
@@ -202,102 +191,13 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="Additional-info">
-                                    <table class="font-md">
-                                        <tbody>
-                                            <tr class="stand-up">
-                                                <th>Stand Up</th>
-                                                <td>
-                                                    <p>35″L x 24″W x 37-45″H(front to back wheel)</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="folded-wo-wheels">
-                                                <th>Folded (w/o wheels)</th>
-                                                <td>
-                                                    <p>32.5″L x 18.5″W x 16.5″H</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="folded-w-wheels">
-                                                <th>Folded (w/ wheels)</th>
-                                                <td>
-                                                    <p>32.5″L x 24″W x 18.5″H</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="door-pass-through">
-                                                <th>Door Pass Through</th>
-                                                <td>
-                                                    <p>24</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="frame">
-                                                <th>Frame</th>
-                                                <td>
-                                                    <p>Aluminum</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="weight-wo-wheels">
-                                                <th>Weight (w/o wheels)</th>
-                                                <td>
-                                                    <p>20 LBS</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="weight-capacity">
-                                                <th>Weight Capacity</th>
-                                                <td>
-                                                    <p>60 LBS</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="width">
-                                                <th>Width</th>
-                                                <td>
-                                                    <p>24″</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="handle-height-ground-to-handle">
-                                                <th>Handle height (ground to handle)</th>
-                                                <td>
-                                                    <p>37-45″</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="wheels">
-                                                <th>Wheels</th>
-                                                <td>
-                                                    <p>12″ air / wide track slick tread</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="seat-back-height">
-                                                <th>Seat back height</th>
-                                                <td>
-                                                    <p>21.5″</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="head-room-inside-canopy">
-                                                <th>Head room (inside canopy)</th>
-                                                <td>
-                                                    <p>25″</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="pa_color">
-                                                <th>Color</th>
-                                                <td>
-                                                    <p>Black, Blue, Red, White</p>
-                                                </td>
-                                            </tr>
-                                            <tr class="pa_size">
-                                                <th>Size</th>
-                                                <td>
-                                                    <p>M, S</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                                 <div class="tab-pane fade" id="Vendor-info">
                                     <div class="vendor-logo d-flex mb-30">
-                                        <img src="assets/imgs/vendor/vendor-18.svg" alt="" />
+                                        <img src="{{ $publicacion->usuario->fotoperfil }}" alt="" />
                                         <div class="vendor-name ml-15">
                                             <h6>
-                                                <a href="vendor-details-2.html">Noodles Co.</a>
+                                                <a href="/vervendedor/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a>
                                             </h6>
                                             <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
@@ -308,12 +208,15 @@
                                         </div>
                                     </div>
                                     <ul class="contact-infor mb-50">
-                                        <li><img src="assets/imgs/theme/icons/icon-location.svg"
-                                                alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave
-                                                undefined Kent, Utah 53127 United States</span></li>
-                                        <li><img src="assets/imgs/theme/icons/icon-contact.svg"
-                                                alt="" /><strong>Contact Seller:</strong><span>(+91) -
-                                                540-025-553</span></li>
+                                        <li><i class="fa-solid fa-location-dot"></i><strong> Dirección: </strong>
+                                            <span>{{ $publicacion->usuario->vendedor->direccion }},
+                                                {{ $publicacion->usuario->vendedor->municipio->ciudad }} -
+                                                {{ $publicacion->usuario->vendedor->municipio->departamento->departamento }}</span>
+                                        </li>
+                                        <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
+                                                {{ $publicacion->usuario->vendedor->n_celular }}</span></li>
+                                        <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>(+57)
+                                                {{ $publicacion->usuario->vendedor->email }}</span></li>
                                     </ul>
                                     <div class="d-flex mb-55">
                                         <div class="mr-30">
@@ -516,166 +419,48 @@
                     </div>
                     <div class="row mt-60">
                         <div class="col-12">
-                            <h2 class="section-title style-1 mb-30">Related products</h2>
+                            <h2 class="section-title style-1 mb-30">Productos relacionados</h2>
                         </div>
                         <div class="col-12">
                             <div class="row related-products">
-                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                    <div class="product-cart-wrap hover-up">
-                                        <div class="product-img-action-wrap">
-                                            <div class="product-img product-img-zoom">
-                                                <a href="shop-product-right.html" tabindex="0">
-                                                    <img class="default-img" src="assets/imgs/shop/product-2-1.jpg"
-                                                        alt="" />
-                                                    <img class="hover-img" src="assets/imgs/shop/product-2-2.jpg"
-                                                        alt="" />
-                                                </a>
+                                @foreach ($relacionados as $relacionado)
+                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                                        <div class="product-cart-wrap hover-up">
+                                            <div class="product-img-action-wrap">
+                                                <div class="product-img product-img-zoom">
+                                                    <a href="/verpublicacion/{{$relacionado->id}}" tabindex="0">
+                                                        <img class="default-img" src="{{$relacionado->imagenes[0]->ruta}}"
+                                                            alt="" />
+                                                        <img class="hover-img" src="{{$relacionado->imagenes[0]->ruta}}"
+                                                            alt="" />
+                                                    </a>
+                                                </div>
+                                                {{-- <div class="product-action-1">
+                                                    <a aria-label="Ver detalles" class="action-btn small hover-up"
+                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
+                                                            class="fi-rs-search"></i></a>
+                                                </div> --}}
+                                                <div class="product-badges product-badges-position product-badges-mrg">
+                                                    <span class="new">Disponible</span>
+                                                </div>
                                             </div>
-                                            <div class="product-action-1">
-                                                <a aria-label="Quick view" class="action-btn small hover-up"
-                                                    data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                        class="fi-rs-search"></i></a>
-                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                    href="shop-wishlist.html" tabindex="0"><i
-                                                        class="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn small hover-up"
-                                                    href="shop-compare.html" tabindex="0"><i
-                                                        class="fi-rs-shuffle"></i></a>
-                                            </div>
-                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                <span class="hot">Hot</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-content-wrap">
-                                            <h2><a href="shop-product-right.html" tabindex="0">Ulstra Bass Headphone</a>
-                                            </h2>
-                                            <div class="rating-result" title="90%">
-                                                <span> </span>
-                                            </div>
-                                            <div class="product-price">
-                                                <span>$238.85 </span>
-                                                <span class="old-price">$245.8</span>
+                                            <div class="product-content-wrap">
+                                                <h2><a href="/verpublicacion/{{$relacionado->id}}" tabindex="0">{{$relacionado->productos->producto}}</a>
+                                                </h2>
+                                                <div class="rating-result" title="90%">
+                                                    <span> </span>
+                                                </div>
+                                                <div class="product-price">
+                                                    <span>$ {{$relacionado->precios->precio}}</span>
+                                                    <span class="" style="font-size:12px !important"> X
+                                                    {{ $relacionado->unidades->unidad }}</span>
+                                                    {{-- <span class="old-price">$245.8</span> --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                    <div class="product-cart-wrap hover-up">
-                                        <div class="product-img-action-wrap">
-                                            <div class="product-img product-img-zoom">
-                                                <a href="shop-product-right.html" tabindex="0">
-                                                    <img class="default-img" src="assets/imgs/shop/product-3-1.jpg"
-                                                        alt="" />
-                                                    <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg"
-                                                        alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="product-action-1">
-                                                <a aria-label="Quick view" class="action-btn small hover-up"
-                                                    data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                        class="fi-rs-search"></i></a>
-                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                    href="shop-wishlist.html" tabindex="0"><i
-                                                        class="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn small hover-up"
-                                                    href="shop-compare.html" tabindex="0"><i
-                                                        class="fi-rs-shuffle"></i></a>
-                                            </div>
-                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                <span class="sale">-12%</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-content-wrap">
-                                            <h2><a href="shop-product-right.html" tabindex="0">Smart Bluetooth
-                                                    Speaker</a></h2>
-                                            <div class="rating-result" title="90%">
-                                                <span> </span>
-                                            </div>
-                                            <div class="product-price">
-                                                <span>$138.85 </span>
-                                                <span class="old-price">$145.8</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                    <div class="product-cart-wrap hover-up">
-                                        <div class="product-img-action-wrap">
-                                            <div class="product-img product-img-zoom">
-                                                <a href="shop-product-right.html" tabindex="0">
-                                                    <img class="default-img" src="assets/imgs/shop/product-4-1.jpg"
-                                                        alt="" />
-                                                    <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg"
-                                                        alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="product-action-1">
-                                                <a aria-label="Quick view" class="action-btn small hover-up"
-                                                    data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                        class="fi-rs-search"></i></a>
-                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                    href="shop-wishlist.html" tabindex="0"><i
-                                                        class="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn small hover-up"
-                                                    href="shop-compare.html" tabindex="0"><i
-                                                        class="fi-rs-shuffle"></i></a>
-                                            </div>
-                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                <span class="new">New</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-content-wrap">
-                                            <h2><a href="shop-product-right.html" tabindex="0">HomeSpeak 12UEA Goole</a>
-                                            </h2>
-                                            <div class="rating-result" title="90%">
-                                                <span> </span>
-                                            </div>
-                                            <div class="product-price">
-                                                <span>$738.85 </span>
-                                                <span class="old-price">$1245.8</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-12 col-sm-6 d-lg-block d-none">
-                                    <div class="product-cart-wrap hover-up mb-0">
-                                        <div class="product-img-action-wrap">
-                                            <div class="product-img product-img-zoom">
-                                                <a href="shop-product-right.html" tabindex="0">
-                                                    <img class="default-img" src="assets/imgs/shop/product-5-1.jpg"
-                                                        alt="" />
-                                                    <img class="hover-img" src="assets/imgs/shop/product-3-2.jpg"
-                                                        alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="product-action-1">
-                                                <a aria-label="Quick view" class="action-btn small hover-up"
-                                                    data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                        class="fi-rs-search"></i></a>
-                                                <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                    href="shop-wishlist.html" tabindex="0"><i
-                                                        class="fi-rs-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn small hover-up"
-                                                    href="shop-compare.html" tabindex="0"><i
-                                                        class="fi-rs-shuffle"></i></a>
-                                            </div>
-                                            <div class="product-badges product-badges-position product-badges-mrg">
-                                                <span class="hot">Hot</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-content-wrap">
-                                            <h2><a href="shop-product-right.html" tabindex="0">Dadua Camera 4K
-                                                    2022EF</a></h2>
-                                            <div class="rating-result" title="90%">
-                                                <span> </span>
-                                            </div>
-                                            <div class="product-price">
-                                                <span>$89.8 </span>
-                                                <span class="old-price">$98.8</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>

@@ -94,7 +94,7 @@
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
-                                    <a href="shop-grid-right.html">Hodo Foods</a>
+                                    <a href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                                 </div>
                                 <h2><a href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a></h2>
                                 <div class="product-rate-cover">
