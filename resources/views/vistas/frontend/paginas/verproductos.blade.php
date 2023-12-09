@@ -72,8 +72,8 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a class="btnverimagenes" data-bs-toggle="modal"
-                                                data-bs-target="#quickViewModal"
-                                                data-idpublicacion='{{ $publicacion->id }}' data-datos="{{$vendedor->usuario->publicaciones}}">
+                                                data-bs-target="#quickViewModal" data-idpublicacion='{{ $publicacion->id }}'
+                                                data-datos="{{ $vendedor->usuario->publicaciones }}">
                                                 <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                     alt="" />
                                                 <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
@@ -83,11 +83,13 @@
                                         <div class="product-action-1">
                                             <a aria-label="Ver detalles" class="action-btn btnverimagenes"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                                data-idpublicacion='{{ $publicacion->id }}' data-datos="{{$vendedor->usuario->publicaciones}}"><i class="fi-rs-eye"></i></a>
+                                                data-idpublicacion='{{ $publicacion->id }}'
+                                                data-datos="{{ $vendedor->usuario->publicaciones }}"><i
+                                                    class="fi-rs-eye"></i></a>
                                         </div>
                                     </div>
                                     <div class="product-content-wrap">
-                                        <h2><a href="shop-product-right.html">{{ $publicacion->productos->producto }}</a>
+                                        <h2><a href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
                                         </h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
@@ -199,12 +201,24 @@
                 </a>
                 <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
                     <div class="d-flex categori-dropdown-inner">
-                        <ul class="categorias-desplegable">
-                            @foreach ($categorias as $categoria)
+                        <ul>
+                            @foreach ($categorias->chunk(count($categorias) / 2)[0] as $categoria)
                                 @if ($categoria->estado === 1)
                                     <li>
                                         <a href="/vercategoria/{{ $categoria->id }}">
-                                            <img class="flex "src="{!! $categoria->icono !!}" />
+                                            <img src="{!! $categoria->icono !!}" />
+                                            {{ $categoria->categoria }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                        <ul class="end">
+                            @foreach ($categorias->chunk(count($categorias) / 2)[1] as $categoria)
+                                @if ($categoria->estado === 1)
+                                    <li>
+                                        <a href="/vercategoria/{{ $categoria->id }}">
+                                            <img src="{!! $categoria->icono !!}" />
                                             {{ $categoria->categoria }}
                                         </a>
                                     </li>
@@ -223,68 +237,26 @@
                             <a href="/index">Inicio</a>
                         </li>
                         <li class="position-static">
-                            <a href="#">Mega menú <i class="fi-rs-angle-down"></i></a>
-                            <ul class="mega-menu">
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Frutas y verduras</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Carne y aves de corral</a></li>
-                                        <li><a href="shop-product-right.html">Vegetales frescos</a></li>
-                                        <li><a href="shop-product-right.html">Hierbas y condimentos</a></li>
-                                        <li><a href="shop-product-right.html">Cortes y brotes</a></li>
-                                        <li><a href="shop-product-right.html">Frutas y verduras exóticas</a></li>
-                                        <li><a href="shop-product-right.html">Productos envasados</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Desayuno y lácteos</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Leche y leche saborizada</a></li>
-                                        <li><a href="shop-product-right.html">Mantequilla y margarina</a></li>
-                                        <li><a href="shop-product-right.html">Sustitutos de huevos</a></li>
-                                        <li><a href="shop-product-right.html">Mermeladas</a></li>
-                                        <li><a href="shop-product-right.html">Crema agria</a></li>
-                                        <li><a href="shop-product-right.html">Queso</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Carne y mariscos</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Salchichas para el desayuno</a></li>
-                                        <li><a href="shop-product-right.html">Salchichas para la cena</a></li>
-                                        <li><a href="shop-product-right.html">Pollo</a></li>
-                                        <li><a href="shop-product-right.html">Embutidos rebanados</a></li>
-                                        <li><a href="shop-product-right.html">Filetes de captura silvestre</a></li>
-                                        <li><a href="shop-product-right.html">Cangrejo y mariscos</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-34">
-                                    <div class="menu-banner-wrap">
-                                        <a href="shop-product-right.html"><img
-                                                src="{{ asset('assetsfront/imgs/banner/banner-menu.png') }}"
-                                                alt="Nest" /></a>
-                                        <div class="menu-banner-content">
-                                            <h4>Ofertas especiales</h4>
-                                            <h3>
-                                                ¡No te pierdas<br />
-                                                las tendencias
-                                            </h3>
-                                            <div class="menu-banner-price">
-                                                <span class="new-price text-success">Ahorra hasta un 50%</span>
-                                            </div>
-                                            <div class="menu-banner-btn">
-                                                <a href="shop-product-right.html">Compra ahora</a>
-                                            </div>
-                                        </div>
-                                        <div class="menu-banner-discount">
-                                            <h3>
-                                                <span>25%</span>
-                                                de descuento
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </li>
+                        <li>
+                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <ul class="sub-menu">
+                                @foreach ($categorias as $categoria)
+                                    <li>
+                                        <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }} <i
+                                                class="fi-rs-angle-right"></i></a>
+                                        <ul class="level-menu">
+                                            @foreach ($categoria->subcategorias as $subcategoria)
+                                                <li>
+                                                    <a
+                                                        href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                                </li>
+                                            @endforeach
+
+                                        </ul>
+                                    </li>
+                                @endforeach
                             </ul>
+                        </li>
                         </li>
                         <li>
                             <a href="/verasociaciones">Asociaciones <i class="fi-rs-angle-down"></i></a>
@@ -305,68 +277,6 @@
         <div class="hotline d-none d-lg-flex">
             <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
             <p>xxx - xxxxx <span>Soporte</span></p>
-        </div>
-        <div class="header-action-icon-2 d-block d-lg-none">
-            <div class="burger-icon burger-icon-white">
-                <span class="burger-icon-top"></span>
-                <span class="burger-icon-mid"></span>
-                <span class="burger-icon-bottom"></span>
-            </div>
-        </div>
-        <div class="header-action-right d-block d-lg-none">
-            <div class="header-action-2">
-                <div class="header-action-icon-2">
-                    <a href="shop-wishlist.html">
-                        <img alt="Nest" src="{{ asset('assetsfront/imgs/theme/icons/icon-heart.svg') }}" />
-                        <span class="pro-count white">4</span>
-                    </a>
-                </div>
-                <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
-                        <img alt="Nest" src="{{ asset('assetsfront/imgs/theme/icons/icon-cart.svg') }}" />
-                        <span class="pro-count white">2</span>
-                    </a>
-                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                        <ul>
-                            <li>
-                                <div class="shopping-cart-img">
-                                    <a href="shop-product-right.html"><img alt="Nest"
-                                            src="{{ asset('assetsfront/imgs/shop/thumbnail-3.jpg') }}" /></a>
-                                </div>
-                                <div class="shopping-cart-title">
-                                    <h4><a href="shop-product-right.html">Camisas Plain Striola</a></h4>
-                                    <h3><span>1 × </span>$800.00</h3>
-                                </div>
-                                <div class="shopping-cart-delete">
-                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="shopping-cart-img">
-                                    <a href="shop-product-right.html"><img alt="Nest"
-                                            src="{{ asset('assetsfront/imgs/shop/thumbnail-4.jpg') }}" /></a>
-                                </div>
-                                <div class="shopping-cart-title">
-                                    <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
-                                    <h3><span>1 × </span>$3500.00</h3>
-                                </div>
-                                <div class="shopping-cart-delete">
-                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="shopping-cart-footer">
-                            <div class="shopping-cart-total">
-                                <h4>Total <span>$383.00</span></h4>
-                            </div>
-                            <div class="shopping-cart-button">
-                                <a href="shop-cart.html">Ver carrito</a>
-                                <a href="shop-checkout.html">Pago</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection
