@@ -4068,6 +4068,10 @@ table .product-thumbnail img {
     overflow: hidden;
     max-height: 320px;
     padding: 25px 25px 0 25px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-cart-wrap .product-img-action-wrap .product-action-1 {
@@ -5089,11 +5093,13 @@ table .product-thumbnail img {
 .slider-nav-thumbnails .slick-slide {
     position: relative;
     border-radius: 15px;
+    max-width: 300px;
     overflow: hidden;
 }
 
 .slider-nav-thumbnails .slick-slide img {
     border-radius: 17px;
+    max-width: 300px;
 }
 
 .slider-nav-thumbnails .slick-slide.slick-current::before {

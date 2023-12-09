@@ -2,11 +2,11 @@
 @section('script')
     <script>
         var AJAX = "/index_peticiones";
-        var datosProductos = @json($vendedor);
-        $(document).ready(function() {
-            console.log(datosProductos);
+        $(document).ready(function() {            
             $(".btnverimagenes").on("click", function(e) {
                 var valorData = $(this).data("idpublicacion");
+                var datos = $(this).data("datos");
+                console.log(valorData);
                 var divimgprincipal = $(".product-image-slider");
                 var divImgSlider = $(".slider-nav-thumbnails");
                 var divInformacion = $(".detail-info");
@@ -22,18 +22,21 @@
                 divimgprincipal.empty();
                 divImgSlider.empty();
                 divInformacion.empty();
-                $.each(datosProductos.usuario.publicaciones, function(index, publicacion) {
+                $.each(datos, function(index, publicacion) {
+                    console.log("aqui");
                     if (publicacion.id == valorData) {
                         $.each(publicacion.imagenes, function(index, imagen) {
                             var nuevoElemento = $(
-                                "<figure class='border-radius-10'><img src='" +
+                                "<figure class='border-radius-10' style='height: 300px; display: flex; align-items:center;justify-content: center;'><img src='" +
                                 imagen.ruta +
-                                "' alt='product image' /></figure>");
+                                "' style='max-width:250px;display: flex; align-items:center;justify-content: center;' alt='product image' /></figure>"
+                            );
                             divimgprincipal.append(nuevoElemento);
                             var nuevoElementoSlider = $(
-                                "<div><img src='" +
+                                "<div style='height: 50px; display: flex; align-items:center;justify-content: center;'><img src='" +
                                 imagen.ruta +
-                                "' alt='product image' /></div>");
+                                "' style='max-width:50px;' alt='product image' /></div>"
+                            );
                             divImgSlider.append(nuevoElementoSlider);
                         });
                         var contenidoDespuesDeImagenes = `

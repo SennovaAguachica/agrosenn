@@ -20,7 +20,9 @@
                 <div class="col-lg-4-5">
                     <div class="shop-product-fillter">
                         <div class="totall-product">
-                            <p>Encontramos <strong class="text-brand">{{ count($vendedor->usuario->publicaciones) }}</strong> productos disponibles para ti!</p>
+                            <p>Encontramos <strong
+                                    class="text-brand">{{ count($vendedor->usuario->publicaciones) }}</strong> productos
+                                disponibles para ti!</p>
                         </div>
                         <div class="sort-by-product-area">
                             <div class="sort-by-cover mr-10">
@@ -71,8 +73,8 @@
                                         <div class="product-img product-img-zoom">
                                             <a class="btnverimagenes" data-bs-toggle="modal"
                                                 data-bs-target="#quickViewModal"
-                                                data-idpublicacion='{{ $publicacion->id }}'>
-                                                <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta}}"
+                                                data-idpublicacion='{{ $publicacion->id }}' data-datos="{{$vendedor->usuario->publicaciones}}">
+                                                <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                     alt="" />
                                                 <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                     alt="" />
@@ -81,7 +83,7 @@
                                         <div class="product-action-1">
                                             <a aria-label="Ver detalles" class="action-btn btnverimagenes"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                                data-idpublicacion='{{ $publicacion->id }}'><i class="fi-rs-eye"></i></a>
+                                                data-idpublicacion='{{ $publicacion->id }}' data-datos="{{$vendedor->usuario->publicaciones}}"><i class="fi-rs-eye"></i></a>
                                         </div>
                                     </div>
                                     <div class="product-content-wrap">
@@ -107,7 +109,8 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fa-brands fa-whatsapp fa-xl"></i> Lo
+                                                <a class="add" href="#"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                                    Lo
                                                     quiero! </a>
                                             </div>
                                         </div>
@@ -200,7 +203,7 @@
                             @foreach ($categorias as $categoria)
                                 @if ($categoria->estado === 1)
                                     <li>
-                                        <a href="#">
+                                        <a href="/vercategoria/{{ $categoria->id }}">
                                             <img class="flex "src="{!! $categoria->icono !!}" />
                                             {{ $categoria->categoria }}
                                         </a>

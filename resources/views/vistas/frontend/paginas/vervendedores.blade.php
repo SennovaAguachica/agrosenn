@@ -1493,7 +1493,7 @@
                             @foreach ($categorias as $categoria)
                                 @if ($categoria->estado === 1)
                                     <li>
-                                        <a href="#">
+                                        <a href="/vercategoria/{{ $categoria->id }}">
                                             <img class="flex "src="{!! $categoria->icono !!}" />
                                             {{ $categoria->categoria }}
                                         </a>
