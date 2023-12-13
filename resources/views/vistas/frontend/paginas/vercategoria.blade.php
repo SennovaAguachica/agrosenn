@@ -3,29 +3,44 @@
     <title>Index</title>
 @endsection
 @section('contenido')
-    <div class="page-header breadcrumb-wrap">
+    <div class="page-header mt-30 mb-50">
         <div class="container">
-            <div class="breadcrumb">
-                <a href="/" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
-                <span></span> Asociaciones
+            <div class="archive-header">
+                <div class="row align-items-center">
+                    <div class="col-xl-12">
+                        <h1 class="mb-15">{{ $categoria->categoria }}</h1>
+                        <div class="breadcrumb">
+                            <a href="/index" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
+                            <span></span> Categorias <span></span> {{ $categoria->categoria }}
+                        </div>
+                    </div>
+                    <div class="col-xl-12 text-end d-none d-xl-block">
+                        <ul class="tags-list">
+                            @foreach ($categoria->subcategorias as $subcategoria)
+                                <li class="hover-up">
+                                    <a href="/versubcategoria/{{ $subcategoria->id }}"><i
+                                            class="fi-rs-cross mr-10"></i>{{ $subcategoria->subcategoria }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="container mb-30">
-        <div class="archive-header-2 text-center">
-            <h2 class="mb-50">Vendedores asociados</h2>
-        </div>
         <div class="row flex-row-reverse">
             <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
-                        <p>We found <strong class="text-brand">29</strong> items for you!</p>
+                        <p>Se encontraron <strong class="text-brand">{{ count($publicaciones) }}</strong> productos
+                            disponibles!</p>
                     </div>
                     <div class="sort-by-product-area">
                         <div class="sort-by-cover mr-10">
                             <div class="sort-by-product-wrap">
                                 <div class="sort-by">
-                                    <span><i class="fi-rs-apps"></i>Show:</span>
+                                    <span><i class="fi-rs-apps"></i>Ver:</span>
                                 </div>
                                 <div class="sort-by-dropdown-wrap">
                                     <span> 50 <i class="fi-rs-angle-small-down"></i></span>
@@ -63,115 +78,78 @@
                     </div>
                 </div>
                 <div class="row product-grid">
-                    @foreach ($vendedores as $vendedor)
-                        <div class="col-lg-6 col-md-6 col-12 col-sm-6">
-                            <div class="vendor-wrap style-2 mb-40">
-                                <div class="vendor-img-action-wrap">
-                                    <div class="vendor-img">
-                                        <a href="#">
-                                            <img class="default-img" src="{{ $vendedor->usuario->fotoperfil }}"
+                    @foreach ($publicaciones as $publicacion)
+                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                            <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn" data-wow-delay=".1s">
+                                <div class="product-img-action-wrap">
+                                    <div class="product-img product-img-zoom">
+                                        <a class="btnverimagenes" data-bs-toggle="modal" data-bs-target="#quickViewModal"
+                                            data-idpublicacion='{{ $publicacion->id }}' data-datos="{{ $publicaciones }}">
+                                            <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
+                                                alt="" />
+                                            <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                 alt="" />
                                         </a>
                                     </div>
-                                    <div class="mt-10">
-                                        <span
-                                            class="font-small total-product">{{ count($vendedor->usuario->publicaciones) }}
-                                            productos ofertados</span>
+                                    <div class="product-action-1">
+                                        <a aria-label="Ver detalles" class="action-btn btnverimagenes"
+                                            data-bs-toggle="modal" data-bs-target="#quickViewModal"
+                                            data-idpublicacion='{{ $publicacion->id }}'
+                                            data-datos="{{ $publicaciones }}"><i class="fi-rs-eye"></i></a>
                                     </div>
+                                    {{-- <div class="product-badges product-badges-position product-badges-mrg">
+                                                    <span class="hot">Caliente</span>
+                                                </div> --}}
                                 </div>
-                                <div class="vendor-content-wrap">
-                                    <div class="mb-30">
-                                        <h4 class="mb-5"><a href="vendor-details-1.html">{{ $vendedor->nombres }}
-                                                {{ $vendedor->apellidos }}</a>
-                                        </h4>
-                                        <div class="product-rate-cover">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
-                                            </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                <div class="product-content-wrap">
+                                    <div class="product-category">
+                                        <a href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
+                                    </div>
+                                    <h2><a href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
+                                    </h2>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
                                         </div>
-                                        <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
-                                            <ul class="contact-infor text-muted">
-                                                <li><img src="assets/imgs/theme/icons/icon-location.svg"
-                                                        alt="" /><strong>Dirección: </strong>
-                                                    <span>{{ $vendedor->direccion }}</span>
-                                                </li>
-                                                <li><img src="assets/imgs/theme/icons/icon-contact.svg"
-                                                        alt="" /><strong>Contacto:</strong><span>(+57) -
-                                                        {{ $vendedor->n_celular }} </span></li>
-                                            </ul>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-small text-muted">Producto de <a
+                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                    </div>
+                                    <div class="product-card-bottom">
+                                        <div class="product-price">
+                                            <span>$ {{ $publicacion->precios->precio }}</span>
+                                            <span class="" style="font-size:12px !important">X
+                                                {{ $publicacion->unidades->unidad }}</span>
                                         </div>
                                     </div>
-                                    <div class="mb-30">
-                                        <a href='/verproductos/{{ $vendedor->id }}' class="btn btn-md">Ver
-                                            productos <i class="fa-solid fa-right-long fa-xl"></i></a>
+                                    <div class="product-card-bottom">
+                                        <div class="add-cart">
+                                            <a class="add" href="#"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                                Lo
+                                                quiero! </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
-
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-                <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
-                    <div class="vendor-logo mb-30">
-                        <img src="{{ $asociacion->usuario->fotoperfil }}" alt="" />
-                    </div>
-                    <div class="vendor-info">
-                        <h4 class="mb-5"><a href="vendor-details-1.html"
-                                class="text-heading">{{ $asociacion->asociacion }}</a>
-                        </h4>
-                        <div class="product-rate-cover mb-15">
-                            <div class="product-rate d-inline-block">
-                                <div class="product-rating" style="width: 90%"></div>
-                            </div>
-                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="vendor-des mb-30">
-                            <p class="font-sm text-heading">Got a smooth, buttery spread in your fridge? Chances are
-                                good that it's Good Chef. This brand made Lionto's list of the most popular grocery
-                                brands across the country.</p>
-                        </div>
-                        <div class="follow-social mb-20">
-                            <h6 class="mb-15">Follow Us</h6>
-                            <ul class="social-network">
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-tw.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-fb.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-insta.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-pin.svg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="vendor-info">
-                            <ul class="font-sm mb-20">
-                                <li><img class="mr-5" src="assets/imgs/theme/icons/icon-location.svg"
-                                        alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave
-                                        undefined, Utah 53127 United States</span></li>
-                                <li><img class="mr-5" src="assets/imgs/theme/icons/icon-contact.svg"
-                                        alt="" /><strong>Call Us:</strong><span>(+91) -
-                                        540-025-124553</span>
-                                </li>
-                            </ul>
-                            <a href="vendor-details-1.html" class="btn btn-xs">Contact Seller <i
-                                    class="fi-rs-arrow-small-right"></i></a>
-                        </div>
-                    </div>
+                <div class="sidebar-widget widget-category-2 mb-30">
+                    <h5 class="section-title style-1 mb-30">Subcategorias</h5>
+                    <ul>
+                        @foreach ($subcategoriasConPublicaciones as $subcategoria)
+                            <li>
+                                <a href="/versubcategoria/{{ $subcategoria->id }}"> <img src="{{ $subcategoria->imagen }}"
+                                        alt="" />{{ $subcategoria->subcategoria }}</a><span
+                                    class="count">{{ $subcategoria->npublicaciones }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
@@ -180,7 +158,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -224,7 +202,7 @@
                         <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
                                 alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
-                            <a href="/">Inicio</a>
+                            <a href="/index">Inicio</a>
                         </li>
                         <li class="position-static">
                         <li>

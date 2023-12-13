@@ -29,11 +29,6 @@ class Publicaciones extends Model
         return $this->belongsTo(Unidades::class, 'unidades_id', 'id');
     }
 
-    public function vendedores()
-    {
-        return $this->belongsTo(Vendedores::class, 'vendedores_id', 'id');
-    }
-
     public function usuario()
     {
         return $this->belongsTo(User::class, 'id_usuario', 'id');

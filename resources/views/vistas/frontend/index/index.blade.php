@@ -41,20 +41,13 @@
         </div>
     </section>
 
-    {{-- <section class="popular-categories section-padding">
+    <section class="popular-categories section-padding">
         <div class="container wow animate__animated animate__fadeIn">
             <div class="section-title">
                 <div class="title">
-                    <h3>Categorías Destacadas</h3>
+                    <h3>Categorías ofertadas</h3>
                     <ul class="list-inline nav nav-tabs links">
-                        <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Pastel &
-                                Leche</a></li>
-                        <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Café & Té</a>
-                        </li>
-                        <li class="list-inline-item nav-item"><a class="nav-link active" href="shop-grid-right.html">Comida
-                                para Mascotas</a></li>
-                        <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Verduras</a>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow"
@@ -62,7 +55,21 @@
             </div>
             <div class="carausel-10-columns-cover position-relative">
                 <div class="carausel-10-columns" id="carausel-10-columns">
-                    <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                    @foreach ($categorias as $item)
+                        @php
+                            // Obtiene el índice actual del bucle + 9 para que esté en el rango de 9 a 15
+                            $bgClass = 'bg-' . (($loop->index % 7) + 9);
+                        @endphp
+                        <div class="card-2 {{ $bgClass }} wow animate__animated animate__fadeInUp"
+                            data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="/vercategoria/{{$item->id}}"><img src="{{ $item->imagen }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="/vercategoria/{{$item->id}}">{{ $item->categoria }}</a></h6>
+                            <span>26 artículos</span>
+                        </div>
+                    @endforeach
+                    {{-- <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                         <figure class="img-hover-scale overflow-hidden">
                             <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-13.png" alt="" /></a>
                         </figure>
@@ -113,8 +120,7 @@
                     </div>
                     <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
                         <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-4.png"
-                                    alt="" /></a>
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-4.png" alt="" /></a>
                         </figure>
                         <h6><a href="shop-grid-right.html">Ciruela Negra</a></h6>
                         <span>123 artículos</span>
@@ -142,13 +148,13 @@
                         </figure>
                         <h6><a href="shop-grid-right.html">Auriculares</a></h6>
                         <span>87 artículos</span>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
 
-    {{-- <!--End category slider-->
+    <!--End category slider-->
     <section class="banners mb-25">
         <div class="container">
             <div class="row">
@@ -190,651 +196,188 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
 
     <!--End banners-->
-    {{-- <section class="product-tabs section-padding position-relative">
+    <section class="product-tabs section-padding position-relative">
         <div class="container">
-            <div class="section-title style-2 wow animate__animated animate__fadeIn">
+            <div class="section-title style-2 animate__animated animate__fadeIn">
                 <h3>Productos Populares</h3>
                 <ul class="nav nav-tabs links" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one"
-                            type="button" role="tab" aria-controls="tab-one" aria-selected="true">Todos</button>
+                        <button class="nav-link active" id="nav-tab-all" data-bs-toggle="tab" data-bs-target="#tab-all"
+                            type="button" role="tab" aria-controls="tab-all" aria-selected="true">Todos</button>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two"
-                            type="button" role="tab" aria-controls="tab-two" aria-selected="false">Leches y
-                            Productos Lácteos</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three"
-                            type="button" role="tab" aria-controls="tab-three" aria-selected="false">Cafés y
-                            Tés</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="nav-tab-four" data-bs-toggle="tab" data-bs-target="#tab-four"
-                            type="button" role="tab" aria-controls="tab-four" aria-selected="false">Alimentos para
-                            Mascotas</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="nav-tab-five" data-bs-toggle="tab" data-bs-target="#tab-five"
-                            type="button" role="tab" aria-controls="tab-five" aria-selected="false">Carnes</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="nav-tab-six" data-bs-toggle="tab" data-bs-target="#tab-six"
-                            type="button" role="tab" aria-controls="tab-six"
-                            aria-selected="false">Vegetales</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab" data-bs-target="#tab-seven"
-                            type="button" role="tab" aria-controls="tab-seven"
-                            aria-selected="false">Frutas</button>
-                    </li>
+                    @foreach ($subcategoriasAleatorias as $key => $subcategoria)
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-tab-{{ $subcategoria->id }}" data-bs-toggle="tab"
+                                data-bs-target="#tab-{{ $subcategoria->id }}" type="button" role="tab"
+                                aria-controls="tab-{{ $subcategoria->id }}"
+                                aria-selected="true">{{ $subcategoria->subcategoria }}</button>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
-
-            <!--End nav-tabs-->
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+                <div class="tab-pane fade show active" id="tab-all" role="tabpanel" arialabelledby="tab-all">
                     <div class="row product-grid-4">
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
-                                data-wow-delay=".1s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-1-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-1-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                    <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="hot">Caliente</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Snacks</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Semillas de Cambio Orgánicas de Quinua, Arroz
-                                            Integral y Rojo</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
+                        @foreach ($publicaciones as $publicacion)
+                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                                <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn"
+                                    data-wow-delay=".1s">
+                                    <div class="product-img-action-wrap">
+                                        <div class="product-img product-img-zoom">
+                                            <a class="btnverimagenes" data-bs-toggle="modal"
+                                                data-bs-target="#quickViewModal"
+                                                data-idpublicacion='{{ $publicacion->id }}'>
+                                                <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
+                                                    alt="" />
+                                                <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
+                                                    alt="" />
+                                            </a>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$28.85</span>
-                                            <span class="old-price">$32.8</span>
+                                        <div class="product-action-1">
+                                            <a aria-label="Ver detalles" class="action-btn btnverimagenes"
+                                                data-bs-toggle="modal" data-bs-target="#quickViewModal"
+                                                data-idpublicacion='{{ $publicacion->id }}'><i class="fi-rs-eye"></i></a>
                                         </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir</a>
+                                        {{-- <div class="product-badges product-badges-position product-badges-mrg">
+                                                    <span class="hot">Caliente</span>
+                                                </div> --}}
+                                    </div>
+                                    <div class="product-content-wrap">
+                                        <div class="product-category">
+                                            <a
+                                                href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!--end product card-->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
-                                data-wow-delay=".2s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-2-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-2-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                    <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="sale">Venta</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Hodo Foods</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Albóndigas de pollo estilo italiano todo
-                                            natural</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 80%"></div>
+                                        <h2><a href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
+                                        </h2>
+                                        <div class="product-rate-cover">
+                                            <div class="product-rate d-inline-block">
+                                                <div class="product-rating" style="width: 90%"></div>
+                                            </div>
+                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (3.5)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">Stouffer</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$52.85</span>
-                                            <span class="old-price">$55.8</span>
+                                        <div>
+                                            <span class="font-small text-muted">Producto de <a
+                                                    href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
                                         </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
+                                        <div class="product-card-bottom">
+                                            <div class="product-price">
+                                                <span>$ {{ $publicacion->precios->precio }}</span>
+                                                <span class="" style="font-size:12px !important">X
+                                                    {{ $publicacion->unidades->unidad }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-bottom">
+                                            <div class="add-cart">
+                                                <a class="add" href="#"><i
+                                                        class="fa-brands fa-whatsapp fa-xl"></i>
+                                                    Lo
+                                                    quiero! </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- fin del producto -->
-
-                        <!-- producto 2 -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
-                                data-wow-delay=".3s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-3-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-3-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                    <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="new">Nuevo</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Snacks</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Palomitas de maíz dulces y saladas Angie's
-                                            Boomchickapop</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 85%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">StarKist</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$48.85</span>
-                                            <span class="old-price">$52.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- fin del producto -->
-
-                        <!-- producto 3 -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
-                                data-wow-delay=".4s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-4-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-4-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Vegetales</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Alitas de búfalo clásicas crujientes para llevar
-                                            de Foster Farms</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$17.85</span>
-                                            <span class="old-price">$19.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- fin del producto -->
-
-                        <!-- producto 4 -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn"
-                                data-wow-delay=".5s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-5-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-5-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                    <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="best">-14%</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Comida para mascotas</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Almendras Blue Diamond ligeramente saladas</a>
-                                    </h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$23.85</span>
-                                            <span class="old-price">$25.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- fin del producto -->
-
-                        <!-- Tarjeta de producto -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap wow animate__animated animate__fadeIn" data-wow-delay=".1s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-6-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-6-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Hodo Foods</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Yogur Griego de Vainilla Chobani Complete</a>
-                                    </h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$54.85</span>
-                                            <span class="old-price">$55.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fin de la tarjeta de producto -->
-
-                        <!-- Tarjeta de producto -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap wow animate__animated animate__fadeIn" data-wow-delay=".2s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-7-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-7-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Carnes</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Canada Dry Ginger Ale – Botella de 2 L - 200 ml -
-                                            400g</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$32.85</span>
-                                            <span class="old-price">$33.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fin de la tarjeta de producto -->
-
-                        <!-- Tarjeta de producto -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap wow animate__animated animate__fadeIn" data-wow-delay=".3s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-8-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-8-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Snack</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Salmones Alaskan Rellenos de Encore Seafoods</a>
-                                    </h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$35.85</span>
-                                            <span class="old-price">$37.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fin de la tarjeta de producto -->
-
-                        <!-- Tarjeta de producto -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap wow animate__animated animate__fadeIn" data-wow-delay=".4s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-9-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-9-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                    <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="hot">Caliente</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Café</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Filetes de Pescado rebozados en Cerveza Gorton's
-                                            con papel suave</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a href="vendor-details-1.html">Old El
-                                                Paso</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$23.85</span>
-                                            <span class="old-price">$25.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fin de la tarjeta de producto -->
-
-                        <!-- Tarjeta de producto (visible solo en pantallas grandes) -->
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 d-none d-xl-block">
-                            <div class="product-cart-wrap wow animate__animated animate__fadeIn" data-wow-delay=".5s">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-10-1.jpg"
-                                                alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-10-2.jpg"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Crema</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Helado de Cono de Caramelo Haagen-Dazs</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 50%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (2.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a
-                                                href="vendor-details-1.html">Tyson</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$22.85</span>
-                                            <span class="old-price">$24.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Añadir </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fin de la tarjeta de producto (visible solo en pantallas grandes) -->
-
-                        <!--end product card-->
+                        @endforeach
                     </div>
-                    <!--End product-grid-4-->
                 </div>
-                <!--En tab one-->
-                <div class="tab-pane fade" id="tab-two" role="tabpanel" aria-labelledby="tab-two">
-                    <div class="row product-grid-4">
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap mb-30">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-10-1.jpg" alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-10-2.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Agregar a la lista de deseos" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Comparar" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                        <a aria-label="Vista rápida" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                    </div>
-                                    <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="hot">Caliente</span>
-                                    </div>
-                                </div>
-                                <div class="product-content-wrap">
-                                    <div class="product-category">
-                                        <a href="shop-grid-right.html">Snack</a>
-                                    </div>
-                                    <h2><a href="shop-product-right.html">Semillas de Cambio Quinua Orgánica, Arroz Integral y Rojo</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
+                @foreach ($subcategoriasAleatorias as $subcategoria)
+                    <div class="tab-pane fade" id="tab-{{ $subcategoria->id }}" role="tabpanel"
+                        arialabelledby="tab-{{ $subcategoria->id }}">
+                        <div class="row product-grid-4">
+                            @foreach ($publicaciones as $publicacion)
+                                @if ($publicacion->productos->subcategoria_id == $subcategoria->id)
+                                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                                        <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn"
+                                            data-wow-delay=".1s">
+                                            <div class="product-img-action-wrap">
+                                                <div class="product-img product-img-zoom">
+                                                    <a href="shop-product-right.html">
+                                                        <img class="default-img"
+                                                            src="{{ $publicacion->imagenes[0]->ruta }}" alt="" />
+                                                        <img class="hover-img"
+                                                            src="{{ $publicacion->imagenes[0]->ruta }}" alt="" />
+                                                    </a>
+                                                </div>
+                                                <div class="product-action-1">
+                                                    <a aria-label="Vista rápida" class="action-btn"
+                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
+                                                            class="fi-rs-eye"></i></a>
+                                                </div>
+                                                {{-- <div class="product-badges product-badges-position product-badges-mrg">
+                                                    <span class="hot">Caliente</span>
+                                                </div> --}}
+                                            </div>
+                                            <div class="product-content-wrap">
+                                                <div class="product-category">
+                                                    <a
+                                                        href="/versubcategoria/{{$publicacion->productos->subcategoria->id}}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
+                                                </div>
+                                                <h2><a
+                                                        href="/versubcategoria/{{$publicacion->id}}">{{ $publicacion->productos->producto }}</a>
+                                                </h2>
+                                                <div class="product-rate-cover">
+                                                    <div class="product-rate d-inline-block">
+                                                        <div class="product-rating" style="width: 90%"></div>
+                                                    </div>
+                                                    <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                                </div>
+                                                <div>
+                                                    <span class="font-small text-muted">Producto de <a
+                                                            href="/vervendedor/{{$publicacion->usuario->vendedor->id}}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                            {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                                </div>
+                                                <div class="product-card-bottom">
+                                                    <div class="product-price">
+                                                        <span>$ {{ $publicacion->precios->precio }}</span>
+                                                        <span class="" style="font-size:12px !important">X
+                                                            {{ $publicacion->unidades->unidad }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-card-bottom">
+                                                    <div class="add-cart">
+                                                        <a class="add" href="#"><i
+                                                                class="fa-brands fa-whatsapp fa-xl"></i>
+                                                            Lo
+                                                            quiero! </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
-                                    <div>
-                                        <span class="font-small text-muted">Por <a href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$28.85</span>
-                                            <span class="old-price">$32.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Añadir</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                @endif
+                            @endforeach
                         </div>
-                        <!-- Fin de la tarjeta de producto -->
-                        
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                            <div class="product-cart-wrap mb-30">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
-                                            <img class="default-img" src="assetsfront/imgs/shop/product-12-1.jpg" alt="" />
-                                            <img class="hover-img" src="assetsfront/imgs/shop/product-12-2.jpg" alt="" />
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+@endsection
+@section('categoria')
+    <div class="header-wrap header-space-between position-relative">
+        <div class="logo logo-width-1 d-block d-lg-none">
+            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+                    style="padding: 0; margin: 0" /></a>
+        </div>
+        <div class="header-nav d-none d-lg-flex">
+            <div class="main-categori-wrap d-none d-lg-block">
+                <a class="categories-button-active" href="#">
+                    <span class="fi-rs-apps"></span> <span class="et">Todas</span> las categorias <i
+                        class="fi-rs-angle-down"></i>
+                </a>
+                <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
+                    <div class="d-flex categori-dropdown-inner">
+                        <ul>
+                            @foreach ($categorias->chunk(count($categorias) / 2)[0] as $categoria)
+                                @if ($categoria->estado === 1)
+                                    <li>
+                                        <a href="/vercategoria/{{ $categoria->id }}">
+                                            <img src="{!! $categoria->icono !!}" />
+                                            {{ $categoria->categoria }}
                                         </a>
                                     </div>
                                     <div class="product-action-1">
@@ -5143,151 +4686,53 @@
                             @foreach ($categorias as $categoria)
                                 @if ($categoria->estado === 1)
                                     <li>
-                                        <a href="#">
+                                        <a href="/vercategoria/{{ $categoria->id }}">
                                             <img class="flex "src="{!! $categoria->icono !!}" />
                                             {{ $categoria->categoria }}
-                                        </a>
+                                            </a>
                                     </li>
                                 @endif
                             @endforeach
                         </ul>
-
-
-                        {{-- <ul>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-1.svg" alt="" />Lácteos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-2.svg" alt="" />Ropa y belleza</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-3.svg" alt="" />Alimentos para mascotas y juguetes</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-4.svg" alt="" />Material para hornear</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-5.svg" alt="" />Frutas frescas</a>
-                        </li>
-                    </ul>
-                    <ul class="end">
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-6.svg" alt="" />Vinos y bebidas</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-7.svg" alt="" />Mariscos frescos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-8.svg" alt="" />Comida rápida</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-9.svg" alt="" />Vegetales</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-10.svg" alt="" />Pan y jugo</a>
-                        </li>
-                    </ul> 
-                </div>
-                <div class="more_slide_open" style="display: none">
-                    <div class="d-flex categori-dropdown-inner">
-                        <ul>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-1.svg" alt="" />Lácteos</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-2.svg" alt="" />Ropa y belleza</a>
-                            </li>
-                        </ul>
-                        <ul class="end">
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-3.svg" alt="" />Vinos y bebidas</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-4.svg" alt="" />Mariscos frescos</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Mostrar más...</span></div> --}}
                     </div>
                 </div>
             </div>
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="assetsfront/imgs/theme/icons/icon-hot.svg" alt="Ofertas" /><a
-                                href="shop-grid-right.html">Ofertas</a></li>
+                        <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
+                                alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
                             <a href="/">Inicio</a>
                         </li>
                         <li class="position-static">
-                            <a href="#">Mega menú <i class="fi-rs-angle-down"></i></a>
-                            <ul class="mega-menu">
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Frutas y verduras</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Carne y aves de corral</a></li>
-                                        <li><a href="shop-product-right.html">Vegetales frescos</a></li>
-                                        <li><a href="shop-product-right.html">Hierbas y condimentos</a></li>
-                                        <li><a href="shop-product-right.html">Cortes y brotes</a></li>
-                                        <li><a href="shop-product-right.html">Frutas y verduras exóticas</a></li>
-                                        <li><a href="shop-product-right.html">Productos envasados</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Desayuno y lácteos</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Leche y leche saborizada</a></li>
-                                        <li><a href="shop-product-right.html">Mantequilla y margarina</a></li>
-                                        <li><a href="shop-product-right.html">Sustitutos de huevos</a></li>
-                                        <li><a href="shop-product-right.html">Mermeladas</a></li>
-                                        <li><a href="shop-product-right.html">Crema agria</a></li>
-                                        <li><a href="shop-product-right.html">Queso</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Carne y mariscos</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Salchichas para el desayuno</a></li>
-                                        <li><a href="shop-product-right.html">Salchichas para la cena</a></li>
-                                        <li><a href="shop-product-right.html">Pollo</a></li>
-                                        <li><a href="shop-product-right.html">Embutidos rebanados</a></li>
-                                        <li><a href="shop-product-right.html">Filetes de captura silvestre</a></li>
-                                        <li><a href="shop-product-right.html">Cangrejo y mariscos</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-34">
-                                    <div class="menu-banner-wrap">
-                                        <a href="shop-product-right.html"><img src="assetsfront/imgs/banner/banner-menu.png"
-                                                alt="Nest" /></a>
-                                        <div class="menu-banner-content">
-                                            <h4>Ofertas especiales</h4>
-                                            <h3>
-                                                ¡No te pierdas<br />
-                                                las tendencias
-                                            </h3>
-                                            <div class="menu-banner-price">
-                                                <span class="new-price text-success">Ahorra hasta un 50%</span>
-                                            </div>
-                                            <div class="menu-banner-btn">
-                                                <a href="shop-product-right.html">Compra ahora</a>
-                                            </div>
-                                        </div>
-                                        <div class="menu-banner-discount">
-                                            <h3>
-                                                <span>25%</span>
-                                                de descuento
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </li>
+                        <li>
+                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <ul class="sub-menu">
+                                @foreach ($categorias as $categoria)
+                                    <li>
+                                        <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }} <i
+                                                class="fi-rs-angle-right"></i></a>
+                                        <ul class="level-menu">
+                                            @foreach ($categoria->subcategorias as $subcategoria)
+                                                <li>
+                                                    <a
+                                                        href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                                </li>
+                                            @endforeach
+
+                                        </ul>
+                                    </li>
+                                @endforeach
                             </ul>
+                        </li>
                         </li>
                         <li>
                             <a href="/verasociaciones">Asociaciones <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($asociaciones as $asociacion)
-                                    <li><a href='/vervendedores/{{$asociacion->id}}'>{{$asociacion->asociacion}}</a></li>
+                                    <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -5299,70 +4744,8 @@
             </div>
         </div>
         <div class="hotline d-none d-lg-flex">
-            <img src="assetsfront/imgs/theme/icons/icon-headphone.svg" alt="línea directa" />
+            <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
             <p>xxx - xxxxx <span>Soporte</span></p>
-        </div>
-        <div class="header-action-icon-2 d-block d-lg-none">
-            <div class="burger-icon burger-icon-white">
-                <span class="burger-icon-top"></span>
-                <span class="burger-icon-mid"></span>
-                <span class="burger-icon-bottom"></span>
-            </div>
-        </div>
-        <div class="header-action-right d-block d-lg-none">
-            <div class="header-action-2">
-                <div class="header-action-icon-2">
-                    <a href="shop-wishlist.html">
-                        <img alt="Nest" src="assetsfront/imgs/theme/icons/icon-heart.svg" />
-                        <span class="pro-count white">4</span>
-                    </a>
-                </div>
-                <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
-                        <img alt="Nest" src="assetsfront/imgs/theme/icons/icon-cart.svg" />
-                        <span class="pro-count white">2</span>
-                    </a>
-                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                        <ul>
-                            <li>
-                                <div class="shopping-cart-img">
-                                    <a href="shop-product-right.html"><img alt="Nest"
-                                            src="assetsfront/imgs/shop/thumbnail-3.jpg" /></a>
-                                </div>
-                                <div class="shopping-cart-title">
-                                    <h4><a href="shop-product-right.html">Camisas Plain Striola</a></h4>
-                                    <h3><span>1 × </span>$800.00</h3>
-                                </div>
-                                <div class="shopping-cart-delete">
-                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="shopping-cart-img">
-                                    <a href="shop-product-right.html"><img alt="Nest"
-                                            src="assetsfront/imgs/shop/thumbnail-4.jpg" /></a>
-                                </div>
-                                <div class="shopping-cart-title">
-                                    <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
-                                    <h3><span>1 × </span>$3500.00</h3>
-                                </div>
-                                <div class="shopping-cart-delete">
-                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="shopping-cart-footer">
-                            <div class="shopping-cart-total">
-                                <h4>Total <span>$383.00</span></h4>
-                            </div>
-                            <div class="shopping-cart-button">
-                                <a href="shop-cart.html">Ver carrito</a>
-                                <a href="shop-checkout.html">Pago</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection
