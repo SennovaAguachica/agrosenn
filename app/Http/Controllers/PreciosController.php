@@ -203,7 +203,7 @@ class PreciosController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $actualizarPrecio = Precios::findOrFail($datos['id']);;
+            $actualizarPrecio = Precios::findOrFail($datos['id']);
             $actualizarPrecio->precio = $datos['precios_precio'];
             $actualizarPrecio->producto_id = $datos['precios_idproductos'];
             $actualizarPrecio->unidades_id = $datos['precios_idunidades'];
@@ -231,7 +231,7 @@ class PreciosController extends Controller
 
     public function eliminarPrecios($datos)
     {
-        //dd($datos['id']);
+
         $aErrores = array();
         DB::beginTransaction();
         if ($datos['id'] == "") {

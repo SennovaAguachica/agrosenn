@@ -205,7 +205,7 @@
                             if (data.estado == 1) {
                                 return '<span class="badge bg-success ">Disponible</span>';
                             } else {
-                                return '<span class="badge bg-primary ">No disponible</span>';
+                                return '<span class="badge bg-danger ">No disponible</span>';
                             }
                         }
                     },
@@ -368,81 +368,81 @@
             }
         }
 
-        function cargarVariasImg(campo, rutas) {
-            $(campo).fileinput('destroy');
-            const initialPreview = [];
-            const initialPreviewConfig = [];
+        // function cargarVariasImg(campo, rutas) {
+        //     $(campo).fileinput('destroy');
+        //     const initialPreview = [];
+        //     const initialPreviewConfig = [];
 
-            rutas.forEach((ruta, index) => {
-                const imgId = 'imgcargada_' + index;
-                const img =
-                    `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
+        //     rutas.forEach((ruta, index) => {
+        //         const imgId = 'imgcargada_' + index;
+        //         const img =
+        //             `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
 
-                initialPreview.push(img);
-                initialPreviewConfig.push({
-                    caption: `Imagen ${index + 1}`,
-                    width: '120px', // Ancho de la vista previa
-                    type: 'POST',
-                    url: '/eliminar_imagen',
-                    key: index, // Identificador único para la imagen
-                });
-            });
+        //         initialPreview.push(img);
+        //         initialPreviewConfig.push({
+        //             caption: `Imagen ${index + 1}`,
+        //             width: '120px', // Ancho de la vista previa
+        //             type: 'POST',
+        //             url: '/eliminar_imagen',
+        //             key: index, // Identificador único para la imagen
+        //         });
+        //     });
 
-            $(campo).fileinput({
-                initialPreview: initialPreview,
-                initialPreviewConfig: initialPreviewConfig,
-                theme: 'fa5',
-                language: 'es',
-                previewFileType: "image",
-                allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
-                showUpload: false,
-                maxFilesNum: 5,
-                required: true,
-            }).on('filebeforedelete', function(event, key, data) {
-                return new Promise(function(resolve, reject) {
-                    $.confirm({
-                        title: '¡Atención!',
-                        content: '¿Estás seguro de que quieres eliminar esta imagen?',
-                        type: 'red',
-                        buttons: {
-                            ok: {
-                                btnClass: 'btn-primary text-white',
-                                keys: ['enter'],
-                                action: function() {
-                                    $.ajaxSetup({
-                                        headers: {
-                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                        }
-                                    });
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '/eliminar_imagen',
-                                        data: {
-                                            // "_token": "{{ csrf_token() }}",
-                                            "_token": $('meta[name="csrf-token"]').attr('content'),
-                                            id: key
-                                        },
-                                        success: function(response) {
-                                            resolve();
-                                        },
-                                        error: function(error) {
-                                            reject();
-                                        }
-                                    });
-                                }
-                            },
-                            cancel: function() {
-                                $.alert('Eliminación cancelada');
-                            }
-                        }
-                    });
-                });
-            }).on('filedeleted', function(event, key, data) {
-                setTimeout(function() {
-                    $.alert('Imagen eliminada con éxito');
-                }, 900);
-            });
-        }
+        //     $(campo).fileinput({
+        //         initialPreview: initialPreview,
+        //         initialPreviewConfig: initialPreviewConfig,
+        //         theme: 'fa5',
+        //         language: 'es',
+        //         previewFileType: "image",
+        //         allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
+        //         showUpload: false,
+        //         maxFilesNum: 5,
+        //         required: true,
+        //     }).on('filebeforedelete', function(event, key, data) {
+        //         return new Promise(function(resolve, reject) {
+        //             $.confirm({
+        //                 title: '¡Atención!',
+        //                 content: '¿Estás seguro de que quieres eliminar esta imagen?',
+        //                 type: 'red',
+        //                 buttons: {
+        //                     ok: {
+        //                         btnClass: 'btn-primary text-white',
+        //                         keys: ['enter'],
+        //                         action: function() {
+        //                             $.ajaxSetup({
+        //                                 headers: {
+        //                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //                                 }
+        //                             });
+        //                             $.ajax({
+        //                                 type: 'POST',
+        //                                 url: '/eliminar_imagen',
+        //                                 data: {
+        //                                     // "_token": "{{ csrf_token() }}",
+        //                                     "_token": $('meta[name="csrf-token"]').attr('content'),
+        //                                     id: key
+        //                                 },
+        //                                 success: function(response) {
+        //                                     resolve();
+        //                                 },
+        //                                 error: function(error) {
+        //                                     reject();
+        //                                 }
+        //                             });
+        //                         }
+        //                     },
+        //                     cancel: function() {
+        //                         $.alert('Eliminación cancelada');
+        //                     }
+        //                 }
+        //             });
+        //         });
+        //     }).on('filedeleted', function(event, key, data) {
+        //         setTimeout(function() {
+        //             $.alert('Imagen eliminada con éxito');
+        //         }, 900);
+        //     });
+        // }
 
 
         
