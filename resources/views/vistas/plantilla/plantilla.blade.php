@@ -66,7 +66,7 @@
                     </a>
                     <ul id="ddmenu_1" class="collapse dropdown-nav">
                         <li>
-                            <a href="index.html" class=""> Inicio </a>
+                            <a href="/" class=""> Inicio </a>
                         </li>
                     </ul>
                 </li>

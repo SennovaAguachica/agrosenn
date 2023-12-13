@@ -199,7 +199,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
+                        <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
                                 width="20%" style="padding: 0; margin: 0" /></a>
                     </div>
                     <div class="header-right">
@@ -356,7 +356,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
+                    <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
                             width="20%" style="padding: 0; margin: 0" /></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
@@ -378,7 +378,7 @@
                     <nav>
                         <ul class="mobile-menu font-heading">
                             <li class="menu-item-has-children">
-                                <a href="index.html">Inicio</a>
+                                <a href="/">Inicio</a>
                                 <ul class="dropdown">
                                     <li><a href="index.html">Inicio 1</a></li>
                                     <li><a href="index-2.html">Inicio 2</a></li>

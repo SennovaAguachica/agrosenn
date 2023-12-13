@@ -36,7 +36,7 @@ class PublicacionesController extends Controller
         // $equivalencias_unidades = EquivalenciasUnidades::all();
         $perfil = auth()->user();
         if ($request->ajax()) {
-            return DataTables::of(Publicaciones::with('productos', 'unidades', 'precios', 'imagenes')->where(['estado' => 1, 'id_usuario' => Auth::user()->id])->get())->addIndexColumn()
+            return DataTables::of(Publicaciones::with('productos', 'unidades', 'precios', 'imagenes')->where(['id_usuario' => Auth::user()->id])->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
                     if (Auth::user()->can('publicaciones.actualizar')) {
@@ -79,7 +79,7 @@ class PublicacionesController extends Controller
                     return $respuesta;
                     break;
                 case $ELIMINAR_PUBLICACIONES:
-                    $respuesta = $this->eliminarProductos($request->all());
+                    $respuesta = $this->eliminarPublicaciones($request->all());
                     return $respuesta;
                     break;
                 case $BUSCAR_PRECIOSVENDEDOR:
@@ -338,11 +338,63 @@ class PublicacionesController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $actualizarPublicacion = Publicaciones::findOrFail($datos['id']);;
-            $actualizarPublicacion->precio = $datos['precio'];
+            $actualizarPublicacion = Publicaciones::findOrFail($datos['id']);
+            $precio = $actualizarPublicacion->precios;
+            $precioID = $precio->id;
+            // dd($precioID);
+            $actualizarPrecio = Precios::findOrFail($precioID);
+            $actualizarPrecio->precio = $datos['precio'];
+            $actualizarPrecio->producto_id = $datos['idproductos'];
+            $actualizarPrecio->unidades_id = $datos['idunidades'];
+            $actualizarPrecio->save();
+
+
+            $actualizarPublicacion->precios_id = $precioID;
             $actualizarPublicacion->producto_id = $datos['idproductos'];
             $actualizarPublicacion->unidades_id = $datos['idunidades'];
+            $actualizarPublicacion->estado = 1;
+
             $actualizarPublicacion->save();
+
+            $rutasImagenes = $actualizarPublicacion->imagenes()->pluck('ruta')->toArray();
+
+            // Eliminar físicamente las imágenes del servidor
+            foreach ($rutasImagenes as $rutaImagen) {
+                // Completar la ruta completa según tu configuración
+                $rutaCompleta = public_path($rutaImagen);
+
+                // Verificar que el archivo exista antes de intentar eliminarlo
+                if (file_exists($rutaCompleta)) {
+                    unlink($rutaCompleta);
+                }
+            }
+
+            $actualizarPublicacion->imagenes()->delete();
+
+            // Agregar las nuevas imágenes
+            if (isset($datos['imagen']) && is_array($datos['imagen'])) {
+                foreach ($datos['imagen'] as $imagen) {
+                    // Procesar y guardar la imagen (similar a la lógica de guardarPublicaciones)
+                    $imagenTmp = $imagen->getRealPath();
+                    $img = Image::make($imagenTmp);
+                    $img->encode('webp', 80);
+
+                    // Generar un nombre único para la imagen comprimida
+                    $nombreImagenComprimida = uniqid() . '.webp';
+
+                    // Guardar la imagen comprimida en la carpeta de publicaciones
+                    Storage::disk('public')->put('/publicaciones/' . $nombreImagenComprimida, $img->__toString());
+
+                    // Obtener la URL de la imagen comprimida
+                    $urlImagen = Storage::url('/publicaciones/' . $nombreImagenComprimida);
+
+                    // Crear y guardar la nueva imagen asociada a la publicación
+                    $nuevaImagen = new Imagenes();
+                    $nuevaImagen->ruta = $urlImagen;
+                    $nuevaImagen->publicaciones_id = $actualizarPublicacion->id;
+                    $nuevaImagen->save();
+                }
+            }
 
             if (count($aErrores) > 0) {
                 $respuesta = array(
@@ -404,6 +456,33 @@ class PublicacionesController extends Controller
         ])->first();
 
         return $listaPrecios;
+    }
+
+
+    public function eliminarPublicaciones($datos)
+    {
+
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['id'] == "") {
+            $aErrores[] = '- No existe la publicación a eliminar';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+        try {
+            $eliminarPublicacion = Publicaciones::findOrFail($datos['id']);
+            $eliminarPublicacion->update(['estado' => 0]);
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
     }
 
     public function eliminarImagen(Request $request)

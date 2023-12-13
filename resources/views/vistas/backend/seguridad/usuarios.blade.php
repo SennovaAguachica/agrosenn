@@ -58,7 +58,7 @@
             <input type="email" class="form-control" name="email" id="email" required>
         </div>
         <div class="col-md-6 col-lg-6 col-xs-6">
-            <label for="password">Contrañesa</label>
+            <label for="password">Contraseña</label>
             <input type="password" class="form-control" name="password" id="password">
         </div>
     </div>

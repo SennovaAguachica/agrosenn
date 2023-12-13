@@ -203,7 +203,7 @@
 @section('categoria')
 <div class="header-wrap header-space-between position-relative">
     <div class="logo logo-width-1 d-block d-lg-none">
-        <a href="index.html"><img src="assets/images/senova.png" alt="logo" width="20%" style="padding: 0; margin: 0" /></a>
+        <a href="/"><img src="assets/images/senova.png" alt="logo" width="20%" style="padding: 0; margin: 0" /></a>
     </div>
     <div class="header-nav d-none d-lg-flex">
         <div class="main-categori-wrap d-none d-lg-block">
@@ -290,7 +290,7 @@
                 <ul>
                     <li class="hot-deals"><img src="assetsfront/imgs/theme/icons/icon-hot.svg" alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                     <li>
-                        <a href="/index">Inicio</a>
+                        <a href="/">Inicio</a>
                     </li>
                     <li class="position-static">
                         <a href="#">Mega menú <i class="fi-rs-angle-down"></i></a>

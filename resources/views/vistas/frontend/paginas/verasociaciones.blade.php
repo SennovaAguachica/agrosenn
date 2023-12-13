@@ -119,7 +119,7 @@
                         <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
                                 alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
-                            <a href="/index">Inicio</a>
+                            <a href="/">Inicio</a>
                         </li>
                         <li class="position-static">
                         <li>
