@@ -94,9 +94,12 @@
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
-                                    <a href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
+                                    <a
+                                        href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                                 </div>
-                                <h2><a href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a></h2>
+                                <h2><a
+                                        href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
+                                </h2>
                                 <div class="product-rate-cover">
                                     <div class="product-rate d-inline-block">
                                         <div class="product-rating" style="width: 90%"></div>
@@ -111,8 +114,9 @@
                                         {{ $publicacion->unidades->unidad }}</span>
                                 </div>
                                 <div class="mt-30 d-flex align-items-center">
-                                    <a aria-label="Buy now" class="btn" href="shop-cart.html"><i
-                                            class="fa-brands fa-whatsapp fa-xl"></i> Lo
+                                    <a aria-label="Buy now" class="btn"
+                                        href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                        target="_blank"><i class="fa-brands fa-whatsapp fa-xl"></i> Lo
                                         quiero!</a>
                                 </div>
                             </div>
@@ -203,8 +207,6 @@
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
-                                alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
                             <a href="/index">Inicio</a>
                         </li>
@@ -239,16 +241,50 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li>
-                            <a href="page-contact.html">Contacto</a>
-                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <div class="hotline d-none d-lg-flex">
-            <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
-            <p>xxx - xxxxx <span>Soporte</span></p>
+        <div class="header-action-icon-2 d-block d-lg-none">
+            <div class="burger-icon burger-icon-white">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+            </div>
         </div>
     </div>
+@endsection
+@section('categoria_movil')
+    <nav>
+        <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children">
+                <a href="/index">Inicio</a>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="#">Categorias</a>
+                <ul class="dropdown">
+                    @foreach ($categorias as $categoria)
+                        <li class="menu-item-has-children">
+                            <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }}</a>
+                            <ul class="dropdown">
+                                @foreach ($categoria->subcategorias as $subcategoria)
+                                    <li><a
+                                            href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <ul class="dropdown">
+                    @foreach ($asociaciones as $asociacion)
+                        <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+    </nav>
 @endsection

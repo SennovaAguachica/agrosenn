@@ -10,6 +10,7 @@ use App\Models\Administradores;
 use App\Models\Asociaciones;
 use App\Models\Vendedores;
 use App\Models\Clientes;
+use App\Models\Imagenesperfiles;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -32,7 +33,7 @@ class PerfilController extends Controller
                 $user->load('asociacion.municipio.departamento.ciudades');
                 break;
             case 3:
-                $user->load('vendedor.municipio.departamento.ciudades');
+                $user->load('vendedor.municipio.departamento.ciudades','imagenesperfil');
                 break;
             case 4:
                 $user->load('cliente');
@@ -45,6 +46,8 @@ class PerfilController extends Controller
         $BUSCAR_MUNICIPIOS = 1;
         $ACTUALIZAR_PERFIL = 2;
         $ACTUALIZAR_CONTRASENA = 3;
+        $ACTUALIZAR_DETALLES = 4;
+        $ELIMINAR_IMAGEN = 5;
         try {
             switch ($request->accion) {
                 case $BUSCAR_MUNICIPIOS:
@@ -57,6 +60,14 @@ class PerfilController extends Controller
                     break;
                 case $ACTUALIZAR_CONTRASENA:
                     $respuesta = $this->actualizarPassword($request->all());
+                    return $respuesta;
+                    break;
+                case $ACTUALIZAR_DETALLES:
+                    $respuesta = $this->actualizarDetalles($request->all());
+                    return $respuesta;
+                    break;
+                case $ELIMINAR_IMAGEN:
+                    $respuesta = $this->eliminarImagen($request->all());
                     return $respuesta;
                     break;
             }
@@ -220,6 +231,73 @@ class PerfilController extends Controller
             // something went wrong
         }
     }
+    public function actualizarDetalles($datos){
+        DB::beginTransaction();
+        try {
+            switch ($datos['idroldetalles']) {
+                case 2:
+                    $asociacion = Asociaciones::with('usuario')->findOrFail($datos['id']);
+                    $asociacion->codigo_asociacion = $datos['codasociacion'];
+                    $asociacion->asociacion = $datos['asociacion'];
+                    $asociacion->n_celular = $datos['telefonoasociacion'];
+                    $asociacion->direccion = $datos['direcionasociacion'];
+                    $asociacion->email = $datos['emailasociacion'];
+                    $asociacion->id_municipio = $datos['idmunicipioasociacion'];
+                    $asociacion->usuario->documento = $datos['codasociacion'];
+                    $asociacion->usuario->email = $datos['emailasociacion'];
+                    if (!empty($datos['fotoinput'])) {
+                        if ($datos['fotoinput'] != null) {
+                            //existe un archivo cargado?
+                            $rutaImagenAnterior = '/fotosperfil/' . basename($asociacion->usuario->fotoperfil);
+                            if (Storage::disk('public')->exists($rutaImagenAnterior)) {
+                                Storage::disk('public')->delete($rutaImagenAnterior);
+                            }
+                            //guardo el archivo nuevo
+                            $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
+                            $urlImagen = Storage::url($imagen);
+                        }else{
+                            $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
+                            $urlImagen = Storage::url($imagen);
+                        }
+                        $asociacion->usuario->fotoperfil = $urlImagen;
+                    }
+                    $asociacion->usuario->save();
+                    $asociacion->save();
+                    break;
+                case 3:
+                    $vendedor = Vendedores::with('usuario')->findOrFail($datos['iddetallesvendedor']);
+                    $vendedor->descripcion = $datos['descripcionvendedor'];
+                    $vendedor->save();
+                    if (!empty($datos['imagen'])) {
+                        if ($datos['imagen'] != null) {
+                            for($i=0;$i<count($datos['imagen']);$i++){
+                                //guardo el archivo nuevo
+                                $imagen = Storage::disk('public')->put('/detallesperfil', $datos['imagen'][$i]);
+                                $urlImagen = Storage::url($imagen);
+                                $nuevaImagenPerfil = new Imagenesperfiles();
+                                $nuevaImagenPerfil->imagen = $urlImagen;
+                                $nuevaImagenPerfil->usuario_id = $vendedor->usuario->id;
+                                $nuevaImagenPerfil->created_at = \Carbon\Carbon::now();
+                                $nuevaImagenPerfil->updated_at = \Carbon\Carbon::now();
+                                $nuevaImagenPerfil->save();
+                            }
+                        }
+                    }
+            }
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
+        } 
+        catch (\Exception $e) 
+        {
+            DB::rollback();
+            throw $e;
+            // something went wrong
+        }
+    }
     public function validacionGeneral($datos, $tipo){
         $aErrores = array();
         if($tipo==1){
@@ -331,5 +409,29 @@ class PerfilController extends Controller
         }
         return $aErrores;
         
+    }
+    public function eliminarImagen($datos){
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['imagenId'] == "") {
+            $aErrores[] = '- No existe subcategoria a eliminar';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+
+        try {
+            $eliminarImagen = Imagenesperfiles::findOrFail($datos['imagenId']);
+            $eliminarImagen->delete();
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
     }
 }

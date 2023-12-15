@@ -68,16 +68,6 @@
                                 <div class="short-desc mb-30">
                                     <p class="font-lg">{{ $publicacion->descripcion }}</p>
                                 </div>
-                                {{-- <div class="attr-detail attr-size mb-30">
-                                    <strong class="mr-10">Size / Weight: </strong>
-                                    <ul class="list-filter size-filter font-small">
-                                        <li><a href="#">50g</a></li>
-                                        <li class="active"><a href="#">60g</a></li>
-                                        <li><a href="#">80g</a></li>
-                                        <li><a href="#">100g</a></li>
-                                        <li><a href="#">150g</a></li>
-                                    </ul>
-                                </div> --}}
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
@@ -86,12 +76,10 @@
                                     </div>
                                     <br>
                                     <div class="product-extra-link2">
-                                        <button type="submit" class="button button-add-to-cart"><i
+                                        <button type="submit"
+                                            href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                            target="_blank" class="button button-add-to-cart"><i
                                                 class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</button>
-                                        {{-- <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a> --}}
                                     </div>
                                 </div>
                                 <div class="font-xs">
@@ -232,12 +220,7 @@
                                             <h4 class="mb-0">89%</h4>
                                         </div>
                                     </div>
-                                    <p>Noodles & Company is an American fast-casual restaurant that offers international and
-                                        American noodle dishes and pasta in addition to soups and salads. Noodles & Company
-                                        was founded in 1995 by Aaron Kennedy and is headquartered in Broomfield, Colorado.
-                                        The company went public in 2013 and recorded a $457 million revenue in 2017.In late
-                                        2018, there were 460 Noodles & Company locations across 29 states and Washington,
-                                        D.C.</p>
+                                    <p>{{ $publicacion->usuario->vendedor->descripcion }}</p>
                                 </div>
                                 <div class="tab-pane fade" id="Reviews">
                                     <!--Comments-->
@@ -428,11 +411,11 @@
                                         <div class="product-cart-wrap hover-up">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="/verpublicacion/{{$relacionado->id}}" tabindex="0">
-                                                        <img class="default-img" src="{{$relacionado->imagenes[0]->ruta}}"
-                                                            alt="" />
-                                                        <img class="hover-img" src="{{$relacionado->imagenes[0]->ruta}}"
-                                                            alt="" />
+                                                    <a href="/verpublicacion/{{ $relacionado->id }}" tabindex="0">
+                                                        <img class="default-img"
+                                                            src="{{ $relacionado->imagenes[0]->ruta }}" alt="" />
+                                                        <img class="hover-img"
+                                                            src="{{ $relacionado->imagenes[0]->ruta }}" alt="" />
                                                     </a>
                                                 </div>
                                                 {{-- <div class="product-action-1">
@@ -445,15 +428,16 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
-                                                <h2><a href="/verpublicacion/{{$relacionado->id}}" tabindex="0">{{$relacionado->productos->producto}}</a>
+                                                <h2><a href="/verpublicacion/{{ $relacionado->id }}"
+                                                        tabindex="0">{{ $relacionado->productos->producto }}</a>
                                                 </h2>
                                                 <div class="rating-result" title="90%">
                                                     <span> </span>
                                                 </div>
                                                 <div class="product-price">
-                                                    <span>$ {{$relacionado->precios->precio}}</span>
+                                                    <span>$ {{ $relacionado->precios->precio }}</span>
                                                     <span class="" style="font-size:12px !important"> X
-                                                    {{ $relacionado->unidades->unidad }}</span>
+                                                        {{ $relacionado->unidades->unidad }}</span>
                                                     {{-- <span class="old-price">$245.8</span> --}}
                                                 </div>
                                             </div>
@@ -513,8 +497,6 @@
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
-                                alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
                             <a href="/index">Inicio</a>
                         </li>
@@ -549,16 +531,50 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li>
-                            <a href="page-contact.html">Contacto</a>
-                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <div class="hotline d-none d-lg-flex">
-            <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
-            <p>xxx - xxxxx <span>Soporte</span></p>
+        <div class="header-action-icon-2 d-block d-lg-none">
+            <div class="burger-icon burger-icon-white">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+            </div>
         </div>
     </div>
+@endsection
+@section('categoria_movil')
+    <nav>
+        <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children">
+                <a href="/index">Inicio</a>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="#">Categorias</a>
+                <ul class="dropdown">
+                    @foreach ($categorias as $categoria)
+                        <li class="menu-item-has-children">
+                            <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }}</a>
+                            <ul class="dropdown">
+                                @foreach ($categoria->subcategorias as $subcategoria)
+                                    <li><a
+                                            href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <ul class="dropdown">
+                    @foreach ($asociaciones as $asociacion)
+                        <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+    </nav>
 @endsection

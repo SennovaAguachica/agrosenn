@@ -7,7 +7,7 @@
         <div class="container">
             <div class="breadcrumb">
                 <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
-                <span></span> Asociaciones
+                <span></span> Asociaciones <span></span> Vendedores
             </div>
         </div>
     </div>
@@ -89,7 +89,8 @@
                                         </div>
                                     </div>
                                     <div class="product-content-wrap">
-                                        <h2><a href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
+                                        <h2><a
+                                                href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
                                         </h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
@@ -111,7 +112,9 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                                <a class="add"
+                                                    href="https://api.whatsapp.com/send?phone={{ $vendedor->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                                    target="_blank"><i class="fa-brands fa-whatsapp fa-xl"></i>
                                                     Lo
                                                     quiero! </a>
                                             </div>
@@ -128,8 +131,7 @@
                             <img src="{{ $vendedor->usuario->fotoperfil }}" alt="" />
                         </div>
                         <div class="vendor-info">
-                            <h4 class="mb-5"><a href="vendor-details-1.html"
-                                    class="text-heading">{{ $vendedor->nombres }}
+                            <h4 class="mb-5"><a href="" class="text-heading">{{ $vendedor->nombres }}
                                     {{ $vendedor->apellidos }}</a>
                             </h4>
                             <div class="product-rate-cover mb-15">
@@ -139,47 +141,97 @@
                                 <span class="font-small ml-5 text-muted"> (4.0)</span>
                             </div>
                             <div class="vendor-des mb-30">
-                                <p class="font-sm text-heading">Got a smooth, buttery spread in your fridge? Chances are
-                                    good that it's Good Chef. This brand made Lionto's list of the most popular grocery
-                                    brands across the country.</p>
+                                <p class="font-sm text-heading">{{ $vendedor->descripcion }}</p>
+                            </div>
+                            {{-- <div class="detail-gallery">
+                                <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                <!-- MAIN SLIDES -->
+                                <div class="product-image-slider vendedorslider">
+                                    @foreach ($vendedor->usuario->imagenesperfil as $imagen)
+                                        <figure class='border-radius-10'
+                                            style='height: 300px; display: flex; align-items:center;justify-content: center;'>
+                                            <img src="{{ $imagen->imagen }}" alt="product image" />
+                                        </figure>
+                                    @endforeach
+                                </div>
+                                <!-- THUMBNAILS -->
+                                <div class="slider-nav-thumbnails vendedorslidernav">
+                                    @foreach ($vendedor->usuario->imagenesperfil as $imagen)
+                                        <div
+                                            style='height: 50px; display: flex; align-items:center;justify-content: center; '>
+                                            <img src="{{ $imagen->imagen }}"
+                                                style="max-width:50px;"alt="product image" />
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div> --}}
+                            <div class="product-cart-wrap mb-30">
+                                <div class="product-img-action-wrap">
+                                    <div class="product-img product-img-zoom">
+                                        <a class="btnverimagenesvendedor" data-bs-toggle="modal"
+                                            data-bs-target="#modalVerImagenes" data-idvendedor='{{ $vendedor->id }}'
+                                            data-datos="{{ $vendedor->usuario->imagenes }}">
+                                            <img class="default-img"
+                                                src="{{ $vendedor->usuario->imagenesperfil[0]->imagen }}"
+                                                alt="" />
+                                            <img class="hover-img"
+                                                src="{{ $vendedor->usuario->imagenesperfil[0]->imagen }}"
+                                                alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-action-1">
+                                        <a aria-label="Ver detalles" class="action-btn btnverimagenesvendedor"
+                                            data-bs-toggle="modal" data-bs-target="#modalVerImagenes"
+                                            data-idvendedor='{{ $vendedor->id }}'
+                                            data-datos="{{ $vendedor->usuario->imagenesperfil }}"><i
+                                                class="fi-rs-eye"></i></a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="follow-social mb-20">
-                                <h6 class="mb-15">Follow Us</h6>
-                                <ul class="social-network">
-                                    <li class="hover-up">
-                                        <a href="#">
-                                            <img src="assets/imgs/theme/icons/social-tw.svg" alt="" />
-                                        </a>
-                                    </li>
-                                    <li class="hover-up">
-                                        <a href="#">
-                                            <img src="assets/imgs/theme/icons/social-fb.svg" alt="" />
-                                        </a>
-                                    </li>
-                                    <li class="hover-up">
-                                        <a href="#">
-                                            <img src="assets/imgs/theme/icons/social-insta.svg" alt="" />
-                                        </a>
-                                    </li>
-                                    <li class="hover-up">
-                                        <a href="#">
-                                            <img src="assets/imgs/theme/icons/social-pin.svg" alt="" />
-                                        </a>
-                                    </li>
-                                </ul>
+                                <h6 class="mb-15">Contactos</h6>
                             </div>
                             <div class="vendor-info">
                                 <ul class="font-sm mb-20">
-                                    <li><img class="mr-5" src="assets/imgs/theme/icons/icon-location.svg"
-                                            alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave
-                                            undefined, Utah 53127 United States</span></li>
-                                    <li><img class="mr-5" src="assets/imgs/theme/icons/icon-contact.svg"
-                                            alt="" /><strong>Call Us:</strong><span>(+91) - 540-025-124553</span>
+                                    <li><i class="fa-solid fa-location-dot"></i><strong> Dirección: </strong>
+                                        <span>{{ $vendedor->direccion }},
+                                            {{ $vendedor->municipio->ciudad }} -
+                                            {{ $vendedor->municipio->departamento->departamento }}</span>
                                     </li>
+                                    <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
+                                            {{ $vendedor->n_celular }}</span></li>
+                                    <li><i class="fa-solid fa-envelope"></i><strong>
+                                            E-mail:</strong><span>{{ $vendedor->email }}</span></li>
                                 </ul>
-                                <a href="vendor-details-1.html" class="btn btn-xs">Contact Seller <i
-                                        class="fi-rs-arrow-small-right"></i></a>
+                                <button type="submit"
+                                    href="https://api.whatsapp.com/send?phone={{ $vendedor->n_celular }}&text=Hola, estoy interesado en sus productos publicados en Agrosenn."
+                                    target="_blank" class="button button-add-to-cart"><i
+                                        class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade custom-modal" id="modalVerImagenes" tabindex="-1" aria-labelledby="modalVerImagenesLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="detail-gallery">
+                                <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                <!-- MAIN SLIDES -->
+                                <div class="product-image-slider">
+                                </div>
+                                <!-- THUMBNAILS -->
+                                <div class="slider-nav-thumbnails">
+                                </div>
+                            </div>
+                            <!-- End Gallery -->
                         </div>
                     </div>
                 </div>
@@ -231,8 +283,6 @@
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
-                                alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
                             <a href="/index">Inicio</a>
                         </li>
@@ -267,16 +317,50 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li>
-                            <a href="page-contact.html">Contacto</a>
-                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <div class="hotline d-none d-lg-flex">
-            <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
-            <p>xxx - xxxxx <span>Soporte</span></p>
+        <div class="header-action-icon-2 d-block d-lg-none">
+            <div class="burger-icon burger-icon-white">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+            </div>
         </div>
     </div>
+@endsection
+@section('categoria_movil')
+    <nav>
+        <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children">
+                <a href="/index">Inicio</a>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="#">Categorias</a>
+                <ul class="dropdown">
+                    @foreach ($categorias as $categoria)
+                        <li class="menu-item-has-children">
+                            <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }}</a>
+                            <ul class="dropdown">
+                                @foreach ($categoria->subcategorias as $subcategoria)
+                                    <li><a
+                                            href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <ul class="dropdown">
+                    @foreach ($asociaciones as $asociacion)
+                        <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+    </nav>
 @endsection

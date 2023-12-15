@@ -37,12 +37,15 @@
                 <aside class="col-lg-3 border-end">
                     <nav class="nav nav-pills flex-lg-column mb-4">
                         <a class="nav-link active" aria-current="page" id="btnseccionperfil">General</a>
+                        @if ($user->idrol == 2 || $user->idrol == 3)
+                            <a class="nav-link" id="btndetalles">Detalles</a>
+                        @endif
                         <a class="nav-link" id="btncambiarcontrasena">Cambio de contraseña</a>
                     </nav>
                 </aside>
                 <div class="col-lg-9" id="divseccionperfil" style="display: none;">
                     <section class="content-body p-xl-4">
-                        <form id="formGuardar">
+                        <form id="formGuardarperfil">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-8">
@@ -91,7 +94,7 @@
                                             <div class="col-12 mb-3">
                                                 <label for="codasociacion">Codigo asociacion *</label>
                                                 <input type="text" class="form-control" id="codasociacion"
-                                                    name="codasociacion" id="codasociacion" placeholder="Cod. asociacion"
+                                                    name="codasociacion" placeholder="Cod. asociacion"
                                                     value="{{ $user->asociacion->codigo_asociacion }}" required>
                                             </div>
                                             <div class="col-12 mb-3">
@@ -245,10 +248,11 @@
                                     <figure class="text-lg-center">
                                         @if ($perfil->fotoperfil)
                                             <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
-                                            src="{{ $perfil->fotoperfil }}" alt="User Photo" />
+                                                src="{{ $perfil->fotoperfil }}" alt="User Photo" />
                                         @else
                                             <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
-                                            src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}" alt="User Photo" />
+                                                src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}"
+                                                alt="User Photo" />
                                         @endif
                                         <figcaption>
                                             <label class="btn btn-light rounded font-md" for="fotoinput">
@@ -264,6 +268,59 @@
                             <!-- row.// -->
                             <br />
                             <button class="btn btn-primary" type="button" id="enviar">Guardar</button>
+                        </form>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <!-- row.// -->
+                    </section>
+                    <!-- content-body .// -->
+                </div>
+                <div class="col-lg-9" id="divsecciondetalles" style="display: none;">
+                    <section class="content-body p-xl-4">
+                        <form id="formGuardarDetalles">
+                            @csrf
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row gx-3">
+                                        <input type="text" id="idroldetalles" name="idroldetalles"
+                                            value="{{ $user->idrol }}" hidden>
+                                        @if ($user->idrol == 2)
+                                            <input type="text" id="iddetallesasociacion" name="iddetallesasociacion"
+                                                value="{{ $user->asociacion->id }}" hidden />
+                                            <div class="col-12 mb-12">
+                                                <label for="descripcionasociacion">Detalles del vendedor</label>
+                                                <textarea type="text" class="form-control" id="descripcionasociacion" name="descripcionasociacion"
+                                                    placeholder="Detalles de la asociación" rows="5" required>
+                                                    {{ $user->asociacion->descripcion }}
+                                                </textarea>
+
+                                            </div>
+                                        @elseif($user->idrol == 3)
+                                            <input type="text" id="iddetallesvendedor" name="iddetallesvendedor"
+                                                value="{{ $user->vendedor->id }}" hidden>
+                                            <div class="col-12 mb-12">
+                                                <label for="descripcionvendedor">Detalles del vendedor</label>
+                                                <textarea type="text" class="form-control" id="descripcionvendedor" name="descripcionvendedor"
+                                                    placeholder="Detalles del vendedor" rows="5" required>{{ $user->vendedor->descripcion }}</textarea>
+                                            </div>
+                                        @endif
+                                        <div class="col-md-12 col-lg-12 col-xs-12 ">
+                                            <label for="imagen">Imágenes del vendedor</label>
+                                            <input type="file" id="imagen" name="imagen[]" multiple="true"
+                                                accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp, |image/*"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                Campo obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn btn-primary" type="button" id="enviardetalles">Guardar</button>
                         </form>
                         <br>
                         <br>

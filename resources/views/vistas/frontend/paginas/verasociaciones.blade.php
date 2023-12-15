@@ -116,8 +116,6 @@
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
-                                alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
                             <a href="/index">Inicio</a>
                         </li>
@@ -152,16 +150,50 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li>
-                            <a href="page-contact.html">Contacto</a>
-                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <div class="hotline d-none d-lg-flex">
-            <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
-            <p>xxx - xxxxx <span>Soporte</span></p>
+        <div class="header-action-icon-2 d-block d-lg-none">
+            <div class="burger-icon burger-icon-white">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+            </div>
         </div>
     </div>
+@endsection
+@section('categoria_movil')
+    <nav>
+        <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children">
+                <a href="/index">Inicio</a>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="#">Categorias</a>
+                <ul class="dropdown">
+                    @foreach ($categorias as $categoria)
+                        <li class="menu-item-has-children">
+                            <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }}</a>
+                            <ul class="dropdown">
+                                @foreach ($categoria->subcategorias as $subcategoria)
+                                    <li><a
+                                            href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <ul class="dropdown">
+                    @foreach ($asociaciones as $asociacion)
+                        <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+    </nav>
 @endsection

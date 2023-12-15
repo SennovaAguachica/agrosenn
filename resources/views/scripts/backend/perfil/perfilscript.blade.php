@@ -6,13 +6,91 @@
         var BUSCAR_MUNICIPIOS = 1;
         var ACTUALIZAR_PERFIL = 2;
         var ACTUALIZAR_CONTRASENA = 3;
+        var ACTUALIZAR_DETALLES = 4;
+        var ELIMINAR_IMAGEN = 5;
+        var imagenes = @json($user);
         $(document).ready(function() {
+            console.log(imagenes);
             $('#li_gestion_unidades').addClass('active');
             $('#i_unidades').css('color', '#3BB77E');
             $('#a_equivalencias').addClass('active');
             selectChanges();
             buttonClick();
+            {{-- cargarVariasImagen("#imagen"); --}}
             $('#divseccionperfil').show();
+            var imagenesGuardadas = [];
+            if (imagenes.imagenesperfil.length > 0) {
+                $.each(imagenes.imagenesperfil, function(index, imagen) {
+                    imagenesGuardadas.push({
+                        id: imagen.id,
+                        ruta: imagen.imagen
+                        // Agrega más propiedades según sea necesario
+                    });
+                });
+            }
+            console.log(imagenesGuardadas);
+
+            $("#imagen").fileinput({
+                uploadUrl: '#',
+                theme: 'fa5',
+                allowedFileExtensions: ["jpg", "jpeg", "png"],
+                showUpload: false,
+                showRemove: false,
+                browseLabel: "Seleccionar firma",
+                browseClass: "btn btn-primary",
+                previewFileType: "image",
+                initialPreview: imagenesGuardadas.map(function(imagen) {
+                    return '<img src="' + imagen.ruta + '" class="file-preview-image" data-id="' +
+                        imagen.id + '">';
+                }),
+                fileActionSettings: {
+                    showRemove: true,
+                    showUpload: false, //This remove the upload button
+                    showZoom: true,
+                    showDrag: false,
+                    showRotate: false,
+                    removeIcon: '<i class="fa fa-trash"></i>', // Cambiar el icono de eliminación si es necesario
+                    removeClass: 'btn btn-sm btn-danger', // Cambiar la clase de estilo del botón de eliminación si es necesario
+                    indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
+                    indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
+                    indicatorError: '<i class="fa fa-times-circle text-danger"></i>'
+                },
+                initialPreviewConfig: imagenesGuardadas.map(function(imagen) {
+                    return {
+                        caption: "Imagen " + imagen.id,
+                        size: "",
+                        width: "120px",
+                        url: AJAX,
+                        key: imagen.id,
+                        extra: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_IMAGEN,
+                            imagenId: imagen.id
+                        }
+                    };
+                })
+            }).on('filebeforedelete', function() {
+                return new Promise(function(resolve, reject) {
+                    $.confirm({
+                        title: 'Estás seguro!',
+                        content: 'La imagen será eliminada permanentemente?',
+                        type: 'red',
+                        buttons: {
+                            ok: {
+                                btnClass: 'btn-primary text-white',
+                                keys: ['enter'],
+                                action: function() {
+                                    resolve();
+                                }
+                            }
+                        }
+                    });
+                });
+            }).on('filedeleted', function() {
+                setTimeout(function() {
+                    $.alert('Imagen eliminada correctamente!');
+                }, 900);
+            });
         });
 
         function selectChanges() {
@@ -39,14 +117,14 @@
                 let datosFormulario = "";
                 e.preventDefault();
                 // Valida el formulario usando Bootstrap
-                var form = document.getElementById("formGuardar");
+                var form = document.getElementById("formGuardarperfil");
 
                 if (form.checkValidity() === false) {
                     form.classList.add("was-validated");
                     return;
                 }
                 // Recopila los datos del formulario
-                datosFormulario = new FormData($('#formGuardar')[0]);
+                datosFormulario = new FormData($('#formGuardarperfil')[0]);
                 datosFormulario.append('accion', ACTUALIZAR_PERFIL);
                 console.log(datosFormulario);
                 // Realiza la solicitud Ajax
@@ -136,19 +214,77 @@
                     }
                 });
             });
+            $("#enviardetalles").on("click", function(e) {
+                let datosFormulario = "";
+                e.preventDefault();
+                // Valida el formulario usando Bootstrap
+                var form = document.getElementById("formGuardarDetalles");
+
+                // Recopila los datos del formulario
+                datosFormulario = new FormData($('#formGuardarDetalles')[0]);
+                datosFormulario.append('accion', ACTUALIZAR_DETALLES);
+                // Realiza la solicitud Ajax
+                Swal.fire({
+                    title: 'Esta seguro?',
+                    text: "Recuerde verificar los datos!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/perfil_peticiones", // Reemplaza esto con la URL del servidor
+                            method: "POST",
+                            data: datosFormulario,
+                            processData: false,
+                            contentType: false,
+                            success: function(respuesta) {
+                                // Maneja la respuesta del servidor aquí
+                                if (respuesta.estado === 1) {
+                                    mensajeSuccessGeneral(
+                                        '- Se han actualizado sus datos con exito');
+                                    window.location.href = '/perfil';
+                                } else {
+                                    mensajeError(respuesta.mensaje);
+                                }
+                            },
+                            error: function(request, status, error) {
+                                mensajeErrorGeneral(
+                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
+                                );
+                            }
+                        });
+                    }
+                });
+            });
             $("#btnseccionperfil").on("click", function(e) {
                 $('#btnseccionperfil').addClass('active');
                 $('#btncambiarcontrasena').removeClass('active');
+                $('#btndetalles').removeClass('active');
 
                 $('#divseccionperfil').show();
                 $('#divcambiarcontrasena').hide();
+                $('#divsecciondetalles').hide();
+            });
+            $("#btndetalles").on("click", function(e) {
+                $('#btnseccionperfil').removeClass('active');
+                $('#btncambiarcontrasena').removeClass('active');
+                $('#btndetalles').addClass('active');
+
+                $('#divseccionperfil').hide();
+                $('#divcambiarcontrasena').hide();
+                $('#divsecciondetalles').show();
             });
             $("#btncambiarcontrasena").on("click", function(e) {
                 $('#btnseccionperfil').removeClass('active');
                 $('#btncambiarcontrasena').addClass('active');
+                $('#btndetalles').removeClass('active');
 
                 $('#divseccionperfil').hide();
                 $('#divcambiarcontrasena').show();
+                $('#divsecciondetalles').hide();
             });
             $("#show_hide_password_actual a").on('click', function(event) {
                 mostrarContrasenas("#show_hide_password_actual")

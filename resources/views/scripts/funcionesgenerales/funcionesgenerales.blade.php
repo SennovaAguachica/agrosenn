@@ -1,4 +1,3 @@
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -11,7 +10,7 @@
         $('table tr').mouseout(function() {
             $(this).removeClass('row_selected');
         });
-        
+
     });
 
     function cargarImagen(campo) {
@@ -27,11 +26,11 @@
     }
 
 
-    
+
     function cargarVariasImagen(campo) {
         // var imagenesSeleccionadas = [];
         $(campo).fileinput({
-            uploadUrl:'#',
+            uploadUrl: '#',
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
@@ -42,7 +41,7 @@
             overwriteInitial: false,
             fileActionSettings: {
                 showRemove: true,
-                showUpload: true, //This remove the upload button
+                showUpload: false, //This remove the upload button
                 showZoom: true,
                 showDrag: false,
                 showRotate: false,
@@ -52,9 +51,9 @@
                 indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
                 indicatorError: '<i class="fa fa-times-circle text-danger"></i>',
             },
-});
+        });
 
-    
+
     }
 
     function inputMoneda(campo) {
@@ -191,73 +190,73 @@
     // }
 
     function cargarVariasImagenes(campo) {
-    // Obtener las rutas de las imágenes existentes
-    var rutasImagenes = obtenerRutasImagenesExist();
-    
-    $(campo).fileinput({
-        uploadUrl: '#',
-        theme: 'fa5',
-        language: 'es',
-        previewFileType: "png",
-        allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp",],
-        showUpload: false,
-        maxFilesNum: 5,
-        required: true,
-        overwriteInitial: false,
-        initialPreview: rutasImagenes,  // Rutas de las imágenes existentes
-        initialPreviewConfig: obtenerConfiguracionImagenesExist(),
-        fileActionSettings: {
-            showRemove: true,
+        // Obtener las rutas de las imágenes existentes
+        var rutasImagenes = obtenerRutasImagenesExist();
+
+        $(campo).fileinput({
+            uploadUrl: '#',
+            theme: 'fa5',
+            language: 'es',
+            previewFileType: "png",
+            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp", ],
             showUpload: false,
-            showZoom: true,
-            showDrag: false,
-            showRotate: false,
+            maxFilesNum: 5,
+            required: true,
+            overwriteInitial: false,
+            initialPreview: rutasImagenes, // Rutas de las imágenes existentes
+            initialPreviewConfig: obtenerConfiguracionImagenesExist(),
+            fileActionSettings: {
+                showRemove: true,
+                showUpload: false,
+                showZoom: true,
+                showDrag: false,
+                showRotate: false,
                 removeIcon: '<i class="fa fa-trash"></i>', // Cambiar el icono de eliminación si es necesario
-    removeClass: 'btn btn-sm btn-danger', // Cambiar la clase de estilo del botón de eliminación si es necesario
-    indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
-    indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
-    indicatorError: '<i class="fa fa-times-circle text-danger"></i>',
-        },
-    });
-}
-
-function obtenerRutasImagenesExist() {
-    // Obtén las imágenes seleccionadas por el usuario
-    var imagenesSeleccionadas = $('#imagen').fileinput('getFileStack');
-
-    // Verifica si imagenesSeleccionadas es un iterable antes de usar map
-    if (Array.isArray(imagenesSeleccionadas)) {
-        // Mapea las imágenes seleccionadas para obtener sus rutas
-        var rutasImagenes = imagenesSeleccionadas.map(function(imagen) {
-            return URL.createObjectURL(imagen);
-        }).toArray();
-
-        return rutasImagenes;
-    } else {
-        // Si no es un iterable, devuelve un array vacío o maneja el caso según sea necesario
-        return [];
-    }
-}
-
-function obtenerConfiguracionImagenesExist() {
-    // Obtén las imágenes seleccionadas por el usuario
-    var imagenesSeleccionadas = $('#imagen').fileinput('getFileStack');
-
-    // Verifica si imagenesSeleccionadas es un array antes de usar map
-    if (Array.isArray(imagenesSeleccionadas)) {
-        // Mapea las imágenes seleccionadas para obtener su configuración
-        var configuracionImagenes = imagenesSeleccionadas.map(function(imagen, index) {
-            return {
-                caption: "Imagen " + (index + 1),
-                width: "120px",
-                key: index
-            };
+                removeClass: 'btn btn-sm btn-danger', // Cambiar la clase de estilo del botón de eliminación si es necesario
+                indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
+                indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
+                indicatorError: '<i class="fa fa-times-circle text-danger"></i>',
+            },
         });
-
-        return configuracionImagenes;
-    } else {
-        // Si no es un array, devuelve un array vacío o maneja el caso según sea necesario
-        return [];
     }
-}
+
+    function obtenerRutasImagenesExist() {
+        // Obtén las imágenes seleccionadas por el usuario
+        var imagenesSeleccionadas = $('#imagen').fileinput('getFileStack');
+
+        // Verifica si imagenesSeleccionadas es un iterable antes de usar map
+        if (Array.isArray(imagenesSeleccionadas)) {
+            // Mapea las imágenes seleccionadas para obtener sus rutas
+            var rutasImagenes = imagenesSeleccionadas.map(function(imagen) {
+                return URL.createObjectURL(imagen);
+            }).toArray();
+
+            return rutasImagenes;
+        } else {
+            // Si no es un iterable, devuelve un array vacío o maneja el caso según sea necesario
+            return [];
+        }
+    }
+
+    function obtenerConfiguracionImagenesExist() {
+        // Obtén las imágenes seleccionadas por el usuario
+        var imagenesSeleccionadas = $('#imagen').fileinput('getFileStack');
+
+        // Verifica si imagenesSeleccionadas es un array antes de usar map
+        if (Array.isArray(imagenesSeleccionadas)) {
+            // Mapea las imágenes seleccionadas para obtener su configuración
+            var configuracionImagenes = imagenesSeleccionadas.map(function(imagen, index) {
+                return {
+                    caption: "Imagen " + (index + 1),
+                    width: "120px",
+                    key: index
+                };
+            });
+
+            return configuracionImagenes;
+        } else {
+            // Si no es un array, devuelve un array vacío o maneja el caso según sea necesario
+            return [];
+        }
+    }
 </script>

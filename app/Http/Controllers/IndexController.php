@@ -50,7 +50,7 @@ class IndexController extends Controller
     }
     public function verProductos($idvendedor)
     {
-        $vendedor = Vendedores::with('usuario.publicaciones.productos','usuario.publicaciones.precios','usuario.publicaciones.unidades', 'usuario.publicaciones.imagenes')->findOrFail($idvendedor);
+        $vendedor = Vendedores::with('usuario.publicaciones.productos','usuario.publicaciones.precios','usuario.publicaciones.unidades', 'usuario.publicaciones.imagenes','usuario.imagenesperfil')->findOrFail($idvendedor);
         $categorias = Categorias::with('subcategorias')->get();
         $subcategorias = Subcategorias::all();
         $perfil = auth()->user();
