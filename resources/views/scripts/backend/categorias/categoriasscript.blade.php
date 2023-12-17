@@ -41,8 +41,8 @@
             if (modo == 1) {
                 $("#categoria").val(parametro_seleccionado.categoria);
                 $("#descripcion").val(parametro_seleccionado.descripcion);
-                cargarImg("#imagen", parametro_seleccionado.imagen);
                 cargarImg("#icono", parametro_seleccionado.icono);
+                cargarImg("#imagen", parametro_seleccionado.imagen);
             } else if (modo == 2) {
                 Swal.fire({
                     title: '¿Esta seguro?',

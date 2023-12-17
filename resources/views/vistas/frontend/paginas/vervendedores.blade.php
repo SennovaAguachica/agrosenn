@@ -6,7 +6,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
+                <a href="/" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
                 <span></span> Asociaciones
             </div>
         </div>
@@ -180,7 +180,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+            <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -222,7 +222,7 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="/index">Inicio</a>
+                            <a href="/">Inicio</a>
                         </li>
                         <li class="position-static">
                         <li>

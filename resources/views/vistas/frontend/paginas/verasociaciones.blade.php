@@ -117,7 +117,7 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="/index">Inicio</a>
+                            <a href="/">Inicio</a>
                         </li>
                         <li class="position-static">
                         <li>

@@ -45,11 +45,6 @@
                 showZoom: true,
                 showDrag: false,
                 showRotate: false,
-                removeIcon: '<i class="fa fa-trash"></i>', // Cambiar el icono de eliminación si es necesario
-                removeClass: 'btn btn-sm btn-danger', // Cambiar la clase de estilo del botón de eliminación si es necesario
-                indicatorNew: '<i class="fa fa-plus-circle text-warning"></i>',
-                indicatorSuccess: '<i class="fa fa-check-circle text-success"></i>',
-                indicatorError: '<i class="fa fa-times-circle text-danger"></i>',
             },
         });
 
@@ -160,16 +155,16 @@
         $('#imgcargada').prop('src', ruta);
     }
 
-    // function cargarVariasImg(campo, rutas) {
-    //     $(campo).fileinput('destroy');
-    //     const initialPreview = [];
+    function cargarVariasImg(campo, rutas) {
+        $(campo).fileinput('destroy');
+        const initialPreview = [];
 
-    //     rutas.forEach((ruta, index) => {
-    //         const imgId = 'imgcargada_' + index;
-    //         const img = `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
+        rutas.forEach((ruta, index) => {
+            const imgId = 'imgcargada_' + index;
+            const img = `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
 
-    //         initialPreview.push(img);
-    //     });
+            initialPreview.push(img);
+        });
 
     //     $(campo).fileinput({
     //         initialPreview: initialPreview,
@@ -187,7 +182,7 @@
     //         const imgId = 'imgcargada_' + index;
     //         $('#' + imgId).prop('src', ruta);
     //     });
-    // }
+    }
 
     function cargarVariasImagenes(campo) {
         // Obtener las rutas de las imágenes existentes

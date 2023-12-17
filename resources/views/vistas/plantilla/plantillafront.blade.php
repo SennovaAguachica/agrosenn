@@ -62,7 +62,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
+                        <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
                                 width="20%" style="padding: 0; margin: 0" /></a>
                     </div>
                     <div class="header-right">
