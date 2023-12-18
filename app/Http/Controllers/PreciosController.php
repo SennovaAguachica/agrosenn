@@ -143,15 +143,12 @@ class PreciosController extends Controller
                     'estado' => 1
                 ]);
             } else {
-                $validacionProducto = Precios::where([
+                $validacionUnidadProducto = Precios::where([
                     ['producto_id', $datos['precios_idproductos']],
-                    ['id_usuario', $idusuario],
-                ])->get();
-                $validacionUnidad = Precios::where([
                     ['unidades_id', $datos['precios_idunidades']],
                     ['id_usuario', $idusuario],
                 ])->get();
-                if (count($validacionProducto) > 0 && count($validacionUnidad) === 0) {
+                if (count($validacionUnidadProducto)) {
                     $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
                 } else {
                     $nuevoPrecio = new Precios();
