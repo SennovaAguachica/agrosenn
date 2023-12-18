@@ -261,9 +261,14 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">Producto de <a
-                                                    href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
-                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                            @if (isset($publicacion->usuario->vendedor))
+                                                <span class="font-small text-muted">Producto de <a
+                                                        href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                        {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                            @elseif(isset($publicacion->usuario->asociacion))
+                                                <span class="font-small text-muted">Producto de <a
+                                                        href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a></span>
+                                            @endif
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
@@ -328,9 +333,14 @@
                                                     <span class="font-small ml-5 text-muted"> (4.0)</span>
                                                 </div>
                                                 <div>
-                                                    <span class="font-small text-muted">Producto de <a
-                                                            href="/vervendedor/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
-                                                            {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                                    @if (isset($publicacion->usuario->vendedor))
+                                                        <span class="font-small text-muted">Producto de <a
+                                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                                    @elseif(isset($publicacion->usuario->asociacion))
+                                                        <span class="font-small text-muted">Producto de <a
+                                                                href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a></span>
+                                                    @endif
                                                 </div>
                                                 <div class="product-card-bottom">
                                                     <div class="product-price">

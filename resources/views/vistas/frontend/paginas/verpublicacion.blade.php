@@ -6,8 +6,8 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
-                <span></span> <a
+                <a href="/index" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
+                <span></span> publicaciones <span></span> <a
                     href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                 <span></span>
                 {{ $publicacion->productos->producto }}
@@ -75,11 +75,10 @@
                                         <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                     </div>
                                     <br>
-                                    <div class="product-extra-link2">
-                                        <button type="submit"
-                                            href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
-                                            target="_blank" class="button button-add-to-cart"><i
-                                                class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</button>
+                                    <div class="">
+                                        <a href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                            target="_blank" class="btn"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                            Contactar vendedor</a>
                                     </div>
                                 </div>
                                 <div class="font-xs">
@@ -93,10 +92,17 @@
                                         {{-- <li>LIFE: <span class="text-brand">70 days</span></li> --}}
                                     </ul>
                                     <ul class="float-start">
-                                        <li class="mb-5">Vendedor: <a
-                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}"
-                                                rel="tag">{{ $publicacion->usuario->vendedor->nombres }}
-                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></li>
+                                        @if (isset($publicacion->usuario->vendedor))
+                                            <li class="mb-5">Vendedor: <a
+                                                    href="/verproductos/{{ $publicacion->usuario->vendedor->id }}"
+                                                    rel="tag">{{ $publicacion->usuario->vendedor->nombres }}
+                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a></li>
+                                        @elseif(isset($publicacion->usuario->asociacion))
+                                            <li class="mb-5">Vendedor: <a
+                                                    href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}"
+                                                    rel="tag">{{ $publicacion->usuario->asociacion->asociacion }}</a>
+                                            </li>
+                                        @endif
                                         <li class="mb-5">Fecha publicación:<span class="text-brand">
                                                 {{ $publicacion->created_at }}</span></li>
                                         {{-- <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li> --}}
@@ -184,8 +190,14 @@
                                         <img src="{{ $publicacion->usuario->fotoperfil }}" alt="" />
                                         <div class="vendor-name ml-15">
                                             <h6>
-                                                <a href="/vervendedor/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
-                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a>
+
+                                                @if (isset($publicacion->usuario->vendedor))
+                                                    <a href="/vervendedor/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                        {{ $publicacion->usuario->vendedor->apellidos }}</a>
+                                                @elseif(isset($publicacion->usuario->asociacion))
+                                                    <a
+                                                        href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a>
+                                                @endif
                                             </h6>
                                             <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
@@ -197,14 +209,17 @@
                                     </div>
                                     <ul class="contact-infor mb-50">
                                         <li><i class="fa-solid fa-location-dot"></i><strong> Dirección: </strong>
-                                            <span>{{ $publicacion->usuario->vendedor->direccion }},
-                                                {{ $publicacion->usuario->vendedor->municipio->ciudad }} -
-                                                {{ $publicacion->usuario->vendedor->municipio->departamento->departamento }}</span>
+                                            <span>{{ $publicacion->usuario->vendedor->direccion ?? $publicacion->usuario->asociacion->direccion }},
+                                                {{ $publicacion->usuario->vendedor->municipio->ciudad ?? $publicacion->usuario->asociacion->municipio->ciudad }}
+                                                -
+                                                {{ $publicacion->usuario->vendedor->municipio->departamento->departamento ?? $publicacion->usuario->asociacion->municipio->departamento->departamento }}</span>
                                         </li>
                                         <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
-                                                {{ $publicacion->usuario->vendedor->n_celular }}</span></li>
+                                                {{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}</span>
+                                        </li>
                                         <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>(+57)
-                                                {{ $publicacion->usuario->vendedor->email }}</span></li>
+                                                {{ $publicacion->usuario->vendedor->email ?? $publicacion->usuario->asociacion->email }}</span>
+                                        </li>
                                     </ul>
                                     <div class="d-flex mb-55">
                                         <div class="mr-30">
@@ -220,7 +235,8 @@
                                             <h4 class="mb-0">89%</h4>
                                         </div>
                                     </div>
-                                    <p>{{ $publicacion->usuario->vendedor->descripcion }}</p>
+                                    <p>{{ $publicacion->usuario->vendedor->descripcion ?? ($publicacion->usuario->asociacion->descripcion ?? '') }}
+                                    </p>
                                 </div>
                                 <div class="tab-pane fade" id="Reviews">
                                     <!--Comments-->
@@ -456,7 +472,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+            <a href="/index"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -502,7 +518,7 @@
                         </li>
                         <li class="position-static">
                         <li>
-                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($categorias as $categoria)
                                     <li>

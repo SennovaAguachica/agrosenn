@@ -107,6 +107,16 @@
                                     <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     {{-- <span class="ml-30">500g</span> --}}
                                 </div>
+                                <div>
+                                    @if (isset($publicacion->usuario->vendedor))
+                                        <span class="font-small text-muted">Producto de <a
+                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                    @elseif(isset($publicacion->usuario->asociacion))
+                                        <span class="font-small text-muted">Producto de <a
+                                                href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a></span>
+                                    @endif
+                                </div>
                                 <p class="mt-15 mb-15">{{ $publicacion->productos->descripcion }}</p>
                                 <div class="product-price">
                                     <span>$ {{ $publicacion->precios->precio }}</span>
@@ -115,7 +125,7 @@
                                 </div>
                                 <div class="mt-30 d-flex align-items-center">
                                     <a aria-label="Buy now" class="btn"
-                                        href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                        href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
                                         target="_blank"><i class="fa-brands fa-whatsapp fa-xl"></i> Lo
                                         quiero!</a>
                                 </div>

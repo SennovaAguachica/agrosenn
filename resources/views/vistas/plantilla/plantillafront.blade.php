@@ -68,94 +68,12 @@
                     <div class="header-right">
                         <div class="search-style-2">
                             <form action="#">
-                                <input type="text" placeholder="Buscar productos..." />
+                                <input type="text" class="inputbuscar" placeholder="Buscar productos..." />
+                                <button type="submit" class="btnbuscar"><i class="fi-rs-search"></i></button>
                             </form>
                         </div>
                         <div class="header-action-right">
                             <div class="header-action-2">
-                                {{-- <div class="search-location">
-                                    <form action="#">
-                                        <select class="select-active">
-                                            <option>Tu localización</option>
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>Arizona</option>
-                                            <option>Delaware</option>
-                                            <option>Florida</option>
-                                            <option>Georgia</option>
-                                            <option>Hawaii</option>
-                                            <option>Indiana</option>
-                                            <option>Maryland</option>
-                                            <option>Nevada</option>
-                                            <option>New Jersey</option>
-                                            <option>New Mexico</option>
-                                            <option>New York</option>
-                                        </select>
-                                    </form>
-                                </div>
-                                <div class="header-action-icon-2">
-                                    <a href="shop-compare.html">
-                                        <img class="svgInject" alt="Nest"
-                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-compare.svg') }}" />
-                                        <span class="pro-count blue">3</span>
-                                    </a>
-                                    <a href="shop-compare.html"><span class="lable ml-0">Comparar</span></a>
-                                </div>
-                                <div class="header-action-icon-2">
-                                    <a href="shop-wishlist.html">
-                                        <img class="svgInject" alt="Nest"
-                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-heart.svg') }}" />
-                                        <span class="pro-count blue">6</span>
-                                    </a>
-                                    <a href="shop-wishlist.html"><span class="lable">Favoritos</span></a>
-                                </div>
-                                <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="shop-cart.html">
-                                        <img alt="Nest"
-                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-cart.svg') }}" />
-                                        <span class="pro-count blue">2</span>
-                                    </a>
-                                    <a href="shop-cart.html"><span class="lable">Carrito</span></a>
-                                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                        <ul>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest"
-                                                            src="{{ asset('assetsfront/imgs/shop/thumbnail-3.jpg') }}" /></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html">Bolso Casual Daisy</a></h4>
-                                                    <h4><span>1 × </span>$800.00</h4>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest"
-                                                            src="{{ asset('assetsfront/imgs/shop/thumbnail-2.jpg') }}" /></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html">Camisas de Corduroy</a></h4>
-                                                    <h4><span>1 × </span>$3200.00</h4>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="shopping-cart-footer">
-                                            <div class="shopping-cart-total">
-                                                <h4>Total <span>$4000.00</span></h4>
-                                            </div>
-                                            <div class="shopping-cart-button">
-                                                <a href="shop-cart.html" class="outline">Ver carrito</a>
-                                                <a href="shop-checkout.html">Pagar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="header-action-icon-2">
                                     <a href="/login">
                                         <img class="svgInject" alt="Nest"
@@ -207,13 +125,13 @@
             <div class="mobile-header-content-area">
                 <div class="mobile-search search-style-3 mobile-header-border">
                     <form action="#">
-                        <input type="text" placeholder="Buscar productos…" />
-                        <button type="submit"><i class="fi-rs-search"></i></button>
+                        <input type="text" class="inputbuscar" placeholder="Buscar productos…" />
+                        <button type="submit" class="btnbuscar"><i class="fi-rs-search"></i></button>
                     </form>
                 </div>
                 <div class="mobile-menu-wrap mobile-header-border">
                     <!-- Inicio del menú móvil -->
-                    
+
                     @yield('categoria_movil')
                     <!-- Fin del menú móvil -->
                 </div>

@@ -116,9 +116,14 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div>
-                                        <span class="font-small text-muted">Producto de <a
-                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
-                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                        @if (isset($publicacion->usuario->vendedor))
+                                            <span class="font-small text-muted">Producto de <a
+                                                    href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                        @elseif(isset($publicacion->usuario->asociacion))
+                                            <span class="font-small text-muted">Producto de <a
+                                                    href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a></span>
+                                        @endif
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="product-price">
@@ -130,7 +135,7 @@
                                     <div class="product-card-bottom">
                                         <div class="add-cart">
                                             <a class="add"
-                                                href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                                href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular}}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
                                                 target="_blank"><i class="fa-brands fa-whatsapp fa-xl"></i>
                                                 Lo
                                                 quiero! </a>
@@ -148,7 +153,8 @@
                     <ul>
                         @foreach ($subcategoriasConPublicaciones as $subcategoria)
                             <li>
-                                <a href="/versubcategoria/{{ $subcategoria->id }}"> <img src="{{ $subcategoria->imagen }}"
+                                <a href="/versubcategoria/{{ $subcategoria->id }}"> <img
+                                        src="{{ $subcategoria->imagen }}"
                                         alt="" />{{ $subcategoria->subcategoria }}</a><span
                                     class="count">{{ $subcategoria->npublicaciones }}</span>
                             </li>
