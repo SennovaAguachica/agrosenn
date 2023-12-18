@@ -12,17 +12,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('precios_publicacion', function (Blueprint $table) {
+        Schema::create('detalle_venta', function (Blueprint $table) {
             $table->id();
-            //$table->Integer('estado');
 
-            $table->unsignedBigInteger('precios_id');
-            $table->foreign('precios_id')->references('id')->on('precios');
-
+            $table->bigInteger('id_usuario')->unsigned();
+            $table->foreign('id_usuario')->references('id')->on('users');
             $table->unsignedBigInteger('publicaciones_id');
             $table->foreign('publicaciones_id')->references('id')->on('publicaciones');
+            $table->bigInteger('id_venta')->unsigned();
+            $table->foreign('id_venta')->references('id')->on('ventas');
+
+            $table->string('cantidad');
+            $table->string('precio_subtotal');
+
             $table->timestamps();
         });
+        Artisan::call('db:seed', [
+            '--class' => DatabaseSeeder::class,
+            '--force' => true,
+        ]);
     }
 
     /**
@@ -30,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('precios_publicacion');
+        Schema::dropIfExists('detalle_venta');
     }
 };

@@ -14,6 +14,7 @@ use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\EquivalenciasController;
 use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\PublicacionesController;
+use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PerfilController;
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/publicaciones', [PublicacionesController::class, 'index']);
     Route::post('/publicaciones_peticiones', [PublicacionesController::class, 'peticionesAction']);
     Route::post('/eliminar_imagen', [PublicacionesController::class, 'eliminarImagen']);
+
+    Route::get('/ventas', [VentasController::class, 'index']);
+    Route::post('/ventas_peticiones', [VentasController::class, 'peticionesAction']);
 
     Route::post('/login_peticiones', [VendedoresController::class, 'peticionesAction']);
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);

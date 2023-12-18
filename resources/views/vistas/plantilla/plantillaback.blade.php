@@ -164,6 +164,15 @@
                         </a>
                     </li>
                 @endcan
+                @can('ventas.listar')
+                    <li class="menu-item" id="li_ventas">
+                        <a class="menu-link" href="/ventas">
+                            <i class="fa-solid fa-square-poll-vertical fa-xl" id="i_ventas"
+                            style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
+                            <span class="text">Ventas</span>
+                        </a>
+                    </li>
+                @endcan
                 @can('administradores.listar')
                     <li class="menu-item" id="li_administradores">
                         <a class="menu-link" href="/administradores">

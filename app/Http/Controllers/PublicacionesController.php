@@ -156,6 +156,7 @@ class PublicacionesController extends Controller
                     $nuevoPublicacion->unidades_id = $datos['idunidades'];
                     $nuevoPublicacion->id_usuario = $idusuario;
                     $nuevoPublicacion->estado = 1;
+                    $nuevoPublicacion->descripcion = $datos['descripcion'];
                     $nuevoPublicacion->created_at = \Carbon\Carbon::now();
                     $nuevoPublicacion->updated_at = \Carbon\Carbon::now();
                     $nuevoPublicacion->save();
@@ -252,6 +253,7 @@ class PublicacionesController extends Controller
                         $nuevoPublicacion2->unidades_id = $datos['idunidades'];
                         $nuevoPublicacion2->id_usuario = $idusuario;
                         $nuevoPublicacion2->estado = 1;
+                        $nuevoPublicacion2->descripcion = $datos['descripcion'];
                         $nuevoPublicacion2->created_at = \Carbon\Carbon::now();
                         $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
                         $nuevoPublicacion2->save();
@@ -353,7 +355,7 @@ class PublicacionesController extends Controller
             $actualizarPublicacion->producto_id = $datos['idproductos'];
             $actualizarPublicacion->unidades_id = $datos['idunidades'];
             $actualizarPublicacion->estado = 1;
-
+            $actualizarPublicacion->descripcion = $datos['descripcion'];
             $actualizarPublicacion->save();
 
             $rutasImagenes = $actualizarPublicacion->imagenes()->pluck('ruta')->toArray();

@@ -30,6 +30,7 @@
                             <th>Unidad</th>
                             <th>Precio</th>
                             <th>Estado</th>
+                            <th>Descripcion</th>
                             <th>Imágenes</th>
                             <th>Acciones</th>
                         </tr>
@@ -105,6 +106,13 @@
         </div>
     </div>
 </div>
+<br>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="descripcion">Descripción</label>
+            <textarea type="text" class="form-control" name="descripcion" id="descripcion"></textarea>
+        </div>
+    </div>
 <br>
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12 ">

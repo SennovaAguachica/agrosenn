@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             // $table->decimal('ofertado', 10, 2);
             $table->Integer('estado');
+            $table->text('descripcion')->nullable();
 
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');

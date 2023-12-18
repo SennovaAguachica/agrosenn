@@ -11,6 +11,7 @@ class Publicaciones extends Model
     protected $fillable = [
         'id',
         // 'ofertado',
+        'descripcion',
         'estado',
         'producto_id',
         'unidades_id',
@@ -38,7 +39,7 @@ class Publicaciones extends Model
     {
         return $this->belongsTo(Precios::class, 'precios_id', 'id');
     }
-    
+
     public function equivalencias_unidades()
     {
         return $this->belongsTo(EquivalenciasUnidades::class, 'equivalencias_unidades_id', 'id');
