@@ -1,82 +1,33 @@
-@extends('../scripts.frontend.paginas.paginasscript')
+@extends('../scripts.frontend.paginas.resultadosscript')
 @section('titulo')
     <title>Index</title>
 @endsection
 @section('contenido')
-    <div class="page-header breadcrumb-wrap">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
-                <span></span> Asociaciones
-            </div>
-        </div>
-    </div>
     <div class="page-content pt-50">
         <div class="container mb-30">
             <div class="archive-header-2 text-center">
-                <h2 class="mb-50">Productos disponibles</h2>
+                <h2 class="mb-50">Productos encontrados</h2>
             </div>
             <div class="row flex-row-reverse">
                 <div class="col-lg-4-5">
                     <div class="shop-product-fillter">
                         <div class="totall-product">
-                            <p>Encontramos <strong
-                                    class="text-brand">{{ count($vendedor->usuario->publicaciones) }}</strong> productos
+                            <p>Encontramos <strong class="text-brand">{{ count($resultados) }}</strong> productos
                                 disponibles para ti!</p>
-                        </div>
-                        <div class="sort-by-product-area">
-                            <div class="sort-by-cover mr-10">
-                                <div class="sort-by-product-wrap">
-                                    <div class="sort-by">
-                                        <span><i class="fi-rs-apps"></i>Show:</span>
-                                    </div>
-                                    <div class="sort-by-dropdown-wrap">
-                                        <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                                    </div>
-                                </div>
-                                <div class="sort-by-dropdown">
-                                    <ul>
-                                        <li><a class="active" href="#">50</a></li>
-                                        <li><a href="#">100</a></li>
-                                        <li><a href="#">150</a></li>
-                                        <li><a href="#">200</a></li>
-                                        <li><a href="#">All</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sort-by-cover">
-                                <div class="sort-by-product-wrap">
-                                    <div class="sort-by">
-                                        <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                                    </div>
-                                    <div class="sort-by-dropdown-wrap">
-                                        <span> Featured <i class="fi-rs-angle-small-down"></i></span>
-                                    </div>
-                                </div>
-                                <div class="sort-by-dropdown">
-                                    <ul>
-                                        <li><a class="active" href="#">Featured</a></li>
-                                        <li><a href="#">Price: Low to High</a></li>
-                                        <li><a href="#">Price: High to Low</a></li>
-                                        <li><a href="#">Release Date</a></li>
-                                        <li><a href="#">Avg. Rating</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="row product-grid">
-                        @foreach ($vendedor->usuario->publicaciones as $publicacion)
+                        @foreach ($resultados as $publicacion)
                             <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a class="btnverimagenes" data-bs-toggle="modal"
                                                 data-bs-target="#quickViewModal" data-idpublicacion='{{ $publicacion->id }}'
-                                                data-datos="{{ $vendedor->usuario->publicaciones }}">
-                                                <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
+                                                data-datos="{{ $publicacion }}">
+                                                <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta ?? '' }}"
                                                     alt="" />
-                                                <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
+                                                <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta ?? '' }}"
                                                     alt="" />
                                             </a>
                                         </div>
@@ -84,8 +35,7 @@
                                             <a aria-label="Ver detalles" class="action-btn btnverimagenes"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal"
                                                 data-idpublicacion='{{ $publicacion->id }}'
-                                                data-datos="{{ $vendedor->usuario->publicaciones }}"><i
-                                                    class="fi-rs-eye"></i></a>
+                                                data-datos="{{ $publicacion }}"><i class="fi-rs-eye"></i></a>
                                         </div>
                                     </div>
                                     <div class="product-content-wrap">
@@ -99,9 +49,15 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">Producto de <a
-                                                    href="/verproductos/{{ $vendedor->id }}">{{ $vendedor->nombres }}
-                                                    {{ $vendedor->apellidos }}</a></span>
+                                            @if (isset($publicacion->usuario->vendedor))
+                                                <span class="font-small text-muted">Producto de <a
+                                                        href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                        {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                            @elseif(isset($publicacion->usuario->asociacion))
+                                                <span class="font-small text-muted">Producto de <a
+                                                        href="/verproductos/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a></span>
+                                            @endif
+
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
@@ -113,7 +69,7 @@
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
                                                 <a class="add"
-                                                    href="https://api.whatsapp.com/send?phone={{ $vendedor->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                                    href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
                                                     target="_blank"><i class="fa-brands fa-whatsapp fa-xl"></i>
                                                     Lo
                                                     quiero! </a>
@@ -124,92 +80,24 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
-                <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-                    <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
-                        <div class="vendor-logo mb-30">
-                            <img src="{{ $vendedor->usuario->fotoperfil }}" alt="" />
-                        </div>
-                        <div class="vendor-info">
-                            <h4 class="mb-5"><a href="" class="text-heading">{{ $vendedor->nombres }}
-                                    {{ $vendedor->apellidos }}</a>
-                            </h4>
-                            <div class="product-rate-cover mb-15">
-                                <div class="product-rate d-inline-block">
-                                    <div class="product-rating" style="width: 90%"></div>
-                                </div>
-                                <span class="font-small ml-5 text-muted"> (4.0)</span>
-                            </div>
-                            <div class="vendor-des mb-30">
-                                <p class="font-sm text-heading">{{ $vendedor->descripcion }}</p>
-                            </div>
-                            {{-- <div class="detail-gallery">
-                                <span class="zoom-icon"><i class="fi-rs-search"></i></span>
-                                <!-- MAIN SLIDES -->
-                                <div class="product-image-slider vendedorslider">
-                                    @foreach ($vendedor->usuario->imagenesperfil as $imagen)
-                                        <figure class='border-radius-10'
-                                            style='height: 300px; display: flex; align-items:center;justify-content: center;'>
-                                            <img src="{{ $imagen->imagen }}" alt="product image" />
-                                        </figure>
-                                    @endforeach
-                                </div>
-                                <!-- THUMBNAILS -->
-                                <div class="slider-nav-thumbnails vendedorslidernav">
-                                    @foreach ($vendedor->usuario->imagenesperfil as $imagen)
-                                        <div
-                                            style='height: 50px; display: flex; align-items:center;justify-content: center; '>
-                                            <img src="{{ $imagen->imagen }}"
-                                                style="max-width:50px;"alt="product image" />
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div> --}}
-                            <div class="product-cart-wrap mb-30">
-                                <div class="product-img-action-wrap">
-                                    <div class="product-img product-img-zoom">
-                                        <a class="btnverimagenesvendedor" data-bs-toggle="modal"
-                                            data-bs-target="#modalVerImagenes" data-idvendedor='{{ $vendedor->id }}'
-                                            data-datos="{{ $vendedor->usuario->imagenes }}">
-                                            <img class="default-img"
-                                                src="{{ $vendedor->usuario->imagenesperfil[0]->imagen }}"
-                                                alt="" />
-                                            <img class="hover-img"
-                                                src="{{ $vendedor->usuario->imagenesperfil[0]->imagen }}"
-                                                alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="product-action-1">
-                                        <a aria-label="Ver detalles" class="action-btn btnverimagenesvendedor"
-                                            data-bs-toggle="modal" data-bs-target="#modalVerImagenes"
-                                            data-idvendedor='{{ $vendedor->id }}'
-                                            data-datos="{{ $vendedor->usuario->imagenesperfil }}"><i
-                                                class="fi-rs-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="follow-social mb-20">
-                                <h6 class="mb-15">Contactos</h6>
-                            </div>
-                            <div class="vendor-info">
-                                <ul class="font-sm mb-20">
-                                    <li><i class="fa-solid fa-location-dot"></i><strong> Dirección: </strong>
-                                        <span>{{ $vendedor->direccion }},
-                                            {{ $vendedor->municipio->ciudad }} -
-                                            {{ $vendedor->municipio->departamento->departamento }}</span>
-                                    </li>
-                                    <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
-                                            {{ $vendedor->n_celular }}</span></li>
-                                    <li><i class="fa-solid fa-envelope"></i><strong>
-                                            E-mail:</strong><span>{{ $vendedor->email }}</span></li>
-                                </ul>
-                                <button type="submit"
-                                    href="https://api.whatsapp.com/send?phone={{ $vendedor->n_celular }}&text=Hola, estoy interesado en sus productos publicados en Agrosenn."
-                                    target="_blank" class="button button-add-to-cart"><i
-                                        class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</button>
-                            </div>
-                        </div>
-                    </div>
+                    {{ $resultados->links('pagination::bootstrap-5') }}
+                    {{-- <div class="pagination-area mt-20 mb-20">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-start">
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fi-rs-arrow-small-left"></i></a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fi-rs-arrow-small-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -6,8 +6,8 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
-                <span></span> <a
+                <a href="/index" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
+                <span></span> publicaciones <span></span> <a
                     href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                 <span></span>
                 {{ $publicacion->productos->producto }}
@@ -68,16 +68,6 @@
                                 <div class="short-desc mb-30">
                                     <p class="font-lg">{{ $publicacion->descripcion }}</p>
                                 </div>
-                                {{-- <div class="attr-detail attr-size mb-30">
-                                    <strong class="mr-10">Size / Weight: </strong>
-                                    <ul class="list-filter size-filter font-small">
-                                        <li><a href="#">50g</a></li>
-                                        <li class="active"><a href="#">60g</a></li>
-                                        <li><a href="#">80g</a></li>
-                                        <li><a href="#">100g</a></li>
-                                        <li><a href="#">150g</a></li>
-                                    </ul>
-                                </div> --}}
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
@@ -85,13 +75,10 @@
                                         <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                     </div>
                                     <br>
-                                    <div class="product-extra-link2">
-                                        <button type="submit" class="button button-add-to-cart"><i
-                                                class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</button>
-                                        {{-- <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                            href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                        <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i
-                                                class="fi-rs-shuffle"></i></a> --}}
+                                    <div class="">
+                                        <a href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
+                                            target="_blank" class="btn"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                            Contactar vendedor</a>
                                     </div>
                                 </div>
                                 <div class="font-xs">
@@ -105,10 +92,17 @@
                                         {{-- <li>LIFE: <span class="text-brand">70 days</span></li> --}}
                                     </ul>
                                     <ul class="float-start">
-                                        <li class="mb-5">Vendedor: <a
-                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}"
-                                                rel="tag">{{ $publicacion->usuario->vendedor->nombres }}
-                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></li>
+                                        @if (isset($publicacion->usuario->vendedor))
+                                            <li class="mb-5">Vendedor: <a
+                                                    href="/verproductos/{{ $publicacion->usuario->vendedor->id }}"
+                                                    rel="tag">{{ $publicacion->usuario->vendedor->nombres }}
+                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a></li>
+                                        @elseif(isset($publicacion->usuario->asociacion))
+                                            <li class="mb-5">Vendedor: <a
+                                                    href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}"
+                                                    rel="tag">{{ $publicacion->usuario->asociacion->asociacion }}</a>
+                                            </li>
+                                        @endif
                                         <li class="mb-5">Fecha publicación:<span class="text-brand">
                                                 {{ $publicacion->created_at }}</span></li>
                                         {{-- <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li> --}}
@@ -196,8 +190,14 @@
                                         <img src="{{ $publicacion->usuario->fotoperfil }}" alt="" />
                                         <div class="vendor-name ml-15">
                                             <h6>
-                                                <a href="/vervendedor/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
-                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a>
+
+                                                @if (isset($publicacion->usuario->vendedor))
+                                                    <a href="/vervendedor/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                        {{ $publicacion->usuario->vendedor->apellidos }}</a>
+                                                @elseif(isset($publicacion->usuario->asociacion))
+                                                    <a
+                                                        href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a>
+                                                @endif
                                             </h6>
                                             <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
@@ -209,14 +209,17 @@
                                     </div>
                                     <ul class="contact-infor mb-50">
                                         <li><i class="fa-solid fa-location-dot"></i><strong> Dirección: </strong>
-                                            <span>{{ $publicacion->usuario->vendedor->direccion }},
-                                                {{ $publicacion->usuario->vendedor->municipio->ciudad }} -
-                                                {{ $publicacion->usuario->vendedor->municipio->departamento->departamento }}</span>
+                                            <span>{{ $publicacion->usuario->vendedor->direccion ?? $publicacion->usuario->asociacion->direccion }},
+                                                {{ $publicacion->usuario->vendedor->municipio->ciudad ?? $publicacion->usuario->asociacion->municipio->ciudad }}
+                                                -
+                                                {{ $publicacion->usuario->vendedor->municipio->departamento->departamento ?? $publicacion->usuario->asociacion->municipio->departamento->departamento }}</span>
                                         </li>
                                         <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
-                                                {{ $publicacion->usuario->vendedor->n_celular }}</span></li>
+                                                {{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}</span>
+                                        </li>
                                         <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>(+57)
-                                                {{ $publicacion->usuario->vendedor->email }}</span></li>
+                                                {{ $publicacion->usuario->vendedor->email ?? $publicacion->usuario->asociacion->email }}</span>
+                                        </li>
                                     </ul>
                                     <div class="d-flex mb-55">
                                         <div class="mr-30">
@@ -232,12 +235,8 @@
                                             <h4 class="mb-0">89%</h4>
                                         </div>
                                     </div>
-                                    <p>Noodles & Company is an American fast-casual restaurant that offers international and
-                                        American noodle dishes and pasta in addition to soups and salads. Noodles & Company
-                                        was founded in 1995 by Aaron Kennedy and is headquartered in Broomfield, Colorado.
-                                        The company went public in 2013 and recorded a $457 million revenue in 2017.In late
-                                        2018, there were 460 Noodles & Company locations across 29 states and Washington,
-                                        D.C.</p>
+                                    <p>{{ $publicacion->usuario->vendedor->descripcion ?? ($publicacion->usuario->asociacion->descripcion ?? '') }}
+                                    </p>
                                 </div>
                                 <div class="tab-pane fade" id="Reviews">
                                     <!--Comments-->
@@ -428,11 +427,11 @@
                                         <div class="product-cart-wrap hover-up">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="/verpublicacion/{{$relacionado->id}}" tabindex="0">
-                                                        <img class="default-img" src="{{$relacionado->imagenes[0]->ruta}}"
-                                                            alt="" />
-                                                        <img class="hover-img" src="{{$relacionado->imagenes[0]->ruta}}"
-                                                            alt="" />
+                                                    <a href="/verpublicacion/{{ $relacionado->id }}" tabindex="0">
+                                                        <img class="default-img"
+                                                            src="{{ $relacionado->imagenes[0]->ruta }}" alt="" />
+                                                        <img class="hover-img"
+                                                            src="{{ $relacionado->imagenes[0]->ruta }}" alt="" />
                                                     </a>
                                                 </div>
                                                 {{-- <div class="product-action-1">
@@ -445,15 +444,16 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
-                                                <h2><a href="/verpublicacion/{{$relacionado->id}}" tabindex="0">{{$relacionado->productos->producto}}</a>
+                                                <h2><a href="/verpublicacion/{{ $relacionado->id }}"
+                                                        tabindex="0">{{ $relacionado->productos->producto }}</a>
                                                 </h2>
                                                 <div class="rating-result" title="90%">
                                                     <span> </span>
                                                 </div>
                                                 <div class="product-price">
-                                                    <span>$ {{$relacionado->precios->precio}}</span>
+                                                    <span>$ {{ $relacionado->precios->precio }}</span>
                                                     <span class="" style="font-size:12px !important"> X
-                                                    {{ $relacionado->unidades->unidad }}</span>
+                                                        {{ $relacionado->unidades->unidad }}</span>
                                                     {{-- <span class="old-price">$245.8</span> --}}
                                                 </div>
                                             </div>
@@ -472,7 +472,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+            <a href="/index"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -513,14 +513,12 @@
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
-                                alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
                             <a href="/index">Inicio</a>
                         </li>
                         <li class="position-static">
                         <li>
-                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($categorias as $categoria)
                                     <li>
@@ -549,16 +547,50 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li>
-                            <a href="page-contact.html">Contacto</a>
-                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <div class="hotline d-none d-lg-flex">
-            <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
-            <p>xxx - xxxxx <span>Soporte</span></p>
+        <div class="header-action-icon-2 d-block d-lg-none">
+            <div class="burger-icon burger-icon-white">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+            </div>
         </div>
     </div>
+@endsection
+@section('categoria_movil')
+    <nav>
+        <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children">
+                <a href="/index">Inicio</a>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="#">Categorias</a>
+                <ul class="dropdown">
+                    @foreach ($categorias as $categoria)
+                        <li class="menu-item-has-children">
+                            <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }}</a>
+                            <ul class="dropdown">
+                                @foreach ($categoria->subcategorias as $subcategoria)
+                                    <li><a
+                                            href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <ul class="dropdown">
+                    @foreach ($asociaciones as $asociacion)
+                        <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+    </nav>
 @endsection

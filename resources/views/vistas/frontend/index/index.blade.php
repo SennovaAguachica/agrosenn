@@ -42,7 +42,7 @@
     </section>
 
     <section class="popular-categories section-padding">
-        <div class="container wow animate_animated animate_fadeIn">
+        <div class="container wow animate__animated animate__fadeIn">
             <div class="section-title">
                 <div class="title">
                     <h3>Categorías ofertadas</h3>
@@ -60,15 +60,96 @@
                             // Obtiene el índice actual del bucle + 9 para que esté en el rango de 9 a 15
                             $bgClass = 'bg-' . (($loop->index % 7) + 9);
                         @endphp
-                        <div class="card-2 {{ $bgClass }} wow animate_animated animate_fadeInUp"
+                        <div class="card-2 {{ $bgClass }} wow animate__animated animate__fadeInUp"
                             data-wow-delay=".1s">
                             <figure class="img-hover-scale overflow-hidden">
-                                <a href="/vercategoria/{{$item->id}}"><img src="{{ $item->imagen }}" alt="" /></a>
+                                <a href="/vercategoria/{{ $item->id }}"><img src="{{ $item->imagen }}"
+                                        alt="" /></a>
                             </figure>
-                            <h6><a href="/vercategoria/{{$item->id}}">{{ $item->categoria }}</a></h6>
+                            <h6><a href="/vercategoria/{{ $item->id }}">{{ $item->categoria }}</a></h6>
                             <span>26 artículos</span>
                         </div>
                     @endforeach
+                    {{-- <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-13.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Pastel & Leche</a></h6>
+                        <span>26 artículos</span>
+                    </div>
+                    <div class="card-2 bg-10 wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-12.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Kiwi Orgánico</a></h6>
+                        <span>28 artículos</span>
+                    </div>
+                    <div class="card-2 bg-11 wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-11.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Durazno</a></h6>
+                        <span>14 artículos</span>
+                    </div>
+                    <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-9.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Manzana Roja</a></h6>
+                        <span>54 artículos</span>
+                    </div>
+                    <div class="card-2 bg-13 wow animate__animated animate__fadeInUp" data-wow-delay=".5s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-3.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Snacks</a></h6>
+                        <span>56 artículos</span>
+                    </div>
+                    <div class="card-2 bg-14 wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-1.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Verduras</a></h6>
+                        <span>72 artículos</span>
+                    </div>
+                    <div class="card-2 bg-15 wow animate__animated animate__fadeInUp" data-wow-delay=".7s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-2.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Fresas</a></h6>
+                        <span>36 artículos</span>
+                    </div>
+                    <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-4.png" alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Ciruela Negra</a></h6>
+                        <span>123 artículos</span>
+                    </div>
+                    <div class="card-2 bg-10 wow animate__animated animate__fadeInUp" data-wow-delay=".9s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-5.png"
+                                    alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Chirimoya</a></h6>
+                        <span>34 artículos</span>
+                    </div>
+                    <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay="1s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-14.png"
+                                    alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Café & Té</a></h6>
+                        <span>89 artículos</span>
+                    </div>
+                    <div class="card-2 bg-11 wow animate__animated animate__fadeInUp" data-wow-delay="0s">
+                        <figure class="img-hover-scale overflow-hidden">
+                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-15.png"
+                                    alt="" /></a>
+                        </figure>
+                        <h6><a href="shop-grid-right.html">Auriculares</a></h6>
+                        <span>87 artículos</span>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -79,7 +160,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
-                    <div class="banner-img wow animate_animated animate_fadeInUp" data-wow-delay="0">
+                    <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay="0">
                         <img src="assetsfront/imgs/banner/banner-1.png" alt="" />
                         <div class="banner-text">
                             <h4>
@@ -92,7 +173,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <div class="banner-img wow animate_animated animate_fadeInUp" data-wow-delay=".2s">
+                    <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
                         <img src="assetsfront/imgs/banner/banner-2.png" alt="" />
                         <div class="banner-text">
                             <h4>
@@ -105,7 +186,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 d-md-none d-lg-flex">
-                    <div class="banner-img mb-sm-0 wow animate_animated animate_fadeInUp" data-wow-delay=".4s">
+                    <div class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
                         <img src="assetsfront/imgs/banner/banner-3.png" alt="" />
                         <div class="banner-text">
                             <h4>Los Mejores Productos<br />Orgánicos en Línea</h4>
@@ -121,7 +202,7 @@
     <!--End banners-->
     <section class="product-tabs section-padding position-relative">
         <div class="container">
-            <div class="section-title style-2 animate_animated animate_fadeIn">
+            <div class="section-title style-2 animate__animated animate__fadeIn">
                 <h3>Productos Populares</h3>
                 <ul class="nav nav-tabs links" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -143,7 +224,7 @@
                     <div class="row product-grid-4">
                         @foreach ($publicaciones as $publicacion)
                             <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30 animate_animated animate_fadeIn"
+                                <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn"
                                     data-wow-delay=".1s">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
@@ -170,7 +251,8 @@
                                             <a
                                                 href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                                         </div>
-                                        <h2><a href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
+                                        <h2><a
+                                                href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
                                         </h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
@@ -179,9 +261,14 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">Producto de <a
-                                                    href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
-                                                    {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                            @if (isset($publicacion->usuario->vendedor))
+                                                <span class="font-small text-muted">Producto de <a
+                                                        href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                        {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                            @elseif(isset($publicacion->usuario->asociacion))
+                                                <span class="font-small text-muted">Producto de <a
+                                                        href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a></span>
+                                            @endif
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
@@ -211,7 +298,7 @@
                             @foreach ($publicaciones as $publicacion)
                                 @if ($publicacion->productos->subcategoria_id == $subcategoria->id)
                                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                        <div class="product-cart-wrap mb-30 animate_animated animate_fadeIn"
+                                        <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn"
                                             data-wow-delay=".1s">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
@@ -234,10 +321,10 @@
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
                                                     <a
-                                                        href="/versubcategoria/{{$publicacion->productos->subcategoria->id}}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
+                                                        href="/versubcategoria/{{ $publicacion->productos->subcategoria->id }}">{{ $publicacion->productos->subcategoria->subcategoria }}</a>
                                                 </div>
                                                 <h2><a
-                                                        href="/versubcategoria/{{$publicacion->id}}">{{ $publicacion->productos->producto }}</a>
+                                                        href="/versubcategoria/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
                                                 </h2>
                                                 <div class="product-rate-cover">
                                                     <div class="product-rate d-inline-block">
@@ -246,9 +333,14 @@
                                                     <span class="font-small ml-5 text-muted"> (4.0)</span>
                                                 </div>
                                                 <div>
-                                                    <span class="font-small text-muted">Producto de <a
-                                                            href="/vervendedor/{{$publicacion->usuario->vendedor->id}}">{{ $publicacion->usuario->vendedor->nombres }}
-                                                            {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                                    @if (isset($publicacion->usuario->vendedor))
+                                                        <span class="font-small text-muted">Producto de <a
+                                                                href="/verproductos/{{ $publicacion->usuario->vendedor->id }}">{{ $publicacion->usuario->vendedor->nombres }}
+                                                                {{ $publicacion->usuario->vendedor->apellidos }}</a></span>
+                                                    @elseif(isset($publicacion->usuario->asociacion))
+                                                        <span class="font-small text-muted">Producto de <a
+                                                                href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a></span>
+                                                    @endif
                                                 </div>
                                                 <div class="product-card-bottom">
                                                     <div class="product-price">
@@ -321,10 +413,8 @@
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="{{ asset('assetsfront/imgs/theme/icons/icon-hot.svg') }}"
-                                alt="Ofertas" /><a href="shop-grid-right.html">Ofertas</a></li>
                         <li>
-                            <a href="/index">Inicio</a>
+                            <a href="/">Inicio</a>
                         </li>
                         <li class="position-static">
                         <li>
@@ -357,16 +447,50 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li>
-                            <a href="page-contact.html">Contacto</a>
-                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <div class="hotline d-none d-lg-flex">
-            <img src="{{ asset('assetsfront/imgs/theme/icons/icon-headphone.svg') }}" alt="línea directa" />
-            <p>xxx - xxxxx <span>Soporte</span></p>
+        <div class="header-action-icon-2 d-block d-lg-none">
+            <div class="burger-icon burger-icon-white">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+            </div>
         </div>
     </div>
+@endsection
+@section('categoria_movil')
+    <nav>
+        <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children">
+                <a href="/index">Inicio</a>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="#">Categorias</a>
+                <ul class="dropdown">
+                    @foreach ($categorias as $categoria)
+                        <li class="menu-item-has-children">
+                            <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }}</a>
+                            <ul class="dropdown">
+                                @foreach ($categoria->subcategorias as $subcategoria)
+                                    <li><a
+                                            href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <ul class="dropdown">
+                    @foreach ($asociaciones as $asociacion)
+                        <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+    </nav>
 @endsection

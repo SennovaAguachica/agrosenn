@@ -8,6 +8,8 @@ use App\Models\Subcategorias;
 use App\Models\Asociaciones;
 use App\Models\Vendedores;
 use App\Models\Publicaciones;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 
 class IndexController extends Controller
 {
@@ -22,7 +24,7 @@ class IndexController extends Controller
         : $subcategorias;
         $perfil = auth()->user();
         $asociaciones = Asociaciones::all();
-        $publicaciones = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($subcategoriasAleatorias) {
+        $publicaciones = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','usuario.asociacion','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($subcategoriasAleatorias) {
             $query->whereIn('subcategoria_id', $subcategoriasAleatorias->pluck('id'));
         })
         ->get();
@@ -50,7 +52,7 @@ class IndexController extends Controller
     }
     public function verProductos($idvendedor)
     {
-        $vendedor = Vendedores::with('usuario.publicaciones.productos','usuario.publicaciones.precios','usuario.publicaciones.unidades', 'usuario.publicaciones.imagenes')->findOrFail($idvendedor);
+        $vendedor = Vendedores::with('usuario.publicaciones.productos','usuario.publicaciones.precios','usuario.publicaciones.unidades', 'usuario.publicaciones.imagenes','usuario.imagenesperfil')->findOrFail($idvendedor);
         $categorias = Categorias::with('subcategorias')->get();
         $subcategorias = Subcategorias::all();
         $perfil = auth()->user();
@@ -110,11 +112,25 @@ class IndexController extends Controller
         $categorias = Categorias::with('subcategorias')->get();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario')->get();
-        $publicacion = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','precios','unidades')->findOrFail($idpublicacion);
+        $publicacion = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','usuario.asociacion.municipio.departamento','precios','unidades')->findOrFail($idpublicacion);
         $relacionados = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($publicacion) {
             $query->where('subcategoria_id', $publicacion->productos->subcategoria_id);
         })->get();
         return view('vistas.frontend.paginas.verpublicacion', compact('categorias', 'perfil','asociaciones','publicacion','relacionados'));
+
+    }
+    public function buscarProductos(Request $request)
+    {
+        $categorias = Categorias::with('subcategorias')->get();
+        $perfil = auth()->user();
+        $asociaciones = Asociaciones::with('usuario')->get();
+        $resultados = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','usuario.asociacion.municipio.departamento','precios','unidades')->
+        join('productos as pro', 'pro.id', '=', 'publicaciones.producto_id')
+        ->where('publicaciones.descripcion', 'LIKE', '%'.$request->inputbuscar.'%')
+        ->orWhere('pro.producto', 'LIKE', '%'.$request->inputbuscar.'%')
+        ->orWhere('pro.descripcion', 'LIKE', '%'.$request->inputbuscar.'%')
+        ->simplePaginate();
+        return view('vistas.frontend.paginas.resultados', compact('categorias', 'perfil','asociaciones','resultados'));
 
     }
 }

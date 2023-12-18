@@ -92,4 +92,5 @@ Route::get('/verproductos/{id}', [IndexController::class, 'verProductos']);
 Route::get('/vercategoria/{id}', [IndexController::class, 'verCategoria']);
 Route::get('/versubcategoria/{id}', [IndexController::class, 'verSubcategoria']);
 Route::get('/verpublicacion/{id}', [IndexController::class, 'verPublicacion']);
+Route::get('/buscarproductos', [IndexController::class, 'buscarProductos']);
 require __DIR__ . '/auth.php';

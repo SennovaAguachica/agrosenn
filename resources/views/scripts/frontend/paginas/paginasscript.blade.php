@@ -3,14 +3,30 @@
     <script>
         var AJAX = "/index_peticiones";
         $(document).ready(function() {
+            $('.vendedorslider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: false,
+                asNavFor: '.vendedorslidernav',
+            });
+            $(".vendedorslidernav").slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                asNavFor: ".vendedorslider",
+                dots: false,
+                focusOnSelect: true,
+
+                prevArrow: '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
+                nextArrow: '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>',
+            });
+
             $(".btnverimagenes").on("click", function(e) {
                 var valorData = $(this).data("idpublicacion");
                 var datos = $(this).data("datos");
-                console.log(valorData);
                 var divimgprincipal = $(".product-image-slider");
                 var divImgSlider = $(".slider-nav-thumbnails");
                 var divInformacion = $(".detail-info");
-
                 var slickYaInicializado = divimgprincipal.hasClass('slick-initialized');
 
                 // Si Slick ya se ha inicializado, desvincula la instancia actual
@@ -23,7 +39,6 @@
                 divImgSlider.empty();
                 divInformacion.empty();
                 $.each(datos, function(index, publicacion) {
-                    console.log("aqui");
                     if (publicacion.id == valorData) {
                         $.each(publicacion.imagenes, function(index, imagen) {
                             var nuevoElemento = $(
@@ -78,7 +93,37 @@
                 });
                 inicializarSlick();
             });
+            $(".btnverimagenesvendedor").on("click", function(e) {
+                var datos = $(this).data("datos");
+                var divimgprincipal = $(".product-image-slider");
+                var divImgSlider = $(".slider-nav-thumbnails");
+                var divInformacion = $(".detail-info");
+                var slickYaInicializado = divimgprincipal.hasClass('slick-initialized');
 
+                // Si Slick ya se ha inicializado, desvincula la instancia actual
+                if (slickYaInicializado) {
+                    divimgprincipal.slick('unslick');
+                    divImgSlider.slick('unslick');
+                }
+
+                divimgprincipal.empty();
+                divImgSlider.empty();
+                $.each(datos, function(index, imagen) {
+                    var nuevoElemento = $(
+                        "<figure class='border-radius-10' style='height: 300px; display: flex; align-items:center;justify-content: center;'><img src='" +
+                        imagen.imagen +
+                        "' style='display: flex; align-items:center;justify-content: center;' alt='product image' /></figure>"
+                    );
+                    divimgprincipal.append(nuevoElemento);
+                    var nuevoElementoSlider = $(
+                        "<div style='height: 50px; display: flex; align-items:center;justify-content: center;'><img src='" +
+                        imagen.imagen +
+                        "' style='max-width:50px;' alt='product image' /></div>"
+                    );
+                    divImgSlider.append(nuevoElementoSlider);
+                });
+                inicializarSlick();
+            });
         });
 
         function inicializarSlick() {

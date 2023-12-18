@@ -77,4 +77,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Publicaciones::class, 'id_usuario', 'id');
     }
+    public function imagenesperfil()
+    {
+        return $this->hasMany(Imagenesperfiles::class, 'usuario_id', 'id');
+    }
 }
