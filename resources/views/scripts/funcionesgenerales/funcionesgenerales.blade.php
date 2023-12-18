@@ -10,7 +10,6 @@
         $('table tr').mouseout(function() {
             $(this).removeClass('row_selected');
         });
-
     });
 
     function cargarImagen(campo) {
@@ -161,27 +160,28 @@
 
         rutas.forEach((ruta, index) => {
             const imgId = 'imgcargada_' + index;
-            const img = `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
+            const img =
+                `<img src="${ruta}" class="kv-preview-data file-preview-image" loading="lazy" id="${imgId}">`;
 
             initialPreview.push(img);
         });
 
-    //     $(campo).fileinput({
-    //         initialPreview: initialPreview,
-    //         initialPreviewConfig: [], 
-    //         theme: 'fa5',
-    //         language: 'es',
-    //         previewFileType: "image",
-    //         allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
-    //         showUpload: false,
-    //         maxFilesNum: 5, 
-    //         required: true,
-    //     });
+        //     $(campo).fileinput({
+        //         initialPreview: initialPreview,
+        //         initialPreviewConfig: [], 
+        //         theme: 'fa5',
+        //         language: 'es',
+        //         previewFileType: "image",
+        //         allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
+        //         showUpload: false,
+        //         maxFilesNum: 5, 
+        //         required: true,
+        //     });
 
-    //     rutas.forEach((ruta, index) => {
-    //         const imgId = 'imgcargada_' + index;
-    //         $('#' + imgId).prop('src', ruta);
-    //     });
+        //     rutas.forEach((ruta, index) => {
+        //         const imgId = 'imgcargada_' + index;
+        //         $('#' + imgId).prop('src', ruta);
+        //     });
     }
 
     function cargarVariasImagenes(campo) {

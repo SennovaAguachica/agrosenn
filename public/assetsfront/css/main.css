@@ -9742,15 +9742,15 @@ span.fi-rs-apps {
 }
 
 /*Pagination*/
-.pagination-area .page-item {
+/* .pagination-area .page-item {
     margin: 0 5px;
 }
 
 .pagination-area .page-item:first-child {
     margin-left: 0;
-}
+} */
 
-.pagination-area .page-item:first-child .page-link {
+/* .pagination-area .page-item:first-child .page-link {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
@@ -9801,7 +9801,7 @@ span.fi-rs-apps {
     background-color: transparent;
     color: #7e7e7e;
     letter-spacing: 2px;
-}
+} */
 
 /*LAYOUT -> SIDEBAR*/
 .widget-category ul > li {

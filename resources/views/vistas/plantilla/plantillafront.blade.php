@@ -25,6 +25,17 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/nouislider@10.0.0/distribute/nouislider.min.css">
+    <style>
+        .page-item.active .page-link {
+            background: #3bb77e !important;
+            border: 1px solid #3bb77e;
+            color: #fff;
+        }
+
+        .pagination li a {
+            color: #3bb77e
+        }
+    </style>
 </head>
 
 <body>
@@ -67,9 +78,10 @@
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
-                            <form action="#">
-                                <input type="text" class="inputbuscar" placeholder="Buscar productos..." />
-                                <button type="submit" class="btnbuscar"><i class="fi-rs-search"></i></button>
+                            <form method="GET" action="/buscarproductos">
+                                <input type="text" class="inputbuscar" name="inputbuscar"
+                                    placeholder="Buscar productos..." />
+                                <button type="submit" class="btnbuscarproductos"><i class="fi-rs-search"></i></button>
                             </form>
                         </div>
                         <div class="header-action-right">
@@ -124,9 +136,10 @@
             </div>
             <div class="mobile-header-content-area">
                 <div class="mobile-search search-style-3 mobile-header-border">
-                    <form action="#">
-                        <input type="text" class="inputbuscar" placeholder="Buscar productos…" />
-                        <button type="submit" class="btnbuscar"><i class="fi-rs-search"></i></button>
+                    <form method="GET" action="/buscarproductos">
+                        <input type="text" class="inputbuscar" name="inputbuscar"
+                            placeholder="Buscar productos…" />
+                        <button type="submit" class="btnbuscarproductos"><i class="fi-rs-search"></i></button>
                     </form>
                 </div>
                 <div class="mobile-menu-wrap mobile-header-border">
