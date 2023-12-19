@@ -9,10 +9,10 @@
                 <h2 class="mb-50">Productos encontrados</h2>
             </div>
             <div class="row flex-row-reverse">
-                <div class="col-lg-4-5">
+                <div class="col-lg-12">
                     <div class="shop-product-fillter">
                         <div class="totall-product">
-                            <p>Encontramos <strong class="text-brand">{{ count($resultados) }}</strong> productos
+                            <p>Encontramos <strong class="text-brand">{{ $resultados->total() }}</strong> productos
                                 disponibles para ti!</p>
                         </div>
                     </div>
@@ -22,21 +22,19 @@
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a class="btnverimagenes" data-bs-toggle="modal"
-                                                data-bs-target="#quickViewModal" data-idpublicacion='{{ $publicacion->id }}'
-                                                data-datos="{{ $publicacion }}">
+                                            <a href="/verpublicacion/{{ $publicacion->id }}">
                                                 <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta ?? '' }}"
                                                     alt="" />
                                                 <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta ?? '' }}"
                                                     alt="" />
                                             </a>
                                         </div>
-                                        <div class="product-action-1">
+                                        {{-- <div class="product-action-1">
                                             <a aria-label="Ver detalles" class="action-btn btnverimagenes"
                                                 data-bs-toggle="modal" data-bs-target="#quickViewModal"
                                                 data-idpublicacion='{{ $publicacion->id }}'
                                                 data-datos="{{ $publicacion }}"><i class="fi-rs-eye"></i></a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="product-content-wrap">
                                         <h2><a
@@ -69,8 +67,7 @@
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
                                                 <a class="add"
-                                                    href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
-                                                    target="_blank"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                                    href="/verpublicacion/{{ $publicacion->id }}"><i class="fa-brands fa-whatsapp fa-xl"></i>
                                                     Lo
                                                     quiero! </a>
                                             </div>
@@ -176,7 +173,7 @@
                         </li>
                         <li class="position-static">
                         <li>
-                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($categorias as $categoria)
                                     <li>
@@ -242,7 +239,7 @@
                 </ul>
             </li>
             <li class="menu-item-has-children">
-                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <a href="/verasociaciones">Asociaciones</a>
                 <ul class="dropdown">
                     @foreach ($asociaciones as $asociacion)
                         <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>

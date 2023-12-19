@@ -124,9 +124,8 @@
                                         {{ $publicacion->unidades->unidad }}</span>
                                 </div>
                                 <div class="mt-30 d-flex align-items-center">
-                                    <a aria-label="Buy now" class="btn"
-                                        href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
-                                        target="_blank"><i class="fa-brands fa-whatsapp fa-xl"></i> Lo
+                                    <a aria-label="Buy now" class="btn" href="/verpublicacion/{{ $publicacion->id }}"><i
+                                            class="fa-brands fa-whatsapp fa-xl"></i> Lo
                                         quiero!</a>
                                 </div>
                             </div>
@@ -176,7 +175,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+            <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -218,11 +217,11 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="/index">Inicio</a>
+                            <a href="/">Inicio</a>
                         </li>
                         <li class="position-static">
                         <li>
-                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($categorias as $categoria)
                                     <li>
@@ -288,7 +287,7 @@
                 </ul>
             </li>
             <li class="menu-item-has-children">
-                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <a href="/verasociaciones">Asociaciones</a>
                 <ul class="dropdown">
                     @foreach ($asociaciones as $asociacion)
                         <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
@@ -298,3 +297,4 @@
         </ul>
     </nav>
 @endsection
+

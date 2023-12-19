@@ -16,6 +16,7 @@ class Asociaciones extends Model
         'direccion',
         'email',
         'id_municipio',
+        'descripcion',
         'estado',
     ];
     public function municipio()

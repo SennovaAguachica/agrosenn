@@ -73,7 +73,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
+                        <a href="/index"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
                                 width="20%" style="padding: 0; margin: 0" /></a>
                     </div>
                     <div class="header-right">
@@ -87,15 +87,46 @@
                         <div class="header-action-right">
                             <div class="header-action-2">
                                 <div class="header-action-icon-2">
-                                    <a href="/login">
-                                        <img class="svgInject" alt="Nest"
-                                            src="{{ asset('assetsfront/imgs/theme/icons/icon-user.svg') }}" />
-                                    </a>
-                                    <a href="/login"><span class="lable ml-0">Cuenta</span></a>
+                                    @if (isset($perfil->idrol))
+                                        @if ($perfil->idrol == 1)
+                                            <a href="/login" class="btn btn-success btn-sm"
+                                                style="color:white; font-size:14px"><i class="fa-solid fa-user"></i>
+                                                {{ $perfil->administrador->administrador }}
+                                                <span style="color:white;font-size:12px">
+                                                    <br> Administrador</span>
+                                            </a>
+                                        @elseif($perfil->idrol == 2)
+                                            <a href="/login" class="btn btn-success btn-sm"
+                                                style="color:white; font-size:14px"><i class="fa-solid fa-user"></i>
+                                                {{ $perfil->asociacion->asociacion }}
+                                                <br>
+                                                <span style="color:white;font-size:12px">Asociación</span>
+                                            </a>
+                                        @elseif($perfil->idrol == 3)
+                                            <a href="/login" class="btn btn-success btn-sm"
+                                                style="color:white; font-size:14px"><i class="fa-solid fa-user"></i>
+                                                {{ $perfil->vendedor->nombres }} {{ $perfil->vendedor->apellidos }}
+                                                <br>
+                                                <span style="color:white;font-size:12px">Vendedor</span>
+                                            </a>
+                                        @elseif($perfil->idrol == 4)
+                                            <a href="/login" class="btn btn-success btn-sm"
+                                                style="color:white; font-size:14px"><i class="fa-solid fa-user"></i>
+                                                {{ $perfil->cliente->nombres }}
+                                                {{ $perfil->cliente->apellidos }}
+                                                <span style="color:white;font-size:12px">
+                                                    <br> Cliente</span>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <a href="/login" class="btn btn-success btn-sm"
+                                            style="color:white; font-size:18px"><i
+                                                class="fa-solid fa-right-to-bracket "></i>
+                                            Iniciar sesión
+                                        </a>
+                                    @endif
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
-                                            <li><a href="/login"><i class="fi fi-rs-user mr-10"></i>Mi Cuenta</a>
-                                            </li>
                                             <li>
                                                 <form method="POST" action="{{ route('logout') }}">
                                                     @csrf
@@ -113,7 +144,6 @@
                 </div>
             </div>
         </div>
-
         <div class="header-bottom header-bottom-bg-color sticky-bar">
             <div class="container">
                 @yield('categoria')
@@ -124,7 +154,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
+                    <a href="/index"><img src="{{ asset('assets/images/senova.png') }}" alt="logo"
                             width="10%" style="padding: 0; margin: 0" /></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
@@ -144,13 +174,41 @@
                 </div>
                 <div class="mobile-menu-wrap mobile-header-border">
                     <!-- Inicio del menú móvil -->
-
                     @yield('categoria_movil')
                     <!-- Fin del menú móvil -->
                 </div>
                 <div class="mobile-header-info-wrap">
                     <div class="single-mobile-header-info">
-                        <a href="/login"><i class="fi-rs-user"></i>Iniciar Sesión / Registrarse </a>
+                        @if (isset($perfil->idrol))
+                            @if ($perfil->idrol == 1)
+                                <a href="/login" class="text-center"><i class="fa-solid fa-user"></i>
+                                    <span>{{ $perfil->administrador->administrador }}
+                                        <br> Administrador</span></a>
+                            @elseif($perfil->idrol == 2)
+                                <a href="/login" class="text-center"><i class="fa-solid fa-user"></i>
+                                    <span>{{ $perfil->asociacion->asociacion }}
+                                        <br>Asociación</span></a>
+                            @elseif($perfil->idrol == 3)
+                                <a href="/login" class="text-center"><i class="fa-solid fa-user"></i>
+                                    <span>{{ $perfil->vendedor->nombres }}
+                                        {{ $perfil->vendedor->apellidos }}
+                                        <br> Vendedor</span></a>
+                            @elseif($perfil->idrol == 4)
+                                <a href="/login" class="text-center"><i class="fa-solid fa-user"></i>
+                                    <span>{{ $perfil->cliente->nombres }}
+                                        {{ $perfil->cliente->apellidos }}
+                                        <br> Cliente</span></a>
+                            @endif
+                            <br>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="btn btn-danger" style="background:red; color:white" href="route('logout')"
+                                    onclick="event.preventDefault(); this.closest('form').submit();"><i
+                                        class="material-icons md-exit_to_app"></i>Cerrar sesión</a>
+                            </form>
+                        @else
+                            <a href="/login"><i class="fi-rs-user"></i>Iniciar Sesión / Registrarse </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -170,12 +228,11 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <p class="font-sm mb-0">&copy; 2023, <strong class="text-brand">Sennova</strong> - Plataforma
+                    <p class="font-sm mb-0">&copy; 2023, <strong class="text-brand">Agroseen</strong> - Plataforma
                         virtual <br />Todos los derechos reservados</p>
                 </div>
             </div>
         </div>
-
     </footer>
     <!-- Preloader Start -->
     <div id="preloader-active">

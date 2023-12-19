@@ -30,7 +30,7 @@ class PerfilController extends Controller
                 $user->load('administrador');
                 break;
             case 2:
-                $user->load('asociacion.municipio.departamento.ciudades');
+                $user->load('asociacion.municipio.departamento.ciudades','imagenesperfil');
                 break;
             case 3:
                 $user->load('vendedor.municipio.departamento.ciudades','imagenesperfil');
@@ -236,33 +236,24 @@ class PerfilController extends Controller
         try {
             switch ($datos['idroldetalles']) {
                 case 2:
-                    $asociacion = Asociaciones::with('usuario')->findOrFail($datos['id']);
-                    $asociacion->codigo_asociacion = $datos['codasociacion'];
-                    $asociacion->asociacion = $datos['asociacion'];
-                    $asociacion->n_celular = $datos['telefonoasociacion'];
-                    $asociacion->direccion = $datos['direcionasociacion'];
-                    $asociacion->email = $datos['emailasociacion'];
-                    $asociacion->id_municipio = $datos['idmunicipioasociacion'];
-                    $asociacion->usuario->documento = $datos['codasociacion'];
-                    $asociacion->usuario->email = $datos['emailasociacion'];
-                    if (!empty($datos['fotoinput'])) {
-                        if ($datos['fotoinput'] != null) {
-                            //existe un archivo cargado?
-                            $rutaImagenAnterior = '/fotosperfil/' . basename($asociacion->usuario->fotoperfil);
-                            if (Storage::disk('public')->exists($rutaImagenAnterior)) {
-                                Storage::disk('public')->delete($rutaImagenAnterior);
-                            }
-                            //guardo el archivo nuevo
-                            $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
-                            $urlImagen = Storage::url($imagen);
-                        }else{
-                            $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
-                            $urlImagen = Storage::url($imagen);
-                        }
-                        $asociacion->usuario->fotoperfil = $urlImagen;
-                    }
-                    $asociacion->usuario->save();
+                    $asociacion = Asociaciones::with('usuario')->findOrFail($datos['iddetallesasociacion']);
+                    $asociacion->descripcion = $datos['descripcionasociacion'];
                     $asociacion->save();
+                    if (!empty($datos['imagen'])) {
+                        if ($datos['imagen'] != null) {
+                            for($i=0;$i<count($datos['imagen']);$i++){
+                                //guardo el archivo nuevo
+                                $imagen = Storage::disk('public')->put('/detallesperfil', $datos['imagen'][$i]);
+                                $urlImagen = Storage::url($imagen);
+                                $nuevaImagenPerfil = new Imagenesperfiles();
+                                $nuevaImagenPerfil->imagen = $urlImagen;
+                                $nuevaImagenPerfil->usuario_id = $asociacion->usuario->id;
+                                $nuevaImagenPerfil->created_at = \Carbon\Carbon::now();
+                                $nuevaImagenPerfil->updated_at = \Carbon\Carbon::now();
+                                $nuevaImagenPerfil->save();
+                            }
+                        }
+                    }
                     break;
                 case 3:
                     $vendedor = Vendedores::with('usuario')->findOrFail($datos['iddetallesvendedor']);
@@ -283,6 +274,7 @@ class PerfilController extends Controller
                             }
                         }
                     }
+                    break;
             }
             DB::commit();
             $respuesta = array(

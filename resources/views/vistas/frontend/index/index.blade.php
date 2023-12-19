@@ -70,86 +70,6 @@
                             <span>26 artículos</span>
                         </div>
                     @endforeach
-                    {{-- <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-13.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Pastel & Leche</a></h6>
-                        <span>26 artículos</span>
-                    </div>
-                    <div class="card-2 bg-10 wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-12.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Kiwi Orgánico</a></h6>
-                        <span>28 artículos</span>
-                    </div>
-                    <div class="card-2 bg-11 wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-11.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Durazno</a></h6>
-                        <span>14 artículos</span>
-                    </div>
-                    <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-9.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Manzana Roja</a></h6>
-                        <span>54 artículos</span>
-                    </div>
-                    <div class="card-2 bg-13 wow animate__animated animate__fadeInUp" data-wow-delay=".5s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-3.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Snacks</a></h6>
-                        <span>56 artículos</span>
-                    </div>
-                    <div class="card-2 bg-14 wow animate__animated animate__fadeInUp" data-wow-delay=".6s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-1.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Verduras</a></h6>
-                        <span>72 artículos</span>
-                    </div>
-                    <div class="card-2 bg-15 wow animate__animated animate__fadeInUp" data-wow-delay=".7s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-2.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Fresas</a></h6>
-                        <span>36 artículos</span>
-                    </div>
-                    <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay=".8s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-4.png" alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Ciruela Negra</a></h6>
-                        <span>123 artículos</span>
-                    </div>
-                    <div class="card-2 bg-10 wow animate__animated animate__fadeInUp" data-wow-delay=".9s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-5.png"
-                                    alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Chirimoya</a></h6>
-                        <span>34 artículos</span>
-                    </div>
-                    <div class="card-2 bg-12 wow animate__animated animate__fadeInUp" data-wow-delay="1s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-14.png"
-                                    alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Café & Té</a></h6>
-                        <span>89 artículos</span>
-                    </div>
-                    <div class="card-2 bg-11 wow animate__animated animate__fadeInUp" data-wow-delay="0s">
-                        <figure class="img-hover-scale overflow-hidden">
-                            <a href="shop-grid-right.html"><img src="assetsfront/imgs/shop/cat-15.png"
-                                    alt="" /></a>
-                        </figure>
-                        <h6><a href="shop-grid-right.html">Auriculares</a></h6>
-                        <span>87 artículos</span>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -167,7 +87,7 @@
                                 Todos los Días Fresco y <br />Limpio con Nuestros<br />
                                 Productos
                             </h4>
-                            <a href="shop-grid-right.html" class="btn btn-xs">Comprar Ahora <i
+                            <a href="#" class="btn btn-xs">Comprar Ahora <i
                                     class="fi-rs-arrow-small-right"></i></a>
                         </div>
                     </div>
@@ -180,7 +100,7 @@
                                 Haz tu Desayuno<br />
                                 Saludable y Fácil
                             </h4>
-                            <a href="shop-grid-right.html" class="btn btn-xs">Comprar Ahora <i
+                            <a href="#" class="btn btn-xs">Comprar Ahora <i
                                     class="fi-rs-arrow-small-right"></i></a>
                         </div>
                     </div>
@@ -190,7 +110,7 @@
                         <img src="assetsfront/imgs/banner/banner-3.png" alt="" />
                         <div class="banner-text">
                             <h4>Los Mejores Productos<br />Orgánicos en Línea</h4>
-                            <a href="shop-grid-right.html" class="btn btn-xs">Comprar Ahora <i
+                            <a href="#" class="btn btn-xs">Comprar Ahora <i
                                     class="fi-rs-arrow-small-right"></i></a>
                         </div>
                     </div>
@@ -279,7 +199,7 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i
+                                                <a class="add" href="/verpublicacion/{{ $publicacion->id }}"><i
                                                         class="fa-brands fa-whatsapp fa-xl"></i>
                                                     Lo
                                                     quiero! </a>
@@ -302,7 +222,7 @@
                                             data-wow-delay=".1s">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
+                                                    <a href="#">
                                                         <img class="default-img"
                                                             src="{{ $publicacion->imagenes[0]->ruta }}" alt="" />
                                                         <img class="hover-img"
@@ -351,7 +271,8 @@
                                                 </div>
                                                 <div class="product-card-bottom">
                                                     <div class="add-cart">
-                                                        <a class="add" href="#"><i
+                                                        <a class="add"
+                                                            href="/verpublicacion/{{ $publicacion->id }}"><i
                                                                 class="fa-brands fa-whatsapp fa-xl"></i>
                                                             Lo
                                                             quiero! </a>
@@ -372,7 +293,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+            <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -418,7 +339,7 @@
                         </li>
                         <li class="position-static">
                         <li>
-                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($categorias as $categoria)
                                     <li>
@@ -484,7 +405,7 @@
                 </ul>
             </li>
             <li class="menu-item-has-children">
-                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <a href="/verasociaciones">Asociaciones</a>
                 <ul class="dropdown">
                     @foreach ($asociaciones as $asociacion)
                         <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>

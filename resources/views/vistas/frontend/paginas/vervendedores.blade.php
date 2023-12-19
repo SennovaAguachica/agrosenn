@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="vendor-content-wrap">
                                     <div class="mb-30">
-                                        <h4 class="mb-5"><a href="vendor-details-1.html">{{ $vendedor->nombres }}
+                                        <h4 class="mb-5"><a href="">{{ $vendedor->nombres }}
                                                 {{ $vendedor->apellidos }}</a>
                                         </h4>
                                         <div class="product-rate-cover">
@@ -111,7 +111,6 @@
                         </div>
                     @endforeach
                 </div>
-
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
                 <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
@@ -119,7 +118,7 @@
                         <img src="{{ $asociacion->usuario->fotoperfil }}" alt="" />
                     </div>
                     <div class="vendor-info">
-                        <h4 class="mb-5"><a href="vendor-details-1.html"
+                        <h4 class="mb-5"><a href="/vervendedores/{{ $asociacion->id }}"
                                 class="text-heading">{{ $asociacion->asociacion }}</a>
                         </h4>
                         <div class="product-rate-cover mb-15">
@@ -129,46 +128,26 @@
                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                         </div>
                         <div class="vendor-des mb-30">
-                            <p class="font-sm text-heading">Got a smooth, buttery spread in your fridge? Chances are
-                                good that it's Good Chef. This brand made Lionto's list of the most popular grocery
-                                brands across the country.</p>
-                        </div>
-                        <div class="follow-social mb-20">
-                            <h6 class="mb-15">Follow Us</h6>
-                            <ul class="social-network">
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-tw.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-fb.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-insta.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-pin.svg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
+                            <p class="font-sm text-heading">
+                                <pre style="white-space: pre-wrap;">{{ $asociacion->descripcion }}</pre>
+                            </p>
                         </div>
                         <div class="vendor-info">
                             <ul class="font-sm mb-20">
-                                <li><img class="mr-5" src="assets/imgs/theme/icons/icon-location.svg"
-                                        alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave
-                                        undefined, Utah 53127 United States</span></li>
-                                <li><img class="mr-5" src="assets/imgs/theme/icons/icon-contact.svg"
-                                        alt="" /><strong>Call Us:</strong><span>(+91) -
-                                        540-025-124553</span>
+                                <li><i class="fa-solid fa-location-dot"></i><strong> Dirección: </strong>
+                                    <span>{{ $asociacion->direccion }},
+                                        {{ $asociacion->municipio->ciudad }}
+                                        -
+                                        {{ $asociacion->municipio->departamento->departamento }}</span>
+                                </li>
+                                <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
+                                        {{ $asociacion->n_celular }}</span>
+                                </li>
+                                <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>(+57)
+                                        {{ $asociacion->email }}</span>
                                 </li>
                             </ul>
-                            <a href="vendor-details-1.html" class="btn btn-xs">Contact Seller <i
+                            <a href="#" class="btn btn-xs">Contact Seller <i
                                     class="fi-rs-arrow-small-right"></i></a>
                         </div>
                     </div>
@@ -226,7 +205,7 @@
                         </li>
                         <li class="position-static">
                         <li>
-                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($categorias as $categoria)
                                     <li>
@@ -292,7 +271,7 @@
                 </ul>
             </li>
             <li class="menu-item-has-children">
-                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <a href="/verasociaciones">Asociaciones</a>
                 <ul class="dropdown">
                     @foreach ($asociaciones as $asociacion)
                         <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>

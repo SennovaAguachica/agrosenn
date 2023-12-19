@@ -6,7 +6,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <a href="/index" rel="nofollow"><i class="fi-rs-home mr-5"></i>Inicio</a>
                 <span></span> Asociaciones
             </div>
         </div>
@@ -15,14 +15,23 @@
         <div class="container">
             <div class="archive-header-2 text-center">
                 <h1 class="display-2 mb-50">Lista de asociaciones</h1>
+                {{-- <div class="row">
+                    <div class="col-lg-5 mx-auto">
+                        <div class="sidebar-widget-2 widget_search mb-50">
+                            <div class="search-form">
+                                <form action="#">
+                                    <input type="text" placeholder="Search vendors (by name or ID)..." />
+                                    <button type="submit"><i class="fi-rs-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
             <div class="row vendor-grid">
                 @foreach ($asociaciones as $asociacion)
                     <div class="col-lg-6 col-md-6 col-12 col-sm-6">
                         <div class="vendor-wrap style-2 mb-40">
-                            {{-- <div class="product-badges product-badges-position product-badges-mrg">
-                                <span class="hot">Mall</span>
-                            </div> --}}
                             <div class="vendor-img-action-wrap">
                                 <div class="vendor-img" style="text-align: center !important">
                                     <a href="#">
@@ -37,10 +46,7 @@
                             </div>
                             <div class="vendor-content-wrap">
                                 <div class="mb-30">
-                                    <div class="product-category">
-                                        <span class="text-muted">Desde 2013</span>
-                                    </div>
-                                    <h4 class="mb-5"><a href="vendor-details-1.html">{{ $asociacion->asociacion }}</a>
+                                    <h4 class="mb-5"><a href="#">{{ $asociacion->asociacion }}</a>
                                     </h4>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
@@ -61,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-30">
-                                    <a href='vervendedores/{{ $asociacion->id }}' class="btn btn-md">Ver
+                                    <a href='/vervendedores/{{ $asociacion->id }}' class="btn btn-md">Ver
                                         vendedores <i class="fa-solid fa-eye fa-xl"></i></a>
                                 </div>
                             </div>
@@ -75,7 +81,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="index.html"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
+            <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -121,7 +127,7 @@
                         </li>
                         <li class="position-static">
                         <li>
-                            <a href="shop-grid-right.html">Mas productos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
                                 @foreach ($categorias as $categoria)
                                     <li>
@@ -187,7 +193,7 @@
                 </ul>
             </li>
             <li class="menu-item-has-children">
-                <a href="blog-category-fullwidth.html">Asociaciones</a>
+                <a href="/verasociaciones">Asociaciones</a>
                 <ul class="dropdown">
                     @foreach ($asociaciones as $asociacion)
                         <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>

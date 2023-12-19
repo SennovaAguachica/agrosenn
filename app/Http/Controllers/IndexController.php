@@ -23,6 +23,20 @@ class IndexController extends Controller
         ? $subcategorias->random(5)
         : $subcategorias;
         $perfil = auth()->user();
+        switch (isset($perfil->idrol)) {
+            case 1:
+                $perfil->load('administrador');
+                break;
+            case 2:
+                $perfil->load('asociacion.municipio.departamento.ciudades','imagenesperfil');
+                break;
+            case 3:
+                $perfil->load('vendedor.municipio.departamento.ciudades','imagenesperfil');
+                break;
+            case 4:
+                $perfil->load('cliente');
+                break;
+        }
         $asociaciones = Asociaciones::all();
         $publicaciones = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','usuario.asociacion','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($subcategoriasAleatorias) {
             $query->whereIn('subcategoria_id', $subcategoriasAleatorias->pluck('id'));
@@ -115,7 +129,7 @@ class IndexController extends Controller
         $publicacion = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','usuario.asociacion.municipio.departamento','precios','unidades')->findOrFail($idpublicacion);
         $relacionados = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($publicacion) {
             $query->where('subcategoria_id', $publicacion->productos->subcategoria_id);
-        })->get();
+        })->where('id', '!=', $idpublicacion)->get();
         return view('vistas.frontend.paginas.verpublicacion', compact('categorias', 'perfil','asociaciones','publicacion','relacionados'));
 
     }
@@ -126,10 +140,14 @@ class IndexController extends Controller
         $asociaciones = Asociaciones::with('usuario')->get();
         $resultados = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','usuario.asociacion.municipio.departamento','precios','unidades')->
         join('productos as pro', 'pro.id', '=', 'publicaciones.producto_id')
-        ->where('publicaciones.descripcion', 'LIKE', '%'.$request->inputbuscar.'%')
-        ->orWhere('pro.producto', 'LIKE', '%'.$request->inputbuscar.'%')
-        ->orWhere('pro.descripcion', 'LIKE', '%'.$request->inputbuscar.'%')
-        ->simplePaginate();
+        ->where('publicaciones.estado',1)
+        ->where(function ($query) use ($request) {
+            $query->where('publicaciones.descripcion', 'LIKE', '%' . $request->inputbuscar . '%')
+                ->orWhere('pro.producto', 'LIKE', '%' . $request->inputbuscar . '%')
+                ->orWhere('pro.descripcion', 'LIKE', '%' . $request->inputbuscar . '%');
+        })
+        ->select('publicaciones.*')
+        ->paginate(15);
         return view('vistas.frontend.paginas.resultados', compact('categorias', 'perfil','asociaciones','resultados'));
 
     }
