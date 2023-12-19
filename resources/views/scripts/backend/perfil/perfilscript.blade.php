@@ -11,9 +11,8 @@
         var imagenes = @json($user);
         $(document).ready(function() {
             console.log(imagenes);
-            $('#li_gestion_unidades').addClass('active');
-            $('#i_unidades').css('color', '#3BB77E');
-            $('#a_equivalencias').addClass('active');
+            $('#li_perfil').addClass('active');
+            $('#i_perfil').css('color', '#3BB77E');
             selectChanges();
             buttonClick();
             {{-- cargarVariasImagen("#imagen"); --}}

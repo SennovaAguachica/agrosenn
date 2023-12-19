@@ -128,16 +128,13 @@ class PublicacionesController extends Controller
 
             try {
 
-                $validacionProducto = Precios::where([
+                $validacionUnidadProducto = Precios::where([
                     ['producto_id', $datos['idproductos']],
-                    ['id_usuario', $idusuario],
-                ])->get();
-                $validacionUnidad = Precios::where([
                     ['unidades_id', $datos['idunidades']],
                     ['id_usuario', $idusuario],
                 ])->get();
-                if (count($validacionProducto) > 0 && count($validacionUnidad) === 0) {
-                    $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
+                if (count($validacionUnidadProducto) > 0) {
+                    $aErrores[] = 'UNO -El precio de este producto ya está asignado a esta unidad';
                 } else {
                     $nuevoPrecio = new Precios();
                     $nuevoPrecio->precio = $datos['precio'];
@@ -236,65 +233,54 @@ class PublicacionesController extends Controller
                         'estado' => 1
                     ]);
                 } else {
-                    $validacionProducto = Publicaciones::where([
+
+                    $nuevoPublicacion2 = new Publicaciones();
+                    $nuevoPublicacion2->precios_id = $datos['idpreciovendedor'];
+                    $nuevoPublicacion2->producto_id = $datos['idproductos'];
+                    $nuevoPublicacion2->unidades_id = $datos['idunidades'];
+                    $nuevoPublicacion2->id_usuario = $idusuario;
+                    $nuevoPublicacion2->estado = 1;
+                    $nuevoPublicacion2->descripcion = $datos['descripcion'];
+                    $nuevoPublicacion2->created_at = \Carbon\Carbon::now();
+                    $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
+                    $nuevoPublicacion2->save();
+
+                    $validacionPrecio = Precios::where([
                         ['producto_id', $datos['idproductos']],
-                        ['id_usuario', $idusuario],
-                    ])->get();
-                    $validacionUnidad = Publicaciones::where([
                         ['unidades_id', $datos['idunidades']],
+                        // ['id_asociacion', $idasociacion],
                         ['id_usuario', $idusuario],
-                    ])->get();
-                    if (count($validacionProducto) > 0 && count($validacionUnidad) > 0) {
-                        $aErrores[] = '- El precio de este producto ya está asignado a esta unidad';
-                    } else {
-                        $nuevoPublicacion2 = new Publicaciones();
-                        $nuevoPublicacion2->precios_id = $datos['idpreciovendedor'];
-                        $nuevoPublicacion2->producto_id = $datos['idproductos'];
-                        $nuevoPublicacion2->unidades_id = $datos['idunidades'];
-                        $nuevoPublicacion2->id_usuario = $idusuario;
-                        $nuevoPublicacion2->estado = 1;
-                        $nuevoPublicacion2->descripcion = $datos['descripcion'];
-                        $nuevoPublicacion2->created_at = \Carbon\Carbon::now();
-                        $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
-                        $nuevoPublicacion2->save();
+                    ])->first();
+                    if ($validacionPrecio) {
+                        $validacionPrecio->update([
+                            'precio' => $datos['precio'],
+                            'estado' => 1
+                        ]);
+                    }
+                    if (isset($datos['imagen']) && is_array($datos['imagen'])) {
+                        foreach ($datos['imagen'] as $imagen) {
+                            // $rutaimagen = Storage::disk('public')->put('/publicaciones', $imagen);
+                            // $urlImagen = Storage::url($rutaimagen);
+                            $imagenTmp = $imagen->getRealPath();
+                            $img = Image::make($imagenTmp);
+                            // Comprimir la imagen con calidad del 80%
+                            $img->encode('webp', 80);
+                            // $rutaimagen = Storage::disk('public')->put('/publicaciones', $imagen);
+                            // $urlImagen = Storage::url($rutaimagen);
 
-                        $validacionPrecio = Precios::where([
-                            ['producto_id', $datos['idproductos']],
-                            ['unidades_id', $datos['idunidades']],
-                            // ['id_asociacion', $idasociacion],
-                            ['id_usuario', $idusuario],
-                        ])->first();
-                        if ($validacionPrecio) {
-                            $validacionPrecio->update([
-                                'precio' => $datos['precio'],
-                                'estado' => 1
-                            ]);
-                        }
-                        if (isset($datos['imagen']) && is_array($datos['imagen'])) {
-                            foreach ($datos['imagen'] as $imagen) {
-                                // $rutaimagen = Storage::disk('public')->put('/publicaciones', $imagen);
-                                // $urlImagen = Storage::url($rutaimagen);
-                                $imagenTmp = $imagen->getRealPath();
-                                $img = Image::make($imagenTmp);
-                                // Comprimir la imagen con calidad del 80%
-                                $img->encode('webp', 80);
-                                // $rutaimagen = Storage::disk('public')->put('/publicaciones', $imagen);
-                                // $urlImagen = Storage::url($rutaimagen);
+                            // Generar un nombre único para la imagen comprimida
+                            $nombreImagenComprimida = uniqid() . '.webp';
 
-                                // Generar un nombre único para la imagen comprimida
-                                $nombreImagenComprimida = uniqid() . '.webp';
+                            // Guardar la imagen comprimida en la carpeta de publicaciones
+                            Storage::disk('public')->put('/publicaciones/' . $nombreImagenComprimida, $img->__toString());
 
-                                // Guardar la imagen comprimida en la carpeta de publicaciones
-                                Storage::disk('public')->put('/publicaciones/' . $nombreImagenComprimida, $img->__toString());
+                            // Obtener la URL de la imagen comprimida
+                            $urlImagen = Storage::url('/publicaciones/' . $nombreImagenComprimida);
 
-                                // Obtener la URL de la imagen comprimida
-                                $urlImagen = Storage::url('/publicaciones/' . $nombreImagenComprimida);
-
-                                $nuevaImagen = new Imagenes();
-                                $nuevaImagen->ruta = $urlImagen;
-                                $nuevaImagen->publicaciones_id = $nuevoPublicacion2->id;
-                                $nuevaImagen->save();
-                            }
+                            $nuevaImagen = new Imagenes();
+                            $nuevaImagen->ruta = $urlImagen;
+                            $nuevaImagen->publicaciones_id = $nuevoPublicacion2->id;
+                            $nuevaImagen->save();
                         }
                     }
                 }

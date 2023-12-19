@@ -71,7 +71,7 @@
                 $("#idunidades").val(parametro_seleccionado.unidades_id);
                 $("#idunidades").trigger("chosen:updated");
                 $("#listadoprecios").val(buscarPreciosAsociacion(parametro_seleccionado.producto_id, parametro_seleccionado.unidades_id));
-                $("#descripcion+").val(parametro_seleccionado.descripcion);
+                $("#descripcion").val(parametro_seleccionado.descripcion);
                 let rutasImagenes = parametro_seleccionado.imagenes.map(imagen => imagen.ruta);
                 cargarVariasImg("#imagen", rutasImagenes);
             } else if (modo == 2) {
