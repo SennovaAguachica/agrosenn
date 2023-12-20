@@ -10,7 +10,8 @@ class DetalleVentas extends Model
     use HasFactory;
     protected $fillable = [
         'id',
-        'id_publicacion',
+        'estado',
+        'publicaciones_id',
         'id_venta',
         'cantidad',
         'id_usuario',
@@ -24,7 +25,7 @@ class DetalleVentas extends Model
 
     public function publicaciones()
     {
-        return $this->belongsTo(Publicaciones::class, 'id_publicacion', 'id');
+        return $this->belongsTo(Publicaciones::class, 'publicaciones_id', 'id');
     }
 
     public function ventas()

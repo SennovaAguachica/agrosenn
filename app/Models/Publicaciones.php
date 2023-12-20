@@ -17,7 +17,17 @@ class Publicaciones extends Model
         'unidades_id',
         'id_usuario',
         'precios_id',
+        'iva',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->iva = $model->iva ?? 0;
+        });
+    }
 
     //Relacion uno a muchos
     public function productos()
@@ -47,6 +57,11 @@ class Publicaciones extends Model
     public function imagenes()
     {
         return $this->hasMany(Imagenes::class, 'publicaciones_id', 'id');
+    }
+
+    public function ventas()
+    {
+        return $this->hasMany(Ventas::class, 'publicaciones_id', 'id');
     }
 
     public function inventarios()

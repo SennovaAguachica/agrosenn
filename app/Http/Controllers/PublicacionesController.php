@@ -134,7 +134,7 @@ class PublicacionesController extends Controller
                     ['id_usuario', $idusuario],
                 ])->get();
                 if (count($validacionUnidadProducto) > 0) {
-                    $aErrores[] = 'UNO -El precio de este producto ya está asignado a esta unidad';
+                    $aErrores[] = '-El precio de este producto ya está asignado a esta unidad';
                 } else {
                     $nuevoPrecio = new Precios();
                     $nuevoPrecio->precio = $datos['precio'];
@@ -154,6 +154,7 @@ class PublicacionesController extends Controller
                     $nuevoPublicacion->id_usuario = $idusuario;
                     $nuevoPublicacion->estado = 1;
                     $nuevoPublicacion->descripcion = $datos['descripcion'];
+                    $nuevoPublicacion->iva = $datos['iva'];
                     $nuevoPublicacion->created_at = \Carbon\Carbon::now();
                     $nuevoPublicacion->updated_at = \Carbon\Carbon::now();
                     $nuevoPublicacion->save();
@@ -241,6 +242,7 @@ class PublicacionesController extends Controller
                     $nuevoPublicacion2->id_usuario = $idusuario;
                     $nuevoPublicacion2->estado = 1;
                     $nuevoPublicacion2->descripcion = $datos['descripcion'];
+                    $nuevoPublicacion2->iva = $datos['iva'];
                     $nuevoPublicacion2->created_at = \Carbon\Carbon::now();
                     $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
                     $nuevoPublicacion2->save();
@@ -342,6 +344,7 @@ class PublicacionesController extends Controller
             $actualizarPublicacion->unidades_id = $datos['idunidades'];
             $actualizarPublicacion->estado = 1;
             $actualizarPublicacion->descripcion = $datos['descripcion'];
+            $actualizarPublicacion->iva = $datos['iva'];
             $actualizarPublicacion->save();
 
             $rutasImagenes = $actualizarPublicacion->imagenes()->pluck('ruta')->toArray();

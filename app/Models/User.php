@@ -55,27 +55,31 @@ class User extends Authenticatable
     ];
     public function rol()
     {
-        return $this->belongsTo(Role::class,'idrol','id');
+        return $this->belongsTo(Role::class, 'idrol', 'id');
     }
     public function vendedor()
     {
-        return $this->belongsTo(Vendedores::class,'idvendedor','id');
+        return $this->belongsTo(Vendedores::class, 'idvendedor', 'id');
     }
     public function asociacion()
     {
-        return $this->belongsTo(Asociaciones::class,'idasociacion','id');
+        return $this->belongsTo(Asociaciones::class, 'idasociacion', 'id');
     }
     public function cliente()
     {
-        return $this->belongsTo(Clientes::class,'idcliente','id');
+        return $this->belongsTo(Clientes::class, 'idcliente', 'id');
     }
     public function administrador()
     {
-        return $this->belongsTo(Administradores::class,'idadministrador','id');
+        return $this->belongsTo(Administradores::class, 'idadministrador', 'id');
     }
     public function publicaciones()
     {
         return $this->hasMany(Publicaciones::class, 'id_usuario', 'id');
+    }
+    public function ventas()
+    {
+        return $this->hasMany(Ventas::class, 'id_usuario', 'id');
     }
     public function imagenesperfil()
     {
