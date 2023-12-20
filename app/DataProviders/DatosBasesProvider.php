@@ -5512,9 +5512,9 @@ abstract class DatosBasesProvider
             ['id' => '60', 'name' => 'publicaciones.eliminar', 'description' => 'Eliminar publicaciones', 'grupo' => 'Publicaciones', 'guard_name' => 'web'],
             //Permisos ventas
             ['id' => '61', 'name' => 'ventas.listar', 'description' => 'Listar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
-            ['id' => '62', 'name' => 'ventas.guardar', 'description' => 'Guardar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
-            ['id' => '63', 'name' => 'ventas.actualizar', 'description' => 'Actualizar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
-            ['id' => '64', 'name' => 'ventas.eliminar', 'description' => 'Eliminar ventas', 'grupo' => 'V entas', 'guard_name' => 'web'],
+            ['id' => '62', 'name' => 'ventas.finalizar', 'description' => 'Finalizar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '63', 'name' => 'ventas.cancelar', 'description' => 'Cancelar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '64', 'name' => 'ventas.eliminar', 'description' => 'Eliminar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
         ];
     }
     public static function TiposDocumentos()

@@ -7,13 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clientes extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'id',
-        'cliente',
-    ];
-    public function usuario()
-    {
-      return $this->hasOne(User::class,'idcliente','id');
-    }
+  use HasFactory;
+  protected $fillable = [
+    'id',
+    'cliente',
+  ];
+  public function usuario()
+  {
+    return $this->hasOne(User::class, 'idcliente', 'id');
+  }
+
+  public function ventas()
+  {
+    return $this->hasMany(Ventas::class, 'idcliente', 'id');
+  }
 }

@@ -31,6 +31,7 @@
                             <th>Precio</th>
                             <th>Estado</th>
                             <th>Descripcion</th>
+                            <th>IVA</th>
                             <th>Imágenes</th>
                             <th>Acciones</th>
                         </tr>
@@ -113,6 +114,13 @@
             <textarea type="text" class="form-control" name="descripcion" id="descripcion"></textarea>
         </div>
     </div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <label for="iva" class="form-label">IVA</label>
+        <input type="text" class="form-control" name="iva" id="iva" >
+    </div>
+</div>
 <br>
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12 ">
