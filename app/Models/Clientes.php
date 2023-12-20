@@ -7,18 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clientes extends Model
 {
-  use HasFactory;
-  protected $fillable = [
-    'id',
-    'cliente',
-  ];
-  public function usuario()
-  {
-    return $this->hasOne(User::class, 'idcliente', 'id');
-  }
-
-  public function ventas()
-  {
-    return $this->hasMany(Ventas::class, 'idcliente', 'id');
-  }
+    use HasFactory;
+    protected $fillable = [
+        'id',
+        'id_tipodocumento',
+        'id_municipio',
+        'n_documento',
+        'nombres',
+        'apellidos',
+        'direccion',
+        'n_celular',
+        'email',
+        'estado',
+    ];
+    public function usuario()
+    {
+      return $this->hasOne(User::class,'idcliente','id');
+    }
+    public function tipodocumento()
+    {
+        return $this->belongsTo(Tipodocumentos::class, 'id_tipodocumento', 'id');
+    }
+    public function municipio()
+    {
+        return $this->belongsTo(Ciudades::class, 'id_municipio', 'id');
+    }
 }

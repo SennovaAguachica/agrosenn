@@ -16,6 +16,7 @@ use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\PublicacionesController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\BannersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +32,7 @@ use App\Http\Controllers\PerfilController;
 //     return view('vistas.frontend.index.index');
 // });
 
-Route::get('/', [IndexController::class, 'index']);
+Route::redirect('/', '/index');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -84,6 +85,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/perfil', [PerfilController::class, 'index']);
     Route::post('/perfil_peticiones', [PerfilController::class, 'peticionesAction']);
+
+    Route::get('/banners', [BannersController::class, 'index']);
+    Route::post('/banners_peticiones', [BannersController::class, 'peticionesAction']);
 });
 Route::get('/index', [IndexController::class, 'index']);
 Route::get('/verasociaciones', [IndexController::class, 'verAsociaciones']);

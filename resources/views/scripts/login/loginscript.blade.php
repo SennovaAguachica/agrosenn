@@ -77,6 +77,7 @@
                                         '- Se ha enviado la solicitud de registro con exito'
                                     );
                                     $("#formRegistrar")[0].reset();
+                                    location.href = "/index";
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }

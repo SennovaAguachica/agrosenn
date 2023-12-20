@@ -16,6 +16,14 @@ use Auth;
 
 class VendedoresController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:vendedores.listar')->only('index');
+        $this->middleware('can:vendedores.guardar')->only('guardarVendedores');
+        $this->middleware('can:vendedores.actualizar')->only('actualizarVendedores');
+        $this->middleware('can:vendedores.eliminar')->only('eliminarVendedores');
+    }
     public function index(Request $request)
     {
         $tiposDocumentos = Tipodocumentos::all();

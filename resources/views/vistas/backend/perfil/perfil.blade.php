@@ -291,11 +291,9 @@
                                             <input type="text" id="iddetallesasociacion" name="iddetallesasociacion"
                                                 value="{{ $user->asociacion->id }}" hidden />
                                             <div class="col-12 mb-12">
-                                                <label for="descripcionasociacion">Detalles del vendedor</label>
+                                                <label for="descripcionasociacion">Detalles de la asociación</label>
                                                 <textarea type="text" class="form-control" id="descripcionasociacion" name="descripcionasociacion"
-                                                    placeholder="Detalles de la asociación" rows="5" required>
-                                                    {{ $user->asociacion->descripcion }}
-                                                </textarea>
+                                                    placeholder="Detalles de la asociación" rows="5" required>{{ $user->asociacion->descripcion }}</textarea>
 
                                             </div>
                                         @elseif($user->idrol == 3)
@@ -308,7 +306,7 @@
                                             </div>
                                         @endif
                                         <div class="col-md-12 col-lg-12 col-xs-12 ">
-                                            <label for="imagen">Imágenes del vendedor</label>
+                                            <label for="imagen">Imágenes</label>
                                             <input type="file" id="imagen" name="imagen[]" multiple="true"
                                                 accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp, |image/*"
                                                 required>

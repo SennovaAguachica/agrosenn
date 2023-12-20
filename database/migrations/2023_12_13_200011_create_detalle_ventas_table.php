@@ -27,10 +27,7 @@ return new class extends Migration
 
             $table->timestamps();
         });
-        Artisan::call('db:seed', [
-            '--class' => DatabaseSeeder::class,
-            '--force' => true,
-        ]);
+        
     }
 
     /**

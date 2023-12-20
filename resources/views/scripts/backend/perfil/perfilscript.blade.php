@@ -35,7 +35,7 @@
                 allowedFileExtensions: ["jpg", "jpeg", "png"],
                 showUpload: false,
                 showRemove: false,
-                browseLabel: "Seleccionar firma",
+                browseLabel: "Seleccionar",
                 browseClass: "btn btn-primary",
                 previewFileType: "image",
                 initialPreview: imagenesGuardadas.map(function(imagen) {

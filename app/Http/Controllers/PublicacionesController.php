@@ -14,7 +14,8 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
+// use Intervention\Image\Facades\Image;
+use Spatie\Image\Image;
 use Auth;
 
 class PublicacionesController extends Controller
@@ -162,22 +163,23 @@ class PublicacionesController extends Controller
 
                     if (isset($datos['imagen']) && is_array($datos['imagen'])) {
                         foreach ($datos['imagen'] as $imagen) {
-                            $imagenTmp = $imagen->getRealPath();
-                            $img = Image::make($imagenTmp);
-                            // Comprimir la imagen con calidad del 80%
-                            $img->encode('webp', 80);
-                            // $rutaimagen = Storage::disk('public')->put('/publicaciones', $imagen);
-                            // $urlImagen = Storage::url($rutaimagen);
-
                             // Generar un nombre único para la imagen comprimida
                             $nombreImagenComprimida = uniqid() . '.webp';
-
-                            // Guardar la imagen comprimida en la carpeta de publicaciones
-                            Storage::disk('public')->put('/publicaciones/' . $nombreImagenComprimida, $img->__toString());
-
+                    
+                            // Construir la ruta para la imagen comprimida
+                            $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
+                    
+                            // Cargar la imagen original y guardarla comprimida
+                            Image::load($imagen->getRealPath())
+                                ->width(400)
+                                ->height(400)
+                                ->optimize()
+                                ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
+                    
                             // Obtener la URL de la imagen comprimida
-                            $urlImagen = Storage::url('/publicaciones/' . $nombreImagenComprimida);
-
+                            $urlImagen = Storage::url($rutaImagenComprimida);
+                    
+                            // Crear una nueva instancia de Imagenes y guardar en la base de datos
                             $nuevaImagen = new Imagenes();
                             $nuevaImagen->ruta = $urlImagen;
                             $nuevaImagen->publicaciones_id = $nuevoPublicacion->id;
@@ -247,37 +249,35 @@ class PublicacionesController extends Controller
                     $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
                     $nuevoPublicacion2->save();
 
-                    $validacionPrecio = Precios::where([
-                        ['producto_id', $datos['idproductos']],
-                        ['unidades_id', $datos['idunidades']],
-                        // ['id_asociacion', $idasociacion],
-                        ['id_usuario', $idusuario],
-                    ])->first();
-                    if ($validacionPrecio) {
-                        $validacionPrecio->update([
-                            'precio' => $datos['precio'],
-                            'estado' => 1
-                        ]);
-                    }
-                    if (isset($datos['imagen']) && is_array($datos['imagen'])) {
-                        foreach ($datos['imagen'] as $imagen) {
-                            // $rutaimagen = Storage::disk('public')->put('/publicaciones', $imagen);
-                            // $urlImagen = Storage::url($rutaimagen);
-                            $imagenTmp = $imagen->getRealPath();
-                            $img = Image::make($imagenTmp);
-                            // Comprimir la imagen con calidad del 80%
-                            $img->encode('webp', 80);
-                            // $rutaimagen = Storage::disk('public')->put('/publicaciones', $imagen);
-                            // $urlImagen = Storage::url($rutaimagen);
-
-                            // Generar un nombre único para la imagen comprimida
-                            $nombreImagenComprimida = uniqid() . '.webp';
-
-                            // Guardar la imagen comprimida en la carpeta de publicaciones
-                            Storage::disk('public')->put('/publicaciones/' . $nombreImagenComprimida, $img->__toString());
-
-                            // Obtener la URL de la imagen comprimida
-                            $urlImagen = Storage::url('/publicaciones/' . $nombreImagenComprimida);
+                        $validacionPrecio = Precios::where([
+                            ['producto_id', $datos['idproductos']],
+                            ['unidades_id', $datos['idunidades']],
+                            // ['id_asociacion', $idasociacion],
+                            ['id_usuario', $idusuario],
+                        ])->first();
+                        if ($validacionPrecio) {
+                            $validacionPrecio->update([
+                                'precio' => $datos['precio'],
+                                'estado' => 1
+                            ]);
+                        }
+                        if (isset($datos['imagen']) && is_array($datos['imagen'])) {
+                            foreach ($datos['imagen'] as $imagen) {
+                                // Generar un nombre único para la imagen comprimida
+                                $nombreImagenComprimida = uniqid() . '.webp';
+                        
+                                // Construir la ruta para la imagen comprimida
+                                $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
+                        
+                                // Cargar la imagen original y guardarla comprimida
+                                Image::load($imagen->getRealPath())
+                                    ->width(400)
+                                    ->height(400)
+                                    ->optimize()
+                                    ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
+                        
+                                // Obtener la URL de la imagen comprimida
+                                $urlImagen = Storage::url($rutaImagenComprimida);
 
                             $nuevaImagen = new Imagenes();
                             $nuevaImagen->ruta = $urlImagen;
@@ -365,19 +365,21 @@ class PublicacionesController extends Controller
             // Agregar las nuevas imágenes
             if (isset($datos['imagen']) && is_array($datos['imagen'])) {
                 foreach ($datos['imagen'] as $imagen) {
-                    // Procesar y guardar la imagen (similar a la lógica de guardarPublicaciones)
-                    $imagenTmp = $imagen->getRealPath();
-                    $img = Image::make($imagenTmp);
-                    $img->encode('webp', 80);
-
                     // Generar un nombre único para la imagen comprimida
                     $nombreImagenComprimida = uniqid() . '.webp';
-
-                    // Guardar la imagen comprimida en la carpeta de publicaciones
-                    Storage::disk('public')->put('/publicaciones/' . $nombreImagenComprimida, $img->__toString());
-
+                    
+                    // Construir la ruta para la imagen comprimida
+                    $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
+            
+                    // Cargar la imagen original y guardarla comprimida
+                    Image::load($imagen->getRealPath())
+                        ->width(400)
+                        ->height(400)
+                        ->optimize()
+                        ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
+            
                     // Obtener la URL de la imagen comprimida
-                    $urlImagen = Storage::url('/publicaciones/' . $nombreImagenComprimida);
+                    $urlImagen = Storage::url($rutaImagenComprimida);
 
                     // Crear y guardar la nueva imagen asociada a la publicación
                     $nuevaImagen = new Imagenes();

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('n_celular')->nullable();
             $table->string('direccion')->nullable();
             $table->string('email')->unique();
+            $table->string('descripcion')->nullable();
             $table->bigInteger('id_municipio')->unsigned();
             $table->Integer('estado');
             $table->timestamps();
