@@ -71,7 +71,8 @@
                 $("#idunidades").val(parametro_seleccionado.unidades_id);
                 $("#idunidades").trigger("chosen:updated");
                 $("#listadoprecios").val(buscarPreciosAsociacion(parametro_seleccionado.producto_id, parametro_seleccionado.unidades_id));
-                $("#descripcion+").val(parametro_seleccionado.descripcion);
+                $("#descripcion").val(parametro_seleccionado.descripcion);
+                $("#iva").val(parametro_seleccionado.iva);
                 let rutasImagenes = parametro_seleccionado.imagenes.map(imagen => imagen.ruta);
                 cargarVariasImg("#imagen", rutasImagenes);
             } else if (modo == 2) {
@@ -212,6 +213,9 @@
                     },
                     {
                         data: 'descripcion'
+                    },
+                    {
+                        data: 'iva'
                     },
                     {
                         data: 'imagenes',

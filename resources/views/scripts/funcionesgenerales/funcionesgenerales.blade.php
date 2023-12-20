@@ -27,9 +27,7 @@
 
 
     function cargarVariasImagen(campo) {
-        // var imagenesSeleccionadas = [];
         $(campo).fileinput({
-            uploadUrl: '#',
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
@@ -37,17 +35,15 @@
             showUpload: false,
             maxFilesNum: 5,
             required: true,
-            overwriteInitial: false,
+            overwriteInitial: true,
             fileActionSettings: {
-                showRemove: true,
+                showRemove: false,
                 showUpload: false, //This remove the upload button
                 showZoom: true,
                 showDrag: false,
                 showRotate: false,
             },
         });
-
-
     }
 
     function inputMoneda(campo) {
@@ -166,22 +162,29 @@
             initialPreview.push(img);
         });
 
-        //     $(campo).fileinput({
-        //         initialPreview: initialPreview,
-        //         initialPreviewConfig: [], 
-        //         theme: 'fa5',
-        //         language: 'es',
-        //         previewFileType: "image",
-        //         allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
-        //         showUpload: false,
-        //         maxFilesNum: 5, 
-        //         required: true,
-        //     });
+            $(campo).fileinput({
+                initialPreview: initialPreview,
+                initialPreviewConfig: [], 
+                theme: 'fa5',
+                language: 'es',
+                previewFileType: "image",
+                allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
+                showUpload: false,
+                maxFilesNum: 5, 
+                required: true,
+                fileActionSettings: {
+                    showRemove: false,
+                    showUpload: false, //This remove the upload button
+                    showZoom: true,
+                    showDrag: false,
+                    showRotate: false,
+            },
+            });
 
-        //     rutas.forEach((ruta, index) => {
-        //         const imgId = 'imgcargada_' + index;
-        //         $('#' + imgId).prop('src', ruta);
-        //     });
+            rutas.forEach((ruta, index) => {
+                const imgId = 'imgcargada_' + index;
+                $('#' + imgId).prop('src', ruta);
+            });
     }
 
     function cargarVariasImagenes(campo) {

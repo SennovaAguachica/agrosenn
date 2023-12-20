@@ -164,13 +164,27 @@
                         </a>
                     </li>
                 @endcan
-                @can('ventas.listar')
-                    <li class="menu-item" id="li_ventas">
-                        <a class="menu-link" href="/ventas">
+                @can(['ventas.listar'])
+                    <li class="menu-item has-submenu" id="li_ventas">
+                        <a class="menu-link">
                             <i class="fa-solid fa-square-poll-vertical fa-xl" id="i_ventas"
                             style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
                             <span class="text">Ventas</span>
                         </a>
+                        <div class="submenu">
+                            @can('ventas.listar')
+                                <a href="/ventas" id="a_ventas">Mis ventas</a>
+                            @endcan
+                            {{-- @can('ventas.listarFinalizadas')
+                                <a href="/ventasFinalizadas" id="a_ventas">Mis ventas</a>
+                            @endcan
+                            @can('ventas.listarCanceladas')
+                                <a href="/ventasCanceladas" id="a_ventas">Mis ventas</a>
+                            @endcan --}}
+                            {{-- @can('sugeridos.listar')
+                                <a href="/sugeridos" id="a_sugeridos">Precios sugeridos</a>
+                            @endcan --}}
+                        </div>
                     </li>
                 @endcan
                 @can('administradores.listar')
