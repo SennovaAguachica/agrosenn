@@ -9,7 +9,7 @@
                 <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
                     <div class="row">
                         <div class="col-lg-6 pr-30 d-none d-lg-block">
-                            <img class="border-radius-15" src="assetsfront/imgs/page/login-1.png" alt="" />
+                            <img class="border-radius-15" src="assetsfront/imgs/page/login.png" alt="" />
                         </div>
                         <div class="col-lg-6 col-md-8">
                             <div class="login_wrap widget-taber-content background-white">
@@ -47,10 +47,8 @@
                                         <div class="login_footer form-group mb-50">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox"
-                                                        id="exampleCheckbox1" value="" />
-                                                    <label class="form-check-label" for="exampleCheckbox1"><span>Recordar
-                                                            me</span></label>
+                                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} />
+                                                    <label class="form-check-label" for="remember"><span>Recordarme</span></label>
                                                 </div>
                                             </div>
                                             <a class="text-muted" href="#">Olvidaste tu contraseña?</a>
@@ -72,7 +70,7 @@
 @section('categoria')
     <div class="header-wrap header-space-between position-relative">
         <div class="logo logo-width-1 d-block d-lg-none">
-            <a href="/"><img src="assets/images/senova.png" alt="logo" width="20%"
+            <a href="/"><img src="{{ asset('assets/images/senova.png') }}" alt="logo" width="20%"
                     style="padding: 0; margin: 0" /></a>
         </div>
         <div class="header-nav d-none d-lg-flex">
@@ -83,171 +81,73 @@
                 </a>
                 <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
                     <div class="d-flex categori-dropdown-inner">
-                        <ul class="categorias-desplegable">
-                            @foreach ($categorias as $categoria)
+                        <ul>
+                            @foreach ($categorias->chunk(count($categorias) / 2)[0] as $categoria)
                                 @if ($categoria->estado === 1)
                                     <li>
-                                        <a href="#">
-                                            <img class="flex "src="{!! $categoria->icono !!}" />
+                                        <a href="/vercategoria/{{ $categoria->id }}">
+                                            <img src="{!! $categoria->icono !!}" />
                                             {{ $categoria->categoria }}
                                         </a>
                                     </li>
                                 @endif
                             @endforeach
                         </ul>
-
-
-                        {{-- <ul>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-1.svg" alt="" />Lácteos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-2.svg" alt="" />Ropa y belleza</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-3.svg" alt="" />Alimentos para mascotas y juguetes</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-4.svg" alt="" />Material para hornear</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-5.svg" alt="" />Frutas frescas</a>
-                        </li>
-                    </ul>
-                    <ul class="end">
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-6.svg" alt="" />Vinos y bebidas</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-7.svg" alt="" />Mariscos frescos</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-8.svg" alt="" />Comida rápida</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-9.svg" alt="" />Vegetales</a>
-                        </li>
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/category-10.svg" alt="" />Pan y jugo</a>
-                        </li>
-                    </ul> 
-                </div>
-                <div class="more_slide_open" style="display: none">
-                    <div class="d-flex categori-dropdown-inner">
-                        <ul>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-1.svg" alt="" />Lácteos</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-2.svg" alt="" />Ropa y belleza</a>
-                            </li>
-                        </ul>
                         <ul class="end">
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-3.svg" alt="" />Vinos y bebidas</a>
-                            </li>
-                            <li>
-                                <a href="shop-grid-right.html"> <img src="assetsfront/imgs/theme/icons/icon-4.svg" alt="" />Mariscos frescos</a>
-                            </li>
+                            @foreach ($categorias->chunk(count($categorias) / 2)[1] as $categoria)
+                                @if ($categoria->estado === 1)
+                                    <li>
+                                        <a href="/vercategoria/{{ $categoria->id }}">
+                                            <img src="{!! $categoria->icono !!}" />
+                                            {{ $categoria->categoria }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
                         </ul>
-                    </div>
-                </div>
-                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Mostrar más...</span></div> --}}
                     </div>
                 </div>
             </div>
             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                 <nav>
                     <ul>
-                        <li class="hot-deals"><img src="assetsfront/imgs/theme/icons/icon-hot.svg" alt="Ofertas" /><a
-                                href="shop-grid-right.html">Ofertas</a></li>
                         <li>
                             <a href="/">Inicio</a>
                         </li>
                         <li class="position-static">
-                            <a href="#">Mega menú <i class="fi-rs-angle-down"></i></a>
-                            <ul class="mega-menu">
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Frutas y verduras</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Carne y aves de corral</a></li>
-                                        <li><a href="shop-product-right.html">Vegetales frescos</a></li>
-                                        <li><a href="shop-product-right.html">Hierbas y condimentos</a></li>
-                                        <li><a href="shop-product-right.html">Cortes y brotes</a></li>
-                                        <li><a href="shop-product-right.html">Frutas y verduras exóticas</a></li>
-                                        <li><a href="shop-product-right.html">Productos envasados</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Desayuno y lácteos</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Leche y leche saborizada</a></li>
-                                        <li><a href="shop-product-right.html">Mantequilla y margarina</a></li>
-                                        <li><a href="shop-product-right.html">Sustitutos de huevos</a></li>
-                                        <li><a href="shop-product-right.html">Mermeladas</a></li>
-                                        <li><a href="shop-product-right.html">Crema agria</a></li>
-                                        <li><a href="shop-product-right.html">Queso</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-22">
-                                    <a class="menu-title" href="#">Carne y mariscos</a>
-                                    <ul>
-                                        <li><a href="shop-product-right.html">Salchichas para el desayuno</a></li>
-                                        <li><a href="shop-product-right.html">Salchichas para la cena</a></li>
-                                        <li><a href="shop-product-right.html">Pollo</a></li>
-                                        <li><a href="shop-product-right.html">Embutidos rebanados</a></li>
-                                        <li><a href="shop-product-right.html">Filetes de captura silvestre</a></li>
-                                        <li><a href="shop-product-right.html">Cangrejo y mariscos</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sub-mega-menu sub-mega-menu-width-34">
-                                    <div class="menu-banner-wrap">
-                                        <a href="shop-product-right.html"><img
-                                                src="assetsfront/imgs/banner/banner-menu.png" alt="Nest" /></a>
-                                        <div class="menu-banner-content">
-                                            <h4>Ofertas especiales</h4>
-                                            <h3>
-                                                ¡No te pierdas<br />
-                                                las tendencias
-                                            </h3>
-                                            <div class="menu-banner-price">
-                                                <span class="new-price text-success">Ahorra hasta un 50%</span>
-                                            </div>
-                                            <div class="menu-banner-btn">
-                                                <a href="shop-product-right.html">Compra ahora</a>
-                                            </div>
-                                        </div>
-                                        <div class="menu-banner-discount">
-                                            <h3>
-                                                <span>25%</span>
-                                                de descuento
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
                         <li>
-                            <a href="#">Campesinos <i class="fi-rs-angle-down"></i></a>
+                            <a href="#">Mas productos <i class="fi-rs-angle-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="vendors-grid.html">Vendedores en cuadrícula</a></li>
-                                <li><a href="vendors-list.html">Vendedores en lista</a></li>
-                                <li><a href="vendor-details-1.html">Detalles del vendedor 01</a></li>
-                                <li><a href="vendor-details-2.html">Detalles del vendedor 02</a></li>
-                                <li><a href="vendor-dashboard.html">Panel de control del vendedor</a></li>
-                                <li><a href="vendor-guide.html">Guía del vendedor</a></li>
+                                @foreach ($categorias as $categoria)
+                                    <li>
+                                        <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }} <i
+                                                class="fi-rs-angle-right"></i></a>
+                                        <ul class="level-menu">
+                                            @foreach ($categoria->subcategorias as $subcategoria)
+                                                <li>
+                                                    <a
+                                                        href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                                </li>
+                                            @endforeach
+
+                                        </ul>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
+                        </li>
                         <li>
-                            <a href="page-contact.html">Contacto</a>
+                            <a href="/verasociaciones">Asociaciones <i class="fi-rs-angle-down"></i></a>
+                            <ul class="sub-menu">
+                                @foreach ($asociaciones as $asociacion)
+                                    <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </li>
                     </ul>
                 </nav>
             </div>
-        </div>
-        <div class="hotline d-none d-lg-flex">
-            <img src="assetsfront/imgs/theme/icons/icon-headphone.svg" alt="línea directa" />
-            <p>xxx - xxxxx <span>Soporte</span></p>
         </div>
         <div class="header-action-icon-2 d-block d-lg-none">
             <div class="burger-icon burger-icon-white">
@@ -256,60 +156,39 @@
                 <span class="burger-icon-bottom"></span>
             </div>
         </div>
-        <div class="header-action-right d-block d-lg-none">
-            <div class="header-action-2">
-                <div class="header-action-icon-2">
-                    <a href="shop-wishlist.html">
-                        <img alt="Nest" src="assetsfront/imgs/theme/icons/icon-heart.svg" />
-                        <span class="pro-count white">4</span>
-                    </a>
-                </div>
-                <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
-                        <img alt="Nest" src="assetsfront/imgs/theme/icons/icon-cart.svg" />
-                        <span class="pro-count white">2</span>
-                    </a>
-                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                        <ul>
-                            <li>
-                                <div class="shopping-cart-img">
-                                    <a href="shop-product-right.html"><img alt="Nest"
-                                            src="assetsfront/imgs/shop/thumbnail-3.jpg" /></a>
-                                </div>
-                                <div class="shopping-cart-title">
-                                    <h4><a href="shop-product-right.html">Camisas Plain Striola</a></h4>
-                                    <h3><span>1 × </span>$800.00</h3>
-                                </div>
-                                <div class="shopping-cart-delete">
-                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="shopping-cart-img">
-                                    <a href="shop-product-right.html"><img alt="Nest"
-                                            src="assetsfront/imgs/shop/thumbnail-4.jpg" /></a>
-                                </div>
-                                <div class="shopping-cart-title">
-                                    <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
-                                    <h3><span>1 × </span>$3500.00</h3>
-                                </div>
-                                <div class="shopping-cart-delete">
-                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="shopping-cart-footer">
-                            <div class="shopping-cart-total">
-                                <h4>Total <span>$383.00</span></h4>
-                            </div>
-                            <div class="shopping-cart-button">
-                                <a href="shop-cart.html">Ver carrito</a>
-                                <a href="shop-checkout.html">Pago</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+@endsection
+@section('categoria_movil')
+    <nav>
+        <ul class="mobile-menu font-heading">
+            <li class="menu-item-has-children">
+                <a href="/index">Inicio</a>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="#">Categorias</a>
+                <ul class="dropdown">
+                    @foreach ($categorias as $categoria)
+                        <li class="menu-item-has-children">
+                            <a href="/vercategoria/{{ $categoria->id }}">{{ $categoria->categoria }}</a>
+                            <ul class="dropdown">
+                                @foreach ($categoria->subcategorias as $subcategoria)
+                                    <li><a
+                                            href="/versubcategoria/{{ $subcategoria->id }}">{{ $subcategoria->subcategoria }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
+            </li>
+            <li class="menu-item-has-children">
+                <a href="/verasociaciones">Asociaciones</a>
+                <ul class="dropdown">
+                    @foreach ($asociaciones as $asociacion)
+                        <li><a href='/vervendedores/{{ $asociacion->id }}'>{{ $asociacion->asociacion }}</a></li>
+                    @endforeach
+                </ul>
+            </li>
+        </ul>
+    </nav>
 @endsection

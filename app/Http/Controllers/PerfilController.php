@@ -183,7 +183,35 @@ class PerfilController extends Controller
                     $vendedor->save();
                     break;
                 case 4:
-                    $usuario = Clientes::with('usuario')->findOrFail($datos['id']);
+                    $cliente = Clientes::with('usuario')->findOrFail($datos['id']);
+                    $cliente->id_tipodocumento = $datos['idtipodocumento'];
+                    $cliente->id_municipio = $datos['idmunicipiocliente'];
+                    $cliente->n_documento = $datos['documentocliente'];
+                    $cliente->nombres = $datos['nombrecliente'];
+                    $cliente->apellidos = $datos['apellidocliente'];
+                    $cliente->direccion = $datos['direccioncliente'];
+                    $cliente->n_celular = $datos['telefonocliente'];
+                    $cliente->email = $datos['emailcliente'];
+                    $cliente->usuario->documento = $datos['documentocliente'];
+                    $cliente->usuario->email = $datos['emailcliente'];
+                    if (!empty($datos['fotoinput'])) {
+                        if ($datos['fotoinput'] != null) {
+                            //existe un archivo cargado?
+                            $rutaImagenAnterior = '/fotosperfil/' . basename($cliente->usuario->fotoperfil);
+                            if (Storage::disk('public')->exists($rutaImagenAnterior)) {
+                                Storage::disk('public')->delete($rutaImagenAnterior);
+                            }
+                            //guardo el archivo nuevo
+                            $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
+                            $urlImagen = Storage::url($imagen);
+                        }else{
+                            $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
+                            $urlImagen = Storage::url($imagen);
+                        }
+                        $cliente->usuario->fotoperfil = $urlImagen;
+                    }
+                    $cliente->usuario->save();
+                    $cliente->save();
                     break;
             }
             DB::commit();

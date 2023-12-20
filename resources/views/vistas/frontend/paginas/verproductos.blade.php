@@ -24,46 +24,6 @@
                                     class="text-brand">{{ count($vendedor->usuario->publicaciones) }}</strong> productos
                                 disponibles para ti!</p>
                         </div>
-                        <div class="sort-by-product-area">
-                            <div class="sort-by-cover mr-10">
-                                <div class="sort-by-product-wrap">
-                                    <div class="sort-by">
-                                        <span><i class="fi-rs-apps"></i>Show:</span>
-                                    </div>
-                                    <div class="sort-by-dropdown-wrap">
-                                        <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                                    </div>
-                                </div>
-                                <div class="sort-by-dropdown">
-                                    <ul>
-                                        <li><a class="active" href="#">50</a></li>
-                                        <li><a href="#">100</a></li>
-                                        <li><a href="#">150</a></li>
-                                        <li><a href="#">200</a></li>
-                                        <li><a href="#">All</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sort-by-cover">
-                                <div class="sort-by-product-wrap">
-                                    <div class="sort-by">
-                                        <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                                    </div>
-                                    <div class="sort-by-dropdown-wrap">
-                                        <span> Featured <i class="fi-rs-angle-small-down"></i></span>
-                                    </div>
-                                </div>
-                                <div class="sort-by-dropdown">
-                                    <ul>
-                                        <li><a class="active" href="#">Featured</a></li>
-                                        <li><a href="#">Price: Low to High</a></li>
-                                        <li><a href="#">Price: High to Low</a></li>
-                                        <li><a href="#">Release Date</a></li>
-                                        <li><a href="#">Avg. Rating</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row product-grid">
                         @foreach ($vendedor->usuario->publicaciones as $publicacion)
@@ -71,9 +31,7 @@
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a class="btnverimagenes" data-bs-toggle="modal"
-                                                data-bs-target="#quickViewModal" data-idpublicacion='{{ $publicacion->id }}'
-                                                data-datos="{{ $vendedor->usuario->publicaciones }}">
+                                            <a href="/verpublicacion/{{ $publicacion->id }}">
                                                 <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                     alt="" />
                                                 <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
@@ -112,7 +70,7 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add" href="/verpublicacion/{{ $publicacion->id }}"><i
+                                                <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}"><i
                                                         class="fa-brands fa-whatsapp fa-xl"></i>
                                                     Lo
                                                     quiero! </a>

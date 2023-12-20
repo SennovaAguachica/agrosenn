@@ -7,7 +7,13 @@
         <div class="container">
             <div class="home-slide-cover mt-30">
                 <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-                    <div class="single-hero-slider single-animation-wrap"
+                    @foreach ($bannersprincipales as $banner)
+                        <div
+                            class="single-hero-slider single-animation-wrap d-lg-flex align-items-center justify-content-center">
+                            <a href="{{ $banner->enlace }}"><img src="{{ $banner->imagen }}" width="100%" /></a>
+                        </div>
+                    @endforeach
+                    {{-- <div class="single-hero-slider single-animation-wrap"
                         style="background-image: url(assetsfront/imgs/slider/slider-1.png)">
                         <div class="slider-content">
                             <h1 class="display-2 mb-40">
@@ -20,21 +26,7 @@
                                 <button class="btn" type="submit">Suscribirse</button>
                             </form>
                         </div>
-                    </div>
-                    <div class="single-hero-slider single-animation-wrap"
-                        style="background-image: url(assetsfront/imgs/slider/slider-2.png)">
-                        <div class="slider-content">
-                            <h1 class="display-2 mb-40">
-                                Verduras frescas<br />
-                                Gran descuento
-                            </h1>
-                            <p class="mb-65">Ahorra hasta un 50% en tu primer pedido</p>
-                            <form class="form-subcriber d-flex">
-                                <input type="email" placeholder="Tu dirección de correo electrónico" />
-                                <button class="btn" type="submit">Suscribirse</button>
-                            </form>
-                        </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="slider-arrow hero-slider-1-arrow"></div>
             </div>
@@ -78,8 +70,15 @@
     <!--End category slider-->
     <section class="banners mb-25">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
+            <div class="row d-lg-flex align-items-center justify-content-center">
+                @foreach ($bannerssecundariosAleatorias as $banner)
+                    <div class="col-lg-4 d-md-none d-lg-flex align-items-center justify-content-center">
+                        <div class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp " data-wow-delay=".4s">
+                            <a href="{{ $banner->enlace }}"><img src="{{ $banner->imagen }}" alt="" /></a>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="col-lg-4 col-md-6">
                     <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay="0">
                         <img src="assetsfront/imgs/banner/banner-1.png" alt="" />
                         <div class="banner-text">
@@ -87,34 +86,10 @@
                                 Todos los Días Fresco y <br />Limpio con Nuestros<br />
                                 Productos
                             </h4>
-                            <a href="#" class="btn btn-xs">Comprar Ahora <i
-                                    class="fi-rs-arrow-small-right"></i></a>
+                            <a href="#" class="btn btn-xs">Comprar Ahora <i class="fi-rs-arrow-small-right"></i></a>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                        <img src="assetsfront/imgs/banner/banner-2.png" alt="" />
-                        <div class="banner-text">
-                            <h4>
-                                Haz tu Desayuno<br />
-                                Saludable y Fácil
-                            </h4>
-                            <a href="#" class="btn btn-xs">Comprar Ahora <i
-                                    class="fi-rs-arrow-small-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 d-md-none d-lg-flex">
-                    <div class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
-                        <img src="assetsfront/imgs/banner/banner-3.png" alt="" />
-                        <div class="banner-text">
-                            <h4>Los Mejores Productos<br />Orgánicos en Línea</h4>
-                            <a href="#" class="btn btn-xs">Comprar Ahora <i
-                                    class="fi-rs-arrow-small-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -144,13 +119,10 @@
                     <div class="row product-grid-4">
                         @foreach ($publicaciones as $publicacion)
                             <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn"
-                                    data-wow-delay=".1s">
+                                <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn" data-wow-delay=".1s">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a class="btnverimagenes" data-bs-toggle="modal"
-                                                data-bs-target="#quickViewModal"
-                                                data-idpublicacion='{{ $publicacion->id }}'>
+                                            <a href="/verpublicacion/{{ $publicacion->id }}">
                                                 <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                     alt="" />
                                                 <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
@@ -199,7 +171,8 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add" href="/verpublicacion/{{ $publicacion->id }}"><i
+                                                <a class="add btnverpublicacion"
+                                                    href="/verpublicacion/{{ $publicacion->id }}"><i
                                                         class="fa-brands fa-whatsapp fa-xl"></i>
                                                     Lo
                                                     quiero! </a>
@@ -222,7 +195,7 @@
                                             data-wow-delay=".1s">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="#">
+                                                    <a href="/verpublicacion/{{ $publicacion->id }}">
                                                         <img class="default-img"
                                                             src="{{ $publicacion->imagenes[0]->ruta }}" alt="" />
                                                         <img class="hover-img"
@@ -230,8 +203,9 @@
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
-                                                    <a aria-label="Vista rápida" class="action-btn"
-                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
+                                                    <a aria-label="Ver detalles" class="action-btn btnverimagenes"
+                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"
+                                                        data-idpublicacion='{{ $publicacion->id }}'><i
                                                             class="fi-rs-eye"></i></a>
                                                 </div>
                                                 {{-- <div class="product-badges product-badges-position product-badges-mrg">
@@ -271,7 +245,7 @@
                                                 </div>
                                                 <div class="product-card-bottom">
                                                     <div class="add-cart">
-                                                        <a class="add"
+                                                        <a class="add btnverpublicacion"
                                                             href="/verpublicacion/{{ $publicacion->id }}"><i
                                                                 class="fa-brands fa-whatsapp fa-xl"></i>
                                                             Lo

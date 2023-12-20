@@ -32,7 +32,8 @@ class RegisteredUserController extends Controller
         $tiposDocumentos = Tipodocumentos::all();
         $departamentos = Departamentos::all();
         $categorias = Categorias::all();
-        return view('vistas.login.register',compact('tiposDocumentos','departamentos','categorias'));
+        $asociaciones = Asociaciones::all();
+        return view('vistas.login.register',compact('tiposDocumentos','departamentos','categorias','asociaciones'));
     }
 
     /**
@@ -66,13 +67,19 @@ class RegisteredUserController extends Controller
             $validacionVendedor = Vendedores::where([
                 ['n_documento', $request->documento]
             ])->get();
-            if (count($validacionVendedor) > 0) {
+            $validacionUser = User::where([
+                ['documento', $request->documento]
+            ])->get();
+            if (count($validacionVendedor) > 0 || count($validacionUser) > 0) {
                 $aErrores[] = '- Este nº de documento ya se encuentra registrado';
             }
             $validacionEmail = Vendedores::where([
                 ['email', $request->email]
             ])->get();
-            if (count($validacionEmail) > 0) {
+            $validacionEmailUser = User::where([
+                ['email', $request->email]
+            ])->get();
+            if (count($validacionEmail) > 0 || count($validacionEmailUser) > 0) {
                 $aErrores[] = '- Este correo electronico ya se encuentra registrado';
             }
             $validacionAsociacion = Asociaciones::where([
@@ -85,13 +92,19 @@ class RegisteredUserController extends Controller
             $validacionCliente = Clientes::where([
                 ['n_documento', $request->documento]
             ])->get();
-            if (count($validacionCliente) > 0) {
+            $validacionUser = User::where([
+                ['documento', $request->documento]
+            ])->get();
+            if (count($validacionCliente) > 0 || count($validacionUser) > 0) {
                 $aErrores[] = '- Este nº de documento ya se encuentra registrado';
             }
             $validacionEmail = Clientes::where([
                 ['email', $request->email]
             ])->get();
-            if (count($validacionEmail) > 0) {
+            $validacionEmailUser = User::where([
+                ['email', $request->email]
+            ])->get();
+            if (count($validacionEmail) > 0 || count($validacionEmailUser) > 0) {
                 $aErrores[] = '- Este correo electronico ya se encuentra registrado';
             }
         }

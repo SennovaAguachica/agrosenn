@@ -8,14 +8,19 @@ use App\Models\Subcategorias;
 use App\Models\Asociaciones;
 use App\Models\Vendedores;
 use App\Models\Publicaciones;
+use App\Models\Banners;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use App\Models\Tipodocumentos;
+use App\Models\Departamentos;
 
 class IndexController extends Controller
 {
     public function index()
     {
         $categorias  = Categorias::with('subcategorias')->get();
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
         $subcategorias = Subcategorias::whereHas('productos.publicaciones', function ($query) {
             $query->where('estado', 1);
         })->get();
@@ -34,7 +39,7 @@ class IndexController extends Controller
                 $perfil->load('vendedor.municipio.departamento.ciudades','imagenesperfil');
                 break;
             case 4:
-                $perfil->load('cliente');
+                $perfil->load('cliente.municipio.departamento.ciudades');
                 break;
         }
         $asociaciones = Asociaciones::all();
@@ -42,8 +47,13 @@ class IndexController extends Controller
             $query->whereIn('subcategoria_id', $subcategoriasAleatorias->pluck('id'));
         })
         ->get();
+        $bannersprincipales = Banners::where('tipobanner',1)->get();
+        $bannerssecundarios = Banners::where('tipobanner',2)->get();
+        $bannerssecundariosAleatorias = $bannerssecundarios->count() > 3
+        ? $bannerssecundarios->random(3)
+        : $bannerssecundarios;
         // dd($publicaciones);
-        return view('vistas.frontend.index.index', compact('categorias', 'subcategorias','perfil','asociaciones','subcategoriasAleatorias','publicaciones'));
+        return view('vistas.frontend.index.index', compact('categorias', 'subcategorias','perfil','asociaciones','subcategoriasAleatorias','publicaciones','bannersprincipales','bannerssecundariosAleatorias','tiposDocumentos','departamentos'));
     }
     public function verAsociaciones()
     {
@@ -51,8 +61,9 @@ class IndexController extends Controller
         $subcategorias = Subcategorias::all();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario','vendedores')->get();
-        //dd($categorias);
-        return view('vistas.frontend.paginas.verasociaciones', compact('categorias', 'subcategorias','perfil','asociaciones'));
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
+        return view('vistas.frontend.paginas.verasociaciones', compact('categorias', 'subcategorias','perfil','asociaciones','tiposDocumentos','departamentos'));
     }
     public function verVendedores($idasociacion)
     {
@@ -62,7 +73,9 @@ class IndexController extends Controller
         $perfil = auth()->user();
         $asociacion = Asociaciones::with('usuario')->findOrFail($idasociacion);
         $asociaciones = Asociaciones::with('usuario')->get();
-        return view('vistas.frontend.paginas.vervendedores', compact('categorias', 'subcategorias','perfil','asociacion','vendedores','asociaciones'));
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
+        return view('vistas.frontend.paginas.vervendedores', compact('categorias', 'subcategorias','perfil','asociacion','vendedores','asociaciones','tiposDocumentos','departamentos'));
     }
     public function verProductos($idvendedor)
     {
@@ -71,7 +84,9 @@ class IndexController extends Controller
         $subcategorias = Subcategorias::all();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario')->get();
-        return view('vistas.frontend.paginas.verproductos', compact('categorias', 'subcategorias','perfil','vendedor','asociaciones'));
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
+        return view('vistas.frontend.paginas.verproductos', compact('categorias', 'subcategorias','perfil','vendedor','asociaciones','tiposDocumentos','departamentos'));
     }
     public function verCategoria($idcategoria)
     {
@@ -79,10 +94,12 @@ class IndexController extends Controller
         $categorias = Categorias::with('subcategorias')->get();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario')->get();
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
         $publicaciones = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->where('estado',1)->whereHas('productos.subcategoria', function ($query) use ($idcategoria) {
             $query->where('categoria_id', $idcategoria);
         })
-        ->get();
+        ->paginate(10);
         $subcategoriasConPublicaciones = Subcategorias::where('categoria_id', $idcategoria)
         ->select('subcategorias.*')
         ->selectSub(function ($query) {
@@ -95,7 +112,7 @@ class IndexController extends Controller
         ->having('npublicaciones', '>', 0)
         ->get();
         // dd($subcategoriasConPublicaciones);
-        return view('vistas.frontend.paginas.vercategoria', compact('categorias', 'categoria','perfil','asociaciones','publicaciones','subcategoriasConPublicaciones'));
+        return view('vistas.frontend.paginas.vercategoria', compact('categorias', 'categoria','perfil','asociaciones','publicaciones','subcategoriasConPublicaciones','tiposDocumentos','departamentos'));
     }
     public function verSubcategoria($idsubcategoria)
     {
@@ -103,10 +120,12 @@ class IndexController extends Controller
         $categorias = Categorias::with('subcategorias')->get();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario')->get();
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
         $publicaciones = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($idsubcategoria) {
             $query->where('subcategoria_id', $idsubcategoria);
         })
-        ->get();
+        ->paginate(10);
         $subcategoriasConPublicaciones = Subcategorias::where('categoria_id', $subcategoria->categoria_id)
         ->select('subcategorias.*')
         ->selectSub(function ($query) {
@@ -118,24 +137,28 @@ class IndexController extends Controller
         }, 'npublicaciones')
         ->having('npublicaciones', '>', 0)
         ->get();
-        return view('vistas.frontend.paginas.versubcategoria', compact('categorias', 'subcategoria','perfil','asociaciones','publicaciones','subcategoriasConPublicaciones'));
+        return view('vistas.frontend.paginas.versubcategoria', compact('categorias', 'subcategoria','perfil','asociaciones','publicaciones','subcategoriasConPublicaciones','tiposDocumentos','departamentos'));
 
     }
     public function verPublicacion($idpublicacion)
     {
         $categorias = Categorias::with('subcategorias')->get();
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario')->get();
         $publicacion = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','usuario.asociacion.municipio.departamento','precios','unidades')->findOrFail($idpublicacion);
         $relacionados = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor','precios','unidades')->where('estado',1)->whereHas('productos', function ($query) use ($publicacion) {
             $query->where('subcategoria_id', $publicacion->productos->subcategoria_id);
         })->where('id', '!=', $idpublicacion)->get();
-        return view('vistas.frontend.paginas.verpublicacion', compact('categorias', 'perfil','asociaciones','publicacion','relacionados'));
+        return view('vistas.frontend.paginas.verpublicacion', compact('categorias', 'perfil','asociaciones','publicacion','relacionados','tiposDocumentos','departamentos'));
 
     }
     public function buscarProductos(Request $request)
     {
         $categorias = Categorias::with('subcategorias')->get();
+        $tiposDocumentos = Tipodocumentos::all();
+        $departamentos = Departamentos::all();
         $perfil = auth()->user();
         $asociaciones = Asociaciones::with('usuario')->get();
         $resultados = Publicaciones::with('productos.subcategoria.categorias','imagenes','usuario.vendedor.municipio.departamento','usuario.asociacion.municipio.departamento','precios','unidades')->
@@ -148,7 +171,7 @@ class IndexController extends Controller
         })
         ->select('publicaciones.*')
         ->paginate(15);
-        return view('vistas.frontend.paginas.resultados', compact('categorias', 'perfil','asociaciones','resultados'));
+        return view('vistas.frontend.paginas.resultados', compact('categorias', 'perfil','asociaciones','resultados','tiposDocumentos','departamentos'));
 
     }
 }

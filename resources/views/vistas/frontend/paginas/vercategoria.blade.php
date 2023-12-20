@@ -33,48 +33,8 @@
             <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
-                        <p>Se encontraron <strong class="text-brand">{{ count($publicaciones) }}</strong> productos
+                        <p>Se encontraron <strong class="text-brand">{{ $publicaciones->total() }}</strong> productos
                             disponibles!</p>
-                    </div>
-                    <div class="sort-by-product-area">
-                        <div class="sort-by-cover mr-10">
-                            <div class="sort-by-product-wrap">
-                                <div class="sort-by">
-                                    <span><i class="fi-rs-apps"></i>Ver:</span>
-                                </div>
-                                <div class="sort-by-dropdown-wrap">
-                                    <span> 50 <i class="fi-rs-angle-small-down"></i></span>
-                                </div>
-                            </div>
-                            <div class="sort-by-dropdown">
-                                <ul>
-                                    <li><a class="active" href="#">50</a></li>
-                                    <li><a href="#">100</a></li>
-                                    <li><a href="#">150</a></li>
-                                    <li><a href="#">200</a></li>
-                                    <li><a href="#">All</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="sort-by-cover">
-                            <div class="sort-by-product-wrap">
-                                <div class="sort-by">
-                                    <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                                </div>
-                                <div class="sort-by-dropdown-wrap">
-                                    <span> Featured <i class="fi-rs-angle-small-down"></i></span>
-                                </div>
-                            </div>
-                            <div class="sort-by-dropdown">
-                                <ul>
-                                    <li><a class="active" href="#">Featured</a></li>
-                                    <li><a href="#">Price: Low to High</a></li>
-                                    <li><a href="#">Price: High to Low</a></li>
-                                    <li><a href="#">Release Date</a></li>
-                                    <li><a href="#">Avg. Rating</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="row product-grid">
@@ -83,20 +43,19 @@
                             <div class="product-cart-wrap mb-30 animate__animated animate__fadeIn" data-wow-delay=".1s">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img product-img-zoom">
-                                        <a class="btnverimagenes" data-bs-toggle="modal" data-bs-target="#quickViewModal"
-                                            data-idpublicacion='{{ $publicacion->id }}' data-datos="{{ $publicaciones }}">
+                                        <a href="/verpublicacion/{{ $publicacion->id }}">
                                             <img class="default-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                 alt="" />
                                             <img class="hover-img" src="{{ $publicacion->imagenes[0]->ruta }}"
                                                 alt="" />
                                         </a>
                                     </div>
-                                    <div class="product-action-1">
+                                    {{-- <div class="product-action-1">
                                         <a aria-label="Ver detalles" class="action-btn btnverimagenes"
                                             data-bs-toggle="modal" data-bs-target="#quickViewModal"
                                             data-idpublicacion='{{ $publicacion->id }}'
                                             data-datos="{{ $publicaciones }}"><i class="fi-rs-eye"></i></a>
-                                    </div>
+                                    </div> --}}
                                     {{-- <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Caliente</span>
                                                 </div> --}}
@@ -134,8 +93,8 @@
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="add-cart">
-                                            <a class="add"
-                                                href="/verpublicacion/{{ $publicacion->id }}"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                            <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}"><i
+                                                    class="fa-brands fa-whatsapp fa-xl"></i>
                                                 Lo
                                                 quiero! </a>
                                         </div>
@@ -145,6 +104,7 @@
                         </div>
                     @endforeach
                 </div>
+                {{ $publicaciones->links('pagination::bootstrap-5') }}
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
                 <div class="sidebar-widget widget-category-2 mb-30">
@@ -152,8 +112,7 @@
                     <ul>
                         @foreach ($subcategoriasConPublicaciones as $subcategoria)
                             <li>
-                                <a href="/versubcategoria/{{ $subcategoria->id }}"> <img
-                                        src="{{ $subcategoria->imagen }}"
+                                <a href="/versubcategoria/{{ $subcategoria->id }}"> <img src="{{ $subcategoria->imagen }}"
                                         alt="" />{{ $subcategoria->subcategoria }}</a><span
                                     class="count">{{ $subcategoria->npublicaciones }}</span>
                             </li>

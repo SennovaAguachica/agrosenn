@@ -20,7 +20,6 @@
                 prevArrow: '<button type="button" class="slick-prev"><i class="fi-rs-arrow-small-left"></i></button>',
                 nextArrow: '<button type="button" class="slick-next"><i class="fi-rs-arrow-small-right"></i></button>',
             });
-
             $(".btnverimagenes").on("click", function(e) {
                 var valorData = $(this).data("idpublicacion");
                 var datos = $(this).data("datos");
@@ -44,13 +43,13 @@
                             var nuevoElemento = $(
                                 "<figure class='border-radius-10' style='height: 300px; display: flex; align-items:center;justify-content: center;'><img src='" +
                                 imagen.ruta +
-                                "' style='max-width:250px;display: flex; align-items:center;justify-content: center;' alt='product image' /></figure>"
+                                "' style='display: flex; align-items:center;justify-content: center;' alt='product image' /></figure>"
                             );
                             divimgprincipal.append(nuevoElemento);
                             var nuevoElementoSlider = $(
-                                "<div style='height: 50px; display: flex; align-items:center;justify-content: center;'><img src='" +
+                                "<div style='height: 70px; display: flex; align-items:center;justify-content: center;'><img src='" +
                                 imagen.ruta +
-                                "' style='max-width:50px;' alt='product image' /></div>"
+                                "' style='max-width:70px;' alt='product image' /></div>"
                             );
                             divImgSlider.append(nuevoElementoSlider);
                         });
@@ -82,7 +81,7 @@
                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                 </div> --}}
                                 <div class="product-extra-link2">
-                                    <button type="submit" class="button button-add-to-cart"><i class="fa-brands fa-whatsapp fa-xl"></i>Lo quiero!</button>
+                                    <button type="submit" class="button button-add-to-cart btnverpublicacion"><i class="fa-brands fa-whatsapp fa-xl"></i>Lo quiero!</button>
                                 </div>
                             </div>
                         `;

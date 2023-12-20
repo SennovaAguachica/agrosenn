@@ -35,8 +35,8 @@
                                 <div class="slider-nav-thumbnails">
                                     @foreach ($publicacion->imagenes as $imagen)
                                         <div
-                                            style='height: 50px; display: flex; align-items:center;justify-content: center; '>
-                                            <img src="{{ $imagen->ruta }}" style="max-width:50px;"alt="product image" />
+                                            style='height: 70px; display: flex; align-items:center;justify-content: center; '>
+                                            <img src="{{ $imagen->ruta }}" style="max-width:70px;"alt="product image" />
                                         </div>
                                     @endforeach
                                 </div>
@@ -86,7 +86,7 @@
                                     <br>
                                     <div class="">
                                         <a href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
-                                            target="_blank" class="btn"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                            target="_blank" class="btn btnverpublicacion"><i class="fa-brands fa-whatsapp fa-xl"></i>
                                             Contactar vendedor</a>
                                     </div>
                                 </div>

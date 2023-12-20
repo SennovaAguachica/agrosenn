@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('apellidos');
             $table->string('direccion')->nullable();
             $table->string('n_celular')->nullable();
+            $table->string('descripcion')->nullable();
             $table->string('email')->unique()->nullable();
             $table->Integer('estado');
             $table->timestamps();

@@ -81,4 +81,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Imagenesperfiles::class, 'usuario_id', 'id');
     }
+    public function banners()
+    {
+        return $this->hasMany(Banners::class, 'usuario_id', 'id');
+    }
 }
