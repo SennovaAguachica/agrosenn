@@ -36,8 +36,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password" class="fw-bold">Contraseña</label>
-                                            <div class="input-group" id="
-                                            ">
+                                            <div class="input-group" id="show_hide_password">
                                                 <input class="form-control" type="password" id="password" name="password"
                                                     placeholder="Tu contraseña *" required>
                                                 <div class="input-group-text">
