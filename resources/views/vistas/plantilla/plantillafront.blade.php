@@ -370,6 +370,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Autenticate para contactar al vendedor!</h4>
+                    </div>
                     <div class="row">
                         <div class="col-lg-6 pr-30 d-none d-lg-block">
                             <img class="border-radius-15" src="{{ asset('assetsfront/imgs/page/login.png') }}"
@@ -680,7 +683,20 @@
                 if (perfil == "") {
                     $("#modaliniciosesion").modal("show");
                 } else {
-                    window.location.href = direccion;
+                    Swal.fire({
+                        title: 'Esta seguro de contactar al vendedor?',
+                        text: "Si acepta iniciara una solicitud de compra automaticamente!",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si',
+                        cancelButtonText: 'No',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = direccion;
+                        }
+                    });
                 }
             });
             $("#btnlogin").on("click", function(e) {

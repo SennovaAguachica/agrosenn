@@ -288,7 +288,6 @@
                     $(".carga").removeClass("hidden").addClass("show");
                 },
                 success: function(respuesta) {
-                    $(".carga").removeClass("show").addClass("hidden");
                     var municipios_select = '<option value="">Seleccione una opción</option>'
                     for (var i = 0; i < respuesta.length; i++) {
                         municipios_select += '<option value="' + respuesta[i].id + '">' + respuesta[i].ciudad +
