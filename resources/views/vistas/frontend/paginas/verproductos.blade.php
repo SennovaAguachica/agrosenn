@@ -50,12 +50,12 @@
                                         <h2><a
                                                 href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
                                         </h2>
-                                        <div class="product-rate-cover">
+                                        {{-- <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
                                             </div>
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
+                                        </div> --}}
                                         <div>
                                             <span class="font-small text-muted">Producto de <a
                                                     href="/verproductos/{{ $vendedor->id }}">{{ $vendedor->nombres }}
@@ -91,12 +91,12 @@
                             <h4 class="mb-5"><a href="" class="text-heading">{{ $vendedor->nombres }}
                                     {{ $vendedor->apellidos }}</a>
                             </h4>
-                            <div class="product-rate-cover mb-15">
+                            {{-- <div class="product-rate-cover mb-15">
                                 <div class="product-rate d-inline-block">
                                     <div class="product-rating" style="width: 90%"></div>
                                 </div>
                                 <span class="font-small ml-5 text-muted"> (4.0)</span>
-                            </div>
+                            </div> --}}
                             <div class="vendor-des mb-30">
                                 <p class="font-sm text-heading">{{ $vendedor->descripcion }}</p>
                             </div>

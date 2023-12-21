@@ -48,12 +48,12 @@
                                 <div class="mb-30">
                                     <h4 class="mb-5"><a href="#">{{ $asociacion->asociacion }}</a>
                                     </h4>
-                                    <div class="product-rate-cover">
+                                    {{-- <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>
                                         </div>
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
+                                    </div> --}}
                                     <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
                                         <ul class="contact-infor text-muted">
                                             <li><img src="assets/imgs/theme/icons/icon-location.svg"

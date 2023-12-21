@@ -41,14 +41,14 @@
                         var contenidoDespuesDeImagenes = `
                             <span class="stock-status in-stock"> Disponible </span>
                             <h3 class="title-detail"><a href="shop-product-right.html" class="text-heading">${publicacion.productos.producto}</a></h3>
-                            <div class="product-detail-rating">
-                                <div class="product-rate-cover text-end">
-                                    <div class="product-rate d-inline-block">
-                                        <div class="product-rating" style="width: 90%"></div>
-                                    </div>
-                                    <span class="font-small ml-5 text-muted"> (400 reviews)</span>
-                                </div>
-                            </div>
+                            // <div class="product-detail-rating">
+                            //     <div class="product-rate-cover text-end">
+                            //         <div class="product-rate d-inline-block">
+                            //             <div class="product-rating" style="width: 90%"></div>
+                            //         </div>
+                            //         <span class="font-small ml-5 text-muted"> (400 reviews)</span>
+                            //     </div>
+                            // </div>
                             <br>
                             <div class="clearfix product-price-cover">
                                 <div class="product-price primary-color float-left">

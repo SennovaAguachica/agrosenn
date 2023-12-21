@@ -47,14 +47,14 @@
                             <div class="detail-info pr-30 pl-30">
                                 <span class="stock-status in-stock">Disponible</span>
                                 <h2 class="title-detail">{{ $publicacion->productos->producto }}</h2>
-                                <div class="product-detail-rating">
+                                {{-- <div class="product-detail-rating">
                                     <div class="product-rate-cover text-end">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>
                                         </div>
                                         <span class="font-small ml-5 text-muted"> (32 reviews)</span>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="clearfix product-price-cover">
                                     <div class="product-price primary-color float-left">
                                         <span class="current-price text-brand">$ {{ $publicacion->precios->precio }}</span>
@@ -159,12 +159,12 @@
                                                         href="/verproductosasociacion/{{ $publicacion->usuario->asociacion->id }}">{{ $publicacion->usuario->asociacion->asociacion }}</a>
                                                 @endif
                                             </h6>
-                                            <div class="product-rate-cover text-end">
+                                            {{-- <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
                                                     <div class="product-rating" style="width: 90%"></div>
                                                 </div>
                                                 <span class="font-small ml-5 text-muted"> (32 reviews)</span>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                     <ul class="contact-infor mb-50">
@@ -177,7 +177,7 @@
                                         <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
                                                 {{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}</span>
                                         </li>
-                                        <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>(+57)
+                                        <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>
                                                 {{ $publicacion->usuario->vendedor->email ?? $publicacion->usuario->asociacion->email }}</span>
                                         </li>
                                     </ul>
