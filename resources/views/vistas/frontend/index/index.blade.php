@@ -51,6 +51,7 @@
                         @php
                             // Obtiene el índice actual del bucle + 9 para que esté en el rango de 9 a 15
                             $bgClass = 'bg-' . (($loop->index % 7) + 9);
+                            $numSubcategorias = $item->subcategorias->count();
                         @endphp
                         <div class="card-2 {{ $bgClass }} wow animate__animated animate__fadeInUp"
                             data-wow-delay=".1s">
@@ -59,7 +60,7 @@
                                         alt="" /></a>
                             </figure>
                             <h6><a href="/vercategoria/{{ $item->id }}">{{ $item->categoria }}</a></h6>
-                            <span>26 artículos</span>
+                            <span>{{ $numSubcategorias }} subcategorías</span>
                         </div>
                     @endforeach
                 </div>
