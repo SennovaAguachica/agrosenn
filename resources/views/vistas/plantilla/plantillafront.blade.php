@@ -607,7 +607,7 @@
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <p class="font-sm mb-0">&copy; 2023, <strong class="text-brand">Agroseen</strong> - Plataforma
+                    <p class="font-sm mb-0">&copy; 2023, <strong class="text-brand">Agrosenn</strong> - Plataforma
                         virtual <br />Todos los derechos reservados</p>
                 </div>
             </div>
