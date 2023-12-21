@@ -11,12 +11,12 @@
         var fila = "";
         var vista = "";
         $(document).ready(function() {
-            $('#li_categorias').addClass('active');//posible cambio
-            $('#i_categoria').css('color', '#3BB77E');//posible cambio
+            $('#li_categorias').addClass('active'); //posible cambio
+            $('#i_categoria').css('color', '#3BB77E'); //posible cambio
             cargarTablaSubcategorias();
             guardarSubcategoria();
             cargarImagen("#imagen");
-            
+
             buttonClicks();
         });
 
@@ -36,7 +36,7 @@
             fila = tablaSubcategorias.row("." + data).node();
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablasubcategorias").DataTable().row('.selected').data();
-            
+
             if (modo == 1) {
                 $("#subcategoria").val(parametro_seleccionado.subcategoria);
                 $("#tipoSubcategoria").val(parametro_seleccionado.categoria_id);
@@ -62,7 +62,10 @@
                                 "_token": "{{ csrf_token() }}",
                                 accion: ELIMINAR_SUBCATEGORIAS,
                                 id: parametro_seleccionado.id,
-                                
+
+                            },
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
                             },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
@@ -72,14 +75,15 @@
                                     tablaSubcategorias.ajax.reload();
                                 } else {
                                     mensajeError(respuesta.mensaje);
-                                    
+
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
-                               
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -145,6 +149,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -161,11 +168,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -184,8 +193,7 @@
                     "url": "/subcategorias",
                     "type": "GET",
                 },
-                "columns": [
-                    {
+                "columns": [{
                         data: 'imagen',
                         render: function(data, type, row) {
                             return '<img src="' + data + '" width="100px" />';
@@ -200,7 +208,7 @@
                     {
                         data: 'descripcion'
                     },
-                    
+
                     {
                         data: 'action'
                     }

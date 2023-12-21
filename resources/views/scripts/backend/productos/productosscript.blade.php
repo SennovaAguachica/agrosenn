@@ -44,17 +44,19 @@
                 $(fila).removeClass('selected');
             }
             fila = tablaProductos.row("." + data).node();
-            console.log("DATA: "+data);
+            console.log("DATA: " + data);
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablaproductos").DataTable().row('.selected').data();
-            
+
             if (modo == 1) {
                 // $("#tipoProducto").val(parametro_seleccionado.categoria_id);
                 // $("#tipoProducto").trigger("chosen:updated");
                 $("#idcategoria").val(parametro_seleccionado.subcategoria.categoria_id);
                 $('#idcategoria').trigger("chosen:updated");
-                $("#tipoProducto").find('option').remove().end().append('<option value="">Seleccione una opción</option>').trigger("chosen:updated");
-                $("#tipoProducto").append(new Option(parametro_seleccionado.subcategoria.subcategoria, parametro_seleccionado.subcategoria_id, true, true));
+                $("#tipoProducto").find('option').remove().end().append('<option value="">Seleccione una opción</option>')
+                    .trigger("chosen:updated");
+                $("#tipoProducto").append(new Option(parametro_seleccionado.subcategoria.subcategoria,
+                    parametro_seleccionado.subcategoria_id, true, true));
                 $('#tipoProducto').trigger("chosen:updated");
                 $("#nombreProducto").val(parametro_seleccionado.producto);
                 // $("#precioProducto").val('$' + number_format(parametro_seleccionado.precio));
@@ -67,7 +69,7 @@
             }
         }
 
-        function eliminarProducto(id){
+        function eliminarProducto(id) {
             Swal.fire({
                 title: '¿Esta seguro?',
                 text: "Recuerde que se eliminara el producto seleccionado!",
@@ -79,31 +81,36 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                            url: "/productos_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_PRODUCTOS,
-                                id: parametro_seleccionado.id
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha eliminado el producto con exito');
-                                    tablaProductos.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
+                        url: "/productos_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_PRODUCTOS,
+                            id: parametro_seleccionado.id
+                        },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha eliminado el producto con exito');
+                                tablaProductos.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
                             }
-                        });
-                 }
+                            $(".carga").removeClass("show").addClass("hidden");
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                            $(".carga").removeClass("show").addClass("hidden");
+                        }
+                    });
+                }
             });
         }
 
@@ -168,6 +175,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -184,11 +194,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -267,24 +279,19 @@
                     accion: BUSCAR_SUBCATEGORIAS,
                     idcategoria
                 },
-                
                 beforeSend: function() {
-                    // console.log(idcategoria);
-                    // console.log(respuesta.length);
-                    // console.log(respuesta[0].id);
-                    // console.log(respuesta[0].subcategoria);
-                    // $(".carga").removeClass("hidden").addClass("show");
+                    $(".carga").removeClass("hidden").addClass("show");
                 },
                 success: function(respuesta) {
-                    
-                    $(".carga").removeClass("show").addClass("hidden");
                     var subcategorias_select = '<option value="">Seleccione una opción</option>'
                     for (var i = 0; i < respuesta.length; i++) {
-                        subcategorias_select += '<option value="' + respuesta[i].id + '">' + respuesta[i].subcategoria +
+                        subcategorias_select += '<option value="' + respuesta[i].id + '">' + respuesta[i]
+                            .subcategoria +
                             '</option>';
                         $("#tipoProducto").html(subcategorias_select);
                         $("#tipoProducto").trigger("chosen:updated");
                     }
+                    $(".carga").removeClass("show").addClass("hidden");
                 },
                 error: function(request, status, error) {
                     mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");
@@ -314,6 +321,9 @@
                             accion: HABILITAR_PRODUCTO,
                             id
                         },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
                         success: function(respuesta) {
                             // Maneja la respuesta del servidor aquí
                             if (respuesta.estado === 1) {
@@ -323,11 +333,13 @@
                             } else {
                                 mensajeError(respuesta.mensaje);
                             }
+                            $(".carga").removeClass("show").addClass("hidden");
                         },
                         error: function(request, status, error) {
                             mensajeErrorGeneral(
                                 "Se produjo un error durante el proceso, vuelve a intentarlo"
                             );
+                            $(".carga").removeClass("show").addClass("hidden");
                         }
                     });
                 }

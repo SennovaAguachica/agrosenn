@@ -50,6 +50,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -61,11 +64,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -103,7 +108,7 @@
                 $("#email").val(datosUsuario.email);
             } else if (modo == 2) {
                 eliminarUsuario(datosUsuario.id);
-            }else if (modo == 3) {
+            } else if (modo == 3) {
                 habilitarUsuario(datosUsuario.id);
             }
         }
@@ -128,6 +133,9 @@
                             accion: ELIMINAR_USUARIOS,
                             id
                         },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
                         success: function(respuesta) {
                             // Maneja la respuesta del servidor aquí
                             if (respuesta.estado === 1) {
@@ -137,16 +145,19 @@
                             } else {
                                 mensajeError(respuesta.mensaje);
                             }
+                            $(".carga").removeClass("show").addClass("hidden");
                         },
                         error: function(request, status, error) {
                             mensajeErrorGeneral(
                                 "Se produjo un error durante el proceso, vuelve a intentarlo"
                             );
+                            $(".carga").removeClass("show").addClass("hidden");
                         }
                     });
                 }
             });
         }
+
         function habilitarUsuario(id) {
             Swal.fire({
                 title: '¿Esta seguro?',
@@ -167,6 +178,9 @@
                             accion: HABILITAR_USUARIOS,
                             id
                         },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
                         success: function(respuesta) {
                             // Maneja la respuesta del servidor aquí
                             if (respuesta.estado === 1) {
@@ -176,16 +190,19 @@
                             } else {
                                 mensajeError(respuesta.mensaje);
                             }
+                            $(".carga").removeClass("show").addClass("hidden");
                         },
                         error: function(request, status, error) {
                             mensajeErrorGeneral(
                                 "Se produjo un error durante el proceso, vuelve a intentarlo"
                             );
+                            $(".carga").removeClass("show").addClass("hidden");
                         }
                     });
                 }
             });
         }
+
         function cargarTablaUsuarios() {
             tablaUsuarios = $('#tablausuarios').DataTable({
                 "serverSide": true,
@@ -220,15 +237,15 @@
                         data: null,
                         render: function(data, type, row) {
                             if (data.idrol == 1) {
-                                return '<span class="badge bg-success ">'+data.rol.name+'</span>';
+                                return '<span class="badge bg-success ">' + data.rol.name + '</span>';
                             } else if (data.idrol == 2) {
-                                return '<span class="badge bg-primary ">'+data.rol.name+'</span>';
+                                return '<span class="badge bg-primary ">' + data.rol.name + '</span>';
                             }
                             if (data.idrol == 3) {
-                                return '<span class="badge bg-danger ">'+data.rol.name+'</span>';
+                                return '<span class="badge bg-danger ">' + data.rol.name + '</span>';
                             }
                             if (data.idrol == 4) {
-                                return '<span class="badge bg-secondary ">'+data.rol.name+'</span>';
+                                return '<span class="badge bg-secondary ">' + data.rol.name + '</span>';
                             }
                         }
                     },

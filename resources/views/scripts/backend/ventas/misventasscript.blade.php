@@ -14,11 +14,11 @@
             cargarTablaActivas();
             buttonClick();
         });
-        
+
 
         function buttonClick() {
-            
-            
+
+
         }
 
 
@@ -34,7 +34,7 @@
                 finalizarVenta(parametro_seleccionado.id);
             } else if (modo == 2) {
                 cancelarVenta(parametro_seleccionado.id);
-            } 
+            }
         }
 
         function cargarTablaActivas() {
@@ -47,19 +47,18 @@
                     "url": "/ventas",
                     "type": "GET",
                 },
-                "columns": [
-                    {
-                        data:null,
+                "columns": [{
+                        data: null,
                         render: function(data, type, row) {
                             return data.cliente.nombres + ' ' + data.cliente.apellidos +
-                            '<br> contacto: ' + data.cliente.n_celular + '<br>';
+                                '<br> contacto: ' + data.cliente.n_celular + '<br>';
                         }
                     },
                     {
-                        data:null,
+                        data: null,
                         render: function(data, type, row) {
-                            return data.publicaciones.productos.producto + '<br>' 
-                            + data.publicaciones.unidades.unidad;
+                            return data.publicaciones.productos.producto + '<br>' +
+                                data.publicaciones.unidades.unidad;
                         }
                     },
                     {
@@ -97,89 +96,95 @@
 
         function finalizarVenta(id) {
             Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde hacer esto sólo cuando la venta con el cliente haya llegado a buen término",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/ventas_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: FINALIZAR_VENTA,
-                                id: parametro_seleccionado.id,
+                title: '¿Esta seguro?',
+                text: "Recuerde hacer esto sólo cuando la venta con el cliente haya llegado a buen término",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/ventas_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: FINALIZAR_VENTA,
+                            id: parametro_seleccionado.id,
 
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- La venta finalizó con éxito');
-                                    tablaActivas.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
-
+                        },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- La venta finalizó con éxito');
+                                tablaActivas.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
                             }
-                        });
-                    }
-                });
+                            $(".carga").removeClass("show").addClass("hidden");
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                            $(".carga").removeClass("show").addClass("hidden");
+                        }
+                    });
+                }
+            });
         }
 
         function cancelarVenta(id) {
             Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Esto cancelará la venta, recuerde hacerlo cuando no se haya concretado una venta",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/ventas_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: CANCELAR_VENTA,
-                                id: parametro_seleccionado.id,
+                title: '¿Esta seguro?',
+                text: "Esto cancelará la venta, recuerde hacerlo cuando no se haya concretado una venta",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/ventas_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: CANCELAR_VENTA,
+                            id: parametro_seleccionado.id,
 
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Venta cancelada');
-                                    tablaActivas.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
+                        },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Venta cancelada');
+                                tablaActivas.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
 
                             }
-                        });
-                    }
-                });
+                            $(".carga").removeClass("show").addClass("hidden");
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                            $(".carga").removeClass("show").addClass("hidden");
+                        }
+                    });
+                }
+            });
         }
-        
     </script>
 @endsection

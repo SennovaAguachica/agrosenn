@@ -18,13 +18,14 @@
             guardarPrecio();
             // inputMoneda('#precio');
             buttonClicks();
-            $('#modalGuardarForm').on('show.bs.modal', function () {
+            $('#modalGuardarForm').on('show.bs.modal', function() {
                 // Restablecer el formulario
                 $("#formGuardar")[0].reset();
                 $("#formGuardar").removeClass("was-validated");
-        
+
                 // Restablecer la visualización de validación de Bootstrap
-                $("#precios_idproductos_chosen, #precios_idunidades_chosen, #precios_precio").removeClass("is-invalid is-valid");
+                $("#precios_idproductos_chosen, #precios_idunidades_chosen, #precios_precio").removeClass(
+                    "is-invalid is-valid");
             });
         });
 
@@ -45,7 +46,7 @@
             fila = tablaPrecios.row("." + data).node();
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablaprecios").DataTable().row('.selected').data();
-            
+
             if (modo == 1) {
                 $("#precios_precio").val(parametro_seleccionado.precio);
                 // $("#precio").val('$' + number_format(parametro_seleccionado.precio));
@@ -55,7 +56,7 @@
                 $("#precios_idunidades").trigger("chosen:updated");
             } else if (modo == 2) {
                 eliminarPrecio(parametro_seleccionado.id);
-                
+
             }
         }
 
@@ -98,9 +99,11 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
-                                console.log(respuesta);
                                 if (respuesta.estado === 1) {
                                     if (vista == 1) {
                                         mensajeSuccessGeneral(
@@ -115,11 +118,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -172,45 +177,49 @@
 
         function eliminarPrecio(id) {
             Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara el precio!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/precios_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_PRECIOS,
-                                id: parametro_seleccionado.id,
-                                
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha eliminado el precio con exito');
-                                    tablaPrecios.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-                                    
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
-                               
+                title: '¿Esta seguro?',
+                text: "Recuerde que se eliminara el precio!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/precios_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_PRECIOS,
+                            id: parametro_seleccionado.id,
+
+                        },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha eliminado el precio con exito');
+                                tablaPrecios.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
+
                             }
-                        });
-                    }
-                });
+                            $(".carga").removeClass("show").addClass("hidden");
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                            $(".carga").removeClass("show").addClass("hidden");
+                        }
+                    });
+                }
+            });
         }
     </script>
 @endsection

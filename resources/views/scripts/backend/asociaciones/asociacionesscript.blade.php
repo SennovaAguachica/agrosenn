@@ -64,6 +64,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -77,6 +80,7 @@
                                     $("#formGuardar")[0].reset();
                                     tablaAsociaciones.ajax.reload();
                                     $('#modalGuardarForm').modal('hide');
+                                    $(".carga").removeClass("show").addClass("hidden");
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
@@ -85,6 +89,7 @@
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -101,19 +106,19 @@
 
         function buscarId(data, modo) {
             vista = 2;
-            
+
             if (fila != "") {
                 $(fila).removeClass('selected');
             }
             fila = tablaAsociaciones.row("." + data).node();
-            console.log("DATA: "+data);
+            console.log("DATA: " + data);
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablaasociaciones").DataTable().row('.selected').data();
             if (modo == 1) {
                 console.log(parametro_seleccionado);
-                console.log("DEPARTAMENTOS: "+parametro_seleccionado.municipio.iddepartamentos);
-                console.log("MUNICIPIOS: "+parametro_seleccionado.municipio.ciudad);
-                console.log("ID_MUNICIPIO: "+parametro_seleccionado.id_municipio);
+                console.log("DEPARTAMENTOS: " + parametro_seleccionado.municipio.iddepartamentos);
+                console.log("MUNICIPIOS: " + parametro_seleccionado.municipio.ciudad);
+                console.log("ID_MUNICIPIO: " + parametro_seleccionado.id_municipio);
                 $("#asociacion").val(parametro_seleccionado.asociacion);
                 $("#codigoasociacion").val(parametro_seleccionado.codigo_asociacion);
                 $("#direccion").val(parametro_seleccionado.direccion);
@@ -153,6 +158,9 @@
                             accion: ELIMINAR_ASOCIACIONES,
                             id
                         },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
                         success: function(respuesta) {
                             // Maneja la respuesta del servidor aquí
                             if (respuesta.estado === 1) {
@@ -162,11 +170,13 @@
                             } else {
                                 mensajeError(respuesta.mensaje);
                             }
+                            $(".carga").removeClass("show").addClass("hidden");
                         },
                         error: function(request, status, error) {
                             mensajeErrorGeneral(
                                 "Se produjo un error durante el proceso, vuelve a intentarlo"
                             );
+                            $(".carga").removeClass("show").addClass("hidden");
                         }
                     });
                 }
@@ -193,6 +203,9 @@
                             accion: HABILITAR_ASOCIACION,
                             id
                         },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
                         success: function(respuesta) {
                             // Maneja la respuesta del servidor aquí
                             if (respuesta.estado === 1) {
@@ -202,11 +215,13 @@
                             } else {
                                 mensajeError(respuesta.mensaje);
                             }
+                            $(".carga").removeClass("show").addClass("hidden");
                         },
                         error: function(request, status, error) {
                             mensajeErrorGeneral(
                                 "Se produjo un error durante el proceso, vuelve a intentarlo"
                             );
+                            $(".carga").removeClass("show").addClass("hidden");
                         }
                     });
                 }
@@ -270,7 +285,7 @@
                     iddepartamento
                 },
                 beforeSend: function() {
-                    // $(".carga").removeClass("hidden").addClass("show");
+                    $(".carga").removeClass("hidden").addClass("show");
                 },
                 success: function(respuesta) {
                     $(".carga").removeClass("show").addClass("hidden");
@@ -281,6 +296,7 @@
                         $("#idmunicipio").html(municipios_select);
                         $("#idmunicipio").trigger("chosen:updated");
                     }
+                    $(".carga").removeClass("show").addClass("hidden");
                 },
                 error: function(request, status, error) {
                     mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");

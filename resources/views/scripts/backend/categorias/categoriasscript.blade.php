@@ -17,7 +17,7 @@
             guardarCategoria();
             cargarImagen("#icono");
             cargarImagen("#imagen");
-            
+
             buttonClicks();
         });
 
@@ -37,7 +37,7 @@
             fila = tablaCategorias.row("." + data).node();
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablacategorias").DataTable().row('.selected').data();
-            
+
             if (modo == 1) {
                 $("#categoria").val(parametro_seleccionado.categoria);
                 $("#descripcion").val(parametro_seleccionado.descripcion);
@@ -62,7 +62,10 @@
                                 "_token": "{{ csrf_token() }}",
                                 accion: ELIMINAR_CATEGORIAS,
                                 id: parametro_seleccionado.id,
-                                
+
+                            },
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
                             },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
@@ -72,14 +75,15 @@
                                     tablaCategorias.ajax.reload();
                                 } else {
                                     mensajeError(respuesta.mensaje);
-                                    
+
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
-                               
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -146,6 +150,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -162,11 +169,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }

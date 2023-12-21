@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.1/css/fixedColumns.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.2/css/fileinput.min.css" media="all"
         rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assetsfront/css/carga.css') }}">
     <link rel="stylesheet" href="assets/css/lineicons.css" rel="stylesheet" type="text/css" />
     {{-- <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" /> --}}
 
@@ -33,14 +34,17 @@
     <!-- Template CSS -->
     <link href="assetsweb/css/main.css" rel="stylesheet" type="text/css" />
 
-    {{-- slick CSS--}}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    {{-- slick CSS --}}
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
-    {{--delete file DataTable--}}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+    {{-- delete file DataTable --}}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet"
+        type="text/css" />
 
-    {{--fileinput--}}
+    {{-- fileinput --}}
     {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"> --}}
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css" /> --}}
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" /> --}}
@@ -168,7 +172,7 @@
                     <li class="menu-item has-submenu" id="li_ventas">
                         <a class="menu-link">
                             <i class="fa-solid fa-square-poll-vertical fa-xl" id="i_ventas"
-                            style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
+                                style="color: #999898; margin-top: 12px; margin-bottom: 12px">&nbsp</i>
                             <span class="text">Ventas</span>
                         </a>
                         <div class="submenu">
@@ -325,6 +329,23 @@
             </div>
         </footer>
     </main>
+    <div
+        class="carga bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="loadingio-spinner-ellipsis-lp7tu9sen9r">
+            <div class="ldio-bd6imrfpejg">
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
@@ -335,17 +356,17 @@
     {{-- <script src="assetsweb/js/vendors/chart.js"></script> --}}
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    {{--slick script--}}
+    {{-- slick script --}}
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    {{--delete file DataTable--}}
+    {{-- delete file DataTable --}}
 
     {{-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script> --}}
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script> --}}
-    {{--fileinput--}}
+    {{-- fileinput --}}
 
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
@@ -370,7 +391,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
+
 
     <script src="{{ asset('assets/js/inputnumber.js') }}"></script>
     <!-- Main Script -->

@@ -13,6 +13,7 @@
     <meta property="og:image" content="" />
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assetsfront/imgs/theme/favicon.svg') }}" />
+    <link rel="stylesheet" href="{{ asset('assetsfront/css/carga.css') }}">
     <!-- Template CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         crossorigin="anonymous" />
@@ -95,258 +96,267 @@
                 <div class="modal-body">
                     <br>
                     @if (isset($perfil))
-                        <div class="container">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row gx-5">
-                                        <aside class="col-lg-3 border-end">
-                                            <nav class="nav nav-pills flex-lg-column mb-4">
-                                                <a class="nav-link active" aria-current="page"
-                                                    id="btnseccionperfil">General</a>
-                                                <a class="nav-link" id="btncambiarcontrasena">Cambio de contraseña</a>
-                                            </nav>
-                                        </aside>
-                                        <div class="col-lg-9" id="divseccionperfil">
-                                            <section class="content-body p-xl-4">
-                                                <form id="formGuardarperfilcliente">
-                                                    @csrf
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            <div class="row gx-3">
-                                                                <input type="text" id="idrol" name="idrol"
-                                                                    value="{{ $perfil->idrol }}" hidden>
-                                                                <input type="text" id="id" name="id"
-                                                                    value="{{ $perfil->cliente->id }}" hidden>
-                                                                <div class="col-6 mb-3">
-                                                                    <label for="idtipodocumento">Tipo documento
-                                                                        *</label>
-                                                                    <select class="form-control form-control-chosen"
-                                                                        name="idtipodocumento" id="idtipodocumento"
-                                                                        data-placeholder="Seleccione una opción"
-                                                                        required>
-                                                                        <option value=""></option>
-                                                                        @foreach ($tiposDocumentos as $item)
-                                                                            <option value="{{ $item->id }}"
-                                                                                {{ $perfil->cliente->id_tipodocumento == $item->id ? 'selected' : '' }}>
-                                                                                {{ $item->tipo_documento }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
+                        @if ($perfil->idrol == 4)
+                            <div class="container">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row gx-5">
+                                            <aside class="col-lg-3 border-end">
+                                                <nav class="nav nav-pills flex-lg-column mb-4">
+                                                    <a class="nav-link active" aria-current="page"
+                                                        id="btnseccionperfil">General</a>
+                                                    <a class="nav-link" id="btncambiarcontrasena">Cambio de
+                                                        contraseña</a>
+                                                </nav>
+                                            </aside>
+                                            <div class="col-lg-9" id="divseccionperfil">
+                                                <section class="content-body p-xl-4">
+                                                    <form id="formGuardarperfilcliente">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-lg-8">
+                                                                <div class="row gx-3">
+                                                                    <input type="text" id="idrol" name="idrol"
+                                                                        value="{{ $perfil->idrol }}" hidden>
+                                                                    <input type="text" id="id" name="id"
+                                                                        value="{{ $perfil->cliente->id }}" hidden>
+                                                                    <div class="col-6 mb-3">
+                                                                        <label for="idtipodocumento">Tipo documento
+                                                                            *</label>
+                                                                        <select
+                                                                            class="form-control form-control-chosen"
+                                                                            name="idtipodocumento"
+                                                                            id="idtipodocumento"
+                                                                            data-placeholder="Seleccione una opción"
+                                                                            required>
+                                                                            <option value=""></option>
+                                                                            @foreach ($tiposDocumentos as $item)
+                                                                                <option value="{{ $item->id }}"
+                                                                                    {{ $perfil->cliente->id_tipodocumento == $item->id ? 'selected' : '' }}>
+                                                                                    {{ $item->tipo_documento }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-6 mb-3">
+                                                                        <label for="documentocliente">Nº documento
+                                                                            *</label>
+                                                                        <input type="text" class="form-control"
+                                                                            name="documentocliente"
+                                                                            id="documentocliente"
+                                                                            placeholder="Nº documento"
+                                                                            value="{{ $perfil->cliente->n_documento }}"
+                                                                            required>
+                                                                    </div>
+                                                                    <div class="col-6 mb-3">
+                                                                        <label for="nombrecliente">Nombres</label>
+                                                                        <input class="form-control" type="text"
+                                                                            placeholder="Nombres completos"
+                                                                            value="{{ $perfil->cliente->nombres }}"
+                                                                            name="nombrecliente" id="nombrecliente"
+                                                                            required />
+                                                                    </div>
+                                                                    <!-- col .// -->
+                                                                    <div class="col-6 mb-3">
+                                                                        <label for="apellidocliente">Apellidos</label>
+                                                                        <input class="form-control" type="text"
+                                                                            placeholder="Apellidos completos"
+                                                                            value="{{ $perfil->cliente->apellidos }}"
+                                                                            name="apellidocliente"
+                                                                            id="apellidocliente" required />
+                                                                    </div>
+                                                                    <!-- col .// -->
+                                                                    <div class="col-lg-6 mb-3">
+                                                                        <label for="emailcliente">Email</label>
+                                                                        <input class="form-control" type="email"
+                                                                            placeholder="example@mail.com"
+                                                                            value="{{ $perfil->cliente->email }}"
+                                                                            name="emailcliente" id="emailcliente"
+                                                                            required />
+                                                                    </div>
+                                                                    <!-- col .// -->
+                                                                    <div class="col-lg-6 mb-3">
+                                                                        <label for="telefonocliente">Telefono</label>
+                                                                        <input class="form-control" type="tel"
+                                                                            placeholder="+1234567890"
+                                                                            value="{{ $perfil->cliente->n_celular }}"
+                                                                            name="telefonocliente"
+                                                                            id="telefonocliente" required />
+                                                                    </div>
+                                                                    <!-- col .// -->
+                                                                    <div class="col-lg-6 mb-3">
+                                                                        <label
+                                                                            for="iddepartamentocliente">Departamento</label>
+                                                                        <select
+                                                                            class="form-control form-control-chosen"
+                                                                            name="iddepartamentocliente"
+                                                                            id="iddepartamentocliente"
+                                                                            data-placeholder="Seleccione una opción"
+                                                                            required>
+                                                                            <option value=""></option>
+                                                                            @foreach ($departamentos as $item)
+                                                                                <option value="{{ $item->id }}"
+                                                                                    {{ $perfil->cliente->municipio->iddepartamentos == $item->id ? 'selected' : '' }}>
+                                                                                    {{ $item->departamento }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-lg-6 mb-3">
+                                                                        <label
+                                                                            for="idmunicipiocliente">Municipio</label>
+                                                                        <select
+                                                                            class="form-control form-control-chosen"
+                                                                            name="idmunicipiocliente"
+                                                                            id="idmunicipiocliente"
+                                                                            data-placeholder="Seleccione una opción"
+                                                                            required>
+                                                                            @foreach ($perfil->cliente->municipio->departamento->ciudades as $item)
+                                                                                <option value="{{ $item->id }}"
+                                                                                    {{ $perfil->cliente->id_municipio == $item->id ? 'selected' : '' }}>
+                                                                                    {{ $item->ciudad }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- col .// -->
+                                                                    <div class="col-lg-12 mb-3">
+                                                                        <label for="direccioncliente">Dirección</label>
+                                                                        <input class="form-control" type="text"
+                                                                            placeholder="Dirección"
+                                                                            value="{{ $perfil->cliente->direccion }}"
+                                                                            name="direccioncliente"
+                                                                            id="direccioncliente" required />
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-6 mb-3">
-                                                                    <label for="documentocliente">Nº documento
-                                                                        *</label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="documentocliente" id="documentocliente"
-                                                                        placeholder="Nº documento"
-                                                                        value="{{ $perfil->cliente->n_documento }}"
-                                                                        required>
-                                                                </div>
-                                                                <div class="col-6 mb-3">
-                                                                    <label for="nombrecliente">Nombres</label>
-                                                                    <input class="form-control" type="text"
-                                                                        placeholder="Nombres completos"
-                                                                        value="{{ $perfil->cliente->nombres }}"
-                                                                        name="nombrecliente" id="nombrecliente"
-                                                                        required />
-                                                                </div>
-                                                                <!-- col .// -->
-                                                                <div class="col-6 mb-3">
-                                                                    <label for="apellidocliente">Apellidos</label>
-                                                                    <input class="form-control" type="text"
-                                                                        placeholder="Apellidos completos"
-                                                                        value="{{ $perfil->cliente->apellidos }}"
-                                                                        name="apellidocliente" id="apellidocliente"
-                                                                        required />
-                                                                </div>
-                                                                <!-- col .// -->
-                                                                <div class="col-lg-6 mb-3">
-                                                                    <label for="emailcliente">Email</label>
-                                                                    <input class="form-control" type="email"
-                                                                        placeholder="example@mail.com"
-                                                                        value="{{ $perfil->cliente->email }}"
-                                                                        name="emailcliente" id="emailcliente"
-                                                                        required />
-                                                                </div>
-                                                                <!-- col .// -->
-                                                                <div class="col-lg-6 mb-3">
-                                                                    <label for="telefonocliente">Telefono</label>
-                                                                    <input class="form-control" type="tel"
-                                                                        placeholder="+1234567890"
-                                                                        value="{{ $perfil->cliente->n_celular }}"
-                                                                        name="telefonocliente" id="telefonocliente"
-                                                                        required />
-                                                                </div>
-                                                                <!-- col .// -->
-                                                                <div class="col-lg-6 mb-3">
-                                                                    <label
-                                                                        for="iddepartamentocliente">Departamento</label>
-                                                                    <select class="form-control form-control-chosen"
-                                                                        name="iddepartamentocliente"
-                                                                        id="iddepartamentocliente"
-                                                                        data-placeholder="Seleccione una opción"
-                                                                        required>
-                                                                        <option value=""></option>
-                                                                        @foreach ($departamentos as $item)
-                                                                            <option value="{{ $item->id }}"
-                                                                                {{ $perfil->cliente->municipio->iddepartamentos == $item->id ? 'selected' : '' }}>
-                                                                                {{ $item->departamento }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-lg-6 mb-3">
-                                                                    <label for="idmunicipiocliente">Municipio</label>
-                                                                    <select class="form-control form-control-chosen"
-                                                                        name="idmunicipiocliente"
-                                                                        id="idmunicipiocliente"
-                                                                        data-placeholder="Seleccione una opción"
-                                                                        required>
-                                                                        @foreach ($perfil->cliente->municipio->departamento->ciudades as $item)
-                                                                            <option value="{{ $item->id }}"
-                                                                                {{ $perfil->cliente->id_municipio == $item->id ? 'selected' : '' }}>
-                                                                                {{ $item->ciudad }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <!-- col .// -->
-                                                                <div class="col-lg-12 mb-3">
-                                                                    <label for="direccioncliente">Dirección</label>
-                                                                    <input class="form-control" type="text"
-                                                                        placeholder="Dirección"
-                                                                        value="{{ $perfil->cliente->direccion }}"
-                                                                        name="direccioncliente" id="direccioncliente"
-                                                                        required />
+                                                                <!-- row.// -->
+                                                            </div>
+                                                            <!-- col.// -->
+                                                            <aside class="col-lg-4">
+                                                                <figure class="text-lg-center">
+                                                                    @if ($perfil->fotoperfil)
+                                                                        <img class="img-lg mb-3 img-avatar"
+                                                                            id="userPhoto" name="userPhoto"
+                                                                            src="{{ $perfil->fotoperfil }}"
+                                                                            alt="User Photo" />
+                                                                    @else
+                                                                        <img class="img-lg mb-3 img-avatar"
+                                                                            id="userPhoto" name="userPhoto"
+                                                                            src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}"
+                                                                            alt="User Photo" />
+                                                                    @endif
+                                                                    <figcaption>
+                                                                        <label class="btn btn-light rounded font-md"
+                                                                            for="fotoinput">
+                                                                            <i
+                                                                                class="icons material-icons md-backup font-md"></i>
+                                                                            Cargar foto
+                                                                        </label>
+                                                                        <input type="file" id="fotoinput"
+                                                                            name="fotoinput" style="display: none"
+                                                                            onchange="loadPhoto(this)">
+                                                                    </figcaption>
+                                                                </figure>
+                                                            </aside>
+                                                            <!-- col.// -->
+                                                        </div>
+                                                        <!-- row.// -->
+                                                        <br />
+                                                        <button class="btn btn-primary" type="button"
+                                                            id="btnguardarperfil">Guardar</button>
+                                                    </form>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <!-- row.// -->
+                                                </section>
+                                                <!-- content-body .// -->
+                                            </div>
+                                            <div class="col-lg-9" id="divcambiarcontrasena" style="display: none;">
+                                                <section class="content-body p-xl-4">
+                                                    <form id="formcambiarpasswordcliente">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-lg-8">
+                                                                <div class="row gx-3">
+                                                                    <input type="text" id="idrolpassword"
+                                                                        name="idrolpassword"
+                                                                        value="{{ $perfil->idrol }}" hidden>
+                                                                    <input type="text" id="iduserpassword"
+                                                                        name="iduserpassword"
+                                                                        value="{{ $perfil->id }}" hidden>
+                                                                    <div class="row">
+                                                                        <label>Contraseña actual</label>
+                                                                        <div class="input-group"
+                                                                            id="show_hide_password_actual">
+                                                                            <input class="form-control"
+                                                                                type="password" id="passwordactual"
+                                                                                name="passwordactual" required>
+                                                                            <div class="input-group-text">
+                                                                                <a href=""><i
+                                                                                        class="fa fa-eye-slash"
+                                                                                        aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                            <div class="invalid-feedback">
+                                                                                Campo obligatorio.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label>Contraseña nueva</label>
+                                                                        <div class="input-group"
+                                                                            id="show_hide_password_nueva">
+                                                                            <input class="form-control"
+                                                                                type="password" id="passwordnuevo"
+                                                                                name="passwordnuevo" required>
+                                                                            <div class="input-group-text">
+                                                                                <a href=""><i
+                                                                                        class="fa fa-eye-slash"
+                                                                                        aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                            <div class="invalid-feedback">
+                                                                                Campo obligatorio.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label>Confirmar contraseña nueva</label>
+                                                                        <div class="input-group"
+                                                                            id="show_hide_password_confirmar">
+                                                                            <input class="form-control"
+                                                                                type="password" id="passwordconfirmar"
+                                                                                name="passwordconfirmar" required>
+                                                                            <div class="input-group-text">
+                                                                                <a href=""><i
+                                                                                        class="fa fa-eye-slash"
+                                                                                        aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                            <div class="invalid-feedback">
+                                                                                Campo obligatorio.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- row.// -->
                                                         </div>
-                                                        <!-- col.// -->
-                                                        <aside class="col-lg-4">
-                                                            <figure class="text-lg-center">
-                                                                @if ($perfil->fotoperfil)
-                                                                    <img class="img-lg mb-3 img-avatar" id="userPhoto"
-                                                                        name="userPhoto"
-                                                                        src="{{ $perfil->fotoperfil }}"
-                                                                        alt="User Photo" />
-                                                                @else
-                                                                    <img class="img-lg mb-3 img-avatar" id="userPhoto"
-                                                                        name="userPhoto"
-                                                                        src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}"
-                                                                        alt="User Photo" />
-                                                                @endif
-                                                                <figcaption>
-                                                                    <label class="btn btn-light rounded font-md"
-                                                                        for="fotoinput">
-                                                                        <i
-                                                                            class="icons material-icons md-backup font-md"></i>
-                                                                        Cargar foto
-                                                                    </label>
-                                                                    <input type="file" id="fotoinput"
-                                                                        name="fotoinput" style="display: none"
-                                                                        onchange="loadPhoto(this)">
-                                                                </figcaption>
-                                                            </figure>
-                                                        </aside>
-                                                        <!-- col.// -->
-                                                    </div>
+                                                        <!-- row.// -->
+                                                        <br />
+                                                        <button class="btn btn-primary" type="button"
+                                                            id="enviarcambiarcontrasenacliente">Actualizar
+                                                            contraseña</button>
+                                                    </form>
+                                                    <br>
                                                     <!-- row.// -->
-                                                    <br />
-                                                    <button class="btn btn-primary" type="button"
-                                                        id="btnguardarperfil">Guardar</button>
-                                                </form>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <!-- row.// -->
-                                            </section>
-                                            <!-- content-body .// -->
-                                        </div>
-                                        <div class="col-lg-9" id="divcambiarcontrasena" style="display: none;">
-                                            <section class="content-body p-xl-4">
-                                                <form id="formcambiarpasswordcliente">
-                                                    @csrf
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            <div class="row gx-3">
-                                                                <input type="text" id="idrolpassword"
-                                                                    name="idrolpassword" value="{{ $perfil->idrol }}"
-                                                                    hidden>
-                                                                <input type="text" id="iduserpassword"
-                                                                    name="iduserpassword" value="{{ $perfil->id }}"
-                                                                    hidden>
-                                                                <div class="row">
-                                                                    <label>Contraseña actual</label>
-                                                                    <div class="input-group"
-                                                                        id="show_hide_password_actual">
-                                                                        <input class="form-control" type="password"
-                                                                            id="passwordactual" name="passwordactual"
-                                                                            required>
-                                                                        <div class="input-group-text">
-                                                                            <a href=""><i
-                                                                                    class="fa fa-eye-slash"
-                                                                                    aria-hidden="true"></i></a>
-                                                                        </div>
-                                                                        <div class="invalid-feedback">
-                                                                            Campo obligatorio.
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label>Contraseña nueva</label>
-                                                                    <div class="input-group"
-                                                                        id="show_hide_password_nueva">
-                                                                        <input class="form-control" type="password"
-                                                                            id="passwordnuevo" name="passwordnuevo"
-                                                                            required>
-                                                                        <div class="input-group-text">
-                                                                            <a href=""><i
-                                                                                    class="fa fa-eye-slash"
-                                                                                    aria-hidden="true"></i></a>
-                                                                        </div>
-                                                                        <div class="invalid-feedback">
-                                                                            Campo obligatorio.
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label>Confirmar contraseña nueva</label>
-                                                                    <div class="input-group"
-                                                                        id="show_hide_password_confirmar">
-                                                                        <input class="form-control" type="password"
-                                                                            id="passwordconfirmar"
-                                                                            name="passwordconfirmar" required>
-                                                                        <div class="input-group-text">
-                                                                            <a href=""><i
-                                                                                    class="fa fa-eye-slash"
-                                                                                    aria-hidden="true"></i></a>
-                                                                        </div>
-                                                                        <div class="invalid-feedback">
-                                                                            Campo obligatorio.
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- row.// -->
-                                                    <br />
-                                                    <button class="btn btn-primary" type="button"
-                                                        id="enviarcambiarcontrasenacliente">Actualizar
-                                                        contraseña</button>
-                                                </form>
-                                                <br>
-                                                <!-- row.// -->
-                                            </section>
-                                            <!-- content-body .// -->
+                                                </section>
+                                                <!-- content-body .// -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -395,7 +405,7 @@
                                                 <input class="form-control" type="password" id="password"
                                                     name="password" placeholder="Tu contraseña *" required>
                                                 <div class="input-group-text">
-                                                    <a href=""><i class="fa fa-eye-slash"
+                                                    <a href="#"><i class="fa fa-eye-slash"
                                                             aria-hidden="true"></i></a>
                                                 </div>
                                             </div>
@@ -478,11 +488,13 @@
                                         @endif
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <ul>
-                                                <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#modaleditardatos"><i
-                                                            class="fa-solid fa-pen-to-square"></i> Editar mis
-                                                        datos</a>
-                                                </li>
+                                                @if ($perfil->idrol == 4)
+                                                    <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#modaleditardatos"><i
+                                                                class="fa-solid fa-pen-to-square"></i> Editar mis
+                                                            datos</a>
+                                                    </li>
+                                                @endif
                                                 <li>
                                                     <form method="POST" action="{{ route('logout') }}">
                                                         @csrf
@@ -608,6 +620,23 @@
             </div>
         </div>
     </div>
+    <div
+        class="carga bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="loadingio-spinner-ellipsis-lp7tu9sen9r">
+            <div class="ldio-bd6imrfpejg">
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Vendor JS-->
     <script src="{{ asset('assetsfront/js/vendor/modernizr-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assetsfront/js/vendor/jquery-3.6.0.min.js') }}"></script>
@@ -639,6 +668,7 @@
     @yield('script')
     <script>
         var perfil = @json($perfil ?? []);
+        var direccion = "";
         $(document).ready(function() {
             btnClick();
         });
@@ -646,9 +676,12 @@
         function btnClick() {
             $(".btnverpublicacion").on("click", function(e) {
                 e.preventDefault();
-                var idpublicacion = $(this).attr("href");
-                $("#modaliniciosesion").modal("show");
-                console.log(perfil, idpublicacion);
+                direccion = $(this).attr("href");
+                if (perfil == "") {
+                    $("#modaliniciosesion").modal("show");
+                } else {
+                    window.location.href = direccion;
+                }
             });
             $("#btnlogin").on("click", function(e) {
                 let datosFormulario = "";
@@ -670,9 +703,13 @@
                     data: datosFormulario,
                     processData: false,
                     contentType: false,
+                    beforeSend: function() {
+                        $(".carga").removeClass("hidden").addClass("show");
+                    },
                     success: function(respuesta) {
                         // Maneja la respuesta del servidor aquí
-                        window.location.href = "/index";
+                        window.location.href = direccion;
+                        $(".carga").removeClass("show").addClass("hidden");
                     },
                     error: function(request, status, error) {
                         var errors = request.responseJSON.errors;
@@ -686,6 +723,7 @@
                             html: errorMessage,
                             allowOutsideClick: false,
                         });
+                        $(".carga").removeClass("show").addClass("hidden");
                     }
                 });
             });
@@ -720,6 +758,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -751,6 +792,7 @@
                                         title: respuesta.mensaje,
                                     });
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 Swal.fire({
@@ -758,6 +800,7 @@
                                     title: "Se produjo un error durante el proceso, vuelve a intentarlo",
                                     allowOutsideClick: false,
                                 });
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -794,6 +837,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -828,6 +874,7 @@
                                         title: respuesta.mensaje,
                                     });
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 Swal.fire({
@@ -835,6 +882,7 @@
                                     title: "Se produjo un error durante el proceso, vuelve a intentarlo",
                                     allowOutsideClick: false,
                                 });
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -856,6 +904,9 @@
             });
             $("#show_hide_password_actual a").on('click', function(event) {
                 mostrarContrasenas("#show_hide_password_actual")
+            });
+            $("#show_hide_password a").on('click', function(event) {
+                mostrarContrasenas("#show_hide_password")
             });
             $("#show_hide_password_nueva a").on('click', function(event) {
                 mostrarContrasenas("#show_hide_password_nueva")

@@ -16,7 +16,7 @@
             $('#a_equivalencias').addClass('active');
             cargarTablaEquivalencias();
             guardarEquivalencia();
-            
+
             buttonClicks();
         });
 
@@ -37,7 +37,7 @@
             fila = tablaEquivalencias.row("." + data).node();
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablaequivalencias").DataTable().row('.selected').data();
-            
+
             if (modo == 1) {
                 $("#equivalencia").val(parametro_seleccionado.equivalencia);
                 $("#idequivalencias").val(parametro_seleccionado.equivalencias_id);
@@ -46,7 +46,7 @@
                 $("#idunidades").trigger("chosen:updated");
             } else if (modo == 2) {
                 eliminarEquivalencia(parametro_seleccionado.id);
-                
+
             }
         }
 
@@ -88,6 +88,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 console.log(respuesta);
@@ -105,11 +108,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -156,45 +161,49 @@
 
         function eliminarEquivalencia(id) {
             Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara la equivalencia!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/equivalencias_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_EQUIVALENCIAS,
-                                id: parametro_seleccionado.id,
-                                
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha eliminado la equivalencia con exito');
-                                    tablaEquivalencias.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-                                    
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
-                               
+                title: '¿Esta seguro?',
+                text: "Recuerde que se eliminara la equivalencia!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/equivalencias_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_EQUIVALENCIAS,
+                            id: parametro_seleccionado.id,
+
+                        },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha eliminado la equivalencia con exito');
+                                tablaEquivalencias.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
+
                             }
-                        });
-                    }
-                });
+                            $(".carga").removeClass("show").addClass("hidden");
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                            $(".carga").removeClass("show").addClass("hidden");
+                        }
+                    });
+                }
+            });
         }
     </script>
 @endsection

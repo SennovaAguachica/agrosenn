@@ -69,6 +69,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 console.log(respuesta);
                                 // Maneja la respuesta del servidor aquí
@@ -81,6 +84,7 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 console.log(request, status, error);
@@ -95,6 +99,7 @@
                                         "Se produjo un error durante el proceso, vuelve a intentarlo"
                                     );
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -128,10 +133,9 @@
                     iddepartamento
                 },
                 beforeSend: function() {
-                    // $(".carga").removeClass("hidden").addClass("show");
+                    $(".carga").removeClass("hidden").addClass("show");
                 },
                 success: function(respuesta) {
-                    $(".carga").removeClass("show").addClass("hidden");
                     var municipios_select = '<option value="">Seleccione una opción</option>'
                     for (var i = 0; i < respuesta.length; i++) {
                         municipios_select += '<option value="' + respuesta[i].id + '">' + respuesta[i].ciudad +
@@ -139,6 +143,7 @@
                         $("#idmunicipio").html(municipios_select);
                         $("#idmunicipio").trigger("chosen:updated");
                     }
+                    $(".carga").removeClass("show").addClass("hidden");
                 },
                 error: function(request, status, error) {
                     mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");

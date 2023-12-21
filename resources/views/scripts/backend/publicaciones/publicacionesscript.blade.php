@@ -1,7 +1,6 @@
 @extends('../vistas.plantilla.modales')
 @extends('../vistas.plantilla.plantillaback')
 @section('script')
-
     <script>
         var AJAX = "/publicaciones_peticiones";
         var GUARDAR_PUBLICACIONES = 1;
@@ -22,17 +21,18 @@
             cargarVariasImagen("#imagen");
             buttonClicks();
             selectChanges();
-            $('#modalGuardarForm').on('show.bs.modal', function () {
+            $('#modalGuardarForm').on('show.bs.modal', function() {
                 // Restablecer el formulario
                 $("#formGuardar")[0].reset();
                 $("#formGuardar").removeClass("was-validated");
-        
+
                 // Restablecer la visualización de validación de Bootstrap
-                $("#idproductos_chosen, #idunidades_chosen, #precio, .file-input").removeClass("is-invalid is-valid");
+                $("#idproductos_chosen, #idunidades_chosen, #precio, .file-input").removeClass(
+                    "is-invalid is-valid");
             });
         });
 
-        
+
 
         function buttonClicks() {
             $("#btnmodalguardar").on("click", function(e) {
@@ -41,11 +41,11 @@
                 $('#idproductos').val("").trigger("chosen:updated");
                 $('#listadoprecios').attr('placeholder', '');
                 $("#formGuardar")[0].reset();
-                
+
             });
         }
 
-        
+
 
         function selectChanges() {
             $("#idproductos, #idunidades").change(function() {
@@ -70,7 +70,8 @@
                 $("#idproductos").trigger("chosen:updated");
                 $("#idunidades").val(parametro_seleccionado.unidades_id);
                 $("#idunidades").trigger("chosen:updated");
-                $("#listadoprecios").val(buscarPreciosAsociacion(parametro_seleccionado.producto_id, parametro_seleccionado.unidades_id));
+                $("#listadoprecios").val(buscarPreciosAsociacion(parametro_seleccionado.producto_id, parametro_seleccionado
+                    .unidades_id));
                 $("#descripcion").val(parametro_seleccionado.descripcion);
                 $("#iva").val(parametro_seleccionado.iva);
                 let rutasImagenes = parametro_seleccionado.imagenes.map(imagen => imagen.ruta);
@@ -150,6 +151,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 console.log(respuesta);
@@ -167,11 +171,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -222,7 +228,8 @@
                         render: function(data, type, row) {
                             let images = '';
                             row.imagenes.forEach(function(imagen) {
-                                images += '<img loading="lazy" src="' + imagen.ruta + '" width="100px" />';
+                                images += '<img loading="lazy" src="' + imagen.ruta +
+                                    '" width="100px" />';
                             });
                             // return images;
                             return '<div class="slider" style="width: 100px;">' + images + '</div>';
@@ -246,56 +253,60 @@
                 },
 
             }).on('draw.dt', function() {
-                    $('.slider').slick({
-                        autoplay: false,
-                        arrows: true,
-                        dots: false,
-                        // Otras configuraciones
-                    });
+                $('.slider').slick({
+                    autoplay: false,
+                    arrows: true,
+                    dots: false,
+                    // Otras configuraciones
                 });
+            });
         }
 
         function eliminarPublicacion(id) {
             Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminará la publicación!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/publicaciones_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_PUBLICACIONES,
-                                id: parametro_seleccionado.id,
+                title: '¿Esta seguro?',
+                text: "Recuerde que se eliminará la publicación!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/publicaciones_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_PUBLICACIONES,
+                            id: parametro_seleccionado.id,
 
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha eliminado la publicación con exito');
-                                    tablaPublicaciones.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
+                        },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha eliminado la publicación con exito');
+                                tablaPublicaciones.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
 
                             }
-                        });
-                    }
-                });
+                            $(".carga").removeClass("show").addClass("hidden");
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                            $(".carga").removeClass("show").addClass("hidden");
+                        }
+                    });
+                }
+            });
         }
 
 
@@ -314,21 +325,21 @@
                         idproductos: idproductos,
                         idunidades: idunidades
                     },
-
                     beforeSend: function() {
+                        $(".carga").removeClass("hidden").addClass("show");
                     },
                     success: function(respuesta) {
-                        $(".carga").removeClass("show").addClass("hidden");
-                        var precios_input ='';
+                        var precios_input = '';
                         if (respuesta) {
-                            precios_input = '$'+ number_format(respuesta.precio);
+                            precios_input = '$' + number_format(respuesta.precio);
                         }
                         // $("#listadoprecios").val(precios_input);
                         $("#listadoprecios").attr('placeholder', precios_input);
+                        $(".carga").removeClass("show").addClass("hidden");
                     },
                     error: function(request, status, error) {
-                        $("#listadoprecios").attr('placeholder', 'Tu asociación no ha definido un precio para este producto');
-                        // $("#listadoprecios").val('Tu asociación no ha definido un precio para este producto');
+                        $("#listadoprecios").attr('placeholder',
+                            'Tu asociación no ha definido un precio para este producto');
                         $(".carga").removeClass("show").addClass("hidden");
                     }
                 });
@@ -341,7 +352,7 @@
             var idunidadesSelect = $('#idunidades').val();
 
             if (idproductosSelect && idunidadesSelect) {
-                $.ajax({
+                ({
                     type: 'POST',
                     url: AJAX,
                     dataType: 'json',
@@ -351,12 +362,11 @@
                         idproductos: idproductos,
                         idunidades: idunidades
                     },
-
                     beforeSend: function() {
+                        $(".carga").removeClass("hidden").addClass("show");
                     },
                     success: function(respuesta) {
-                        $(".carga").removeClass("show").addClass("hidden");
-                        var precios_input ='';
+                        var precios_input = '';
                         $("#precio").val('');
                         if (respuesta) {
                             precios_input = number_format(respuesta.precio);
@@ -364,7 +374,7 @@
                         }
                         $("#precio").val(respuesta.precio);
                         $("#idpreciovendedor").val(respuesta.id);
-                        // $("#precio").attr('placeholder', precios_input);
+                        $(".carga").removeClass("show").addClass("hidden");
                     },
                     error: function(request, status, error) {
                         $("#idpreciovendedor").val('');
@@ -417,7 +427,7 @@
         //                         btnClass: 'btn-primary text-white',
         //                         keys: ['enter'],
         //                         action: function() {
-        //                             $.ajaxSetup({
+        //                             Setup({
         //                                 headers: {
         //                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         //                                 }
@@ -451,10 +461,5 @@
         //         }, 900);
         //     });
         // }
-
-
-        
     </script>
-
-
 @endsection

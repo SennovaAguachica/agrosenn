@@ -16,7 +16,7 @@
             $('#a_unidades').addClass('active');
             cargarTablaUnidades();
             guardarUnidad();
-            
+
             buttonClicks();
         });
 
@@ -36,7 +36,7 @@
             fila = tablaUnidades.row("." + data).node();
             $(fila).addClass('selected');
             parametro_seleccionado = $("#tablaunidades").DataTable().row('.selected').data();
-            
+
             if (modo == 1) {
                 $("#unidad").val(parametro_seleccionado.unidad);
                 $("#abreviatura").val(parametro_seleccionado.abreviatura);
@@ -45,7 +45,7 @@
                 $("#descripcion").val(parametro_seleccionado.descripcion);
             } else if (modo == 2) {
                 eliminarUnidad(parametro_seleccionado.id);
-                
+
             }
         }
 
@@ -87,6 +87,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 console.log(respuesta);
@@ -104,11 +107,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -158,45 +163,48 @@
 
         function eliminarUnidad(id) {
             Swal.fire({
-                    title: '¿Esta seguro?',
-                    text: "Recuerde que se eliminara la unidad!",
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "/unidades_peticiones", // Reemplaza esto con la URL del servidor
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                accion: ELIMINAR_UNIDADES,
-                                id: parametro_seleccionado.id,
-                                
-                            },
-                            success: function(respuesta) {
-                                // Maneja la respuesta del servidor aquí
-                                if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha eliminado la unidad con exito');
-                                    tablaUnidades.ajax.reload();
-                                } else {
-                                    mensajeError(respuesta.mensaje);
-                                    
-                                }
-                            },
-                            error: function(request, status, error) {
-                                mensajeErrorGeneral(
-                                    "Se produjo un error durante el proceso, vuelve a intentarlo"
-                                );
-                               
+                title: '¿Esta seguro?',
+                text: "Recuerde que se eliminara la unidad!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/unidades_peticiones", // Reemplaza esto con la URL del servidor
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            accion: ELIMINAR_UNIDADES,
+                            id: parametro_seleccionado.id,
+
+                        },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
+                        success: function(respuesta) {
+                            // Maneja la respuesta del servidor aquí
+                            if (respuesta.estado === 1) {
+                                mensajeSuccessGeneral(
+                                    '- Se ha eliminado la unidad con exito');
+                                tablaUnidades.ajax.reload();
+                            } else {
+                                mensajeError(respuesta.mensaje);
                             }
-                        });
-                    }
-                });
+                            $(".carga").removeClass("show").addClass("hidden");
+                        },
+                        error: function(request, status, error) {
+                            mensajeErrorGeneral(
+                                "Se produjo un error durante el proceso, vuelve a intentarlo"
+                            );
+                            $(".carga").removeClass("show").addClass("hidden");
+                        }
+                    });
+                }
+            });
         }
     </script>
 @endsection

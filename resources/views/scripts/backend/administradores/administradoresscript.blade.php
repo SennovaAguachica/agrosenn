@@ -60,6 +60,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 console.log(respuesta);
@@ -75,14 +78,17 @@
                                     $("#formGuardar")[0].reset();
                                     tablaAdministradores.ajax.reload();
                                     $('#modalGuardarForm').modal('hide');
+                                    $(".carga").removeClass("show").addClass("hidden");
                                 } else {
                                     mensajeError(respuesta.mensaje);
+                                    $(".carga").removeClass("show").addClass("hidden");
                                 }
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -160,10 +166,9 @@
                     iddepartamento
                 },
                 beforeSend: function() {
-                    // $(".carga").removeClass("hidden").addClass("show");
+                    $(".carga").removeClass("hidden").addClass("show");
                 },
                 success: function(respuesta) {
-                    $(".carga").removeClass("show").addClass("hidden");
                     var municipios_select = '<option value="">Seleccione una opción</option>'
                     for (var i = 0; i < respuesta.length; i++) {
                         municipios_select += '<option value="' + respuesta[i].id + '">' + respuesta[i].ciudad +
@@ -171,6 +176,7 @@
                         $("#idmunicipio").html(municipios_select);
                         $("#idmunicipio").trigger("chosen:updated");
                     }
+                    $(".carga").removeClass("show").addClass("hidden");
                 },
                 error: function(request, status, error) {
                     mensajeError("Se produjo un error durante el proceso, vuelve a intentarlo");
@@ -199,6 +205,9 @@
                             accion: ELIMINAR_ADMINISTRADORES,
                             id
                         },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
                         success: function(respuesta) {
                             // Maneja la respuesta del servidor aquí
                             if (respuesta.estado === 1) {
@@ -208,11 +217,13 @@
                             } else {
                                 mensajeError(respuesta.mensaje);
                             }
+                            $(".carga").removeClass("show").addClass("hidden");
                         },
                         error: function(request, status, error) {
                             mensajeErrorGeneral(
                                 "Se produjo un error durante el proceso, vuelve a intentarlo"
                             );
+                            $(".carga").removeClass("show").addClass("hidden");
                         }
                     });
                 }

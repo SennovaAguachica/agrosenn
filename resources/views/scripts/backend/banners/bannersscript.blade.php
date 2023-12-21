@@ -50,6 +50,9 @@
                             data: datosFormulario,
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $(".carga").removeClass("hidden").addClass("show");
+                            },
                             success: function(respuesta) {
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
@@ -61,11 +64,13 @@
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }
+                                $(".carga").removeClass("show").addClass("hidden");
                             },
                             error: function(request, status, error) {
                                 mensajeErrorGeneral(
                                     "Se produjo un error durante el proceso, vuelve a intentarlo"
                                 );
+                                $(".carga").removeClass("show").addClass("hidden");
                             }
                         });
                     }
@@ -93,6 +98,9 @@
                             accion: ELIMINAR_BANNER,
                             id
                         },
+                        beforeSend: function() {
+                            $(".carga").removeClass("hidden").addClass("show");
+                        },
                         success: function(respuesta) {
                             // Maneja la respuesta del servidor aquí
                             if (respuesta.estado === 1) {
@@ -102,11 +110,13 @@
                             } else {
                                 mensajeError(respuesta.mensaje);
                             }
+                            $(".carga").removeClass("show").addClass("hidden");
                         },
                         error: function(request, status, error) {
                             mensajeErrorGeneral(
                                 "Se produjo un error durante el proceso, vuelve a intentarlo"
                             );
+                            $(".carga").removeClass("show").addClass("hidden");
                         }
                     });
                 }
