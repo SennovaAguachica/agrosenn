@@ -161,7 +161,7 @@ class SubcategoriasController extends Controller
             throw new \Exception(join('</br>', $aErrores));
         }
         try {
-            $actualizarSubcategoria = Subcategorias::findOrFail($datos['id']);;
+            $actualizarSubcategoria = Subcategorias::findOrFail($datos['id']);
             $actualizarSubcategoria->categoria_id = $datos['tipoSubcategoria'];
             $actualizarSubcategoria->subcategoria = $datos['subcategoria'];
             $actualizarSubcategoria->descripcion = $datos['descripcion'];

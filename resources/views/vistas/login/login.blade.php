@@ -47,8 +47,10 @@
                                         <div class="login_footer form-group mb-50">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
-                                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} />
-                                                    <label class="form-check-label" for="remember"><span>Recordarme</span></label>
+                                                    <input class="form-check-input" type="checkbox" name="remember"
+                                                        id="remember" {{ old('remember') ? 'checked' : '' }} />
+                                                    <label class="form-check-label"
+                                                        for="remember"><span>Recordarme</span></label>
                                                 </div>
                                             </div>
                                             <a class="text-muted" href="#">Olvidaste tu contraseña?</a>

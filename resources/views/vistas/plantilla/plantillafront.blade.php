@@ -397,15 +397,15 @@
                                     <form method="POST" id="formLogin">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="usuario" class="fw-bold">Usuario</label>
-                                            <input class="form-control" type="text" required id="usuario"
+                                            <label for="usuariomodal" class="fw-bold">Usuario</label>
+                                            <input class="form-control" type="text" required id="usuariomodal"
                                                 name="usuario"
                                                 placeholder="Nº de  documento o correo electronico *" />
                                         </div>
                                         <div class="form-group">
-                                            <label for="password" class="fw-bold">Contraseña</label>
-                                            <div class="input-group" id="show_hide_password">
-                                                <input class="form-control" type="password" id="password"
+                                            <label for="passwordmodal" class="fw-bold">Contraseña</label>
+                                            <div class="input-group" id="show_hide_password_modal">
+                                                <input class="form-control" type="password" id="passwordmodal"
                                                     name="password" placeholder="Tu contraseña *" required>
                                                 <div class="input-group-text">
                                                     <a href="#"><i class="fa fa-eye-slash"
@@ -417,9 +417,9 @@
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
                                                     <input class="form-check-input" type="checkbox" name="remember"
-                                                        id="remember" {{ old('remember') ? 'checked' : '' }} />
+                                                        id="remember_modal" {{ old('remember') ? 'checked' : '' }} />
                                                     <label class="form-check-label"
-                                                        for="remember"><span>Recordarme</span></label>
+                                                        for="remember_modal"><span>Recordarme</span></label>
                                                 </div>
                                             </div>
                                             <a class="text-muted" href="#">Olvidaste tu contraseña?</a>
@@ -672,6 +672,7 @@
     <script>
         var perfil = @json($perfil ?? []);
         var direccion = "";
+        var indicador = "";
         $(document).ready(function() {
             btnClick();
         });
@@ -680,6 +681,10 @@
             $(".btnverpublicacion").on("click", function(e) {
                 e.preventDefault();
                 direccion = $(this).attr("href");
+                indicador = $(this).data("indicador");
+                var idpublicacion = $(this).data("idpublicacion");
+                var cantidad = $("#cantidad").val();
+                var idvendedor = $(this).data("idvendedor");
                 if (perfil == "") {
                     $("#modaliniciosesion").modal("show");
                 } else {
@@ -694,7 +699,58 @@
                         cancelButtonText: 'No',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = direccion;
+                            $.ajax({
+                                url: "/ventas_peticiones", // Reemplaza esto con la URL del servidor
+                                method: "POST",
+                                data: {
+                                    "_token": "{{ csrf_token() }}",
+                                    accion: 3,
+                                    idcliente: perfil.idcliente,
+                                    idvendedor: idvendedor,
+                                    cantidad: cantidad,
+                                    idpublicacion: idpublicacion
+                                },
+                                beforeSend: function() {
+                                    $(".carga").removeClass("hidden").addClass("show");
+                                },
+                                success: function(respuesta) {
+                                    // Maneja la respuesta del servidor aquí
+                                    if (respuesta.estado === 1) {
+                                        window.location.href = direccion;
+                                    } else {
+                                        const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            iconColor: 'white',
+                                            customClass: {
+                                                popup: 'colored-toast'
+                                            },
+                                            showConfirmButton: false,
+                                            timer: 3500,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter',
+                                                    Swal.stopTimer)
+                                                toast.addEventListener('mouseleave',
+                                                    Swal.resumeTimer)
+                                            }
+                                        })
+                                        Toast.fire({
+                                            icon: 'error',
+                                            title: respuesta.mensaje,
+                                        });
+                                    }
+                                    $(".carga").removeClass("show").addClass("hidden");
+                                },
+                                error: function(request, status, error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: "Se produjo un error durante el proceso, vuelve a intentarlo",
+                                        allowOutsideClick: false,
+                                    });
+                                    $(".carga").removeClass("show").addClass("hidden");
+                                }
+                            });
                         }
                     });
                 }
@@ -724,7 +780,11 @@
                     },
                     success: function(respuesta) {
                         // Maneja la respuesta del servidor aquí
-                        window.location.href = direccion;
+                        if (indicador == 1) {
+                            location.reload(true);
+                        } else {
+                            window.location.href = direccion;
+                        }
                         $(".carga").removeClass("show").addClass("hidden");
                     },
                     error: function(request, status, error) {
@@ -921,8 +981,8 @@
             $("#show_hide_password_actual a").on('click', function(event) {
                 mostrarContrasenas("#show_hide_password_actual")
             });
-            $("#show_hide_password a").on('click', function(event) {
-                mostrarContrasenas("#show_hide_password")
+            $("#show_hide_password_modal a").on('click', function(event) {
+                mostrarContrasenas("#show_hide_password_modal")
             });
             $("#show_hide_password_nueva a").on('click', function(event) {
                 mostrarContrasenas("#show_hide_password_nueva")

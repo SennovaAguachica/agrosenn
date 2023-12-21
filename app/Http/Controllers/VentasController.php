@@ -68,6 +68,7 @@ class VentasController extends Controller
     {
         $FINALIZAR_VENTA = 1;
         $CANCELAR_VENTA = 2;
+        $REGISTRAR_VENTA = 3;
         try {
             // estados de venta
             // activa - 1
@@ -80,6 +81,10 @@ class VentasController extends Controller
                     break;
                 case $CANCELAR_VENTA:
                     $respuesta = $this->cancelarVentas($request->all());
+                    return $respuesta;
+                    break;
+                case $REGISTRAR_VENTA:
+                    $respuesta = $this->registrarVentas($request->all());
                     return $respuesta;
                     break;
             }
@@ -122,6 +127,48 @@ class VentasController extends Controller
             $actualizarVenta->estado = 3;
             $actualizarVenta->save();
 
+            DB::commit();
+            $respuesta = array(
+                'mensaje'      => "",
+                'estado'      => 1,
+            );
+            return response()->json($respuesta);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw  $e;
+        }
+    }
+    public function registrarVentas($datos)
+    {
+        // dd($datos);
+        $aErrores = array();
+        DB::beginTransaction();
+        if ($datos['idpublicacion'] == "") {
+            $aErrores[] = '- Falta identificador de la publicación';
+        }
+        if ($datos['idcliente'] == "") {
+            $aErrores[] = '-Falta identificador del cliente';
+        }
+        if ($datos['cantidad'] == "") {
+            $aErrores[] = '- Falta la cantidad a comprar';
+        }
+        if (count($aErrores) > 0) {
+            throw new \Exception(join('</br>', $aErrores));
+        }
+        try {
+            $vPrecio = Publicaciones::with('precios')->findOrFail($datos['idpublicacion']);
+            $nuevaVenta = new Ventas();
+            $nuevaVenta->fecha_venta = \Carbon\Carbon::now()->format('Ymd');
+            $nuevaVenta->idcliente = $datos['idcliente'];
+            $nuevaVenta->iva = 0;
+            $nuevaVenta->id_usuario =  $datos['idvendedor'];
+            $nuevaVenta->publicaciones_id = $datos['idpublicacion'];
+            $nuevaVenta->cantidad = $datos['cantidad'];
+            $nuevaVenta->precio_subtotal = floatval($vPrecio->precios->precio) * floatval($datos['cantidad']);
+            $nuevaVenta->estado = 1;
+            $nuevaVenta->created_at = \Carbon\Carbon::now();
+            $nuevaVenta->updated_at = \Carbon\Carbon::now();
+            $nuevaVenta->save();
             DB::commit();
             $respuesta = array(
                 'mensaje'      => "",

@@ -80,13 +80,13 @@
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                        <input type="text" name="quantity" class="qty-val" value="1" min="1">
+                                        <input type="text" name="cantidad" id="cantidad" class="qty-val" value="1" min="1">
                                         <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                     </div>
                                     <br>
                                     <div class="">
                                         <a href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
-                                            target="_blank" class="btn btnverpublicacion"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                            target="_blank" class="btn btnverpublicacion" data-idpublicacion="{{ $publicacion->id }}" data-idvendedor="{{$publicacion->usuario->id}}" data-indicador="1"><i class="fa-brands fa-whatsapp fa-xl"></i>
                                             Contactar vendedor</a>
                                     </div>
                                 </div>
