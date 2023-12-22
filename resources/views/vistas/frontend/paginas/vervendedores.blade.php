@@ -68,11 +68,21 @@
                             <div class="vendor-wrap style-2 mb-40">
                                 <div class="vendor-img-action-wrap">
                                     <div class="vendor-img">
-                                        <a href="#">
+                                        {{-- <a href="#">
                                             <img class="default-img" src="{{ $vendedor->usuario->fotoperfil }}"
                                                 alt="" />
-                                        </a>
+                                        </a> --}}
+
+                                        @if ($vendedor->usuario->fotoperfil)
+                                        <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                            src="{{ $vendedor->usuario->fotoperfil }}" alt="User Photo" />
+                                        @else
+                                        <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                            src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}"
+                                            alt="User Photo" />
+                                        @endif
                                     </div>
+                                    
                                     <div class="mt-10">
                                         <span
                                             class="font-small total-product">{{ count($vendedor->usuario->publicaciones) }}
