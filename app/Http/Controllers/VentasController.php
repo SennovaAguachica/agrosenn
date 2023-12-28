@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Clientes;
 use App\Models\Publicaciones;
 use App\Models\Ventas;
-use App\Models\DetalleVentas;
-use App\Models\Asociaciones;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
@@ -21,9 +19,8 @@ class VentasController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('can:ventas.listar')->only('index');
-        // $this->middleware('can:ventas.listarActivas')->only('index');
-        // $this->middleware('can:ventas.listarFinalizadas')->only('indexFinalizadas');
-        // $this->middleware('can:ventas.listarCanceladas')->only('indexCanceladas');
+        $this->middleware('can:ventas.listarFinalizadas')->only('indexFinalizadas');
+        $this->middleware('can:ventas.listarCanceladas')->only('indexCanceladas');
         $this->middleware('can:ventas.finalizar')->only('finalizarVentas');
         $this->middleware('can:ventas.cancelar')->only('cancelarVentas');
         $this->middleware('can:ventas.eliminar')->only('eliminarVentas');
@@ -63,12 +60,45 @@ class VentasController extends Controller
     }
 
 
+    public function indexFinalizadas(Request $request)
+    {
+        $clientes = Clientes::all();
+        $publicaciones = Publicaciones::all();
+        $perfil = auth()->user();
+        if ($request->ajax()) {
+
+            return DataTables::of(Ventas::with('publicaciones', 'cliente', 'publicaciones.precios', 'publicaciones.productos', 'publicaciones.unidades',)
+                ->where(['estado' => 2, 'id_usuario' => Auth::user()->id])
+                ->get())->addIndexColumn()
+                ->make(true);
+        }
+        return view('vistas.backend.ventas.ventasfinalizadas', compact('publicaciones', 'clientes', 'perfil'));
+    }
+
+    public function indexCanceladas(Request $request)
+    {
+        $clientes = Clientes::all();
+        $publicaciones = Publicaciones::all();
+        // $ventas = Ventas::all();
+        $perfil = auth()->user();
+        if ($request->ajax()) {
+            // return DataTables::of(DetalleVentas::with('publicaciones', 'ventas', 'ventas.cliente', 'publicaciones.precios', 'publicaciones.productos', 'publicaciones.unidades',)
+            return DataTables::of(Ventas::with('publicaciones', 'cliente', 'publicaciones.precios', 'publicaciones.productos', 'publicaciones.unidades',)
+                ->where(['estado' => 3, 'id_usuario' => Auth::user()->id])
+                ->get())->addIndexColumn()
+                ->make(true);
+        }
+        return view('vistas.backend.ventas.ventascanceladas', compact('publicaciones', 'clientes', 'perfil'));
+    }
 
     public function peticionesAction(Request $request)
     {
         $FINALIZAR_VENTA = 1;
         $CANCELAR_VENTA = 2;
         $REGISTRAR_VENTA = 3;
+        $TOTAL_VENTAS_FINALIZADAS_SIN_FECHAS = 4;
+        $TOTAL_VENTAS_FINALIZADAS = 5;
+        $VENTA_ENTRE_FECHAS = 6;
         try {
             // estados de venta
             // activa - 1
@@ -85,6 +115,18 @@ class VentasController extends Controller
                     break;
                 case $REGISTRAR_VENTA:
                     $respuesta = $this->registrarVentas($request->all());
+                    return $respuesta;
+                    break;
+                case $TOTAL_VENTAS_FINALIZADAS_SIN_FECHAS:
+                    $respuesta = $this->totalVentasFinalizadasSinFechas();
+                    return $respuesta;
+                    break;
+                case $TOTAL_VENTAS_FINALIZADAS:
+                    $respuesta = $this->totalVentasFinalizadas($request->all());
+                    return $respuesta;
+                    break;
+                case $VENTA_ENTRE_FECHAS:
+                    $respuesta = $this->ventasEntreFechas($request->all());
                     return $respuesta;
                     break;
             }
@@ -179,5 +221,30 @@ class VentasController extends Controller
             DB::rollback();
             throw  $e;
         }
+    }
+
+    public function totalVentasFinalizadasSinFechas()
+    {
+        $totalVentas = Ventas::where(['estado' => 2, 'id_usuario' => Auth::user()->id])->sum('precio_subtotal');
+
+        return response()->json(['totalVentas' => $totalVentas]);
+    }
+
+    public function totalVentasFinalizadas($datos)
+    {
+        $totalVentas = Ventas::where(['estado' => 2, 'id_usuario' => Auth::user()->id])
+            ->whereBetween('fecha_venta', [$datos['fecha_inicio'], $datos['fecha_fin']])
+            ->sum('precio_subtotal');
+
+        return response()->json(['totalVentas' => $totalVentas]);
+    }
+
+    public function ventasEntreFechas($datos)
+    {
+        $ventas = Ventas::with('publicaciones', 'cliente', 'publicaciones.precios', 'publicaciones.productos', 'publicaciones.unidades',)
+            ->whereBetween('fecha_venta', [$datos['fecha_inicio'], $datos['fecha_fin']])
+            ->where(['estado' => 2, 'id_usuario' => Auth::user()->id])
+            ->get();
+        return response()->json(['ventas' => $ventas]);
     }
 }

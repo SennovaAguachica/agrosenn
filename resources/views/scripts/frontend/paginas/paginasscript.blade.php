@@ -56,14 +56,7 @@
                         var contenidoDespuesDeImagenes = `
                             <span class="stock-status in-stock"> Disponible </span>
                             <h3 class="title-detail"><a href="shop-product-right.html" class="text-heading">${publicacion.productos.producto}</a></h3>
-                            // <div class="product-detail-rating">
-                            //     <div class="product-rate-cover text-end">
-                            //         <div class="product-rate d-inline-block">
-                            //             <div class="product-rating" style="width: 90%"></div>
-                            //         </div>
-                            //         <span class="font-small ml-5 text-muted"> (400 reviews)</span>
-                            //     </div>
-                            // </div>
+                            
                             <br>
                             <div class="clearfix product-price-cover">
                                 <div class="product-price primary-color float-left">
@@ -80,8 +73,8 @@
                                     <span class="qty-val">1</span>
                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                 </div> --}}
-                                <div class="product-extra-link2">
-                                    <button type="submit" class="button button-add-to-cart btnverpublicacion"><i class="fa-brands fa-whatsapp fa-xl"></i>Lo quiero!</button>
+                                <div class="add-cart">
+                                    <a class="button button-add-to-cart btnverpublicacion" style="color: white; text-decoration: none;" href="/verpublicacion/{{ $publicacion->id }}">Comprar </a>
                                 </div>
                             </div>
                         `;

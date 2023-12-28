@@ -57,8 +57,10 @@
                                 </div> --}}
                                 <div class="clearfix product-price-cover">
                                     <div class="product-price primary-color float-left">
-                                        <span class="current-price text-brand">$ {{ $publicacion->precios->precio }}</span>
-                                        <span>
+                                        <span class="current-price text-brand">$  </span>
+                                        
+                                        <span class="current-price text-brand" id="precio_unitario_publicacion"> {{ $publicacion->precios->precio }}</span>
+                                        <span><span>
                                             <span class="save-price font-md color3 ml-15">X
                                                 {{ $publicacion->unidades->unidad }}</span>
                                             {{-- <span class="old-price font-md ml-15">$52</span> --}}
@@ -80,13 +82,18 @@
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                        <input type="text" name="cantidad" id="cantidad" class="qty-val" value="1" min="1">
+                                        <input type="number" name="cantidad" id="cantidad" class="qty-val" value="1" min="1">
                                         <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                     </div>
                                     <br>
                                     <div class="">
-                                        <a href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en el producto {{ $publicacion->productos->producto }} publicado en Agrosenn."
-                                            target="_blank" class="btn btnverpublicacion" data-idpublicacion="{{ $publicacion->id }}" data-idvendedor="{{$publicacion->usuario->id}}" data-indicador="1"><i class="fa-brands fa-whatsapp fa-xl"></i>
+                                        <a 
+                                        {{-- href="https://api.whatsapp.com/send?phone={{ $publicacion->usuario->vendedor->n_celular ?? $publicacion->usuario->asociacion->n_celular }}&text=Hola, estoy interesado en 
+                                            {{ $publicacion->unidades->unidad }} del producto {{ $publicacion->productos->producto }} 
+                                            con precio unitario {{ $publicacion->precios->precio }} 
+                                            y precio total publicado en Agrosenn.,.," --}}
+                                            target="_blank" 
+                                            class="btn btnverpublicacion btncomprarpublicacion" id="enlace-whatsapp" data-idpublicacion="{{ $publicacion->id }}" data-idvendedor="{{$publicacion->usuario->id}}" data-indicador="1"><i class="fa-brands fa-whatsapp fa-xl"></i>
                                             Contactar vendedor</a>
                                     </div>
                                 </div>
@@ -124,18 +131,18 @@
                     <div class="product-info">
                         <div class="tab-style3">
                             <ul class="nav nav-tabs text-uppercase">
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link active" id="Description-tab" data-bs-toggle="tab"
                                         href="#Description">Detalles</a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab"
                                         href="#Vendor-info">Vendedor</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Comentarios
                                         (3)</a>
-                                </li>
+                                </li> --}}
                             </ul>
                             <div class="tab-content shop_info_tab entry-main-content">
                                 <div class="tab-pane fade show active" id="Description">
@@ -181,7 +188,7 @@
                                                 {{ $publicacion->usuario->vendedor->email ?? $publicacion->usuario->asociacion->email }}</span>
                                         </li>
                                     </ul>
-                                    <div class="d-flex mb-55">
+                                    {{-- <div class="d-flex mb-55">
                                         <div class="mr-30">
                                             <p class="text-brand font-xs">Rating</p>
                                             <h4 class="mb-0">92%</h4>
@@ -195,7 +202,7 @@
                                             <h4 class="mb-0">89%</h4>
                                         </div>
                                     </div>
-                                    <p>{{ $publicacion->usuario->vendedor->descripcion ?? ($publicacion->usuario->asociacion->descripcion ?? '') }}
+                                    <p>{{ $publicacion->usuario->vendedor->descripcion ?? ($publicacion->usuario->asociacion->descripcion ?? '') }} --}}
                                     </p>
                                 </div>
                                 <div class="tab-pane fade" id="Reviews">

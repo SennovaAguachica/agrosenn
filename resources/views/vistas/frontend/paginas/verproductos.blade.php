@@ -70,10 +70,9 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}"><i
-                                                        class="fa-brands fa-whatsapp fa-xl"></i>
-                                                    Lo
-                                                    quiero! </a>
+                                                <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}">
+                                                    {{-- <i class="fa-brands fa-whatsapp fa-xl"></i> --}}
+                                                        Comprar </a>
                                             </div>
                                         </div>
                                     </div>

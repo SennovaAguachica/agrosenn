@@ -5513,12 +5513,15 @@ abstract class DatosBasesProvider
             //Permisos ventas
             ['id' => '61', 'name' => 'ventas.listar', 'description' => 'Listar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
             ['id' => '62', 'name' => 'ventas.guardar', 'description' => 'Guardar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
-            ['id' => '63', 'name' => 'ventas.actualizar', 'description' => 'Actualizar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
-            ['id' => '64', 'name' => 'ventas.eliminar', 'description' => 'Eliminar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '63', 'name' => 'ventas.finalizar', 'description' => 'Finalizar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '64', 'name' => 'ventas.cancelar', 'description' => 'Cancelar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
             //Permisos banners
             ['id' => '65', 'name' => 'banners.listar', 'description' => 'Listar Banners', 'grupo' => 'Banners', 'guard_name' => 'web'],
             ['id' => '66', 'name' => 'banners.guardar', 'description' => 'Guardar Banners', 'grupo' => 'Banners', 'guard_name' => 'web'],
             ['id' => '67', 'name' => 'banners.eliminar', 'description' => 'Eliminar Banners', 'grupo' => 'Banners', 'guard_name' => 'web'],
+
+            ['id' => '68', 'name' => 'ventas.listarFinalizadas', 'description' => 'Listar ventas finalizadas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '69', 'name' => 'ventas.listarCanceladas', 'description' => 'Listar ventas canceladas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
         ];
     }
     public static function TiposDocumentos()

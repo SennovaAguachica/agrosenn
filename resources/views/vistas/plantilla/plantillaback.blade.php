@@ -168,7 +168,7 @@
                         </a>
                     </li>
                 @endcan
-                @can(['ventas.listar'])
+                @canany(['ventas.listar', 'ventas.listarFinalizadas', 'ventas.listarCanceladas'])
                     <li class="menu-item has-submenu" id="li_ventas">
                         <a class="menu-link">
                             <i class="fa-solid fa-square-poll-vertical fa-xl" id="i_ventas"
@@ -179,18 +179,15 @@
                             @can('ventas.listar')
                                 <a href="/ventas" id="a_ventas">Mis ventas</a>
                             @endcan
-                            {{-- @can('ventas.listarFinalizadas')
-                                <a href="/ventasFinalizadas" id="a_ventas">Mis ventas</a>
+                            @can('ventas.listarFinalizadas')
+                                <a href="/ventasFinalizadas" id="a_finalizadas">Ventas finalizadas</a>
                             @endcan
-                            @can('ventas.listarCanceladas')
-                                <a href="/ventasCanceladas" id="a_ventas">Mis ventas</a>
-                            @endcan --}}
-                            {{-- @can('sugeridos.listar')
-                                <a href="/sugeridos" id="a_sugeridos">Precios sugeridos</a>
-                            @endcan --}}
+                            {{-- @can('ventas.listarCanceladas')
+                                <a href="/ventasCanceladas" id="a_canceladas">Ventas canceladas</a>
+                            @endcan  --}}
                         </div>
                     </li>
-                @endcan
+                @endcanany
                 @can('administradores.listar')
                     <li class="menu-item" id="li_administradores">
                         <a class="menu-link" href="/administradores">

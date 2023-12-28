@@ -76,9 +76,7 @@
                                     </div>
                                     <div class="mt-30 d-flex align-items-center">
                                         <a aria-label="Buy now" class="btn btnverpublicacion"
-                                            href="/verpublicacion/{{ $publicacion->id }}"><i
-                                                class="fa-brands fa-whatsapp fa-xl"></i> Lo
-                                            quiero!</a>
+                                            href="/verpublicacion/{{ $publicacion->id }}">Comprar</a>
                                     </div>
                                 </div>
                             </div>
