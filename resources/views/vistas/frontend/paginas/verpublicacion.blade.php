@@ -205,7 +205,7 @@
                                     <p>{{ $publicacion->usuario->vendedor->descripcion ?? ($publicacion->usuario->asociacion->descripcion ?? '') }} --}}
                                     </p>
                                 </div>
-                                <div class="tab-pane fade" id="Reviews">
+                                {{-- <div class="tab-pane fade" id="Reviews">
                                     <!--Comments-->
                                     <div class="comments-area">
                                         <div class="row">
@@ -379,7 +379,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -414,9 +414,9 @@
                                                 <h2><a href="/verpublicacion/{{ $relacionado->id }}"
                                                         tabindex="0">{{ $relacionado->productos->producto }}</a>
                                                 </h2>
-                                                <div class="rating-result" title="90%">
+                                                {{-- <div class="rating-result" title="90%">
                                                     <span> </span>
-                                                </div>
+                                                </div> --}}
                                                 <div class="product-price">
                                                     <span>$ {{ $relacionado->precios->precio }}</span>
                                                     <span class="" style="font-size:12px !important"> X

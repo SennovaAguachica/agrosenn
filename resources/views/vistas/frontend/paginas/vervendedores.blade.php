@@ -84,9 +84,15 @@
                                     </div>
                                     
                                     <div class="mt-10">
-                                        <span
+                                        {{-- <span
                                             class="font-small total-product">{{ count($vendedor->usuario->publicaciones) }}
-                                            productos ofertados</span>
+                                            productos ofertados</span> --}}
+                                            <span class="font-small total-product">
+                                                {{ $vendedor->usuario->publicaciones->filter(function ($publicacion) {
+                                                    return $publicacion->estado == 1;
+                                                })->count() }}
+                                                productos ofertados
+                                            </span>
                                     </div>
                                 </div>
                                 <div class="vendor-content-wrap">

@@ -249,106 +249,142 @@ class PublicacionesController extends Controller
                     $aErrores[] = '-Esta publicación ya existe';
                 } else {
 
-                    $validacionUnidadProducto2 = Precios::where([
+                    // $validacionUnidadProducto2 = Precios::where([
+                    //     ['producto_id', $datos['idproductos']],
+                    //     ['unidades_id', $datos['idunidades']],
+                    //     ['id_usuario', $idusuario],
+                    // ])->get();
+                    // if (count($validacionUnidadProducto2)) {
+                    //     $aErrores[] = '-El precio de este producto ya está asignado a esta unidad';
+                    // } else {
+
+                    $validacion = Publicaciones::where([
                         ['producto_id', $datos['idproductos']],
                         ['unidades_id', $datos['idunidades']],
                         ['id_usuario', $idusuario],
-                    ])->get();
-                    if (count($validacionUnidadProducto2)) {
-                        $aErrores[] = '-El precio de este producto ya está asignado a esta unidad';
+                        ['estado', 0]
+                    ])->first();
+                    if ($validacion) {
+                        $validacion->update([
+                            // 'precio' => $datos['precio'],
+                            'estado' => 1
+                        ]);
+                        //obtener id publicacion
+                        $nuevoPublicacionCero = $validacion->id;
+
+                        //paso toda la publicacion
+                        $actualizarPublicacionCero = Publicaciones::findOrFail($nuevoPublicacionCero);
+
+                        $precio = $actualizarPublicacionCero->precios;
+                        $precioID = $precio->id;
+                        $actualizarPrecioConCero = Precios::findOrFail($precioID);
+                        $actualizarPrecioConCero->precio = $datos['precio'];
+                        $actualizarPrecioConCero->save();
+
+                        if (empty($_FILES['imagen']['name'][0])) {
+                            $productoImagen = Productos::find($datos['idproductos']);
+                            $imagenPredeterminada = $productoImagen->imagen;
+                            if ($imagenPredeterminada) {
+                                $nuevaImagenP = new Imagenes();
+                                $nuevaImagenP->ruta = $imagenPredeterminada;
+                                $nuevaImagenP->publicaciones_id = $nuevoPublicacionCero;
+                                $nuevaImagenP->save();
+                            }
+                            // else {
+                            //     $aErrores[] = '- Escoja al menos una imagen para la publicación o seleccione un producto con imagen predeterminada.';
+                            // }
+                        } else {
+                            if (isset($datos['imagen']) && is_array($datos['imagen'])) {
+                                foreach ($datos['imagen'] as $imagen) {
+                                    // Generar un nombre único para la imagen comprimida
+                                    $nombreImagenComprimida = uniqid() . '.webp';
+
+                                    // Construir la ruta para la imagen comprimida
+                                    $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
+
+                                    // Cargar la imagen original y guardarla comprimida
+                                    Image::load($imagen->getRealPath())
+                                        ->width(400)
+                                        ->height(400)
+                                        ->optimize()
+                                        ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
+
+                                    // Obtener la URL de la imagen comprimida
+                                    $urlImagen = Storage::url($rutaImagenComprimida);
+
+                                    $nuevaImagen = new Imagenes();
+                                    $nuevaImagen->ruta = $urlImagen;
+                                    $nuevaImagen->publicaciones_id = $nuevoPublicacionCero;
+                                    $nuevaImagen->save();
+                                }
+                            }
+                        }
                     } else {
 
-                        $validacion = Publicaciones::where([
+                        $nuevoPublicacion2 = new Publicaciones();
+                        $nuevoPublicacion2->precios_id = $datos['idpreciovendedor'];
+                        $nuevoPublicacion2->producto_id = $datos['idproductos'];
+                        $nuevoPublicacion2->unidades_id = $datos['idunidades'];
+                        $nuevoPublicacion2->id_usuario = $idusuario;
+                        $nuevoPublicacion2->estado = 1;
+                        $nuevoPublicacion2->descripcion = $datos['descripcion'];
+                        $nuevoPublicacion2->iva = $datos['iva'];
+                        $nuevoPublicacion2->created_at = \Carbon\Carbon::now();
+                        $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
+                        $nuevoPublicacion2->save();
+
+                        $validacionPrecio = Precios::where([
                             ['producto_id', $datos['idproductos']],
                             ['unidades_id', $datos['idunidades']],
+                            // ['id_asociacion', $idasociacion],
                             ['id_usuario', $idusuario],
-                            ['estado', 0]
                         ])->first();
-                        if ($validacion) {
-                            $validacion->update([
+                        if ($validacionPrecio) {
+                            $validacionPrecio->update([
                                 'precio' => $datos['precio'],
                                 'estado' => 1
                             ]);
-                        } else {
+                        }
 
-                            $nuevoPublicacion2 = new Publicaciones();
-                            $nuevoPublicacion2->precios_id = $datos['idpreciovendedor'];
-                            $nuevoPublicacion2->producto_id = $datos['idproductos'];
-                            $nuevoPublicacion2->unidades_id = $datos['idunidades'];
-                            $nuevoPublicacion2->id_usuario = $idusuario;
-                            $nuevoPublicacion2->estado = 1;
-                            $nuevoPublicacion2->descripcion = $datos['descripcion'];
-                            $nuevoPublicacion2->iva = $datos['iva'];
-                            $nuevoPublicacion2->created_at = \Carbon\Carbon::now();
-                            $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
-                            $nuevoPublicacion2->save();
-
-                            $validacionPrecio = Precios::where([
-                                ['producto_id', $datos['idproductos']],
-                                ['unidades_id', $datos['idunidades']],
-                                // ['id_asociacion', $idasociacion],
-                                ['id_usuario', $idusuario],
-                            ])->first();
-                            if ($validacionPrecio) {
-                                $validacionPrecio->update([
-                                    'precio' => $datos['precio'],
-                                    'estado' => 1
-                                ]);
+                        if (empty($_FILES['imagen']['name'][0])) {
+                            $productoImagen = Productos::find($datos['idproductos']);
+                            $imagenPredeterminada = $productoImagen->imagen;
+                            if ($imagenPredeterminada) {
+                                $nuevaImagenP = new Imagenes();
+                                $nuevaImagenP->ruta = $imagenPredeterminada;
+                                $nuevaImagenP->publicaciones_id = $nuevoPublicacion2->id;
+                                $nuevaImagenP->save();
                             }
+                            // else {
+                            //     $aErrores[] = '- Escoja al menos una imagen para la publicación o seleccione un producto con imagen predeterminada.';
+                            // }
+                        } else {
+                            if (isset($datos['imagen']) && is_array($datos['imagen'])) {
+                                foreach ($datos['imagen'] as $imagen) {
+                                    // Generar un nombre único para la imagen comprimida
+                                    $nombreImagenComprimida = uniqid() . '.webp';
 
-                            if (empty($_FILES['imagen']['name'][0])) {
-                                $productoImagen = Productos::find($datos['idproductos']);
-                                $imagenPredeterminada = $productoImagen->imagen;
-                                if ($imagenPredeterminada) {
-                                    $nuevaImagenP = new Imagenes();
-                                    $nuevaImagenP->ruta = $imagenPredeterminada;
-                                    $nuevaImagenP->publicaciones_id = $nuevoPublicacion2->id;
-                                    $nuevaImagenP->save();
-                                }
-                                // else {
-                                //     $aErrores[] = '- Escoja al menos una imagen para la publicación o seleccione un producto con imagen predeterminada.';
-                                // }
-                            } else {
-                                if (isset($datos['imagen']) && is_array($datos['imagen'])) {
-                                    foreach ($datos['imagen'] as $imagen) {
-                                        // Generar un nombre único para la imagen comprimida
-                                        $nombreImagenComprimida = uniqid() . '.webp';
+                                    // Construir la ruta para la imagen comprimida
+                                    $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
 
-                                        // Construir la ruta para la imagen comprimida
-                                        $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
+                                    // Cargar la imagen original y guardarla comprimida
+                                    Image::load($imagen->getRealPath())
+                                        ->width(400)
+                                        ->height(400)
+                                        ->optimize()
+                                        ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
 
-                                        // Cargar la imagen original y guardarla comprimida
-                                        Image::load($imagen->getRealPath())
-                                            ->width(400)
-                                            ->height(400)
-                                            ->optimize()
-                                            ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
+                                    // Obtener la URL de la imagen comprimida
+                                    $urlImagen = Storage::url($rutaImagenComprimida);
 
-                                        // Obtener la URL de la imagen comprimida
-                                        $urlImagen = Storage::url($rutaImagenComprimida);
-
-                                        $nuevaImagen = new Imagenes();
-                                        $nuevaImagen->ruta = $urlImagen;
-                                        $nuevaImagen->publicaciones_id = $nuevoPublicacion2->id;
-                                        $nuevaImagen->save();
-                                    }
+                                    $nuevaImagen = new Imagenes();
+                                    $nuevaImagen->ruta = $urlImagen;
+                                    $nuevaImagen->publicaciones_id = $nuevoPublicacion2->id;
+                                    $nuevaImagen->save();
                                 }
                             }
                         }
                     }
-                    // if (count($aErrores) > 0) {
-                    //     $respuesta = array(
-                    //         'mensaje'      => $aErrores,
-                    //         'estado'      => 0,
-                    //     );
-                    //     return response()->json($respuesta);
-                    // } else {
-                    //     DB::commit();
-                    //     $respuesta = array(
-                    //         'mensaje'      => "",
-                    //         'estado'      => 1,
-                    //     );
-                    //     return response()->json($respuesta);
                     // }
                 }
 

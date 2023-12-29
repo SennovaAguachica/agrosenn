@@ -30,16 +30,16 @@ class PerfilController extends Controller
                 $user->load('administrador');
                 break;
             case 2:
-                $user->load('asociacion.municipio.departamento.ciudades','imagenesperfil');
+                $user->load('asociacion.municipio.departamento.ciudades', 'imagenesperfil');
                 break;
             case 3:
-                $user->load('vendedor.municipio.departamento.ciudades','imagenesperfil');
+                $user->load('vendedor.municipio.departamento.ciudades', 'imagenesperfil');
                 break;
             case 4:
                 $user->load('cliente');
                 break;
         }
-        return view('vistas.backend.perfil.perfil',compact('departamentos','tiposDocumentos','user','perfil'));
+        return view('vistas.backend.perfil.perfil', compact('departamentos', 'tiposDocumentos', 'user', 'perfil'));
     }
     public function peticionesAction(Request $request)
     {
@@ -87,7 +87,7 @@ class PerfilController extends Controller
     public function actualizarPerfil($datos)
     {
         DB::beginTransaction();
-        $aErrores = $this->validacionGeneral($datos,$datos['idrol']);
+        $aErrores = $this->validacionGeneral($datos, $datos['idrol']);
         if (count($aErrores) > 0) {
             throw new \Exception(join('</br>', $aErrores));
         }
@@ -112,7 +112,7 @@ class PerfilController extends Controller
                             //guardo el archivo nuevo
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
-                        }else{
+                        } else {
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
                         }
@@ -142,7 +142,7 @@ class PerfilController extends Controller
                             //guardo el archivo nuevo
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
-                        }else{
+                        } else {
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
                         }
@@ -173,7 +173,7 @@ class PerfilController extends Controller
                             //guardo el archivo nuevo
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
-                        }else{
+                        } else {
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
                         }
@@ -204,7 +204,7 @@ class PerfilController extends Controller
                             //guardo el archivo nuevo
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
-                        }else{
+                        } else {
                             $imagen = Storage::disk('public')->put('/fotosperfil', $datos['fotoinput']);
                             $urlImagen = Storage::url($imagen);
                         }
@@ -220,9 +220,7 @@ class PerfilController extends Controller
                 'estado'      => 1,
             );
             return response()->json($respuesta);
-        } 
-        catch (\Exception $e) 
-        {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
             // something went wrong
@@ -251,15 +249,14 @@ class PerfilController extends Controller
                 'estado'      => 1,
             );
             return response()->json($respuesta);
-        } 
-        catch (\Exception $e) 
-        {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
             // something went wrong
         }
     }
-    public function actualizarDetalles($datos){
+    public function actualizarDetalles($datos)
+    {
         DB::beginTransaction();
         try {
             switch ($datos['idroldetalles']) {
@@ -269,7 +266,7 @@ class PerfilController extends Controller
                     $asociacion->save();
                     if (!empty($datos['imagen'])) {
                         if ($datos['imagen'] != null) {
-                            for($i=0;$i<count($datos['imagen']);$i++){
+                            for ($i = 0; $i < count($datos['imagen']); $i++) {
                                 //guardo el archivo nuevo
                                 $imagen = Storage::disk('public')->put('/detallesperfil', $datos['imagen'][$i]);
                                 $urlImagen = Storage::url($imagen);
@@ -289,7 +286,7 @@ class PerfilController extends Controller
                     $vendedor->save();
                     if (!empty($datos['imagen'])) {
                         if ($datos['imagen'] != null) {
-                            for($i=0;$i<count($datos['imagen']);$i++){
+                            for ($i = 0; $i < count($datos['imagen']); $i++) {
                                 //guardo el archivo nuevo
                                 $imagen = Storage::disk('public')->put('/detallesperfil', $datos['imagen'][$i]);
                                 $urlImagen = Storage::url($imagen);
@@ -310,17 +307,16 @@ class PerfilController extends Controller
                 'estado'      => 1,
             );
             return response()->json($respuesta);
-        } 
-        catch (\Exception $e) 
-        {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
             // something went wrong
         }
     }
-    public function validacionGeneral($datos, $tipo){
+    public function validacionGeneral($datos, $tipo)
+    {
         $aErrores = array();
-        if($tipo==1){
+        if ($tipo == 1) {
             $administrador = Administradores::with('usuario')->findOrFail($datos['id']);
             //Validar si existe otra asociacion con el codigo de asociacion a actualizar
             $validacion = Administradores::where([
@@ -331,7 +327,7 @@ class PerfilController extends Controller
             $validacionEmail = Administradores::where([
                 ['email', $datos['emailadmin']]
             ])->where('id', '!=', $datos['id'])->get();
-            
+
             //Validar si existe otro usuario con el codigo de administrador a actualizar
             $validacionUser = User::where([
                 ['documento', $datos['codadministrador']]
@@ -354,7 +350,7 @@ class PerfilController extends Controller
             if (count($validacionEmailUser) > 0) {
                 $aErrores[] = '- Este email ya se encuentra registrado en otro usuario';
             }
-        }else if($tipo==2){
+        } else if ($tipo == 2) {
             $asociacion = Asociaciones::with('usuario')->findOrFail($datos['id']);
 
             //Validar si existe otra asociacion con el codigo de asociacion a actualizar
@@ -389,7 +385,7 @@ class PerfilController extends Controller
             if (count($validacionEmailUser) > 0) {
                 $aErrores[] = '- Este email ya se encuentra registrado en otro usuario';
             }
-        }else if($tipo==3){
+        } else if ($tipo == 3) {
             $vendedor = Vendedores::with('usuario')->findOrFail($datos['id']);
 
             //Validar si existe otro vendedor con el codigo de asociacion a actualizar
@@ -428,9 +424,9 @@ class PerfilController extends Controller
             }
         }
         return $aErrores;
-        
     }
-    public function eliminarImagen($datos){
+    public function eliminarImagen($datos)
+    {
         $aErrores = array();
         DB::beginTransaction();
         if ($datos['imagenId'] == "") {
@@ -442,6 +438,12 @@ class PerfilController extends Controller
 
         try {
             $eliminarImagen = Imagenesperfiles::findOrFail($datos['imagenId']);
+
+            $rutaImagen = '/detallesperfil/' . basename($eliminarImagen->imagen);
+            if (Storage::disk('public')->exists($rutaImagen)) {
+                Storage::disk('public')->delete($rutaImagen);
+            }
+
             $eliminarImagen->delete();
             DB::commit();
             $respuesta = array(

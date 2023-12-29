@@ -74,7 +74,7 @@
                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                 </div> --}}
                                 <div class="add-cart">
-                                    <a class="button button-add-to-cart btnverpublicacion" style="color: white; text-decoration: none;" href="/verpublicacion/{{ $publicacion->id }}">Comprar </a>
+                                    <a class="button button-add-to-cart btnverpublicacion" style="color: white; text-decoration: none;" href="/verpublicacion/${publicacion.id }">Comprar </a>
                                 </div>
                             </div>
                         `;
