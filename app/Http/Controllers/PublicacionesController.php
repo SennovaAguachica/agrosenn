@@ -120,9 +120,9 @@ class PublicacionesController extends Controller
             if ($datos['precio'] == "") {
                 $aErrores[] = '- Añada el precio de venta';
             }
-            if (empty($_FILES['imagen']['name'][0])) {
-                $aErrores[] = '- Escoja al menos una imagen para la publicación';
-            }
+            // if (empty($_FILES['imagen']['name'][0])) {
+            //     $aErrores[] = '- Escoja al menos una imagen para la publicación';
+            // }
             if (count($aErrores) > 0) {
                 throw new \Exception(join('</br>', $aErrores));
             }
@@ -160,30 +160,42 @@ class PublicacionesController extends Controller
                     $nuevoPublicacion->updated_at = \Carbon\Carbon::now();
                     $nuevoPublicacion->save();
 
+                    if (empty($_FILES['imagen']['name'][0])) {
+                        $productoImagen = Productos::find($datos['idproductos']);
+                        $imagenPredeterminada = $productoImagen->imagen;
+                        if ($imagenPredeterminada) {
+                            $nuevaImagenP = new Imagenes();
+                            $nuevaImagenP->ruta = $imagenPredeterminada;
+                            $nuevaImagenP->publicaciones_id = $nuevoPublicacion->id;
+                            $nuevaImagenP->save();
+                        } else {
+                            $aErrores[] = '- Escoja al menos una imagen para la publicación o seleccione un producto con imagen predeterminada.';
+                        }
+                    } else {
+                        if (isset($datos['imagen']) && is_array($datos['imagen'])) {
+                            foreach ($datos['imagen'] as $imagen) {
+                                // Generar un nombre único para la imagen comprimida
+                                $nombreImagenComprimida = uniqid() . '.webp';
 
-                    if (isset($datos['imagen']) && is_array($datos['imagen'])) {
-                        foreach ($datos['imagen'] as $imagen) {
-                            // Generar un nombre único para la imagen comprimida
-                            $nombreImagenComprimida = uniqid() . '.webp';
-                    
-                            // Construir la ruta para la imagen comprimida
-                            $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
-                    
-                            // Cargar la imagen original y guardarla comprimida
-                            Image::load($imagen->getRealPath())
-                                ->width(400)
-                                ->height(400)
-                                ->optimize()
-                                ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
-                    
-                            // Obtener la URL de la imagen comprimida
-                            $urlImagen = Storage::url($rutaImagenComprimida);
-                    
-                            // Crear una nueva instancia de Imagenes y guardar en la base de datos
-                            $nuevaImagen = new Imagenes();
-                            $nuevaImagen->ruta = $urlImagen;
-                            $nuevaImagen->publicaciones_id = $nuevoPublicacion->id;
-                            $nuevaImagen->save();
+                                // Construir la ruta para la imagen comprimida
+                                $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
+
+                                // Cargar la imagen original y guardarla comprimida
+                                Image::load($imagen->getRealPath())
+                                    ->width(400)
+                                    ->height(400)
+                                    ->optimize()
+                                    ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
+
+                                // Obtener la URL de la imagen comprimida
+                                $urlImagen = Storage::url($rutaImagenComprimida);
+
+                                // Crear una nueva instancia de Imagenes y guardar en la base de datos
+                                $nuevaImagen = new Imagenes();
+                                $nuevaImagen->ruta = $urlImagen;
+                                $nuevaImagen->publicaciones_id = $nuevoPublicacion->id;
+                                $nuevaImagen->save();
+                            }
                         }
                     }
                 }
@@ -249,40 +261,54 @@ class PublicacionesController extends Controller
                     $nuevoPublicacion2->updated_at = \Carbon\Carbon::now();
                     $nuevoPublicacion2->save();
 
-                        $validacionPrecio = Precios::where([
-                            ['producto_id', $datos['idproductos']],
-                            ['unidades_id', $datos['idunidades']],
-                            // ['id_asociacion', $idasociacion],
-                            ['id_usuario', $idusuario],
-                        ])->first();
-                        if ($validacionPrecio) {
-                            $validacionPrecio->update([
-                                'precio' => $datos['precio'],
-                                'estado' => 1
-                            ]);
+                    $validacionPrecio = Precios::where([
+                        ['producto_id', $datos['idproductos']],
+                        ['unidades_id', $datos['idunidades']],
+                        // ['id_asociacion', $idasociacion],
+                        ['id_usuario', $idusuario],
+                    ])->first();
+                    if ($validacionPrecio) {
+                        $validacionPrecio->update([
+                            'precio' => $datos['precio'],
+                            'estado' => 1
+                        ]);
+                    }
+
+                    if (empty($_FILES['imagen']['name'][0])) {
+                        $productoImagen = Productos::find($datos['idproductos']);
+                        $imagenPredeterminada = $productoImagen->imagen;
+                        if ($imagenPredeterminada) {
+                            $nuevaImagenP = new Imagenes();
+                            $nuevaImagenP->ruta = $imagenPredeterminada;
+                            $nuevaImagenP->publicaciones_id = $nuevoPublicacion2->id;
+                            $nuevaImagenP->save();
+                        } else {
+                            $aErrores[] = '- Escoja al menos una imagen para la publicación o seleccione un producto con imagen predeterminada.';
                         }
+                    } else {
                         if (isset($datos['imagen']) && is_array($datos['imagen'])) {
                             foreach ($datos['imagen'] as $imagen) {
                                 // Generar un nombre único para la imagen comprimida
                                 $nombreImagenComprimida = uniqid() . '.webp';
-                        
+
                                 // Construir la ruta para la imagen comprimida
                                 $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
-                        
+
                                 // Cargar la imagen original y guardarla comprimida
                                 Image::load($imagen->getRealPath())
                                     ->width(400)
                                     ->height(400)
                                     ->optimize()
                                     ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
-                        
+
                                 // Obtener la URL de la imagen comprimida
                                 $urlImagen = Storage::url($rutaImagenComprimida);
 
-                            $nuevaImagen = new Imagenes();
-                            $nuevaImagen->ruta = $urlImagen;
-                            $nuevaImagen->publicaciones_id = $nuevoPublicacion2->id;
-                            $nuevaImagen->save();
+                                $nuevaImagen = new Imagenes();
+                                $nuevaImagen->ruta = $urlImagen;
+                                $nuevaImagen->publicaciones_id = $nuevoPublicacion2->id;
+                                $nuevaImagen->save();
+                            }
                         }
                     }
                 }
@@ -367,17 +393,17 @@ class PublicacionesController extends Controller
                 foreach ($datos['imagen'] as $imagen) {
                     // Generar un nombre único para la imagen comprimida
                     $nombreImagenComprimida = uniqid() . '.webp';
-                    
+
                     // Construir la ruta para la imagen comprimida
                     $rutaImagenComprimida = 'public/publicaciones/' . $nombreImagenComprimida;
-            
+
                     // Cargar la imagen original y guardarla comprimida
                     Image::load($imagen->getRealPath())
                         ->width(400)
                         ->height(400)
                         ->optimize()
                         ->save(storage_path("app/{$rutaImagenComprimida}"), 80, 'webp');
-            
+
                     // Obtener la URL de la imagen comprimida
                     $urlImagen = Storage::url($rutaImagenComprimida);
 

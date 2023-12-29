@@ -111,10 +111,7 @@
         <div class="col-md-12 col-lg-12 col-xs-12 ">
             <label for="imagen">Imágenes</label>
             <input type="file" id="imagen" name="imagen[]" multiple
-                accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp, |image/*" required>
-            <div class="invalid-feedback">
-                Campo obligatorio.
-            </div>
+                accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff, .webp, |image/*">
         </div>
     </div>
 @endsection

@@ -70,10 +70,7 @@
                     {
                         data: 'fecha_venta',
                         render: function (data, type, row) {
-                            // Formatear la fecha aquí
-                            var fecha = new Date(data);
-                            var opciones = { year: 'numeric', month: 'long', day: 'numeric' };
-                            return fecha.toLocaleDateString('es-ES', opciones);
+                            return formatearFecha(data);
                         }
                     },
                     
@@ -176,7 +173,7 @@ function cargarVentasEntreFechas(fecha_inicio, fecha_fin) {
                         venta.publicaciones.precios.precio,
                         venta.iva,
                         venta.precio_subtotal,
-                        venta.fecha_venta ? venta.fecha_venta : '',
+                        formatearFecha(venta.fecha_venta),
                     ]).draw();
                 });
             } else {
@@ -209,5 +206,11 @@ function buscarVentasEntreFechas() {
     }
 }
 
-    </script>
+function formatearFecha(fecha) {
+    var fechaObj = new Date(fecha);
+    var opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+    return fechaObj.toLocaleDateString('es-ES', opciones);
+}
+
+</script>
 @endsection

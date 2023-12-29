@@ -182,9 +182,9 @@
                             @can('ventas.listarFinalizadas')
                                 <a href="/ventasFinalizadas" id="a_finalizadas">Ventas finalizadas</a>
                             @endcan
-                            {{-- @can('ventas.listarCanceladas')
+                            @can('ventas.listarCanceladas')
                                 <a href="/ventasCanceladas" id="a_canceladas">Ventas canceladas</a>
-                            @endcan  --}}
+                            @endcan 
                         </div>
                     </li>
                 @endcanany
