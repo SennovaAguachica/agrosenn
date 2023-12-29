@@ -16,7 +16,7 @@
             <h2 class="mb-50">Vendedores asociados</h2>
         </div>
         <div class="row flex-row-reverse">
-            <div class="col-lg-4-5">
+            {{-- <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
                         <p>We found <strong class="text-brand">29</strong> items for you!</p>
@@ -61,22 +61,38 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row product-grid">
                     @foreach ($vendedores as $vendedor)
                         <div class="col-lg-6 col-md-6 col-12 col-sm-6">
                             <div class="vendor-wrap style-2 mb-40">
                                 <div class="vendor-img-action-wrap">
                                     <div class="vendor-img">
-                                        <a href="#">
+                                        {{-- <a href="#">
                                             <img class="default-img" src="{{ $vendedor->usuario->fotoperfil }}"
                                                 alt="" />
-                                        </a>
+                                        </a> --}}
+
+                                        @if ($vendedor->usuario->fotoperfil)
+                                        <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                            src="{{ $vendedor->usuario->fotoperfil }}" alt="User Photo" />
+                                        @else
+                                        <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                            src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}"
+                                            alt="User Photo" />
+                                        @endif
                                     </div>
+                                    
                                     <div class="mt-10">
-                                        <span
+                                        {{-- <span
                                             class="font-small total-product">{{ count($vendedor->usuario->publicaciones) }}
-                                            productos ofertados</span>
+                                            productos ofertados</span> --}}
+                                            <span class="font-small total-product">
+                                                {{ $vendedor->usuario->publicaciones->filter(function ($publicacion) {
+                                                    return $publicacion->estado == 1;
+                                                })->count() }}
+                                                productos ofertados
+                                            </span>
                                     </div>
                                 </div>
                                 <div class="vendor-content-wrap">
@@ -84,12 +100,12 @@
                                         <h4 class="mb-5"><a href="">{{ $vendedor->nombres }}
                                                 {{ $vendedor->apellidos }}</a>
                                         </h4>
-                                        <div class="product-rate-cover">
+                                        {{-- <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
                                             </div>
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
+                                        </div> --}}
                                         <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
                                             <ul class="contact-infor text-muted">
                                                 <li><img src="assets/imgs/theme/icons/icon-location.svg"
@@ -121,12 +137,12 @@
                         <h4 class="mb-5"><a href="/vervendedores/{{ $asociacion->id }}"
                                 class="text-heading">{{ $asociacion->asociacion }}</a>
                         </h4>
-                        <div class="product-rate-cover mb-15">
+                        {{-- <div class="product-rate-cover mb-15">
                             <div class="product-rate d-inline-block">
                                 <div class="product-rating" style="width: 90%"></div>
                             </div>
                             <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
+                        </div> --}}
                         <div class="vendor-des mb-30">
                             <p class="font-sm text-heading">
                                 <pre style="white-space: pre-wrap;">{{ $asociacion->descripcion }}</pre>
@@ -143,12 +159,12 @@
                                 <li><i class="fa-solid fa-square-phone"></i><strong> Contacto:</strong><span>(+57)
                                         {{ $asociacion->n_celular }}</span>
                                 </li>
-                                <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>(+57)
+                                <li><i class="fa-solid fa-envelope"></i><strong> E-mail:</strong><span>
                                         {{ $asociacion->email }}</span>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-xs">Contact Seller <i
-                                    class="fi-rs-arrow-small-right"></i></a>
+                            {{-- <a href="#" class="btn btn-xs">Contact Seller <i
+                                    class="fi-rs-arrow-small-right"></i></a> --}}
                         </div>
                     </div>
                 </div>

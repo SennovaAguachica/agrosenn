@@ -105,8 +105,8 @@
                     }
                 });
             });
-            $("#show_hide_password a").on('click', function(event) {
-                mostrarContrasenas("#show_hide_password")
+            $("#show_hide_password_login a").on('click', function(event) {
+                mostrarContrasenas("#show_hide_password_login")
             });
         }
 

@@ -34,10 +34,19 @@
                         <div class="vendor-wrap style-2 mb-40">
                             <div class="vendor-img-action-wrap">
                                 <div class="vendor-img" style="text-align: center !important">
-                                    <a href="#">
+                                    {{-- <a href="#">
                                         <img class="default-img" src="{{ $asociacion->usuario->fotoperfil }}"
                                             alt="" />
-                                    </a>
+                                    </a> --}}
+
+                                    @if ($asociacion->usuario->fotoperfil)
+                                    <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                        src="{{ $asociacion->usuario->fotoperfil }}" alt="User Photo" />
+                                    @else
+                                    <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                        src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}"
+                                        alt="User Photo" />
+                                    @endif
                                 </div>
                                 <div class="mt-10">
                                     <span class="font-small total-product">{{ count($asociacion->vendedores) }} vendedores
@@ -48,12 +57,12 @@
                                 <div class="mb-30">
                                     <h4 class="mb-5"><a href="#">{{ $asociacion->asociacion }}</a>
                                     </h4>
-                                    <div class="product-rate-cover">
+                                    {{-- <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>
                                         </div>
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
+                                    </div> --}}
                                     <div class="vendor-info d-flex justify-content-between align-items-end mt-30">
                                         <ul class="contact-infor text-muted">
                                             <li><img src="assets/imgs/theme/icons/icon-location.svg"

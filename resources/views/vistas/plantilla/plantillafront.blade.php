@@ -678,83 +678,8 @@
         });
 
         function btnClick() {
-            $(".btnverpublicacion").on("click", function(e) {
-                e.preventDefault();
-                direccion = $(this).attr("href");
-                indicador = $(this).data("indicador");
-                var idpublicacion = $(this).data("idpublicacion");
-                var cantidad = $("#cantidad").val();
-                var idvendedor = $(this).data("idvendedor");
-                if (perfil == "") {
-                    $("#modaliniciosesion").modal("show");
-                } else {
-                    Swal.fire({
-                        title: 'Esta seguro de contactar al vendedor?',
-                        text: "Si acepta iniciara una solicitud de compra automaticamente!",
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si',
-                        cancelButtonText: 'No',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: "/ventas_peticiones", // Reemplaza esto con la URL del servidor
-                                method: "POST",
-                                data: {
-                                    "_token": "{{ csrf_token() }}",
-                                    accion: 3,
-                                    idcliente: perfil.idcliente,
-                                    idvendedor: idvendedor,
-                                    cantidad: cantidad,
-                                    idpublicacion: idpublicacion
-                                },
-                                beforeSend: function() {
-                                    $(".carga").removeClass("hidden").addClass("show");
-                                },
-                                success: function(respuesta) {
-                                    // Maneja la respuesta del servidor aquí
-                                    if (respuesta.estado === 1) {
-                                        window.location.href = direccion;
-                                    } else {
-                                        const Toast = Swal.mixin({
-                                            toast: true,
-                                            position: 'top-end',
-                                            iconColor: 'white',
-                                            customClass: {
-                                                popup: 'colored-toast'
-                                            },
-                                            showConfirmButton: false,
-                                            timer: 3500,
-                                            timerProgressBar: true,
-                                            didOpen: (toast) => {
-                                                toast.addEventListener('mouseenter',
-                                                    Swal.stopTimer)
-                                                toast.addEventListener('mouseleave',
-                                                    Swal.resumeTimer)
-                                            }
-                                        })
-                                        Toast.fire({
-                                            icon: 'error',
-                                            title: respuesta.mensaje,
-                                        });
-                                    }
-                                    $(".carga").removeClass("show").addClass("hidden");
-                                },
-                                error: function(request, status, error) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: "Se produjo un error durante el proceso, vuelve a intentarlo",
-                                        allowOutsideClick: false,
-                                    });
-                                    $(".carga").removeClass("show").addClass("hidden");
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+            
+            
             $("#btnlogin").on("click", function(e) {
                 let datosFormulario = "";
                 e.preventDefault();

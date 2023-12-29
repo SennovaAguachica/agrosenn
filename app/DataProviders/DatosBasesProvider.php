@@ -5513,12 +5513,15 @@ abstract class DatosBasesProvider
             //Permisos ventas
             ['id' => '61', 'name' => 'ventas.listar', 'description' => 'Listar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
             ['id' => '62', 'name' => 'ventas.guardar', 'description' => 'Guardar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
-            ['id' => '63', 'name' => 'ventas.actualizar', 'description' => 'Actualizar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
-            ['id' => '64', 'name' => 'ventas.eliminar', 'description' => 'Eliminar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '63', 'name' => 'ventas.finalizar', 'description' => 'Finalizar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '64', 'name' => 'ventas.cancelar', 'description' => 'Cancelar ventas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
             //Permisos banners
             ['id' => '65', 'name' => 'banners.listar', 'description' => 'Listar Banners', 'grupo' => 'Banners', 'guard_name' => 'web'],
             ['id' => '66', 'name' => 'banners.guardar', 'description' => 'Guardar Banners', 'grupo' => 'Banners', 'guard_name' => 'web'],
             ['id' => '67', 'name' => 'banners.eliminar', 'description' => 'Eliminar Banners', 'grupo' => 'Banners', 'guard_name' => 'web'],
+
+            ['id' => '68', 'name' => 'ventas.listarFinalizadas', 'description' => 'Listar ventas finalizadas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
+            ['id' => '69', 'name' => 'ventas.listarCanceladas', 'description' => 'Listar ventas canceladas', 'grupo' => 'Ventas', 'guard_name' => 'web'],
         ];
     }
     public static function TiposDocumentos()
@@ -6569,6 +6572,15 @@ abstract class DatosBasesProvider
                 'subcategoria_id' => 66,
 
             ],
+            [
+                'id' => 33,
+                'producto' => 'Ají Magallego',
+                'imagen' => '/assets/images/productos/producto-magallego.webp',
+                'estado' => 1,
+                'descripcion' => 'Ají dulce',
+                'subcategoria_id' => 12,
+
+            ],
         ];
     }
 
@@ -6670,6 +6682,86 @@ abstract class DatosBasesProvider
                 'abreviatura' => 'Cn',
                 'tipounidades_id' => 3,
                 'descripcion' => '',
+                'estado' => 1,
+            ],
+            [
+                'id' => 8,
+                'unidad' => 'Maleta de 25kg',
+                'abreviatura' => 'Mlt-25kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Maleta de 25 kilogramos para la cebolla larga',
+                'estado' => 1,
+            ],
+            [
+                'id' => 9,
+                'unidad' => 'Bulto de 50kg',
+                'abreviatura' => 'Blt-50kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Bulto de 50 kilogramos para el pepino',
+                'estado' => 1,
+            ],
+            [
+                'id' => 10,
+                'unidad' => 'Bulto de 40kg',
+                'abreviatura' => 'Blt-40kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Bulto de 40 kilogramos para el ají topito',
+                'estado' => 1,
+            ],
+            [
+                'id' => 11,
+                'unidad' => 'Bulto de 60kg',
+                'abreviatura' => 'Blt-60kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Bulto de 60 kilogramos para la cebolla y la mazorca',
+                'estado' => 1,
+            ],
+            [
+                'id' => 12,
+                'unidad' => 'Bulto de 20kg',
+                'abreviatura' => 'Blt-20kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Bulto de 20 kilogramos para el ají, la habichuela y la arveja',
+                'estado' => 1,
+            ],
+            [
+                'id' => 13,
+                'unidad' => 'Bulto de 46kg',
+                'abreviatura' => 'Blt-46kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Bulto de 46 kilogramos para la papa',
+                'estado' => 1,
+            ],
+            [
+                'id' => 14,
+                'unidad' => 'Caja de 14kg',
+                'abreviatura' => 'Cj-14kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Caja de 14 kilogramos para el pimentón',
+                'estado' => 1,
+            ],
+            [
+                'id' => 15,
+                'unidad' => 'Caja de 25kg',
+                'abreviatura' => 'Cj-25kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Caja de 25 kilogramos para el tomate',
+                'estado' => 1,
+            ],
+            [
+                'id' => 16,
+                'unidad' => 'Rollo de 2kg',
+                'abreviatura' => 'Rll-2kg',
+                'tipounidades_id' => 1,
+                'descripcion' => 'Rollo de 2 kilogramos para el cilantro',
+                'estado' => 1,
+            ],
+            [
+                'id' => 17,
+                'unidad' => 'Carton de 30U',
+                'abreviatura' => 'Crt-30U',
+                'tipounidades_id' => 3,
+                'descripcion' => 'Cartón de 30 unidades',
                 'estado' => 1,
             ],
         ];

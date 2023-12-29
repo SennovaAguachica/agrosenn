@@ -15,7 +15,8 @@ use Spatie\Image\Image;
 class BannersController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->middleware('can:banners.listar')->only('index');
         $this->middleware('can:banners.guardar')->only('guardarBanners');
@@ -25,10 +26,10 @@ class BannersController extends Controller
     {
         $perfil = auth()->user();
         if ($request->ajax()) {
-            return DataTables::of(Banners::where('usuario_id',auth()->user()->id)->get())->addIndexColumn()
+            return DataTables::of(Banners::where('usuario_id', auth()->user()->id)->get())->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = "";
-                    if($data->estado == 1){
+                    if ($data->estado == 1) {
                         $btn = '<button type="button"  class="deletebutton btn btn-danger" onclick="eliminar(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
                     }
                     return $btn;
@@ -83,28 +84,28 @@ class BannersController extends Controller
                 // Generar un nombre único para la imagen comprimida
 
                 $path = "public/banners";
-                if(!Storage::exists($path)){
+                if (!Storage::exists($path)) {
                     Storage::makeDirectory($path);
                 }
                 $nombreImagenComprimida = uniqid() . '.webp';
-        
+
                 // Construir la ruta para la imagen comprimida
                 $rutaImagenComprimida = 'public/banners/' . $nombreImagenComprimida;
-                if($datos['tipobanner']==1){
+                if ($datos['tipobanner'] == 1) {
                     // Cargar la imagen original y guardarla comprimida
                     Image::load($datos['imagen']->getRealPath())
-                    ->width(2300)
-                    ->optimize()
-                    ->save(storage_path("app/{$rutaImagenComprimida}"), 100, 'webp');
-                }else if($datos['tipobanner']==2){
+                        ->width(2300)
+                        ->optimize()
+                        ->save(storage_path("app/{$rutaImagenComprimida}"), 100, 'webp');
+                } else if ($datos['tipobanner'] == 2) {
                     Image::load($datos['imagen']->getRealPath())
-                    ->width(600)
-                    ->optimize()
-                    ->save(storage_path("app/{$rutaImagenComprimida}"), 100, 'webp');
+                        ->width(600)
+                        ->optimize()
+                        ->save(storage_path("app/{$rutaImagenComprimida}"), 100, 'webp');
                 }
                 // Obtener la URL de la imagen comprimida
                 $urlImagen = Storage::url($rutaImagenComprimida);
-        
+
                 // Crear una nueva instancia de Imagenes y guardar en la base de datos
                 $nuevoBanner->imagen = $urlImagen;
             }
@@ -138,6 +139,13 @@ class BannersController extends Controller
         }
         try {
             $eliminarBanner = Banners::findOrFail($datos['id']);
+            $rutaImagen = str_replace('/storage/', 'public/', $eliminarBanner->imagen);
+
+            // Eliminar físicamente la imagen asociada al banner
+            if (Storage::exists($rutaImagen)) {
+                Storage::delete($rutaImagen);
+            }
+
             $eliminarBanner->delete();
             DB::commit();
             $respuesta = array(

@@ -50,12 +50,12 @@
                                         <h2><a
                                                 href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
                                         </h2>
-                                        <div class="product-rate-cover">
+                                        {{-- <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
                                             </div>
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
+                                        </div> --}}
                                         <div>
                                             <span class="font-small text-muted">Producto de <a
                                                     href="/verproductos/{{ $vendedor->id }}">{{ $vendedor->nombres }}
@@ -70,10 +70,9 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
-                                                <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}"><i
-                                                        class="fa-brands fa-whatsapp fa-xl"></i>
-                                                    Lo
-                                                    quiero! </a>
+                                                <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}">
+                                                    {{-- <i class="fa-brands fa-whatsapp fa-xl"></i> --}}
+                                                        Comprar </a>
                                             </div>
                                         </div>
                                     </div>
@@ -91,12 +90,12 @@
                             <h4 class="mb-5"><a href="" class="text-heading">{{ $vendedor->nombres }}
                                     {{ $vendedor->apellidos }}</a>
                             </h4>
-                            <div class="product-rate-cover mb-15">
+                            {{-- <div class="product-rate-cover mb-15">
                                 <div class="product-rate d-inline-block">
                                     <div class="product-rating" style="width: 90%"></div>
                                 </div>
                                 <span class="font-small ml-5 text-muted"> (4.0)</span>
-                            </div>
+                            </div> --}}
                             <div class="vendor-des mb-30">
                                 <p class="font-sm text-heading">{{ $vendedor->descripcion }}</p>
                             </div>
@@ -121,24 +120,38 @@
                                         </div>
                                     @endforeach
                                 </div>
-                            </div> --}}
+                            </div>  --}}
                             <div class="product-cart-wrap mb-30">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img product-img-zoom">
                                         <a class="btnverimagenesvendedor" data-bs-toggle="modal"
-                                            data-bs-target="#modalVerImagenes" data-idvendedor='{{ $vendedor->id }}'
+                                            data-bs-target="#quickViewModal" data-idvendedor='{{ $vendedor->id }}'
                                             data-datos="{{ $vendedor->usuario->imagenes }}">
-                                            <img class="default-img"
+                                            {{-- <img class="default-img"
                                                 src="{{ $vendedor->usuario->imagenesperfil[0]->imagen }}"
                                                 alt="" />
                                             <img class="hover-img"
                                                 src="{{ $vendedor->usuario->imagenesperfil[0]->imagen }}"
+                                                alt="" /> --}}
+
+                                                {{-- @if(count($vendedor->usuario->imagenes) > 0) --}}
+                                                <img class="default-img"
+                                                src="{{ count($vendedor->usuario->imagenesperfil) > 0 ? $vendedor->usuario->imagenesperfil[0]->imagen : asset('assetsweb/imgs/people/avatar-2.png') }}"
                                                 alt="" />
+                                                <img class="hover-img"
+                                                src="{{ count($vendedor->usuario->imagenesperfil) > 0 ? $vendedor->usuario->imagenesperfil[0]->imagen : asset('assetsweb/imgs/people/avatar-2.png') }}"
+                                                alt="" />
+                                            {{-- @else
+                                                
+                                                <img class="img-lg mb-3 img-avatar" id="userPhoto" name="userPhoto"
+                                                src="{{ asset('assetsweb/imgs/people/avatar-2.png') }}"
+                                                alt="User Photo" />
+                                            @endif   --}}
                                         </a>
                                     </div>
                                     <div class="product-action-1">
                                         <a aria-label="Ver detalles" class="action-btn btnverimagenesvendedor"
-                                            data-bs-toggle="modal" data-bs-target="#modalVerImagenes"
+                                            data-bs-toggle="modal" data-bs-target="#quickViewModal"
                                             data-idvendedor='{{ $vendedor->id }}'
                                             data-datos="{{ $vendedor->usuario->imagenesperfil }}"><i
                                                 class="fi-rs-eye"></i></a>
@@ -160,10 +173,9 @@
                                     <li><i class="fa-solid fa-envelope"></i><strong>
                                             E-mail:</strong><span>{{ $vendedor->email }}</span></li>
                                 </ul>
-                                <button type="submit"
-                                    href="https://api.whatsapp.com/send?phone={{ $vendedor->n_celular }}&text=Hola, estoy interesado en sus productos publicados en Agrosenn."
-                                    target="_blank" class="button button-add-to-cart"><i
-                                        class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</button>
+                                <a href="https://api.whatsapp.com/send?phone={{ $vendedor->n_celular }}&text=Hola, estoy interesado en sus productos publicados en Agrosenn."
+                                        target="_blank" class="button button-add-to-cart btnverpublicacion" style="color: white; text-decoration: none;"><i
+                                            class="fa-brands fa-whatsapp fa-xl"></i> Contactar vendedor</a>
                             </div>
                         </div>
                     </div>

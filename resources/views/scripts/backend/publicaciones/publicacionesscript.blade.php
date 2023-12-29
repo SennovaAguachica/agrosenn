@@ -352,7 +352,7 @@
             var idunidadesSelect = $('#idunidades').val();
 
             if (idproductosSelect && idunidadesSelect) {
-                ({
+                $.ajax({
                     type: 'POST',
                     url: AJAX,
                     dataType: 'json',

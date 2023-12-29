@@ -68,12 +68,12 @@
                                     <h2><a
                                             href="/verpublicacion/{{ $publicacion->id }}">{{ $publicacion->productos->producto }}</a>
                                     </h2>
-                                    <div class="product-rate-cover">
+                                    {{-- <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>
                                         </div>
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
+                                    </div> --}}
                                     <div>
                                         @if (isset($publicacion->usuario->vendedor))
                                             <span class="font-small text-muted">Producto de <a
@@ -93,10 +93,9 @@
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="add-cart">
-                                            <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}"><i
-                                                    class="fa-brands fa-whatsapp fa-xl"></i>
-                                                Lo
-                                                quiero! </a>
+                                            <a class="add btnverpublicacion" href="/verpublicacion/{{ $publicacion->id }}">
+                                                {{-- <i class="fa-brands fa-whatsapp fa-xl"></i> --}}
+                                                    Comprar </a>
                                         </div>
                                     </div>
                                 </div>

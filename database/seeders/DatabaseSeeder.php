@@ -102,6 +102,9 @@ class DatabaseSeeder extends Seeder
             ['permission_id' => 45, 'role_id' => 1],
             ['permission_id' => 46, 'role_id' => 1],
             ['permission_id' => 47, 'role_id' => 1],
+            ['permission_id' => 65, 'role_id' => 1],
+            ['permission_id' => 66, 'role_id' => 1],
+            ['permission_id' => 67, 'role_id' => 1],
             ['permission_id' => 5, 'role_id' => 2],
             ['permission_id' => 6, 'role_id' => 2],
             ['permission_id' => 7, 'role_id' => 2],
@@ -131,6 +134,8 @@ class DatabaseSeeder extends Seeder
             ['permission_id' => 62, 'role_id' => 2],
             ['permission_id' => 63, 'role_id' => 2],
             ['permission_id' => 64, 'role_id' => 2],
+            ['permission_id' => 68, 'role_id' => 2],
+            ['permission_id' => 69, 'role_id' => 2],
             ['permission_id' => 43, 'role_id' => 1],
             ['permission_id' => 17, 'role_id' => 3],
             ['permission_id' => 18, 'role_id' => 3],
@@ -155,6 +160,8 @@ class DatabaseSeeder extends Seeder
             ['permission_id' => 62, 'role_id' => 3],
             ['permission_id' => 63, 'role_id' => 3],
             ['permission_id' => 64, 'role_id' => 3],
+            ['permission_id' => 68, 'role_id' => 3],
+            ['permission_id' => 69, 'role_id' => 3],
         ]);
     }
 }

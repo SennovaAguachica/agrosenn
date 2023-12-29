@@ -1,6 +1,6 @@
-﻿@extends('../scripts.login.loginscript')
+@extends('../scripts.login.loginscript')
 @section('titulo')
-    <title>Login</title>
+    <title>Recuperar contraseña</title>
 @endsection
 @section('contenido')
     <div class="page-content pt-150 pb-150">
@@ -15,8 +15,7 @@
                             <div class="login_wrap widget-taber-content background-white">
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
-                                        <h1 class="mb-5">Inicio de sesión</h1>
-                                        <p class="mb-30">No tienes una cuenta? <a href="/register">Crear una</a></p>
+                                        <h1 class="mb-5">Recuperar contraseña</h1>
                                     </div>
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
@@ -27,37 +26,43 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form method="POST" action="{{ route('login') }}">
+                                    <form method="POST" action="{{ route('password.store') }}">
                                         @csrf
-                                        <div class="form-group">
-                                            <label for="usuario" class="fw-bold">Usuario</label>
-                                            <input class="form-control" type="text" required="" id="usuario"
-                                                name="usuario" placeholder="Nº de  documento o correo electronico *" />
+                                
+                                        <!-- Password Reset Token -->
+                                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                                
+                                        <!-- Email Address -->
+                                        <div>
+                                            
+                                            <x-input-label for="email" :value="__('Email')" />
+                                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
+                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
-                                        <div class="form-group">
-                                            <label for="password" class="fw-bold">Contraseña</label>
-                                            <div class="input-group" id="show_hide_password_login">
-                                                <input class="form-control" type="password" id="password" name="password"
-                                                    placeholder="Tu contraseña *" required>
-                                                <div class="input-group-text">
-                                                    <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                                </div>
-                                            </div>
+                                
+                                        <!-- Password -->
+                                        <div class="mt-4">
+                                            Nueva
+                                            <x-input-label for="password" :value="__('Password')" />
+                                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                         </div>
-                                        <div class="login_footer form-group mb-50">
-                                            <div class="chek-form">
-                                                <div class="custome-checkbox">
-                                                    <input class="form-check-input" type="checkbox" name="remember"
-                                                        id="remember" {{ old('remember') ? 'checked' : '' }} />
-                                                    <label class="form-check-label"
-                                                        for="remember"><span>Recordarme</span></label>
-                                                </div>
-                                            </div>
-                                            <a class="text-muted" href="{{ route('password.request') }}">Olvidaste tu contraseña?</a>
+                                
+                                        <!-- Confirm Password -->
+                                        <div class="mt-4">
+                                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                                
+                                            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                                                                type="password"
+                                                                name="password_confirmation" required autocomplete="new-password" />
+                                
+                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                         </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-heading btn-block hover-up"
-                                                name="login">Entrar</button>
+                                
+                                        <div class="flex items-center justify-end mt-4">
+                                            <x-primary-button>
+                                                {{ __('Reset Password') }}
+                                            </x-primary-button>
                                         </div>
                                     </form>
                                 </div>

@@ -75,7 +75,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/eliminar_imagen', [PublicacionesController::class, 'eliminarImagen']);
 
     Route::get('/ventas', [VentasController::class, 'index']);
-    Route::post('/ventas_peticiones', [VentasController::class, 'peticionesAction']);
+    Route::get('/ventasFinalizadas', [VentasController::class, 'indexFinalizadas']);
+    Route::get('/ventasCanceladas', [VentasController::class, 'indexCanceladas']);
+    // Route::post('/ventas_peticiones', [VentasController::class, 'peticionesAction']);
+    Route::match(['get', 'post'], '/ventas_peticiones', [VentasController::class, 'peticionesAction']);
 
     Route::post('/login_peticiones', [VendedoresController::class, 'peticionesAction']);
     Route::get('/usuarios', [SeguridadController::class, 'indexusuarios']);
