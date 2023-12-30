@@ -131,10 +131,10 @@
                     <div class="product-info">
                         <div class="tab-style3">
                             <ul class="nav nav-tabs text-uppercase">
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link active" id="Description-tab" data-bs-toggle="tab"
                                         href="#Description">Detalles</a>
-                                </li> --}}
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab"
                                         href="#Vendor-info">Vendedor</a>
@@ -201,8 +201,8 @@
                                             <p class="text-brand font-xs">Chat response</p>
                                             <h4 class="mb-0">89%</h4>
                                         </div>
-                                    </div>
-                                    <p>{{ $publicacion->usuario->vendedor->descripcion ?? ($publicacion->usuario->asociacion->descripcion ?? '') }} --}}
+                                    </div> --}}
+                                    <p>{{ $publicacion->usuario->vendedor->descripcion ?? ($publicacion->usuario->asociacion->descripcion ?? '') }}
                                     </p>
                                 </div>
                                 {{-- <div class="tab-pane fade" id="Reviews">
