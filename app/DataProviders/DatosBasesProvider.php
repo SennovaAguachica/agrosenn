@@ -6581,6 +6581,24 @@ abstract class DatosBasesProvider
                 'subcategoria_id' => 12,
 
             ],
+            [
+                'id' => 34,
+                'producto' => 'Platano',
+                'imagen' => '/assets/images/productos/producto-platano.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 18,
+
+            ],
+            [
+                'id' => 35,
+                'producto' => 'Panela',
+                'imagen' => '/assets/images/productos/producto-panela.webp',
+                'estado' => 1,
+                'descripcion' => '',
+                'subcategoria_id' => 45,
+
+            ],
         ];
     }
 
