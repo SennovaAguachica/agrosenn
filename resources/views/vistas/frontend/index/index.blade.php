@@ -9,7 +9,7 @@
                 <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
                     @foreach ($bannersprincipales as $banner)
                         <div
-                            class="single-hero-slider single-animation-wrap d-lg-flex align-items-center justify-content-center">
+                            class="single-hero-slider single-animation-wrap d-lg-flex  d-flex align-items-center justify-content-center">
                             <a href="{{ $banner->enlace }}"><img src="{{ $banner->imagen }}" width="100%" /></a>
                         </div>
                     @endforeach

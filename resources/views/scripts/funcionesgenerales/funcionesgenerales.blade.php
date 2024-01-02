@@ -16,7 +16,7 @@
             theme: 'fa5',
             language: 'es',
             previewFileType: "png",
-            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp", ],
+            allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp", "gif"],
             showUpload: false,
             maxFilesNum: 1,
             required: true,
@@ -163,13 +163,13 @@
 
         $(campo).fileinput({
             initialPreview: initialPreview,
-            initialPreviewConfig: [], 
+            initialPreviewConfig: [],
             theme: 'fa5',
             language: 'es',
             previewFileType: "image",
             allowedFileExtensions: ["png", "jpg", "jpeg", "svg", "webp"],
             showUpload: false,
-            maxFilesNum: 5, 
+            maxFilesNum: 5,
             required: true,
             fileActionSettings: {
                 showRemove: false,
@@ -185,5 +185,4 @@
             $('#' + imgId).prop('src', ruta);
         });
     }
-    
 </script>

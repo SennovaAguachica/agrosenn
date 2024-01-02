@@ -81,32 +81,42 @@ class BannersController extends Controller
             $nuevoBanner = new Banners();
             $nuevoBanner->usuario_id = auth()->user()->id;
             if (isset($datos['imagen'])) {
-                // Generar un nombre único para la imagen comprimida
-
+                // Generar un nombre único para la imagen
                 $path = "public/banners";
+                
+                // Verificar y crear el directorio si no existe
                 if (!Storage::exists($path)) {
                     Storage::makeDirectory($path);
                 }
-                $nombreImagenComprimida = uniqid() . '.webp';
-
-                // Construir la ruta para la imagen comprimida
-                $rutaImagenComprimida = 'public/banners/' . $nombreImagenComprimida;
-                if ($datos['tipobanner'] == 1) {
-                    // Cargar la imagen original y guardarla comprimida
+            
+                $nombreImagen = uniqid();
+            
+                // Construir la ruta para la imagen
+                $rutaImagen = 'public/banners/' . $nombreImagen;
+            
+                // Obtener la extensión de la imagen
+                $extension = $datos['imagen']->getClientOriginalExtension();
+            
+                if ($extension === 'gif') {
+                    // Si es un GIF, guardar la imagen original sin modificar
+                    $rutaImagen .= '.' . $extension;
+                    $datos['imagen']->storeAs('public/banners', $nombreImagen . '.' . $extension);
+                } else {
+                    // Si no es un GIF, cargar la imagen original y guardarla comprimida
+                    $rutaImagen .= '.webp';
+            
+                    $width = ($datos['tipobanner'] == 1) ? 2300 : 600;
+            
                     Image::load($datos['imagen']->getRealPath())
-                        ->width(2300)
+                        ->width($width)
                         ->optimize()
-                        ->save(storage_path("app/{$rutaImagenComprimida}"), 100, 'webp');
-                } else if ($datos['tipobanner'] == 2) {
-                    Image::load($datos['imagen']->getRealPath())
-                        ->width(600)
-                        ->optimize()
-                        ->save(storage_path("app/{$rutaImagenComprimida}"), 100, 'webp');
+                        ->save(storage_path("app/{$rutaImagen}"), 100, 'webp');
                 }
-                // Obtener la URL de la imagen comprimida
-                $urlImagen = Storage::url($rutaImagenComprimida);
-
-                // Crear una nueva instancia de Imagenes y guardar en la base de datos
+            
+                // Obtener la URL de la imagen
+                $urlImagen = Storage::url($rutaImagen);
+            
+                // Asignar la URL de la imagen al campo 'imagen' del banner
                 $nuevoBanner->imagen = $urlImagen;
             }
             $nuevoBanner->enlace = $datos['enlace'];
