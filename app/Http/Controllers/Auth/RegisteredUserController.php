@@ -73,14 +73,16 @@ class RegisteredUserController extends Controller
             if (count($validacionVendedor) > 0 || count($validacionUser) > 0) {
                 $aErrores[] = '- Este nº de documento ya se encuentra registrado';
             }
-            $validacionEmail = Vendedores::where([
-                ['email', $request->email]
-            ])->get();
-            $validacionEmailUser = User::where([
-                ['email', $request->email]
-            ])->get();
-            if (count($validacionEmail) > 0 || count($validacionEmailUser) > 0) {
-                $aErrores[] = '- Este correo electronico ya se encuentra registrado';
+            if($request->email!=""){
+                $validacionEmail = Vendedores::where([
+                    ['email', $request->email]
+                ])->get();
+                $validacionEmailUser = User::where([
+                    ['email', $request->email]
+                ])->get();
+                if (count($validacionEmail) > 0 || count($validacionEmailUser) > 0) {
+                    $aErrores[] = '- Este correo electronico ya se encuentra registrado';
+                }
             }
             $validacionAsociacion = Asociaciones::where([
                 ['codigo_asociacion', $request->codigoasociacion]

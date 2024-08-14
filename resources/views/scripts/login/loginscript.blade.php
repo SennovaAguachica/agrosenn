@@ -76,11 +76,19 @@
                                 console.log(respuesta);
                                 // Maneja la respuesta del servidor aquí
                                 if (respuesta.estado === 1) {
-                                    mensajeSuccessGeneral(
-                                        '- Se ha enviado la solicitud de registro con exito'
-                                    );
-                                    $("#formRegistrar")[0].reset();
-                                    location.href = "/index";
+                                    if(tipoRegistro!=3){                             
+                                        mensajeSuccessGeneral(
+                                            '- Registro exitoso, ya puede iniciar sesión'
+                                        );
+                                    }else if(tipoRegistro==3){
+                                        mensajeSuccessGeneral(
+                                            '- Su solicitud de registro será tramitada por la asociación indicada'
+                                        );
+                                    }
+                                    $(".swal2-confirm").click(function() {
+                                        $("#formRegistrar")[0].reset();
+                                        location.href = "/login";
+                                    });
                                 } else {
                                     mensajeError(respuesta.mensaje);
                                 }

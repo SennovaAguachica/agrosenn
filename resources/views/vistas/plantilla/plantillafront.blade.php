@@ -515,6 +515,13 @@
                                                 class="fa-solid fa-right-to-bracket "></i>
                                             Iniciar sesión
                                         </a>
+                                        @if(!isset($perfil))
+                                            &nbsp;
+                                            <a href="/register" class="btn btn-success btn-sm"
+                                                style="color:white; font-size:18px"><i class="fa-solid fa-user-shield"></i>
+                                                Registrarse
+                                            </a>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
